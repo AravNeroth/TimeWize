@@ -1,0 +1,593 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */; };
+		EEF83F2F2B1FCDD90098D3A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2E2B1FCDD90098D3A2 /* ContentView.swift */; };
+		EEF83F312B1FCDDB0098D3A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */; };
+		EEF83F342B1FCDDB0098D3A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEF83F332B1FCDDB0098D3A2 /* Preview Assets.xcassets */; };
+		EEF83F3E2B1FCDDB0098D3A2 /* ServiceHourTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F3D2B1FCDDB0098D3A2 /* ServiceHourTrackerTests.swift */; };
+		EEF83F482B1FCDDB0098D3A2 /* ServiceHourTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F472B1FCDDB0098D3A2 /* ServiceHourTrackerUITests.swift */; };
+		EEF83F4A2B1FCDDB0098D3A2 /* ServiceHourTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F492B1FCDDB0098D3A2 /* ServiceHourTrackerUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EEF83F3A2B1FCDDB0098D3A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EEF83F212B1FCDD90098D3A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EEF83F282B1FCDD90098D3A2;
+			remoteInfo = ServiceHourTracker;
+		};
+		EEF83F442B1FCDDB0098D3A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EEF83F212B1FCDD90098D3A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EEF83F282B1FCDD90098D3A2;
+			remoteInfo = ServiceHourTracker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceHourTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHourTrackerApp.swift; sourceTree = "<group>"; };
+		EEF83F2E2B1FCDD90098D3A2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EEF83F332B1FCDDB0098D3A2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EEF83F392B1FCDDB0098D3A2 /* ServiceHourTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ServiceHourTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEF83F3D2B1FCDDB0098D3A2 /* ServiceHourTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHourTrackerTests.swift; sourceTree = "<group>"; };
+		EEF83F432B1FCDDB0098D3A2 /* ServiceHourTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ServiceHourTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEF83F472B1FCDDB0098D3A2 /* ServiceHourTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHourTrackerUITests.swift; sourceTree = "<group>"; };
+		EEF83F492B1FCDDB0098D3A2 /* ServiceHourTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHourTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EEF83F262B1FCDD90098D3A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEF83F362B1FCDDB0098D3A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEF83F402B1FCDDB0098D3A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EEF83F202B1FCDD90098D3A2 = {
+			isa = PBXGroup;
+			children = (
+				EEF83F2B2B1FCDD90098D3A2 /* ServiceHourTracker */,
+				EEF83F3C2B1FCDDB0098D3A2 /* ServiceHourTrackerTests */,
+				EEF83F462B1FCDDB0098D3A2 /* ServiceHourTrackerUITests */,
+				EEF83F2A2B1FCDD90098D3A2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EEF83F2A2B1FCDD90098D3A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */,
+				EEF83F392B1FCDDB0098D3A2 /* ServiceHourTrackerTests.xctest */,
+				EEF83F432B1FCDDB0098D3A2 /* ServiceHourTrackerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EEF83F2B2B1FCDD90098D3A2 /* ServiceHourTracker */ = {
+			isa = PBXGroup;
+			children = (
+				EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */,
+				EEF83F2E2B1FCDD90098D3A2 /* ContentView.swift */,
+				EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */,
+				EEF83F322B1FCDDB0098D3A2 /* Preview Content */,
+			);
+			path = ServiceHourTracker;
+			sourceTree = "<group>";
+		};
+		EEF83F322B1FCDDB0098D3A2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				EEF83F332B1FCDDB0098D3A2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		EEF83F3C2B1FCDDB0098D3A2 /* ServiceHourTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				EEF83F3D2B1FCDDB0098D3A2 /* ServiceHourTrackerTests.swift */,
+			);
+			path = ServiceHourTrackerTests;
+			sourceTree = "<group>";
+		};
+		EEF83F462B1FCDDB0098D3A2 /* ServiceHourTrackerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EEF83F472B1FCDDB0098D3A2 /* ServiceHourTrackerUITests.swift */,
+				EEF83F492B1FCDDB0098D3A2 /* ServiceHourTrackerUITestsLaunchTests.swift */,
+			);
+			path = ServiceHourTrackerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EEF83F282B1FCDD90098D3A2 /* ServiceHourTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEF83F4D2B1FCDDB0098D3A2 /* Build configuration list for PBXNativeTarget "ServiceHourTracker" */;
+			buildPhases = (
+				EEF83F252B1FCDD90098D3A2 /* Sources */,
+				EEF83F262B1FCDD90098D3A2 /* Frameworks */,
+				EEF83F272B1FCDD90098D3A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ServiceHourTracker;
+			productName = ServiceHourTracker;
+			productReference = EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EEF83F382B1FCDDB0098D3A2 /* ServiceHourTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEF83F502B1FCDDB0098D3A2 /* Build configuration list for PBXNativeTarget "ServiceHourTrackerTests" */;
+			buildPhases = (
+				EEF83F352B1FCDDB0098D3A2 /* Sources */,
+				EEF83F362B1FCDDB0098D3A2 /* Frameworks */,
+				EEF83F372B1FCDDB0098D3A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EEF83F3B2B1FCDDB0098D3A2 /* PBXTargetDependency */,
+			);
+			name = ServiceHourTrackerTests;
+			productName = ServiceHourTrackerTests;
+			productReference = EEF83F392B1FCDDB0098D3A2 /* ServiceHourTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EEF83F422B1FCDDB0098D3A2 /* ServiceHourTrackerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEF83F532B1FCDDB0098D3A2 /* Build configuration list for PBXNativeTarget "ServiceHourTrackerUITests" */;
+			buildPhases = (
+				EEF83F3F2B1FCDDB0098D3A2 /* Sources */,
+				EEF83F402B1FCDDB0098D3A2 /* Frameworks */,
+				EEF83F412B1FCDDB0098D3A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EEF83F452B1FCDDB0098D3A2 /* PBXTargetDependency */,
+			);
+			name = ServiceHourTrackerUITests;
+			productName = ServiceHourTrackerUITests;
+			productReference = EEF83F432B1FCDDB0098D3A2 /* ServiceHourTrackerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EEF83F212B1FCDD90098D3A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					EEF83F282B1FCDD90098D3A2 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					EEF83F382B1FCDDB0098D3A2 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = EEF83F282B1FCDD90098D3A2;
+					};
+					EEF83F422B1FCDDB0098D3A2 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = EEF83F282B1FCDD90098D3A2;
+					};
+				};
+			};
+			buildConfigurationList = EEF83F242B1FCDD90098D3A2 /* Build configuration list for PBXProject "ServiceHourTracker" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EEF83F202B1FCDD90098D3A2;
+			productRefGroup = EEF83F2A2B1FCDD90098D3A2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EEF83F282B1FCDD90098D3A2 /* ServiceHourTracker */,
+				EEF83F382B1FCDDB0098D3A2 /* ServiceHourTrackerTests */,
+				EEF83F422B1FCDDB0098D3A2 /* ServiceHourTrackerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EEF83F272B1FCDD90098D3A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEF83F342B1FCDDB0098D3A2 /* Preview Assets.xcassets in Resources */,
+				EEF83F312B1FCDDB0098D3A2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEF83F372B1FCDDB0098D3A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEF83F412B1FCDDB0098D3A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EEF83F252B1FCDD90098D3A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEF83F2F2B1FCDD90098D3A2 /* ContentView.swift in Sources */,
+				EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEF83F352B1FCDDB0098D3A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEF83F3E2B1FCDDB0098D3A2 /* ServiceHourTrackerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEF83F3F2B1FCDDB0098D3A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEF83F482B1FCDDB0098D3A2 /* ServiceHourTrackerUITests.swift in Sources */,
+				EEF83F4A2B1FCDDB0098D3A2 /* ServiceHourTrackerUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EEF83F3B2B1FCDDB0098D3A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EEF83F282B1FCDD90098D3A2 /* ServiceHourTracker */;
+			targetProxy = EEF83F3A2B1FCDDB0098D3A2 /* PBXContainerItemProxy */;
+		};
+		EEF83F452B1FCDDB0098D3A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EEF83F282B1FCDD90098D3A2 /* ServiceHourTracker */;
+			targetProxy = EEF83F442B1FCDDB0098D3A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EEF83F4B2B1FCDDB0098D3A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EEF83F4C2B1FCDDB0098D3A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EEF83F4E2B1FCDDB0098D3A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EEF83F4F2B1FCDDB0098D3A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EEF83F512B1FCDDB0098D3A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ServiceHourTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ServiceHourTracker";
+			};
+			name = Debug;
+		};
+		EEF83F522B1FCDDB0098D3A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ServiceHourTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ServiceHourTracker";
+			};
+			name = Release;
+		};
+		EEF83F542B1FCDDB0098D3A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ServiceHourTracker;
+			};
+			name = Debug;
+		};
+		EEF83F552B1FCDDB0098D3A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ServiceHourTracker;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EEF83F242B1FCDD90098D3A2 /* Build configuration list for PBXProject "ServiceHourTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEF83F4B2B1FCDDB0098D3A2 /* Debug */,
+				EEF83F4C2B1FCDDB0098D3A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEF83F4D2B1FCDDB0098D3A2 /* Build configuration list for PBXNativeTarget "ServiceHourTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEF83F4E2B1FCDDB0098D3A2 /* Debug */,
+				EEF83F4F2B1FCDDB0098D3A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEF83F502B1FCDDB0098D3A2 /* Build configuration list for PBXNativeTarget "ServiceHourTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEF83F512B1FCDDB0098D3A2 /* Debug */,
+				EEF83F522B1FCDDB0098D3A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEF83F532B1FCDDB0098D3A2 /* Build configuration list for PBXNativeTarget "ServiceHourTrackerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEF83F542B1FCDDB0098D3A2 /* Debug */,
+				EEF83F552B1FCDDB0098D3A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EEF83F212B1FCDD90098D3A2 /* Project object */;
+}
