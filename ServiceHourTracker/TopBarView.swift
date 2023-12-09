@@ -14,12 +14,11 @@ struct TopBarView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(.gray)
-                .frame(width: 400, height: 100)
+                .foregroundColor(.indigo)
+                .frame(width: 400, height: 50)
             Text(title)
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .padding(.top, 45)
         }
     }
 }

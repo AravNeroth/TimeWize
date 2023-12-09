@@ -14,10 +14,10 @@ struct ClassTabView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 25.0)
-                .frame(width: 360, height: 125)
+            RoundedRectangle(cornerRadius: 15.0)
+                .frame(width: 375, height: 125)
                 .foregroundColor(.gray)
-                .shadow(radius: 20, y: 10)
+                .shadow(radius: 5)
             VStack {
                 Spacer()
                 Text(name)
