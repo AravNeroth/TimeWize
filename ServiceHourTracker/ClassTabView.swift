@@ -20,6 +20,7 @@ struct ClassTabView: View {
             VStack {
                 Spacer()
                 Text(name)
+                    .underline()
                     .font(.title)
                     .fontWeight(.black)
                     .foregroundColor(.white)

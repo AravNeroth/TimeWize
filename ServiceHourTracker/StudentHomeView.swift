@@ -16,7 +16,11 @@ struct StudentHomeView: View {
             ScrollView {
                 VStack(spacing: -5) {
                     ClassTabView(name: "Verlyn's Class", mainManager: "Verlyn")
-                    ClassTabView(name: "Parker's Class", mainManager: "Parker")
+                    /*Button(action: {
+                        print("Test")
+                    }) {*/
+                        ClassTabView(name: "Parker's Class", mainManager: "Parker")
+                    //}
                     ClassTabView(name: "Arav's Class", mainManager: "Arav")
                     ClassTabView(name: "Jonathan's Class", mainManager: "Jonathan")
                     ClassTabView(name: "Khoa's Class", mainManager: "Khoa")
