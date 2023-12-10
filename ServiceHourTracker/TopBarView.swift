@@ -14,11 +14,25 @@ struct TopBarView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(Color("blue-bar-color"))
+                .foregroundColor(Color("green-bar-color"))
                 .frame(width: 400, height: 50)
-            Text(title)
-                .font(.largeTitle)
-                .fontWeight(.bold)
+            HStack(spacing: 0) {
+                Text(title)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .frame(width: 150, alignment: .center)
+                    .padding(.leading, 100)
+                Button(action: {
+                    
+                }) {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30, alignment: .center)
+                        .padding(.leading, 70)
+                        .foregroundColor(.primary)
+                }
+            }
         }
     }
 }
