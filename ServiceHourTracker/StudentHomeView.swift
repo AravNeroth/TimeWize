@@ -7,24 +7,29 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct StudentHomeView: View {
     var body: some View {
         VStack(spacing: 0) {
             TopBarView(title: "Classes")
-                .background(Color.indigo.ignoresSafeArea(edges: .top))
+                .background(Color.indigo.ignoresSafeArea())
                 
             ScrollView {
-                VStack(spacing: 0) {
+                VStack(spacing: -5) {
                     ClassTabView(name: "Verlyn's Class", mainManager: "Verlyn")
                     ClassTabView(name: "Parker's Class", mainManager: "Parker")
                     ClassTabView(name: "Arav's Class", mainManager: "Arav")
                     ClassTabView(name: "Jonathan's Class", mainManager: "Jonathan")
+                    ClassTabView(name: "Khoa's Class", mainManager: "Khoa")
                 }
             }
+            
+            BottomBarView()
+                .ignoresSafeArea(edges: .bottom)
+                .background(Color.indigo.ignoresSafeArea())
         }
     }
 }
 
 #Preview {
-    HomeView()
+    StudentHomeView()
 }

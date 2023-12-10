@@ -11,7 +11,7 @@ import SwiftUI
 struct ServiceHourTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            StudentHomeView()
         }
     }
 }

@@ -17,7 +17,6 @@ struct ClassTabView: View {
             RoundedRectangle(cornerRadius: 15.0)
                 .frame(width: 375, height: 125)
                 .foregroundColor(.gray)
-                .shadow(radius: 5)
             VStack {
                 Spacer()
                 Text(name)
