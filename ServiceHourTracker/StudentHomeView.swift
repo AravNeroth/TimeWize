@@ -11,7 +11,7 @@ struct StudentHomeView: View {
     var body: some View {
         VStack(spacing: 0) {
             TopBarView(title: "Classes")
-                .background(Color("bar-color").ignoresSafeArea())
+                .background(Color("blue-bar-color").ignoresSafeArea())
                 
             ScrollView {
                 VStack(spacing: -5) {
@@ -25,7 +25,7 @@ struct StudentHomeView: View {
             
             BottomBarView()
                 .ignoresSafeArea(edges: .bottom)
-                .background(Color("bar-color").ignoresSafeArea())
+                .background(Color("blue-bar-color").ignoresSafeArea())
         }
         .background(Color("Background?"))
     }

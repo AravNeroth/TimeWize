@@ -14,7 +14,7 @@ struct TopBarView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(Color("bar-color"))
+                .foregroundColor(Color("blue-bar-color"))
                 .frame(width: 400, height: 50)
             Text(title)
                 .font(.largeTitle)
