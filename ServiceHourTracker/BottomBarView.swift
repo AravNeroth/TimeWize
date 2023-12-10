@@ -12,7 +12,7 @@ struct BottomBarView: View {
         ZStack {
             Rectangle()
                 .frame(width: 400, height: 70)
-                .foregroundColor(.indigo)
+                .foregroundColor(Color("bar-color"))
             
             HStack {
                 Spacer()
