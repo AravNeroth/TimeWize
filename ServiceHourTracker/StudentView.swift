@@ -25,15 +25,15 @@ struct StudentView: View {
         }
         .overlay(alignment: .bottom) {
             BottomBarView(tabSelection: $tabSelection, title: $title)
-                .background(Color("custom-green").ignoresSafeArea())
+                .background(Color("green-7").ignoresSafeArea())
         }
         .overlay(alignment: .top) {
             TopBarView(tabSelection: $tabSelection, title: $title)
-                .background(Color("custom-green").ignoresSafeArea())
+                .background(Color("green-7").ignoresSafeArea())
         }
     }
 }
 
 #Preview {
-    StudentView()
+    StudentView().preferredColorScheme(.dark)
 }

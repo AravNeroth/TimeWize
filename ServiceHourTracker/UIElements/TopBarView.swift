@@ -15,11 +15,11 @@ struct TopBarView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(Color("custom-green"))
+                .foregroundColor(Color("green-7"))
                 .frame(width: 400, height: 50)
             HStack(spacing: 0) {
                 Text(title)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .frame(width: 150, alignment: .center)
@@ -32,7 +32,7 @@ struct TopBarView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30, alignment: .center)
                         .padding(.leading, 70)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                 }
             }
         }
