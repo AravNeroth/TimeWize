@@ -35,5 +35,6 @@ struct StudentView: View {
 }
 
 #Preview {
-    StudentView().preferredColorScheme(.dark)
+    StudentView()
+        .preferredColorScheme(.dark)
 }
