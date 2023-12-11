@@ -16,7 +16,7 @@ struct BottomBarView: View {
         ZStack {
             Rectangle()
                 .frame(width: 400, height: 70)
-                .foregroundColor(Color("green-bar-color"))
+                .foregroundColor(Color("custom-green"))
                 
             HStack {
                 Spacer()
@@ -35,7 +35,7 @@ struct BottomBarView: View {
                     }
                     .frame(width: 90)
                 }
-                .foregroundColor(.primary)
+                .foregroundColor(.white)
                 
                 Spacer()
                 Spacer()
@@ -54,7 +54,7 @@ struct BottomBarView: View {
                     }
                     .frame(width: 90)
                 }
-                .foregroundColor(.primary)
+                .foregroundColor(.white)
                 
                 Spacer()
                 Spacer()
@@ -73,7 +73,7 @@ struct BottomBarView: View {
                     }
                     .frame(width: 90)
                 }
-                .foregroundColor(.primary)
+                .foregroundColor(.white)
                 
                 Spacer()
             }

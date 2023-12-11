@@ -83,6 +83,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EBFB3FA82B2749EB0087ABA3 /* UIElements */ = {
+			isa = PBXGroup;
+			children = (
+				EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */,
+				EB70EB002B25346D00D93A40 /* BottomBarView.swift */,
+				EB78CFE82B23A95A007E0C20 /* TopBarView.swift */,
+			);
+			path = UIElements;
+			sourceTree = "<group>";
+		};
+		EBFB3FA92B274A3E0087ABA3 /* BasicViews */ = {
+			isa = PBXGroup;
+			children = (
+				EEF83F2E2B1FCDD90098D3A2 /* ClassesView.swift */,
+				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
+				EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */,
+			);
+			path = BasicViews;
+			sourceTree = "<group>";
+		};
 		EEF83F202B1FCDD90098D3A2 = {
 			isa = PBXGroup;
 			children = (
@@ -107,13 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */,
-				EEF83F2E2B1FCDD90098D3A2 /* ClassesView.swift */,
-				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
-				EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */,
-				EB78CFE82B23A95A007E0C20 /* TopBarView.swift */,
-				EB70EB002B25346D00D93A40 /* BottomBarView.swift */,
+				EBFB3FA82B2749EB0087ABA3 /* UIElements */,
+				EBFB3FA92B274A3E0087ABA3 /* BasicViews */,
 				EB048C752B2696E0003719A0 /* StudentView.swift */,
-				EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */,
 				EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */,
 				EEF83F322B1FCDDB0098D3A2 /* Preview Content */,
 			);

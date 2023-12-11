@@ -11,7 +11,7 @@ struct ClassesView: View {
     var body: some View {
         VStack(spacing: 0) {
             Rectangle()
-                .foregroundColor(.white)
+                .foregroundColor(Color("green-bar-color"))
                 .frame(width: 400, height: 50)
             
             ScrollView {
@@ -24,6 +24,7 @@ struct ClassesView: View {
                 }
             }
         }
+        .background(Color("green-bar-color"))
     }
 }
     

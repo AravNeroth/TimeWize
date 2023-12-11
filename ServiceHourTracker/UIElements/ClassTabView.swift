@@ -16,7 +16,7 @@ struct ClassTabView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 7.5)
                 .frame(width: 375, height: 150)
-                .foregroundColor(Color("custom-green"))
+                .foregroundColor(.gray)
             VStack {
                 Spacer()
                 Text(name)

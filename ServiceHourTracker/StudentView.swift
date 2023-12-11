@@ -25,11 +25,11 @@ struct StudentView: View {
         }
         .overlay(alignment: .bottom) {
             BottomBarView(tabSelection: $tabSelection, title: $title)
-                .background(Color("green-bar-color").ignoresSafeArea())
+                .background(Color("custom-green").ignoresSafeArea())
         }
         .overlay(alignment: .top) {
             TopBarView(tabSelection: $tabSelection, title: $title)
-                .background(Color("green-bar-color").ignoresSafeArea())
+                .background(Color("custom-green").ignoresSafeArea())
         }
     }
 }
