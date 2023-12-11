@@ -17,7 +17,7 @@ struct StudentView: View {
             HourBoardView()
                 .tag(1)
             
-            HomeView()
+            ClassesView()
                 .tag(2)
             
             SettingsView()

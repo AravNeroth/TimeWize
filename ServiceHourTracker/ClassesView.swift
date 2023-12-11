@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct ClassesView: View {
     var body: some View {
         VStack(spacing: 0) {
             Rectangle()
@@ -28,6 +28,6 @@ struct HomeView: View {
 }
     
 #Preview {
-    HomeView()
+    ClassesView()
 }
 

@@ -14,7 +14,7 @@ struct ClassTabView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 15.0)
+            RoundedRectangle(cornerRadius: 7.5)
                 .frame(width: 375, height: 150)
                 .foregroundColor(Color("custom-green"))
             VStack {
