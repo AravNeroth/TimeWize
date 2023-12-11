@@ -30,7 +30,8 @@ struct BottomBarView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30, alignment: .top)
-                        Text("Hours Log")
+                        Text("hour log")
+                            .font(.custom("Chromate-Regular", size: 14))
                             .bold()
                     }
                     .frame(width: 90)
@@ -49,7 +50,8 @@ struct BottomBarView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30, alignment: .top)
-                        Text("Classes")
+                        Text("CLASSES")
+                            .font(.custom("Chromate-Regular", size: 14))
                             .bold()
                     }
                     .frame(width: 90)
@@ -69,6 +71,7 @@ struct BottomBarView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30, alignment: .top)
                         Text("Settings")
+                            .font(.custom("Chromate-Regular", size: 14))
                             .bold()
                     }
                     .frame(width: 90)
