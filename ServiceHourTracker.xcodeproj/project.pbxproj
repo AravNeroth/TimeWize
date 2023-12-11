@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB002B25346D00D93A40 /* BottomBarView.swift */; };
-		EB70EB032B2542B700D93A40 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* Settings.swift */; };
+		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
 		EB78CFE72B23A8D4007E0C20 /* ClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */; };
 		EB78CFE92B23A95A007E0C20 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78CFE82B23A95A007E0C20 /* TopBarView.swift */; };
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
 		EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */; };
-		EEF83F2F2B1FCDD90098D3A2 /* StudentHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2E2B1FCDD90098D3A2 /* StudentHomeView.swift */; };
+		EEF83F2F2B1FCDD90098D3A2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2E2B1FCDD90098D3A2 /* HomeView.swift */; };
 		EEF83F312B1FCDDB0098D3A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */; };
 		EEF83F342B1FCDDB0098D3A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEF83F332B1FCDDB0098D3A2 /* Preview Assets.xcassets */; };
 		EEF83F3E2B1FCDDB0098D3A2 /* ServiceHourTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F3D2B1FCDDB0098D3A2 /* ServiceHourTrackerTests.swift */; };
@@ -39,14 +40,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB70EB002B25346D00D93A40 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
-		EB70EB022B2542B700D93A40 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTabView.swift; sourceTree = "<group>"; };
 		EB78CFE82B23A95A007E0C20 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
 		EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceHourTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHourTrackerApp.swift; sourceTree = "<group>"; };
-		EEF83F2E2B1FCDD90098D3A2 /* StudentHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentHomeView.swift; sourceTree = "<group>"; };
+		EEF83F2E2B1FCDD90098D3A2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEF83F332B1FCDDB0098D3A2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EEF83F392B1FCDDB0098D3A2 /* ServiceHourTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ServiceHourTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,11 +107,12 @@
 			isa = PBXGroup;
 			children = (
 				EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */,
-				EEF83F2E2B1FCDD90098D3A2 /* StudentHomeView.swift */,
-				EB70EB022B2542B700D93A40 /* Settings.swift */,
+				EEF83F2E2B1FCDD90098D3A2 /* HomeView.swift */,
+				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
 				EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */,
 				EB78CFE82B23A95A007E0C20 /* TopBarView.swift */,
 				EB70EB002B25346D00D93A40 /* BottomBarView.swift */,
+				EB048C752B2696E0003719A0 /* StudentView.swift */,
 				EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */,
 				EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */,
 				EEF83F322B1FCDDB0098D3A2 /* Preview Content */,
@@ -272,11 +275,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEF83F2F2B1FCDD90098D3A2 /* StudentHomeView.swift in Sources */,
+				EEF83F2F2B1FCDD90098D3A2 /* HomeView.swift in Sources */,
 				EB78CFE72B23A8D4007E0C20 /* ClassTabView.swift in Sources */,
 				EB78CFE92B23A95A007E0C20 /* TopBarView.swift in Sources */,
 				EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */,
-				EB70EB032B2542B700D93A40 /* Settings.swift in Sources */,
+				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
+				EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */,
 				EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */,
 				EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */,
 			);

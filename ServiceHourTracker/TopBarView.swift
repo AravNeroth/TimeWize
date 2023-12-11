@@ -9,7 +9,8 @@ import SwiftUI
 
 struct TopBarView: View {
     
-    var title: String
+    @Binding var tabSelection: Int
+    @Binding var title: String
     
     var body: some View {
         ZStack {
@@ -35,8 +36,4 @@ struct TopBarView: View {
             }
         }
     }
-}
-
-#Preview {
-    TopBarView(title: "Test Title")
 }
