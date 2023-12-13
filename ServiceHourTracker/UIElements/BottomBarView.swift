@@ -30,8 +30,8 @@ struct BottomBarView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30, alignment: .top)
-                        Text("hour log")
-                            .font(.custom("Metropolis-Bold.ttf", size: 14))
+                        Text("Hour Log")
+                            .font(.custom("Metropolis-RegularItalic", size: 14))
                             .bold()
                     }
                     .frame(width: 90)
@@ -50,8 +50,8 @@ struct BottomBarView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30, alignment: .top)
-                        Text("CLASSES")
-                            .font(.custom("Metropolis-Thin", size: 14))
+                        Text("Class")
+                            .font(.custom("Metropolis-RegularItalic", size: 14))
                             .bold()
                     }
                     .frame(width: 90)
@@ -71,7 +71,7 @@ struct BottomBarView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30, alignment: .top)
                         Text("Settings")
-                            .font(.custom("Metropolis-Regular", size: 14))
+                            .font(.custom("Metropolis-RegularItalic", size: 14))
                             .bold()
                     }
                     .frame(width: 90)
