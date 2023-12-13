@@ -20,7 +20,7 @@ struct TopBarView: View {
             HStack(spacing: 0) {
                 Text(title)
                     .foregroundColor(.white)
-                    .font(.custom("Chromate-Regular", size: 36))
+                    .font(.custom("Metropolis-Black", size: 36))
                     //.fontWeight(.bold)
                     .frame(width: 150, alignment: .center)
                     .padding(.leading, 100)

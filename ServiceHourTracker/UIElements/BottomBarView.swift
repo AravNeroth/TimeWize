@@ -31,7 +31,7 @@ struct BottomBarView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30, alignment: .top)
                         Text("hour log")
-                            .font(.custom("Chromate-Regular", size: 14))
+                            .font(.custom("Metropolis-Bold.ttf", size: 14))
                             .bold()
                     }
                     .frame(width: 90)
@@ -51,7 +51,7 @@ struct BottomBarView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30, alignment: .top)
                         Text("CLASSES")
-                            .font(.custom("Chromate-Regular", size: 14))
+                            .font(.custom("Metropolis-Thin", size: 14))
                             .bold()
                     }
                     .frame(width: 90)
@@ -71,7 +71,7 @@ struct BottomBarView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30, alignment: .top)
                         Text("Settings")
-                            .font(.custom("Chromate-Regular", size: 14))
+                            .font(.custom("Metropolis-Regular", size: 14))
                             .bold()
                     }
                     .frame(width: 90)

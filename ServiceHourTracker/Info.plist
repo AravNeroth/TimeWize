@@ -4,8 +4,10 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Chromate-Regular.ttf</string>
+		<string>Metropolis-Regular</string>
 		<string>Metropolis-Black</string>
+		<string>Metropolis-Thin</string>
+		<string>Metropolis-Bold</string>
 	</array>
 </dict>
 </plist>

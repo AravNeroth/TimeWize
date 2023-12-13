@@ -13,6 +13,7 @@ struct ClassTabView: View {
     var mainManager: String
     
     var body: some View {
+        
         ZStack {
             RoundedRectangle(cornerRadius: 7.5)
                 .frame(width: 375, height: 150)
