@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
+		06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A52B59C92300A7A36D /* TermsAndServices.swift */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB002B25346D00D93A40 /* BottomBarView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
@@ -41,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		06E576A52B59C92300A7A36D /* TermsAndServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServices.swift; sourceTree = "<group>"; };
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB70EB002B25346D00D93A40 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -99,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */,
+				06E576A32B59C86000A7A36D /* SignUp.swift */,
+				06E576A52B59C92300A7A36D /* TermsAndServices.swift */,
 				EEF83F2E2B1FCDD90098D3A2 /* ClassesView.swift */,
 				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
 				EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */,
@@ -300,9 +306,11 @@
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
 				EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
+				06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */,
 				EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */,
 				EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */,
 				EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */,
+				06E576A42B59C86000A7A36D /* SignUp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,7 +474,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				DEVELOPMENT_TEAM = G85D3VS6S4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -496,7 +504,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				DEVELOPMENT_TEAM = G85D3VS6S4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
