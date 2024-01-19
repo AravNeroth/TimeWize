@@ -6,19 +6,20 @@
 //
 
 import SwiftUI
-
+import FirebaseAuth
 
 struct SettingsView:View {
     @State private var navToSign = false
+    @State private var navToOrigin = false
     @State private var testData = ["General","Resume","Job options","Appearance","stuff","stuff"]
     @State private var name = "Name"
-
+    @AppStorage("uid") var userID: String = ""
  
     var body: some View {
         NavigationStack{
-            Rectangle()
-                .foregroundColor(Color("green-8"))
-                .frame(width: 400, height: 50)
+//            Rectangle()
+//                .foregroundColor(Color("green-8"))
+//                .frame(width: 400, height: 50)
             
             Form{
                 
@@ -34,26 +35,38 @@ struct SettingsView:View {
                         }.padding(.top)
                     }
                 }header: {
-                    Text("Your account")
+                    Text("Details")
                 }
                 Section {
-                    Text("hello world")
-                    Text("brightness settings")
+                    
+                    Text("\(userID)")
+                    
+                    Text("\(getEmail())")
                     
                 } header: {
-                    Text("First Section")
+                    Text("Account Information")
                 }
                 
                 Section{
                     Button{
-                        navToSign = true
+                        let firebaseAuth = Auth.auth()
+                        do {
+                          try firebaseAuth.signOut()
+                            withAnimation {
+                                userID = ""
+                            }
+                        } catch let signOutError as NSError {
+                          print("Error signing out: %@", signOutError)
+                        }
+//                        navToSign = true
+                        navToOrigin = true
     
     
                     }label: {
-                        Text("sign up")
+                        Text("sign out")
                     }
                 }header: {
-                    Text("login")
+                    Text("")
                 }
                 Section{
                     ForEach(0..<testData.count){num in
@@ -65,12 +78,21 @@ struct SettingsView:View {
                 .foregroundColor(Color("green-8"))
                 .frame(width: 400, height: 20)
             NavigationLink(destination: LoginView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToSign){}
+            NavigationLink(destination: AuthView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToOrigin){}
 
                 .navigationTitle("Settings")
         }
     }
 }
-
+func getEmail() -> String{
+    var out = ""
+    if let email = Auth.auth().currentUser?.email{
+        out = email
+    }else{
+       out = "not signed in"
+    }
+    return out
+}
 
 #Preview {
     SettingsView()

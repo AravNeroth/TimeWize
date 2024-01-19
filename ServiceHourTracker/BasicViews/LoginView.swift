@@ -6,7 +6,7 @@
 //  worked on by Jonathan Kalsky 10/04/23
 
 import SwiftUI
-
+import FirebaseAuth
 struct LoginView: View {
     public var LoginCode: [String] = []
     @State private var userName = ""
@@ -19,7 +19,7 @@ struct LoginView: View {
     private let segments = ["Login", "Sign Up"]
     @State private var selectedIndex = 0
     @State private var blueButtonText = "Login"
-    
+    @AppStorage("uid") var userID: String = ""
         
     var body: some View {
         
@@ -91,12 +91,31 @@ struct LoginView: View {
                 Text("\(blueButtonText)").frame(width: 300 ,height: 50).background(Color(UIColor(resource: .blueLogin))).foregroundColor(.white).cornerRadius(3.0).onTapGesture {
                     
                     if blueButtonText == "Login"{
-                        authenticateLogin(Username: userName, password: password)
+//                        authenticateLogin(Username: userName, password: password)
+                        print("authenticating loggin")
+                        
+                        Auth.auth().signIn(withEmail: userName, password: password) {authResult, error in
+                            if let error = error{
+                                print(error)
+                                return
+                            }
+                            if let authResult = authResult{
+                                print(authResult.user.uid)
+                                withAnimation {
+                                    userID = authResult.user.uid
+                                }
+                            }
+                        }
+                        
                     }else{
                         SignUp = true
                         
-                        
                     }
+                    
+                    
+                    
+                    
+                    
                 }
                 NavigationLink(destination: ServiceHourTracker.SignUp(passedPassword: password), isActive: $SignUp){}
                 
@@ -137,8 +156,9 @@ struct LoginView: View {
            .onChange(of: selectedIndex){
                 blueButtonText = segments[selectedIndex]
                 if segments[selectedIndex] == "Sign Up"{
-                    SignUp = true
-                    
+                    withAnimation {
+                        SignUp = true
+                    }
                     selectedIndex = 0
                     
                 }

@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import Firebase
+
+import FirebaseAuth
 
 struct SignUp: View {
     
@@ -20,8 +23,13 @@ struct SignUp: View {
     @State private var goToPrivacy = false
    @State private var shouldContinue = false
     @State private var showDoNotMatch = false
+    @State private var selectedIndex = 0
+    @AppStorage("uid") var userID: String = ""
+    @State private var alertError = ""
+    @State private var showAlert = false
     init(passedPassword: String){
         self.password = passedPassword
+       
     }
     var body: some View {
         
@@ -127,6 +135,17 @@ struct SignUp: View {
                 
                 NavigationLink(destination: TermsAndServices(), isActive: $goToTerms){}
             }.padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+            
+            Picker(selection: $selectedIndex, label: Text("Account Type")) {
+                
+                Text("Student").tag(0)
+                Text("Manager").tag(1)
+                   
+                
+            }.frame(width:300)
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+            
             Text("Register").frame(width: 300 ,height: 50).background(shouldContinue ? Color(UIColor(resource: .blueLogin)) : Color.gray).foregroundColor(.white).cornerRadius(3.0).padding().onTapGesture {
                 if shouldContinue{
                     if confirm == password{
@@ -135,30 +154,62 @@ struct SignUp: View {
                         showDoNotMatch = true
                     }
                 }
+                
+                Auth.auth().createUser(withEmail: userName, password: password) { authResult, error in
+                
+                    if let error = error {
+                        print(error)
+                        if password.count < 6 {
+                            alertError = "try a password longer than 6 digits"
+                        }
+                        showAlert = true
+                        return
+                        
+                        
+                    }
+                    if let authResult = authResult{
+                        print(authResult.user.uid)
+                        withAnimation {
+                            userID = authResult.user.uid
+                        }
+                    }
+                }
             }
+            .alert(isPresented: $showAlert, content: {
+                Alert(
+                    title: Text("oops!"),
+                    message: Text("\(alertError)"),
+                    dismissButton: .default(Text("OK")) {
+                        //action
+                    }
+                )
+            })
             .onChange(of: userName) { oldValue, newValue in
-                if agreeToTerms && userName != "" && password != "" && confirm != ""{
-                    shouldContinue = true
+                if agreeToTerms && userName != "" && password != "" && password.count >= 6 && confirm != ""{
+                    if userName.isValidEmail(userName){
+                        
+                        shouldContinue = true
+                    }
                 }else{
                     shouldContinue = false
                 }
             }
             .onChange(of: password) { oldValue, newValue in
-                if agreeToTerms && userName != "" && password != "" && confirm != ""{
+                if agreeToTerms && userName != "" && password != "" && password.count >= 6 && confirm != ""{
                     shouldContinue = true
                 }else{
                     shouldContinue = false
                 }
             }
             .onChange(of: confirm) { oldValue, newValue in
-                if agreeToTerms && userName != "" && password != "" && confirm != ""{
+                if agreeToTerms && userName != "" && password.count >= 6 && password != "" && confirm != ""{
                     shouldContinue = true
                 }else{
                     shouldContinue = false
                 }
             }
             .onChange(of: agreeToTerms) { oldValue, newValue in
-                if agreeToTerms && userName != "" && password != "" && confirm != ""{
+                if agreeToTerms && userName != "" && password.count >= 6 && password != "" && confirm != ""{
                     shouldContinue = true
                 }else{
                     shouldContinue = false
@@ -195,7 +246,19 @@ struct SignUp: View {
     
     }
     
-
+func handleAccount(password: String, email: String, AccountType: Int){
+    
+//    Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+//        
+//        if let error = error {
+//            print(error)
+//            return
+//        }
+//        if let authResult = authResult{
+//            print(authResult)
+//        }
+//    }
+}
 #Preview {
     SignUp(passedPassword: "")
 }
