@@ -15,7 +15,7 @@ enum Views {
 struct AuthView: View {
     @AppStorage("uid") var userID: String = ""
     @State private var currentView: Views = .LoginView
-
+    
     var body: some View {
        
         VStack {
@@ -27,11 +27,14 @@ struct AuthView: View {
             }
         }
         .onAppear {
+            
             if isLoggedIn() {
                 currentView = .StudentView
             } else {
                 currentView = .LoginView
             }
+           
+            
         }.onChange(of: userID) { oldValue, newValue in
             if isLoggedIn() {
                 currentView = .StudentView

@@ -13,8 +13,15 @@ struct SettingsView:View {
     @State private var navToOrigin = false
     @State private var testData = ["General","Resume","Job options","Appearance","stuff","stuff"]
     @State private var name = "Name"
+    @State private var newName = ""
+    @State private var alertField = ""
     @AppStorage("uid") var userID: String = ""
- 
+    @EnvironmentObject var userData: UserData
+    @State private var nameAlert = false
+    
+    @EnvironmentObject var settingsManager: SettingsManager
+
+    @State private var isDarkMode = false
     var body: some View {
         NavigationStack{
 //            Rectangle()
@@ -29,7 +36,8 @@ struct SettingsView:View {
                         
                         
                         VStack{
-                            Text("\(name)").font(.title)
+                            
+                            Text("\(name)").font(.title).padding(.leading).bold()
                             Text("notifications").font(.subheadline).padding(.leading)
                             Spacer()
                         }.padding(.top)
@@ -46,6 +54,20 @@ struct SettingsView:View {
                 } header: {
                     Text("Account Information")
                 }
+                
+                Section{
+//                    TextField("Change Name", text: $newName)
+                    
+                    
+                    Button{
+                        nameAlert = true
+                    }label: {
+                        Text("Change Name")
+                    }
+                }header: {
+                    Text("Name")
+                }
+                
                 
                 Section{
                     Button{
@@ -65,24 +87,78 @@ struct SettingsView:View {
                     }label: {
                         Text("sign out")
                     }
+                    
+                    
                 }header: {
-                    Text("")
+                    Text("Account Login")
                 }
                 Section{
+                    
+                    
+                    Toggle(isOn: $settingsManager.isDarkModeEnabled, label: {
+                        Text("Dark Mode")
+                    })
+                    
                     ForEach(0..<testData.count){num in
                         Text("\(testData[num])")
                     }
+                    
+                }
+            }.onAppear{
+                if(userID == ""){
+                    getData(uid: "\(userData.currentUser.email)") { currUser in
+                        name = currUser!.displayName!
+                    }
+                }
+                getData(uid: userID) { currUser in
+                    
+                    if let currentUser = currUser{
+                        name = currentUser.displayName!
+                    }else{
+                        name = userData.currentUser.displayName!
+                    }
+                    
+                }
+                
+            }.onChange(of: newName) { oldValue, newValue in
+                updateDisplayName(uid: userID, newDisplayName: newName)
+                getData(uid: userID) { currUser in
+                    if let currentUser = currUser{
+                        name = currentUser.displayName!
+                    }else{
+                        name = userData.currentUser.displayName!
+                    }
                 }
             }
-            Rectangle()
-                .foregroundColor(Color("green-8"))
-                .frame(width: 400, height: 20)
+            
+            
+            
+            
+            
+            
+            
+            
             NavigationLink(destination: LoginView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToSign){}
             NavigationLink(destination: AuthView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToOrigin){}
 
-                .navigationTitle("Settings")
+//                .navigationTitle("Settings")
+        }.alert("Enter new name", isPresented: $nameAlert) {
+            TextField("new name", text: $alertField).foregroundColor(.black)
+            Button("OK") {
+                newName = alertField
+            }
+            Button("Cancel"){
+                
+            }
+        } message: {
+            Text("Change your name?")
         }
+
+
+        
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
+    
 }
 func getEmail() -> String{
     var out = ""
@@ -95,5 +171,7 @@ func getEmail() -> String{
 }
 
 #Preview {
-    SettingsView()
+    SettingsView().environmentObject(UserData(user: User(uid: "sampleUID", email: "sample.email@gmail.com", displayName: "Guest")))
 }
+
+

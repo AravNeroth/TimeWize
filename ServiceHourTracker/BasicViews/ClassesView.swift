@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ClassesView: View {
+    @EnvironmentObject var settingsManager: SettingsManager
     var body: some View {
         VStack(spacing: 0) {
             Rectangle()
-                .foregroundColor(Color("green-8"))
+                .foregroundColor((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
                 .frame(width: 400, height: 50)
             
             ScrollView {
@@ -24,7 +25,7 @@ struct ClassesView: View {
                 }
             }
         }
-        .background(Color("green-8"))
+        .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
     }
 }
     

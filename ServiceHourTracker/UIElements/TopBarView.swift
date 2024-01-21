@@ -16,7 +16,7 @@ struct TopBarView: View {
         ZStack {
             Rectangle()
                 .foregroundColor(Color("green-7"))
-                .frame(width: 400, height: 50)
+                .frame(width: 400, height: 10)
             HStack(spacing: 0) {
                 Text(title)
                     .foregroundColor(.primary)

@@ -15,7 +15,7 @@ struct BottomBarView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .frame(width: 400, height: 70)
+                .frame(width: 400, height: 10)
                 .foregroundColor(Color("green-7"))
                 
             HStack {
@@ -80,3 +80,4 @@ struct BottomBarView: View {
         }
     }
 }
+
