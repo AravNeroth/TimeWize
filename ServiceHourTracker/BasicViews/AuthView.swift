@@ -10,12 +10,16 @@ import SwiftUI
 enum Views {
     case LoginView
     case StudentView
+    case ClassMode
 }
+
+
 
 struct AuthView: View {
     @AppStorage("uid") var userID: String = ""
     @State private var currentView: Views = .LoginView
-    
+    @State private var tabSelection = 2
+    @EnvironmentObject var settingsManager: SettingsManager
     var body: some View {
        
         VStack {
@@ -24,6 +28,24 @@ struct AuthView: View {
                 LoginView()
             case .StudentView:
                 StudentView()
+            case .ClassMode:
+                classroomView().toolbar{
+                    ToolbarItem(placement: .bottomBar) {
+                        bottomPicks(selection: $tabSelection)
+                    }
+                    ToolbarItem(placement: .topBarLeading) {
+                        Image(systemName: "plus")
+                    }
+//                    ToolbarItem(placement: .topBarLeading) {
+//                        Button{
+//                            
+//                        }label: {
+//                            Image(systemName: "chevron.left")
+//                            .font(.title)
+//                            .foregroundColor(.blue)
+//                        }
+//                    }
+                }
             }
         }
         .onAppear {
@@ -42,12 +64,21 @@ struct AuthView: View {
                 currentView = .LoginView
             }
         }
+        .onChange(of: settingsManager.inClass) { oldValue, newValue in
+            if settingsManager.inClass{
+                currentView = .ClassMode
+            }else{
+                currentView = .StudentView
+            }
+        }
     }
 
     private func isLoggedIn() -> Bool {
         if userID == ""{
+            settingsManager.title = "Login"
             return false
         }else{
+            settingsManager.title = "Classes"
             print("\n\n logged in with user id:: \(userID)")
             return true
         }

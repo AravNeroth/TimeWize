@@ -11,6 +11,7 @@ enum view{
     case HourBoardView
     case SettingsView
     case ClassesView
+    case classroomView
 }
 
 var currentView: view = .ClassesView
@@ -19,7 +20,7 @@ var currentView: view = .ClassesView
 struct StudentView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @State var tabSelection = 2
-    @State var title = "Classes"
+    @State var title = ""
     
     var body: some View {
         NavigationView {
@@ -28,7 +29,7 @@ struct StudentView: View {
             
             switch currentView {
             case .ClassesView:
-                ClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(title).toolbar {
+                ClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button{
                             
@@ -44,7 +45,7 @@ struct StudentView: View {
                     }
                 }
             case .SettingsView:
-                SettingsView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(title).toolbar {
+                SettingsView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button{
                             
@@ -60,7 +61,7 @@ struct StudentView: View {
                     }
                 }
             case .HourBoardView:
-                HourBoardView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(title).toolbar {
+                HourBoardView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button{
                             
@@ -75,17 +76,42 @@ struct StudentView: View {
                         
                     }
                 }
+            case .classroomView:
+                
+                classroomView().navigationBarTitleDisplayMode(.inline).navigationTitle(settingsManager.title).toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button{
+                            settingsManager.tab = 2
+                        }label: {
+                            Image(systemName: "chevron.left").foregroundStyle(.blue)
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button{
+                            
+                        }label: {
+                            Image(systemName: "plus")
+                        }
+                    }
+                    
+//                    ToolbarItem(placement: .bottomBar) {
+//                        
+//                        bottomPicks(selection: $tabSelection)
+//                        
+//                    }
+                }
             }
                    
                 
             
-        }.onChange(of: tabSelection, { old, new in
-            switch tabSelection{
-            case 0: title = "Hours Log"; currentView = .HourBoardView
-            case 2: title = "Classes"; currentView = .ClassesView
-            case 3: title = "Settings"; currentView = .SettingsView
+        }.onChange(of: settingsManager.tab, { old, new in
+            switch settingsManager.tab{
+            case 0: settingsManager.title = "Hours Log"; currentView = .HourBoardView
+            case 2: settingsManager.title = "Classes"; currentView = .ClassesView
+            case 3: settingsManager.title = "Settings"; currentView = .SettingsView
+            case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .classroomView
             default:
-                title = ""
+                settingsManager.title = ""
             }
         })
         .onAppear(){
@@ -108,7 +134,7 @@ struct bottomPicks: View {
             Spacer()
             Button{
 //                currentView = .HourBoardView
-                selection = 0
+                settingsManager.tab = 0
             }label: {
                 VStack{
 //                                    Spacer()
@@ -119,7 +145,8 @@ struct bottomPicks: View {
             Spacer()
             Button{
 //                currentView = .ClassesView
-                selection = 2
+//                selection = 2
+                settingsManager.tab = 2
             }label: {
                 VStack{
 //                                    Spacer()
@@ -130,7 +157,7 @@ struct bottomPicks: View {
             Spacer()
             Button{
 //                currentView = .SettingsView
-                selection = 3
+                settingsManager.tab = 3
             }label: {
                 VStack{
 

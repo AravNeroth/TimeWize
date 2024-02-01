@@ -189,10 +189,12 @@ struct SignUp: View {
                         
                         if shouldContinue{
                             if confirm == password{
-                                let newUser = User(uid: authResult.uid, email: authResult.email ?? "")
+                                let newUser = User(uid: authResult.email ?? "", email: authResult.email ?? "")
+//                                let newUser = User(uid: authResult.uid, email: authResult.email ?? "")
                                 
                                 withAnimation {
-                                    userID = authResult.uid
+//                                    userID = authResult.uid
+                                    userID = authResult.email ?? ""
                                     storeUserInfoInFirestore(user: newUser)
                                     registerView = true
                                 }

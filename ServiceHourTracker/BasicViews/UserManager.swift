@@ -24,57 +24,71 @@ struct User: Codable {
     let uid: String
     let email: String
     var displayName: String? = "New Student"
+    var classes: [String]? = ["6a9A01"]
     
 }
 
 
-//
-//func isDark(uid: String) -> Bool {
-//    
-//    //a semaphore is used to wait for the asynchronous Firestore query to complete before returning the isDarkValue. This makes the function synchronous, but as mentioned earlier, using synchronous calls for network operations may lead to freezing the UI and should be used cautiously.
-//    let db = Firestore.firestore()
-//    var isDarkValue: Bool = false
-//
-//    let semaphore = DispatchSemaphore(value: 0)
-//
-//    db.collection("userInfo").document(uid).getDocument { document, error in
-//        defer {
-//            semaphore.signal()
-//        }
-//
-//        if let error = error {
-//            print("Error getting user data: \(error)")
-//            return
-//        }
-//
-//        if let document = document, document.exists {
-//            do {
-//                let user = try document.data(as: User.self)
-//                isDarkValue = user.dark
-//            } catch {
-//                print("Error decoding user data: \(error)")
-//            }
-//        } else {
-//            print("User data document does not exist")
-//        }
-//    }
-//
-//    _ = semaphore.wait(timeout: .distantFuture)
-//    return isDarkValue
-//}
 
+//let db = Firestore.firestore()
+func storeUserCodeInFirestore(uid: String, codes: [String]) {
+    
+
+   
+    print("before")
+    getData(uid: uid) { user in
+        db.collection("userInfo").document(uid).updateData(["classes": codes])
+    }
+   
+    print("after")
+//        db.collection("userInfo").document(uid).setValue(codes, forKey: "classes")
+        
+    
+}
+
+func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
+//    let db = Firestore.firestore()
+    print("in")
+    db.collection("userInfo").document(uid).getDocument { doc, error in
+        do{
+            if let error = error {
+                print("Error getting user data: \(error)")
+                completion(nil)
+                return
+            }
+            
+            if let document = doc, document.exists {
+                print(document.data())
+                if let output = document["classes"] as? [String] {
+                    completion(output)
+                } else {
+                    print("Classes key not found or is not of type [String]")
+                    completion(nil)
+                }
+            } else {
+                print("User data document does not exist")
+                completion(nil)
+            }
+
+        }catch let error as NSError {
+            print("Error getting class: \(error.localizedDescription)")
+        }
+    }
+}
 
 func storeUserInfoInFirestore(user: User) {
-    let db = Firestore.firestore()
+//    let db = Firestore.firestore()
     do {
         try db.collection("userInfo").document(user.uid).setData(from: user)
+        
+        
     } catch {
         print("error storing user info")
     }
 }
 
 func getData(uid: String, completion: @escaping (User?) -> Void) {
-    let db = Firestore.firestore()
+//    let db = Firestore.firestore()
     db.collection("userInfo").document(uid).getDocument { doc, error in
         if let error = error {
             print("Error getting user data: \(error)")
@@ -98,7 +112,7 @@ func getData(uid: String, completion: @escaping (User?) -> Void) {
 }
 
 func updateDisplayName(uid: String, newDisplayName: String) {
-    let db = Firestore.firestore()
+//    let db = Firestore.firestore()
 
     
     let userRef = db.collection("userInfo").document(uid)

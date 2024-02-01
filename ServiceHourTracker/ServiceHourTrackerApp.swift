@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseCore
 
 @main
+
 struct ServiceHourTrackerApp: App {
     @StateObject private var settingsManager = SettingsManager()
     init(){
@@ -22,7 +23,23 @@ struct ServiceHourTrackerApp: App {
 }
 
 class SettingsManager: ObservableObject{
-    
+    static let shared =  SettingsManager()
 //    @Published var isDarkModeEnabled = false
+    
     @AppStorage("isDarkModeEnabled") var isDarkModeEnabled: Bool = false
+    @Published var title:String = "Classes"
+    @Published var classes: [String] = UserDefaults.standard.stringArray(forKey: "classes") ?? [""]{
+            didSet{
+                updateUserDefaults()
+            }
+    }
+    @Published var inClass = false
+    @Published var tab: Int = 2
+    private func updateUserDefaults() {
+           UserDefaults.standard.set(classes, forKey: "classes")
+       }
+    
+    internal init() {
+        
+    }
 }

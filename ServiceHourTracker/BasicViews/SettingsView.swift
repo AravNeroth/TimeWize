@@ -10,6 +10,7 @@ import FirebaseAuth
 
 struct SettingsView:View {
     @State private var navToSign = false
+    @State private var navToManager = false
     @State private var navToOrigin = false
     @State private var testData = ["General","Resume","Job options","Appearance","stuff","stuff"]
     @State private var name = "Name"
@@ -99,6 +100,12 @@ struct SettingsView:View {
                         Text("Dark Mode")
                     })
                     
+                    Button{
+                        navToManager = true
+                    }label: {
+                        Text("Manager Mode")
+                    }
+                    
                     ForEach(0..<testData.count){num in
                         Text("\(testData[num])")
                     }
@@ -140,6 +147,7 @@ struct SettingsView:View {
             
             NavigationLink(destination: LoginView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToSign){}
             NavigationLink(destination: AuthView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToOrigin){}
+            NavigationLink(destination: ManagerMode().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToManager){}
 
 //                .navigationTitle("Settings")
         }.alert("Enter new name", isPresented: $nameAlert) {

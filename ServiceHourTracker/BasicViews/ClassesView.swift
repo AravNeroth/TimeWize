@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ClassesView: View {
     @EnvironmentObject var settingsManager: SettingsManager
+    
     var body: some View {
         VStack(spacing: 0) {
             Rectangle()
@@ -17,11 +18,11 @@ struct ClassesView: View {
             
             ScrollView {
                 VStack(spacing: -5) {
-                    ClassTabView(name: "Verlyn's Class", mainManager: "Verlyn")
-                    ClassTabView(name: "Parker's Class", mainManager: "Parker")
-                    ClassTabView(name: "Arav's Class", mainManager: "Arav")
-                    ClassTabView(name: "Jonathan's Class", mainManager: "Jonathan")
-                    ClassTabView(name: "Khoa's Class", mainManager: "Khoa")
+                    ClassTabView(name: "Verlyn's Class", mainManager: "Verlyn", tabNum: $settingsManager.tab)
+                    ClassTabView(name: "Parker's Class", mainManager: "Parker", tabNum: $settingsManager.tab)
+                    ClassTabView(name: "Arav's Class", mainManager: "Arav", tabNum: $settingsManager.tab)
+                    ClassTabView(name: "Jonathan's Class", mainManager: "Jonathan", tabNum: $settingsManager.tab)
+                    ClassTabView(name: "Khoa's Class", mainManager: "Khoa", tabNum: $settingsManager.tab)
                 }
             }
         }
@@ -29,7 +30,4 @@ struct ClassesView: View {
     }
 }
     
-#Preview {
-    ClassesView()
-}
 
