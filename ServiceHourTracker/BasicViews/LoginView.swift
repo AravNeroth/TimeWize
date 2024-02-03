@@ -20,7 +20,11 @@ struct LoginView: View {
     @State private var selectedIndex = 0
     @State private var blueButtonText = "Login"
     @AppStorage("uid") var userID: String = ""
-        
+    @State var wrongPass = false
+    @State var showResetPassAlert = false
+    @State var alertMessage = ""
+    @EnvironmentObject var userData: UserData
+//    @AppStorage("pswd") var pswd = ""
     var body: some View {
         
         
@@ -79,9 +83,13 @@ struct LoginView: View {
                         Button(action: {
                             isSecure.toggle()
                         }) {
-                            Image(systemName: self.isSecure ? "eye.slash" : "eye")
-                                .accentColor(.gray)
-                            
+                            HStack{
+                                Image(systemName: self.isSecure ? "eye.slash" : "eye")
+                                    .accentColor(.gray)
+                                if wrongPass{
+                                    Image(systemName: "xmark").foregroundStyle(.redWrong).padding()
+                                }
+                            }
                         }.padding()
                     }
                     //}
@@ -97,12 +105,17 @@ struct LoginView: View {
                         Auth.auth().signIn(withEmail: userName, password: password) {authResult, error in
                             if let error = error{
                                 print(error)
+                                wrongPass = true
+                                countDown(time: 5, variable: $wrongPass)
                                 return
                             }
                             if let authResult = authResult{
                                 print(authResult.user.uid)
                                 withAnimation {
-                                    userID = authResult.user.uid
+                                    userID = authResult.user.email ?? ""
+//                                    pswd = password
+                                    
+                                    //update UserData if using UserData
                                 }
                             }
                         }
@@ -139,6 +152,8 @@ struct LoginView: View {
                 
                 Button{
                     
+                    alertMessage = sendPasswordResetEmail(email: userName)
+                    showResetPassAlert = true
                 }label: {
                     Text("Forgot password?")
                 }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 0))
@@ -152,7 +167,9 @@ struct LoginView: View {
 //                    .foregroundColor(Color("green-8"))
 //                    .frame(width: 400, height: 50)
             }
-            
+            .alert(isPresented: $showResetPassAlert) {
+                        Alert(title: Text("Password Reset"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                    }
            .onChange(of: selectedIndex){
                 blueButtonText = segments[selectedIndex]
                 if segments[selectedIndex] == "Sign Up"{

@@ -6,6 +6,7 @@
 //
 import Foundation
 import SwiftUI
+import FirebaseAuth
 
 enum Views {
     case LoginView
@@ -20,6 +21,8 @@ struct AuthView: View {
     @State private var currentView: Views = .LoginView
     @State private var tabSelection = 2
     @EnvironmentObject var settingsManager: SettingsManager
+//    @AppStorage("pswd") var password = ""
+    @AppStorage("authuid") var authUID = ""
     var body: some View {
        
         VStack {
@@ -49,7 +52,7 @@ struct AuthView: View {
             }
         }
         .onAppear {
-            
+           
             if isLoggedIn() {
                 currentView = .StudentView
             } else {
@@ -78,7 +81,9 @@ struct AuthView: View {
             settingsManager.title = "Login"
             return false
         }else{
+            
             settingsManager.title = "Classes"
+            
             print("\n\n logged in with user id:: \(userID)")
             return true
         }

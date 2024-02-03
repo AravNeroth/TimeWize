@@ -22,7 +22,7 @@ class ClassData: ObservableObject{
 }
 
 
-struct Classroom: Codable{
+struct Classroom: Codable, Hashable{
     
     let code: String
     let title: String
@@ -42,18 +42,29 @@ func storeClassInfoInFirestore(org: Classroom) {
 
 func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> Void) {
     
-    db.collection("classes").document(classCloudCode).getDocument { doc, error in
+    
+    guard !classCloudCode.isEmpty else {
+        print("Error: classCloudCode is empty")
+        completion(nil)
+        return
+    }
+    let classRef = db.collection("classes").document(classCloudCode)
+    
+    classRef.getDocument { document, error in
+        
+        
+        
         if let error = error {
             print("Error getting classroom data: \(error)")
             completion(nil)
             return
         }
-
-        if let document = doc, document.exists {
-         
+        
+        if let doc = document, doc.exists {
+            
             
             do {
-                let output = try document.data(as: Classroom.self)
+                let output = try doc.data(as: Classroom.self)
                 completion(output)
             } catch {
                 print("Error decoding class data: \(error)")
@@ -65,3 +76,4 @@ func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> 
         }
     }
 }
+

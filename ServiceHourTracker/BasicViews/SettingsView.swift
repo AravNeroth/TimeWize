@@ -13,15 +13,16 @@ struct SettingsView:View {
     @State private var navToManager = false
     @State private var navToOrigin = false
     @State private var testData = ["General","Resume","Job options","Appearance","stuff","stuff"]
-    @State private var name = "Name"
+  
+    @AppStorage("name") private var name = "Name"
     @State private var newName = ""
     @State private var alertField = ""
     @AppStorage("uid") var userID: String = ""
     @EnvironmentObject var userData: UserData
     @State private var nameAlert = false
-    
+    @AppStorage("hours") var hoursEarned = 0
     @EnvironmentObject var settingsManager: SettingsManager
-
+    @State var updated = false
     @State private var isDarkMode = false
     var body: some View {
         NavigationStack{
@@ -105,7 +106,26 @@ struct SettingsView:View {
                     }label: {
                         Text("Manager Mode")
                     }
+                    Button{
+                        updateHours(uid: userID, newHourCount: Float(hoursEarned))
+                        updateDisplayName(uid: userID, newDisplayName: name)
+                        updated = true
+                        countDown(time: 5.0, variable: $updated)
+                    }label: {
+                        HStack{
+                            Text("Update User Info")
+                            Spacer()
+
+                                if updated{
+                                    Image(systemName: "person.fill.checkmark").foregroundStyle(.green5).padding().animation(.bouncy(duration: 1.0))
+                                }
+                                
+
+                        }
+                    }
                     
+                    Stepper("Max Hours", value: $settingsManager.perfHourRange, in: 0...100, step: 2)
+                
                     ForEach(0..<testData.count){num in
                         Text("\(testData[num])")
                     }
@@ -118,22 +138,27 @@ struct SettingsView:View {
                     }
                 }
                 getData(uid: userID) { currUser in
-                    
+
                     if let currentUser = currUser{
-                        name = currentUser.displayName!
+                        name = currentUser.displayName ?? "Name"
                     }else{
                         name = userData.currentUser.displayName!
                     }
                     
                 }
                 
-            }.onChange(of: newName) { oldValue, newValue in
-                updateDisplayName(uid: userID, newDisplayName: newName)
-                getData(uid: userID) { currUser in
-                    if let currentUser = currUser{
-                        name = currentUser.displayName!
-                    }else{
-                        name = userData.currentUser.displayName!
+                
+                
+            }.onChange(of: updated) { oldValue, newValue in
+                if(newName != ""){
+                    
+                    updateDisplayName(uid: userID, newDisplayName: newName)
+                    getData(uid: userID) { currUser in
+                        if let currentUser = currUser{
+                            name = currentUser.displayName!
+                        }else{
+                            name = userData.currentUser.displayName!
+                        }
                     }
                 }
             }
@@ -177,9 +202,11 @@ func getEmail() -> String{
     }
     return out
 }
-
-#Preview {
-    SettingsView().environmentObject(UserData(user: User(uid: "sampleUID", email: "sample.email@gmail.com", displayName: "Guest")))
+func countDown(time: Double, variable: Binding<Bool>){
+    Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
+        variable.wrappedValue = false
+    }
 }
+
 
 

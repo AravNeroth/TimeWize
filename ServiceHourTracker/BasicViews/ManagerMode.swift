@@ -16,13 +16,14 @@ struct ManagerMode: View {
     @AppStorage("uid") var userID: String = ""
     
     var body: some View {
+  
         ScrollView{
             ForEach(0..<settingsMan.classes.count, id: \.self) { index in
-                ClassTabView(name: "testClass ", mainManager: "\(settingsMan.classes[index])", tabNum: $settingsMan.tab)
+                ClassTabView(name: "testClass ", mainManager: "\(settingsMan.classes[index])")
                 
             }
             
-        }.padding()
+        }.padding(.top, 100)
             
         Button{
             withAnimation{

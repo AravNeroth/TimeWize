@@ -28,10 +28,11 @@ struct SignUp: View {
     @AppStorage("uid") var userID: String = ""
     @State private var alertError = ""
     @State private var showAlert = false
-    
+    @EnvironmentObject var userData: UserData
     @EnvironmentObject var settingsManager: SettingsManager
-   
+//    @AppStorage("pswd") var pswd = ""
     @State private var darkIndex = 1
+    @AppStorage("authuid") var authUID = ""
     init(passedPassword: String){
         self.password = passedPassword
        
@@ -185,17 +186,21 @@ struct SignUp: View {
                         
                     }
                     if let authResult = authResult?.user{
+                        authUID = authResult.uid
                         print(authResult.uid)
-                        
+                 
                         if shouldContinue{
                             if confirm == password{
+                                
                                 let newUser = User(uid: authResult.email ?? "", email: authResult.email ?? "")
 //                                let newUser = User(uid: authResult.uid, email: authResult.email ?? "")
                                 
                                 withAnimation {
 //                                    userID = authResult.uid
                                     userID = authResult.email ?? ""
+//                                    pswd = password
                                     storeUserInfoInFirestore(user: newUser)
+                                    userData.currentUser = newUser
                                     registerView = true
                                 }
                                         

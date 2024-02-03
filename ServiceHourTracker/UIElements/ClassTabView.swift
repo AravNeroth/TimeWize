@@ -13,7 +13,7 @@ struct ClassTabView: View {
     var mainManager: String
     @EnvironmentObject var settingsManager: SettingsManager
     @State var navToClass = false
-    @Binding var tabNum: Int
+//    @Binding var tabNum: Int
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 30) //background
@@ -29,7 +29,8 @@ struct ClassTabView: View {
                 .frame(width: 315, alignment: .leading)
                 .foregroundStyle((settingsManager.isDarkModeEnabled) ? .black : .white)
                 .onTapGesture {
-                    tabNum = 4
+                    settingsManager.tab = 4
+//                    tabNum = 4
                     print("tap")
                     currentView = .classroomView
                     settingsManager.title = name

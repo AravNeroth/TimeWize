@@ -11,13 +11,19 @@ import FirebaseCore
 @main
 
 struct ServiceHourTrackerApp: App {
+    @StateObject private var classInfoManager = ClassInfoManager()
     @StateObject private var settingsManager = SettingsManager()
+    @StateObject private var userData = UserData(user:User())
     init(){
         FirebaseApp.configure()
     }
     var body: some Scene {
         WindowGroup {
-            AuthView().environmentObject(settingsManager).preferredColorScheme(settingsManager.isDarkModeEnabled ? .dark : .light)
+            AuthView()
+                .environmentObject(settingsManager).preferredColorScheme(settingsManager.isDarkModeEnabled ? .dark : .light)
+                .environmentObject(userData)
+                .environmentObject(classInfoManager)
+                
         }
     }
 }
@@ -25,7 +31,7 @@ struct ServiceHourTrackerApp: App {
 class SettingsManager: ObservableObject{
     static let shared =  SettingsManager()
 //    @Published var isDarkModeEnabled = false
-    
+    @Published var perfHourRange = 20
     @AppStorage("isDarkModeEnabled") var isDarkModeEnabled: Bool = false
     @Published var title:String = "Classes"
     @Published var classes: [String] = UserDefaults.standard.stringArray(forKey: "classes") ?? [""]{
@@ -35,6 +41,7 @@ class SettingsManager: ObservableObject{
     }
     @Published var inClass = false
     @Published var tab: Int = 2
+    
     private func updateUserDefaults() {
            UserDefaults.standard.set(classes, forKey: "classes")
        }
@@ -42,4 +49,7 @@ class SettingsManager: ObservableObject{
     internal init() {
         
     }
+}
+class ClassInfoManager: ObservableObject {
+    @Published var classInfo: [Classroom] = []
 }

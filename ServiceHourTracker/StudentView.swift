@@ -29,50 +29,24 @@ struct StudentView: View {
             
             switch currentView {
             case .ClassesView:
-                ClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button{
-                            
-                        }label: {
-                            Image(systemName: "plus")
-                        }
-                    }
-                    
-                    ToolbarItem(placement: .bottomBar) {
-                        
-                        bottomPicks(selection: $tabSelection)
-                        
-                    }
-                }
+                ClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title)
             case .SettingsView:
                 SettingsView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button{
-                            
-                        }label: {
-                            Image(systemName: "plus")
-                        }
-                    }
+                    
                     
                     ToolbarItem(placement: .bottomBar) {
                         
-                        bottomPicks(selection: $tabSelection)
+                        bottomPicks(selection: $settingsManager.tab)
                         
                     }
                 }
             case .HourBoardView:
                 HourBoardView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button{
-                            
-                        }label: {
-                            Image(systemName: "plus")
-                        }
-                    }
+                    
                     
                     ToolbarItem(placement: .bottomBar) {
                         
-                        bottomPicks(selection: $tabSelection)
+                        bottomPicks(selection: $settingsManager.tab)
                         
                     }
                 }
