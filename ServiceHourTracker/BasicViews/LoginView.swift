@@ -24,6 +24,7 @@ struct LoginView: View {
     @State var showResetPassAlert = false
     @State var alertMessage = ""
     @EnvironmentObject var userData: UserData
+    @AppStorage("authuid") private var authID = ""
 //    @AppStorage("pswd") var pswd = ""
     var body: some View {
         
@@ -113,6 +114,7 @@ struct LoginView: View {
                                 print(authResult.user.uid)
                                 withAnimation {
                                     userID = authResult.user.email ?? ""
+                                    authID = authResult.user.uid
 //                                    pswd = password
                                     
                                     //update UserData if using UserData

@@ -18,6 +18,9 @@
 		06E576B82B5F082D00A7A36D /* ClassManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576B72B5F082D00A7A36D /* ClassManager.swift */; };
 		06E576BA2B5F0B1C00A7A36D /* ManagerMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576B92B5F0B1C00A7A36D /* ManagerMode.swift */; };
 		06E63E372B64502200285C8D /* classView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E63E362B64502200285C8D /* classView.swift */; };
+		06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A102B702A7B00FD6069 /* ImagePicker.swift */; };
+		06F54A132B7031BB00FD6069 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 06F54A122B7031BB00FD6069 /* FirebaseStorage */; };
+		06F54A152B7031E700FD6069 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 06F54A142B7031E700FD6069 /* FirebaseStorageCombine-Community */; };
 		06FD082F2B6996D400484FEE /* classroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* classroomView.swift */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB002B25346D00D93A40 /* BottomBarView.swift */; };
@@ -62,6 +65,7 @@
 		06E576B72B5F082D00A7A36D /* ClassManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassManager.swift; sourceTree = "<group>"; };
 		06E576B92B5F0B1C00A7A36D /* ManagerMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerMode.swift; sourceTree = "<group>"; };
 		06E63E362B64502200285C8D /* classView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classView.swift; sourceTree = "<group>"; };
+		06F54A102B702A7B00FD6069 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		06FD082E2B6996D400484FEE /* classroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classroomView.swift; sourceTree = "<group>"; };
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB70EB002B25346D00D93A40 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 			files = (
 				06E576B02B5A361C00A7A36D /* FirebaseAuth in Frameworks */,
 				06E576B22B5A361C00A7A36D /* FirebaseFirestore in Frameworks */,
+				06F54A152B7031E700FD6069 /* FirebaseStorageCombine-Community in Frameworks */,
+				06F54A132B7031BB00FD6069 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +148,7 @@
 				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
 				EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */,
 				06E576AA2B5A2DF200A7A36D /* AuthView.swift */,
+				06F54A102B702A7B00FD6069 /* ImagePicker.swift */,
 			);
 			path = BasicViews;
 			sourceTree = "<group>";
@@ -225,6 +232,8 @@
 			packageProductDependencies = (
 				06E576AF2B5A361C00A7A36D /* FirebaseAuth */,
 				06E576B12B5A361C00A7A36D /* FirebaseFirestore */,
+				06F54A122B7031BB00FD6069 /* FirebaseStorage */,
+				06F54A142B7031E700FD6069 /* FirebaseStorageCombine-Community */,
 			);
 			productName = ServiceHourTracker;
 			productReference = EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */;
@@ -351,6 +360,7 @@
 				EB78CFE72B23A8D4007E0C20 /* ClassTabView.swift in Sources */,
 				EB78CFE92B23A95A007E0C20 /* TopBarView.swift in Sources */,
 				06E63E372B64502200285C8D /* classView.swift in Sources */,
+				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
 				EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
@@ -715,6 +725,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		06F54A122B7031BB00FD6069 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		06F54A142B7031E700FD6069 /* FirebaseStorageCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageCombine-Community";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

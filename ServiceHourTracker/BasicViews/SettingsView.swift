@@ -24,6 +24,7 @@ struct SettingsView:View {
     @EnvironmentObject var settingsManager: SettingsManager
     @State var updated = false
     @State private var isDarkMode = false
+    @AppStorage("authuid") private var authID = ""
     var body: some View {
         NavigationStack{
 //            Rectangle()
@@ -49,9 +50,9 @@ struct SettingsView:View {
                 }
                 Section {
                     
-                    Text("\(userID)")
+                    Text("User: \(userID)")
                     
-                    Text("\(getEmail())")
+                    Text("Auth ID: \(authID)")
                     
                 } header: {
                     Text("Account Information")

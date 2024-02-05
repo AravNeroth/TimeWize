@@ -33,6 +33,7 @@ struct SignUp: View {
 //    @AppStorage("pswd") var pswd = ""
     @State private var darkIndex = 1
     @AppStorage("authuid") var authUID = ""
+    
     init(passedPassword: String){
         self.password = passedPassword
        
@@ -186,12 +187,12 @@ struct SignUp: View {
                         
                     }
                     if let authResult = authResult?.user{
-                        authUID = authResult.uid
-                        print(authResult.uid)
+                        
                  
                         if shouldContinue{
                             if confirm == password{
-                                
+                                authUID = authResult.uid
+                                                        print(authResult.uid)
                                 let newUser = User(uid: authResult.email ?? "", email: authResult.email ?? "")
 //                                let newUser = User(uid: authResult.uid, email: authResult.email ?? "")
                                 
@@ -199,6 +200,7 @@ struct SignUp: View {
 //                                    userID = authResult.uid
                                     userID = authResult.email ?? ""
 //                                    pswd = password
+                                    
                                     storeUserInfoInFirestore(user: newUser)
                                     userData.currentUser = newUser
                                     registerView = true

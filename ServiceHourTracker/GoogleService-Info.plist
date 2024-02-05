@@ -14,16 +14,22 @@
 	<string>timewize-facf0</string>
 	<key>STORAGE_BUCKET</key>
 	<string>timewize-facf0.appspot.com</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>use photos</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>&quot;Photo Library&quot;</string>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo Library</string>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:153916498314:ios:7ab72398112304c197a873</string>
 </dict>
