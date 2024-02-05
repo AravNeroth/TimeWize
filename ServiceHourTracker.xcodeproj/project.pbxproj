@@ -140,8 +140,6 @@
 				06FD082E2B6996D400484FEE /* classroomView.swift */,
 				06E576A32B59C86000A7A36D /* SignUp.swift */,
 				06E63E362B64502200285C8D /* classView.swift */,
-				06E576B52B5B47EA00A7A36D /* UserManager.swift */,
-				06E576B72B5F082D00A7A36D /* ClassManager.swift */,
 				06E576A52B59C92300A7A36D /* TermsAndServices.swift */,
 				EEF83F2E2B1FCDD90098D3A2 /* ClassesView.swift */,
 				06E576B92B5F0B1C00A7A36D /* ManagerMode.swift */,
@@ -151,6 +149,22 @@
 				06F54A102B702A7B00FD6069 /* ImagePicker.swift */,
 			);
 			path = BasicViews;
+			sourceTree = "<group>";
+		};
+		EE0B76042B71829C00933552 /* Manager Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Manager Views";
+			sourceTree = "<group>";
+		};
+		EE0B76052B7182C900933552 /* Backend Management */ = {
+			isa = PBXGroup;
+			children = (
+				06E576B52B5B47EA00A7A36D /* UserManager.swift */,
+				06E576B72B5F082D00A7A36D /* ClassManager.swift */,
+			);
+			path = "Backend Management";
 			sourceTree = "<group>";
 		};
 		EEF83F202B1FCDD90098D3A2 = {
@@ -179,7 +193,9 @@
 				06E576B32B5A3AAF00A7A36D /* GoogleService-Info.plist */,
 				EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */,
 				EBFB3FA82B2749EB0087ABA3 /* UIElements */,
+				EE0B76052B7182C900933552 /* Backend Management */,
 				EBFB3FA92B274A3E0087ABA3 /* BasicViews */,
+				EE0B76042B71829C00933552 /* Manager Views */,
 				EB048C752B2696E0003719A0 /* StudentView.swift */,
 				06E576A72B5A29CC00A7A36D /* Extensions */,
 				EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */,
