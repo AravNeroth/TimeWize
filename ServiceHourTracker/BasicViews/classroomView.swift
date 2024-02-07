@@ -78,7 +78,8 @@ struct classroomView: View {
         }
         
     }
-
+// Upload image to firebase storage
+// can pass in boolean but make it binded -> will turn the boolean false once loaded successfully to turn off the loading screen
 func uploadImageToStorage(uid: String, image: UIImage, className: String? = "", done: Binding<Bool>? = nil){
     
     guard !uid.isEmpty else {
@@ -148,6 +149,8 @@ func downloadImageFromStorage(uid: String, fileName: String, done: Binding<Bool>
     }
 }
 
+// download image to app file storage
+// can pass in boolean but make it binded -> will turn the boolean false once loaded successfully to turn off the loading screen
 func saveImageToDocumentsDirectory(image: UIImage, fileName: String) -> URL? {
     guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
         print("Documents directory not found")

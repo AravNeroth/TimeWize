@@ -25,6 +25,7 @@ struct ManagerMode: View {
             
         }.padding(.top, 100)
             
+        // button creates classes
         Button{
             withAnimation{
                 classCreationAlert = true
@@ -65,9 +66,6 @@ struct ManagerMode: View {
          
             settingsMan.classes.append(newClass.code)
             storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
-        
-            
-            
             
            
            

@@ -1,18 +1,17 @@
 //
-//  SettingsView.swift
-
+//  ManagerSettingsView.swift
+//  ServiceHourTracker
 //
-//  Created by kalsky_953982 on 10/3/23.
+//  Created by neroth_927927 on 2/7/24.
 //
 
 import SwiftUI
 import FirebaseAuth
 
-struct SettingsView:View {
+struct ManagerSettingsView:View {
     @State private var navToSign = false
     @State private var navToManager = false
-    @State private var navToManagerViews = false
-
+    @State private var navToManagerViews = true
 
     @State private var navToOrigin = false
     @State private var testData = ["General","Resume","Job options","Appearance","stuff","stuff"]
@@ -105,24 +104,28 @@ struct SettingsView:View {
                         Text("Dark Mode")
                     })
                     
+                    // button takes you to 'manager' preview - FOR TESTING
                     Button{
-                        navToManager = true
+                        navToManager = false
                     }label: {
                         Text("Manager Mode")
                     }
                     
-                    // button takes you to 'manager' preview - FOR TESTING
+                    // button takes you to 'student' previews - FOR TESTING
                     Button{
-                        navToManagerViews = true
+                        navToManagerViews = false
                     }label: {
-                        Text("Manager View Mode")
+                        Text("Manager Views Mode")
                     }
                     
+                    
+                    // updates
                     Button{
                         updateHours(uid: userID, newHourCount: Float(hoursEarned))
                         updateDisplayName(uid: userID, newDisplayName: name)
                         updated = true
                         countDown(time: 5.0, variable: $updated)
+                        
                     }label: {
                         HStack{
                             Text("Update User Info")
@@ -205,7 +208,8 @@ struct SettingsView:View {
     }
     
 }
-func getEmail() -> String{
+
+func getManagerEmail() -> String{
     var out = ""
     if let email = Auth.auth().currentUser?.email{
         out = email
@@ -214,10 +218,15 @@ func getEmail() -> String{
     }
     return out
 }
-func countDown(time: Double, variable: Binding<Bool>){
+
+func managerCountDown(time: Double, variable: Binding<Bool>){
     Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
         variable.wrappedValue = false
     }
 }
+
+
+
+
 
 

@@ -12,6 +12,7 @@ enum Views {
     case LoginView
     case StudentView
     case ClassMode
+    //case ManagerViews
 }
 
 
@@ -27,6 +28,7 @@ struct AuthView: View {
        
         VStack {
             switch currentView {
+                
             case .LoginView:
                 LoginView()
             case .StudentView:
