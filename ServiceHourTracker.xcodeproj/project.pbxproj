@@ -21,6 +21,8 @@
 		06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A102B702A7B00FD6069 /* ImagePicker.swift */; };
 		06F54A132B7031BB00FD6069 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 06F54A122B7031BB00FD6069 /* FirebaseStorage */; };
 		06F54A152B7031E700FD6069 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 06F54A142B7031E700FD6069 /* FirebaseStorageCombine-Community */; };
+		06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A302B727F0500FD6069 /* bottomPicks.swift */; };
+		06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A322B72808900FD6069 /* LoadingScreen.swift */; };
 		06FD082F2B6996D400484FEE /* classroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* classroomView.swift */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB002B25346D00D93A40 /* BottomBarView.swift */; };
@@ -66,6 +68,8 @@
 		06E576B92B5F0B1C00A7A36D /* ManagerMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerMode.swift; sourceTree = "<group>"; };
 		06E63E362B64502200285C8D /* classView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classView.swift; sourceTree = "<group>"; };
 		06F54A102B702A7B00FD6069 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		06F54A302B727F0500FD6069 /* bottomPicks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bottomPicks.swift; sourceTree = "<group>"; };
+		06F54A322B72808900FD6069 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		06FD082E2B6996D400484FEE /* classroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classroomView.swift; sourceTree = "<group>"; };
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB70EB002B25346D00D93A40 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 				EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */,
 				EB70EB002B25346D00D93A40 /* BottomBarView.swift */,
 				EB78CFE82B23A95A007E0C20 /* TopBarView.swift */,
+				06F54A302B727F0500FD6069 /* bottomPicks.swift */,
+				06F54A322B72808900FD6069 /* LoadingScreen.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -377,9 +383,11 @@
 				EB78CFE92B23A95A007E0C20 /* TopBarView.swift in Sources */,
 				06E63E372B64502200285C8D /* classView.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
+				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
 				EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
+				06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */,
 				06E576A92B5A29E100A7A36D /* String.swift in Sources */,
 				06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */,
 				EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */,
@@ -551,7 +559,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				DEVELOPMENT_TEAM = G85D3VS6S4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -565,7 +573,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTrac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -581,7 +589,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				DEVELOPMENT_TEAM = G85D3VS6S4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -595,7 +603,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTrac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

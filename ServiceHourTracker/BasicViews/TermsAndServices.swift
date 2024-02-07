@@ -1,6 +1,6 @@
 //
 //  TermsAndServices.swift
-//  QuickWorksMVP
+
 //
 //  Created by kalsky_953982 on 10/8/23.
 //

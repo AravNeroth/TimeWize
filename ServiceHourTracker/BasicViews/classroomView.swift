@@ -15,26 +15,47 @@ struct classroomView: View {
     @State private var classImage: UIImage?
     @State private var loading = true
     @AppStorage("authuid") private var authID = ""
+    
     var body: some View {
-        NavigationView{
-            ScrollView{
-                if loading{
-                    ProgressView("Loading...")
-                }else{
+        ZStack{
+            
+            NavigationView{
+                ScrollView{
+                    
                     if let image = classImage{
-                        Image(uiImage: classImage!).resizable().scaledToFill().frame(width: 500, height: 200).padding()
+                        Image(uiImage: image).resizable().scaledToFill().frame(width: 500, height: 200).padding()
                     }
-                }
-                Text("\(settingsManager.title)").padding()
-                Spacer()
-                Button{
-                    showIMGPicker = true
-                }label:{
-                    Text("pick an image").clipShape(.capsule).cornerRadius(50).background(.blue).foregroundStyle(.white).padding()
+                    
+                    Text("\(settingsManager.title)").padding()
+                    Spacer()
+                    Button{
+                        showIMGPicker = true
+                    }label:{
+                        Text("change the image").padding().clipShape(.capsule).cornerRadius(50).background(.blue).foregroundStyle(.white).padding()
+                    }
+                    
+                    
                 }
                 
-           
-            }.fullScreenCover(isPresented: $showIMGPicker) {
+            }.animation(.easeInOut)
+            if loading{
+                VStack{
+                    LoadingScreen().padding()
+                    
+//                    if classImage == nil {
+//                        Button{
+//                            showIMGPicker = true
+//                        }label:{
+//                            Text("pick an image").padding().clipShape(.ellipse).cornerRadius(50).background(.blue).foregroundStyle(.white).padding()
+//                        }
+//                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(ignoresSafeAreaEdges: .all)
+                .animation(.easeOut(duration: 2))
+            }
+        }
+            .fullScreenCover(isPresented: $showIMGPicker) {
                 ImagePicker(image: $selectedImage)
                 
             }.onChange(of: selectedImage) { oldValue, newValue in
@@ -54,13 +75,10 @@ struct classroomView: View {
                 }
             }
             
-            
-            
-
         }
         
     }
-}
+
 func uploadImageToStorage(uid: String, image: UIImage, className: String? = "", done: Binding<Bool>? = nil){
     
     guard !uid.isEmpty else {

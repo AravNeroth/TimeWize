@@ -1,6 +1,6 @@
 //
 //  SignUp.swift
-//  QuickWorksMVP
+
 //
 //  Created by kalsky_953982 on 10/4/23.
 //
@@ -56,7 +56,7 @@ struct SignUp: View {
                 
                 
                 
-                TextField("example@quickworks               .com", text: $userName).padding().frame(width: 300, height: 50)
+                TextField("example@timeWize               .com", text: $userName).padding().frame(width: 300, height: 50)
                     .background(Color.black.opacity(0.05)).cornerRadius(10).autocorrectionDisabled().textInputAutocapitalization(.never)
                     .overlay(
                     RoundedRectangle(cornerRadius: 10)
