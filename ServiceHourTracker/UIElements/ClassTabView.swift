@@ -13,6 +13,7 @@ struct ClassTabView: View {
     var mainManager: String
     @EnvironmentObject var settingsManager: SettingsManager
     @State var navToClass = false
+    var banner: UIImage? = UIImage(resource: .image3)
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 30)
@@ -26,8 +27,9 @@ struct ClassTabView: View {
                     Spacer()
                     ZStack(alignment: .bottomTrailing){
                         
-                        
-                        Image(.image3).frame(width: 375, height: 50).cornerRadius(20, corners: [.bottomRight, .bottomLeft]).opacity(0.8)
+                        if let banner = banner{
+                            Image(uiImage: banner).frame(width: 375, height: 50).cornerRadius(20, corners: [.bottomRight, .bottomLeft]).opacity(0.8)
+                        }
                         HStack(alignment: .bottom){
              
 //                            Image(systemName: "person.circle").resizable().frame(width: 30, height: 30).padding()
@@ -47,20 +49,21 @@ struct ClassTabView: View {
                         .font(.title)
                         .fontWeight(.black)
                         .frame(width: 315, alignment: .leading)
-                        .onTapGesture {
-                            settingsManager.tab = 4
-        //                    tabNum = 4
-                            print("tap")
-                            currentView = .classroomView
-                            settingsManager.title = name
-                            
-                        }
+//                        .onTapGesture {
+//                            settingsManager.tab = 4
+//        //                    tabNum = 4
+//                            print("tap")
+//                            currentView = .classroomView
+//                            settingsManager.title = name
+//                            
+//                        }
                     Button{
                         print("classTab settings")
                     }label: {
                         Image(systemName: "line.3.horizontal").fontWeight(.black)
                     }.frame(alignment: .trailing)
                 }.shadow(radius: 10)
+                    
                 .foregroundStyle((settingsManager.isDarkModeEnabled) ? .white : .green1)
                     
                 
@@ -71,7 +74,7 @@ struct ClassTabView: View {
                 Spacer()
             }
             .frame(height: 90)
-          
+            
         }
 //        .overlay(
 //            RoundedRectangle(cornerRadius: 30)

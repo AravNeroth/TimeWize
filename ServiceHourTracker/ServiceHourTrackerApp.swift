@@ -52,4 +52,5 @@ class SettingsManager: ObservableObject{
 }
 class ClassInfoManager: ObservableObject {
     @Published var classInfo: [Classroom] = []
+    @Published var classImages: [String: UIImage] = [:]
 }
