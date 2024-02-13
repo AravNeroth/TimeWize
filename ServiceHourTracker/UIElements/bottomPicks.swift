@@ -15,30 +15,29 @@ struct bottomPicks: View {
         HStack{
             Spacer()
             Button{
-//                currentView = .HourBoardView
+
                 settingsManager.tab = 0
             }label: {
                 VStack{
-//                                    Spacer()
+
                     Image(systemName: "clock.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                     Text("Hours Log").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
             }
             Spacer()
             Button{
-//                currentView = .ClassesView
-//                selection = 2
+
                 settingsManager.tab = 2
             }label: {
                 VStack{
-//                                    Spacer()
+
                     Image(systemName: "house.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                     Text("Classes").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
             }
             Spacer()
             Button{
-//                currentView = .SettingsView
+
                 settingsManager.tab = 3
             }label: {
                 VStack{

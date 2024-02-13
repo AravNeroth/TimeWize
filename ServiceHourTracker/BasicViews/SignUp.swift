@@ -30,13 +30,14 @@ struct SignUp: View {
     @State private var showAlert = false
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var settingsManager: SettingsManager
-//    @AppStorage("pswd") var pswd = ""
+
     @State private var darkIndex = 1
+    //1
     @AppStorage("authuid") var authUID = ""
     
     init(passedPassword: String){
         self.password = passedPassword
-       
+        
     }
     var body: some View {
         
@@ -292,7 +293,9 @@ struct SignUp: View {
         }
         
         Spacer()
-            
+            .onAppear(){
+                darkIndex = settingsManager.isDarkModeEnabled ? 0 : 1
+            }
     }
     
     

@@ -1,9 +1,7 @@
 //
 //  ClassTabView.swift
 //  ServiceHourTracker
-//
-//  Created by huang_931310 on 12/8/23.
-//
+
 
 import SwiftUI
 
@@ -12,56 +10,87 @@ struct ClassTabView: View {
     var name: String
     var mainManager: String
     @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var classInfoManager: ClassInfoManager
+    @EnvironmentObject var classData: ClassData
     @State var navToClass = false
     var banner: UIImage? = UIImage(resource: .image3)
+    var pfp: UIImage? = UIImage(resource: .image2)
+    @AppStorage("uid") private var userID = ""
+    @Binding var refreshed: Bool
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 30)
                 .frame(width: 375, height: 120)
                 .foregroundColor(.green5)
+                .overlay(
                 
 
-            VStack{
+            VStack(alignment: .center){
                 Spacer()
                 HStack{
                     Spacer()
                     ZStack(alignment: .bottomTrailing){
                         
                         if let banner = banner{
-                            Image(uiImage: banner).frame(width: 375, height: 50).cornerRadius(20, corners: [.bottomRight, .bottomLeft]).opacity(0.8)
+                            Image(uiImage: banner)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 375, height: 50)
+                                .cornerRadius(30, corners: [.bottomRight, .bottomLeft])
+                                .opacity(0.8)
                         }
                         HStack(alignment: .bottom){
-             
-//                            Image(systemName: "person.circle").resizable().frame(width: 30, height: 30).padding()
+
                             VStack(alignment: .trailing){
                                 Spacer()
-                                Image(.image2).resizable().clipShape(Circle()).frame(width: 30, height: 30)
+                                if let pfp = pfp{
+                                    Image(uiImage: pfp)
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .frame(width: 30, height: 30)
+                                }
                             }.padding(4)
                         }.padding(4)
                         
-                    }.padding(.trailing, 9)
+                    }
+                    .padding(.trailing, 8)
                 }.padding(0)
             }
+            )
             VStack {
                 Spacer()
                 HStack{
-                    Text(name)
+                    Button{
+                        settingsManager.tab = 4
+                        print("tap")
+                        currentView = .classroomView
+                        settingsManager.title = name
+                        classData.code = mainManager
+                        
+                    }label: {
+                        Text(name)
                         .font(.title)
                         .fontWeight(.black)
                         .frame(width: 315, alignment: .leading)
-//                        .onTapGesture {
-//                            settingsManager.tab = 4
-//        //                    tabNum = 4
-//                            print("tap")
-//                            currentView = .classroomView
-//                            settingsManager.title = name
-//                            
-//                        }
-                    Button{
-                        print("classTab settings")
-                    }label: {
+                    }
+                    
+                    Menu {
+                        Button{
+                            getCodes(uid: userID) { codesList in
+                                if let codesList = codesList{
+                                    unenrollClass(uid: userID, codes: codesList, code: mainManager)
+                                    
+                                    refreshed = false
+                                }
+                            }
+                        }label: {
+                            Text("unenroll")
+                        }
+                    } label: {
                         Image(systemName: "line.3.horizontal").fontWeight(.black)
                     }.frame(alignment: .trailing)
+
+                    
                 }.shadow(radius: 10)
                     
                 .foregroundStyle((settingsManager.isDarkModeEnabled) ? .white : .green1)
@@ -76,12 +105,8 @@ struct ClassTabView: View {
             .frame(height: 90)
             
         }
-//        .overlay(
-//            RoundedRectangle(cornerRadius: 30)
-//             
-//             .stroke((settingsManager.isDarkModeEnabled) ? .white : .black, lineWidth: 0.5)
-//        )
-            .padding(.vertical, 5.0)
+
+//            .padding(.vertical, 5.0)
             
         
 
@@ -89,11 +114,7 @@ struct ClassTabView: View {
    
 }
 
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape(RoundedCorner(radius: radius, corners: corners))
-    }
-}
+
 
 struct RoundedCorner: Shape {
     var radius: CGFloat = .infinity

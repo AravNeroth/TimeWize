@@ -25,9 +25,9 @@ struct User: Codable {
     let uid: String
     let email: String
     var displayName: String? = "New Student"
-    var classes: [String]? = ["6a9A01"]
+    var classes: [String]? = [] //a list of user owned/created classes
     var hours: Float? = 0
-    var codes: [String]? = [""]
+    var codes: [String]? = [] // a list of classes participating in
     
     init(uid: String, email: String, displayName: String? = nil, classes: [String]? = ["6a9A01"], hours: Float? = 0, codes: [String]? = [""]) {
         self.uid = uid
@@ -50,7 +50,8 @@ struct User: Codable {
 
 
 
-//let db = Firestore.firestore()
+
+
 func storeUserCodeInFirestore(uid: String, codes: [String]) {
     
 
@@ -61,13 +62,13 @@ func storeUserCodeInFirestore(uid: String, codes: [String]) {
     }
    
     print("after")
-//        db.collection("userInfo").document(uid).setValue(codes, forKey: "classes")
+
         
     
 }
 
 func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
-//    let db = Firestore.firestore()
+
     print("in")
     db.collection("userInfo").document(uid).getDocument { doc, error in
         do{
@@ -96,41 +97,9 @@ func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
     }
 }
 
-//func getCodes(uid: String, completion: @escaping ([String]?) -> Void) {
-////    let db = Firestore.firestore()
-//    print("fetching codes")
-//    print(uid)
-//    db.collection("userInfo").document(uid).getDocument { doc, error in
-//        do{
-//            print("in")
-//            print(doc?.description)
-//            if let error = error {
-//                print("Error getting user codes: \(error)")
-//                completion(nil)
-//                return
-//            }
-//            
-//            if let document = doc, document.exists {
-//                print(document.data())
-//                if let output = document["codes"] as? [String] {
-//                    completion(output)
-//                } else {
-//                    print("Classes key not found or is not of type [String]")
-//                    completion(nil)
-//                }
-//            } else {
-//                print("User data document does not exist")
-//                completion(nil)
-//            }
-//
-//        }catch let error as NSError {
-//            print("Error getting class: \(error.localizedDescription)")
-//        }
-//    }
-//}
 
 func storeUserInfoInFirestore(user: User) {
-//    let db = Firestore.firestore()
+
     do {
         try db.collection("userInfo").document(user.uid).setData(from: user)
         
@@ -214,12 +183,45 @@ func updateHours(uid: String, newHourCount: Float) {
 
     
 }
-
+func unenrollClass(uid: String, codes: [String], code: String){
+    
+    getData(uid: uid) { currUser in
+        let userRef = db.collection("userInfo").document(uid)
+        
+        if let currUser = currUser{
+            
+            if var userCodes = currUser.codes{
+                let index = userCodes.firstIndex(of: code)
+                if let index = index{
+                    userCodes.remove(at: index)
+                    userRef.updateData(["codes": userCodes]){ error in
+                        if let error = error{
+                            print(error.localizedDescription)
+                        }else{
+                            print("succesfully unenrolled")
+                        }
+                        
+                    }
+                }else{
+                    print("code does not exist")
+                }
+                
+            }else{
+                print("no codes found")
+            }
+            
+        }else{
+            print("no user found")
+        }
+        
+    }
+    
+}
+//append a class Code
 func updateCodes(uid: String, newCode: String) {
 
     getData(uid: uid) { currUser in
         let userRef = db.collection("userInfo").document(uid)
-        //["hours": (currUser?.hours ?? 0) + newHourCount] to add the hours
         if var userCodes = currUser?.codes{
             if !(userCodes.contains(newCode)){
                 userCodes.append(newCode)
@@ -251,16 +253,26 @@ func sendPasswordResetEmail(email: String) -> String {
     return alertMessage
 }
 
-func checkIfDocumentExists(documentID: String, completion: @escaping (Bool) -> Void) {
-    let db = Firestore.firestore()
-    let documentReference = db.collection("classes").document(documentID)
 
-    documentReference.getDocument { documentSnapshot, error in
+func getAuthIDForEmail(email: String) -> String{
+    var output = ""
+    Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
         if let error = error {
-            print("Error getting document: \(error.localizedDescription)")
-            completion(false)
-        } else if let documentSnapshot = documentSnapshot {
-            completion(documentSnapshot.exists)
+            print("Error fetching sign-in methods: \(error.localizedDescription)")
+        } else {
+            if let signInMethods = signInMethods {
+                if signInMethods.isEmpty {
+                    print("No user found with the provided email address.")
+                } else {
+                    // User found, retrieve UID or perform other actions
+                    if let uid = Auth.auth().currentUser?.uid{
+                        output = uid
+                    }
+                    
+                   
+                }
+            }
         }
     }
+    return output
 }

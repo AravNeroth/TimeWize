@@ -16,6 +16,7 @@ struct ManagerClassView: View {
     @AppStorage("uid") var userID = ""
     @State var alertMessage = ""
     @EnvironmentObject var classInfoManager: ClassInfoManager
+    @State var refreshed = true
 //    @State private var classInfo: [Classroom] = []
     @State var classCodes:[String] = [""]
 //    @SceneStorage("classInfo") private var classInfo: [Classroom] = []
@@ -31,7 +32,7 @@ struct ManagerClassView: View {
                         Text("No Classes")
                     }
                     ForEach(classInfoManager.classInfo, id: \.self){ classroom in
-                        ClassTabView(name: classroom.title, mainManager: classroom.code)
+                        ClassTabView(name: classroom.title, mainManager: classroom.code, refreshed: $refreshed)
                         
                     }
 //                        ClassTabView(name: "Verlyn's Class", mainManager: "Verlyn", tabNum: $settingsManager.tab)
@@ -87,10 +88,10 @@ struct ManagerClassView: View {
                                 
                             }
                             classCodes = codes
-                            print(classCodes)
+                            
                             
                         }
-                        print(classCodes)
+                        
                         loadClassInfo()
                     }
                   

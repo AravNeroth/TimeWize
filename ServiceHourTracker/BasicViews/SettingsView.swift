@@ -28,6 +28,8 @@ struct SettingsView:View {
     @State var updated = false
     @State private var isDarkMode = false
     @AppStorage("authuid") private var authID = ""
+    @State private var newPfp = UIImage(systemName: "person")
+    @State private var changePfp = false
     var body: some View {
         NavigationStack{
 //            Rectangle()
@@ -39,14 +41,22 @@ struct SettingsView:View {
                 Section{
                     HStack{
                         
-                        
-                        
                         VStack{
                             
                             Text("\(name)").font(.title).padding(.leading).bold()
                             Text("notifications").font(.subheadline).padding(.leading)
                             Spacer()
                         }.padding(.top)
+                        
+                        Spacer()
+                        
+                        Image(uiImage: settingsManager.pfp).resizable().aspectRatio(contentMode: .fill).frame(width:50, height:50).clipShape(Circle()).padding()
+                            
+                        Button{
+                            changePfp = true
+                        }label: {
+                            Image(systemName: "pencil").frame(width: 50, height: 50)
+                        }
                     }
                 }header: {
                     Text("Details")
@@ -198,26 +208,26 @@ struct SettingsView:View {
         } message: {
             Text("Change your name?")
         }
+        .fullScreenCover(isPresented: $changePfp){
+            ImagePicker(image: $newPfp)
+//                .frame(maxHeight: UIScreen.main.bounds.height)
+                .ignoresSafeArea(edges: .bottom)
 
-
+        }
+        .onChange(of: newPfp, { oldValue, newValue in
+            if let newPfp = newPfp{
+                settingsManager.pfp = newPfp
+               
+                uploadImageToUserStorage(id: "\(authID)", image: newPfp, file: "Pfp\(authID)")
+                
+            }
+            
+        })
         
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }
     
 }
-func getEmail() -> String{
-    var out = ""
-    if let email = Auth.auth().currentUser?.email{
-        out = email
-    }else{
-       out = "not signed in"
-    }
-    return out
-}
-func countDown(time: Double, variable: Binding<Bool>){
-    Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
-        variable.wrappedValue = false
-    }
-}
+
 
 

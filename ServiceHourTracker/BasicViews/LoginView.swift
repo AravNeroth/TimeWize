@@ -1,9 +1,6 @@
 
 //  ContentView.swift
 
-//
-//  Created by Verlyn Fischer on 9/28/23.
-//  worked on by Jonathan Kalsky 10/04/23
 
 import SwiftUI
 import FirebaseAuth
@@ -12,8 +9,7 @@ struct LoginView: View {
     @State private var userName = ""
     @State private var password = ""
     @State private var isSecure = true
-    @State private var errorPass:Double = 0.0 //change to 0.5 if wrong
-    @State private var errorLogin:Double = 0.0 //change to 0.5 if wrong
+
     @State private var login = false
     @State private var SignUp = false
     private let segments = ["Login", "Sign Up"]
@@ -25,16 +21,14 @@ struct LoginView: View {
     @State var alertMessage = ""
     @EnvironmentObject var userData: UserData
     @AppStorage("authuid") private var authID = ""
-//    @AppStorage("pswd") var pswd = ""
+    @EnvironmentObject private var settingsManager: SettingsManager
+
     var body: some View {
         
         
         ZStack(alignment: .bottomLeading){
             NavigationStack{
-                
-//                Rectangle()
-//                    .foregroundColor(Color("green-8"))
-//                    .frame(width: 400, height: 50)
+     
                 
                 Image(systemName: "clock.circle").resizable().scaledToFit().frame(width: 50,height: 50).padding(.init(top: 50, leading: 10, bottom: 10, trailing: 10)).foregroundColor(.green)
                 
@@ -47,12 +41,17 @@ struct LoginView: View {
                     
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.red, lineWidth: CGFloat(errorPass))
+                            .fill(settingsManager.isDarkModeEnabled ? Color.black : Color.white)
                             .frame(width: 300, height: 50)
                         
                         
-                        TextField("Email", text: $userName).padding().frame(width: 300, height: 50)
-                            .background(Color.black.opacity(0.05)).cornerRadius(10).autocorrectionDisabled().textInputAutocapitalization(.never)
+                        TextField("Email", text: $userName)
+                            .padding()
+                            .frame(width: 300, height: 50)
+                            .background(Color.black.opacity(0.05))
+                            .cornerRadius(10)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
                     }
                     
                     Text("Password").font(.caption).opacity(0.5)
@@ -65,7 +64,7 @@ struct LoginView: View {
                             if isSecure {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.red, lineWidth: CGFloat(errorPass))
+                                        .fill(settingsManager.isDarkModeEnabled ? Color.black : Color.white)
                                         .frame(width: 300, height: 50)
                                     
                                     SecureField("Password", text: $password).padding().frame(width: 300, height: 50).background(Color.black.opacity(0.05)).cornerRadius(10).autocorrectionDisabled().textInputAutocapitalization(.never)
@@ -73,7 +72,7 @@ struct LoginView: View {
                             } else {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.red, lineWidth: CGFloat(errorPass))
+                                        .fill(settingsManager.isDarkModeEnabled ? Color.black : Color.white)
                                         .frame(width: 300, height: 50)
                                     
                                     TextField("Password", text: $password).padding().frame(width: 300, height: 50).background(Color.black.opacity(0.05)).cornerRadius(10).autocorrectionDisabled().textInputAutocapitalization(.never)
@@ -100,7 +99,7 @@ struct LoginView: View {
                 Text("\(blueButtonText)").frame(width: 300 ,height: 50).background(Color(UIColor(resource: .blueLogin))).foregroundColor(.white).cornerRadius(3.0).onTapGesture {
                     
                     if blueButtonText == "Login"{
-//                        authenticateLogin(Username: userName, password: password)
+
                         print("authenticating loggin")
                         
                         Auth.auth().signIn(withEmail: userName, password: password) {authResult, error in
@@ -115,9 +114,7 @@ struct LoginView: View {
                                 withAnimation {
                                     userID = authResult.user.email ?? ""
                                     authID = authResult.user.uid
-//                                    pswd = password
-                                    
-                                    //update UserData if using UserData
+                         
                                 }
                             }
                         }
@@ -148,8 +145,6 @@ struct LoginView: View {
             
                 
                
-               
-//                    NavigationLink("Sign up",destination: SignUpView()).padding(5)
                 Spacer()
                 
                 Button{
@@ -165,9 +160,7 @@ struct LoginView: View {
                     Text("Privacy")
                 }.padding(EdgeInsets(top: 5, leading: 20, bottom: 15, trailing: 0))
                 
-//                Rectangle()
-//                    .foregroundColor(Color("green-8"))
-//                    .frame(width: 400, height: 50)
+
             }
             .alert(isPresented: $showResetPassAlert) {
                         Alert(title: Text("Password Reset"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
@@ -187,24 +180,7 @@ struct LoginView: View {
     }
         
     
-    func authenticateLogin(Username: String, password: String){
-        //check with database if it is equal to the password and login
-        
-        if userName == "cedarPark"{
-            if password == "bestteam"{
-                login = true
-            }else{
-                errorPass = 0.5
-                
-            }
-        }else{
-            errorLogin = 0.5
-            errorPass = 0.5
-            
-        }
-        
-       
-    }
+    
 }
 
 

@@ -33,13 +33,14 @@ struct ClassesView: View {
                     }
                     
                 }
-            }    
+            }
+                .animation(.easeInOut)
                 .onAppear(){
                         print("classes view")
                         
                         getCodes(uid: userID) { codes in
-                            print("in")
-                            print("in: \(String(describing: codes))")
+//                            print("in")
+//                            print("in: \(String(describing: codes))")
                             if var codes = codes{
                                 let remove = codes.firstIndex(of: "")
                                 
@@ -48,10 +49,10 @@ struct ClassesView: View {
                                     
                                 }
                                 classCodes = codes
-                                print(classCodes)
+//                                print(classCodes)
                                 
                             }
-                            print(classCodes)
+//                            print(classCodes)
                             loadClassInfo(images: classInfoManager.classImages){ completed in
                                 if completed{
                                     self.done = true
@@ -64,6 +65,7 @@ struct ClassesView: View {
                         
                     }
                 .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
+                
         }else{
             NavigationStack{
                 VStack(spacing: 0) {
@@ -75,25 +77,25 @@ struct ClassesView: View {
                         if classInfoManager.classInfo.isEmpty{
                             Text("No Classes")
                         }
-                        ForEach(classInfoManager.classInfo, id: \.self){ classroom in
+                        ForEach(classInfoManager.classInfo){ classroom in
+                        
                             
-                            
-                            ClassTabView(name: classroom.title, mainManager: classroom.code, banner: classInfoManager.classImages[classroom.title])
-                                .onTapGesture {
-                                    settingsManager.tab = 4
-                                    //                    tabNum = 4
-                                    print("tap")
-                                    currentView = .classroomView
-                                    settingsManager.title = classroom.title
-                                    
-                                }
+                            ClassTabView(name: classroom.title,
+                                         mainManager: classroom.code,
+                                         banner: classInfoManager.classImages[classroom.title],
+                                         pfp: classInfoManager.classPfp[classroom.title],
+                                         refreshed: $done)
+                                .animation(.spring(duration: 1))
+//                                .onTapGesture {
+//                                    settingsManager.tab = 4
+//                                    print("tap")
+//                                    currentView = .classroomView
+//                                    settingsManager.title = classroom.title
+//                                    
+//                                }
                             
                         }
-                        //                        ClassTabView(name: "Verlyn's Class", mainManager: "Verlyn", tabNum: $settingsManager.tab)
-                        //                        ClassTabView(name: "Parker's Class", mainManager: "Parker", tabNum: $settingsManager.tab)
-                        //                        ClassTabView(name: "Arav's Class", mainManager: "Arav", tabNum: $settingsManager.tab)
-                        //                        ClassTabView(name: "Jonathan's Class", mainManager: "Jonathan", tabNum: $settingsManager.tab)
-                        //                        ClassTabView(name: "Khoa's Class", mainManager: "Khoa", tabNum: $settingsManager.tab)
+                        
                         
                     }.padding(.bottom, 1)
                     
@@ -151,6 +153,7 @@ struct ClassesView: View {
                     
                 }
             }
+            
             .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
         }//end of else
             
@@ -170,16 +173,33 @@ struct ClassesView: View {
                         if !classInfoManager.classInfo.contains(classroom){
                             classInfoManager.classInfo.append(classroom)
                             
-                            downloadImageFromStorage(uid: authUID, fileName: "\(classroom.title).jpg", completion: { image in
+                            downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg", completion: { image in
                                  classInfoManager.classImages[classroom.title] = image
                             })
+                            
+                            print("\n looking for Pfp\(classroom.owner).jpg \n")
+                            
+                            
+                            downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") {
+                                    
+                                    image in
+                                    if let image = image{
+                                        print("found \(code)")
+                                        classInfoManager.classPfp[classroom.title] = image
+                                    }else{
+                                        print("no pfp for class with code \(code) and name \(classroom.title)")
+                                    }
+                                }
+                                
+                            
+                            
                             
                         }
                         
                     }
 
                     classInfoManager.classInfo.sort { $0.title < $1.title }
-//                    classInfoManager.classImages = classInfoManager.classImages.keys.sorted()
+
                 }
             }
         completion(true)
