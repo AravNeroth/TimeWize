@@ -26,6 +26,7 @@
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB002B25346D00D93A40 /* BottomBarView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
+		EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB75C7992B7C0F9B00DC615D /* TaskView.swift */; };
 		EB78CFE72B23A8D4007E0C20 /* ClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */; };
 		EB78CFE92B23A95A007E0C20 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78CFE82B23A95A007E0C20 /* TopBarView.swift */; };
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
@@ -76,6 +77,7 @@
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB70EB002B25346D00D93A40 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		EB75C7992B7C0F9B00DC615D /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTabView.swift; sourceTree = "<group>"; };
 		EB78CFE82B23A95A007E0C20 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				EB78CFE82B23A95A007E0C20 /* TopBarView.swift */,
 				06F54A302B727F0500FD6069 /* bottomPicks.swift */,
 				06F54A322B72808900FD6069 /* LoadingScreen.swift */,
+				EB75C7992B7C0F9B00DC615D /* TaskView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				EB78CFE92B23A95A007E0C20 /* TopBarView.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
 				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,
+				EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */,
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
 				EB70EB012B25346D00D93A40 /* BottomBarView.swift in Sources */,
 				EE5C23FF2B7424AF00D4DCBC /* ManagerClassView.swift in Sources */,
