@@ -69,9 +69,9 @@ struct ClassesView: View {
         }else{
             NavigationStack{
                 VStack(spacing: 0) {
-                    Rectangle()
-                        .foregroundColor((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
-                        .frame(width: 400, height: 50)
+//                    Rectangle()
+//                        .foregroundColor((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
+//                        .frame(width: 400, height: 50)
                     
                     ScrollView {
                         if classInfoManager.classInfo.isEmpty{
@@ -97,7 +97,7 @@ struct ClassesView: View {
                         }
                         
                         
-                    }.padding(.bottom, 1)
+                    }.padding(.bottom, 7).padding(.top, 7)
                     
                     
                         .alert("Class Code", isPresented: $showJoin) {
@@ -141,7 +141,7 @@ struct ClassesView: View {
                         alertMessage = "Enter a class Code"
                     }label: {
                     
-                        Image(systemName: "plus")
+                        Image(systemName: "plus").foregroundStyle(.green5)
                     
                         
                     }
