@@ -22,6 +22,7 @@ struct AuthView: View {
     @State private var currentView: Views = .LoginView
     @State private var tabSelection = 2
     @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var classInfoManager: ClassInfoManager
     @AppStorage("authuid") var authUID = ""
     @State private var isLoaded = false
     var body: some View {
@@ -66,6 +67,7 @@ struct AuthView: View {
                 if isLoggedIn() {
                     currentView = .StudentView
                 } else {
+                    clearAppStorageAndObjects()
                     currentView = .LoginView
                 }
             }
@@ -89,6 +91,26 @@ struct AuthView: View {
                     }
                 }
         }
+        
+    }
+    
+    private func clearAppStorageAndObjects(){
+        //not including the darkmode
+        settingsManager.pfp = UIImage()
+        settingsManager.perfHourRange = 20
+        settingsManager.classes = []
+        settingsManager.inClass = false
+        classInfoManager.classInfo = []
+        classInfoManager.classImages = [:]
+        classInfoManager.classPfp = [:]
+        @AppStorage("name") var name = ""
+        name = ""
+        @AppStorage("hours") var hours = 0
+        hours = 0
+        @AppStorage("authuid") var authID = ""
+        authID = ""
+        @AppStorage("uid") var userID = ""
+        userID = ""
         
     }
     private func loadData(completion: @escaping (Result<Void, Error>)-> Void){

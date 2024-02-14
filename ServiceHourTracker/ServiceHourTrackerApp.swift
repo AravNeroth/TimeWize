@@ -28,7 +28,8 @@ struct ServiceHourTrackerApp: App {
         WindowGroup {
             
                 AuthView()
-                    .environmentObject(settingsManager).preferredColorScheme(settingsManager.isDarkModeEnabled ? .dark : .light)
+                    .environmentObject(settingsManager)
+                    .preferredColorScheme(settingsManager.isDarkModeEnabled ? .dark : .light)
                     .environmentObject(userData)
                     .environmentObject(classData)
                     .environmentObject(classInfoManager)

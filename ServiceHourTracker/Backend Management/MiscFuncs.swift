@@ -23,3 +23,5 @@ func countDown(time: Double, variable: Binding<Bool>){
         variable.wrappedValue = false
     }
 }
+
+

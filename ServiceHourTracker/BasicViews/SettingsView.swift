@@ -148,6 +148,23 @@ struct SettingsView:View {
                     
                     Stepper("Max Hours", value: $settingsManager.perfHourRange, in: 0...100, step: 2)
                 
+                    Button{
+                        setClassHours(email: userID, type: "Math", hours: 2)
+                    }label:{
+                        Text("testing DB")
+                    }
+                    Button{
+                        getClassHours(email: userID, type: "Math") { dict in
+                            if let dict = dict{
+                                print(dict.first as Any )
+                                print(dict["Math"]!)
+                            }
+                        }
+                    }label:{
+                        Text("testing DB 2")
+                    }
+                    
+                    //random sections
                     ForEach(0..<testData.count){num in
                         Text("\(testData[num])")
                     }

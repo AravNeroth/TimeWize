@@ -28,14 +28,16 @@ struct User: Codable {
     var classes: [String]? = [] //a list of user owned/created classes
     var hours: Float? = 0
     var codes: [String]? = [] // a list of classes participating in
+    var classHours: [String:Int]? = [:]
     
-    init(uid: String, email: String, displayName: String? = nil, classes: [String]? = ["6a9A01"], hours: Float? = 0, codes: [String]? = [""]) {
+    init(uid: String, email: String, displayName: String? = nil, classes: [String]? = [], hours: Float? = 0, codes: [String]? = [""], classHours: [String:Int]? = [:]) {
         self.uid = uid
         self.email = email
         self.displayName = displayName
         self.classes = classes
         self.hours = hours
         self.codes = codes
+        self.classHours = classHours
     }
     
     init() {
@@ -275,4 +277,31 @@ func getAuthIDForEmail(email: String) -> String{
         }
     }
     return output
+}
+
+//returns the dictionary of classType:Hour pair
+func getClassHours(email: String, type: String, completion: @escaping ([String:Int]?) -> Void) {
+    
+    let docRef = db.collection("userInfo").document(email)
+    
+    docRef.getDocument { doc, error in
+        if let error = error{
+            print("error fetching class hours")
+        }else{
+            if let document = doc {
+                let map = document.data()
+                let hours = map?["classHours"] as? [String:Int] ?? [:]
+                completion(hours)
+            }
+            
+        }
+    }
+    
+}
+
+//sets/updates the dict of classType:hour pair by changing value of hour for the type field
+func setClassHours(email:String, type: String, hours: Int){
+    let docRef = db.collection("userInfo").document(email)
+    
+    docRef.updateData(["classHours" : [type:hours]])
 }
