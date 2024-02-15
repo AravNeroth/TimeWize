@@ -176,6 +176,52 @@ struct SettingsView:View {
                     }label:{
                         Text("testing DB 4")
                     }
+                    Button{
+                       getRequest(classCode: "6694rI") { arrayOfMap in
+                           if !arrayOfMap.isEmpty{
+                               print("\n")
+                               print(arrayOfMap)
+                               print(arrayOfMap.first!["email"])
+                               print("\n")
+                           }
+                       }
+                   }label:{
+                       Text("testing DB 5")
+                   }
+                    
+                    Button{
+                       addTask(classCode: "6i092y", title: "presentations", date: Date())
+                   }label:{
+                       Text("testing DB 6")
+                   }
+                    
+                    Button{
+                        getTasks(classCode: "6i092y") { tasks in
+                            
+                        
+                           if !tasks.isEmpty{
+                               print("\n")
+                               print(tasks)
+                               print(tasks.first!["people"])
+                               print("\n")
+                           }
+                       }
+                   }label:{
+                       Text("testing DB 7")
+                   }
+                    
+                    Button{
+                       updateTaskParticipants(classCode: "6i092y", title: "presentations", listOfPeople: ["jonathan.cs@gmail.com","parker.cs@gmail.com"])
+                   }label:{
+                       Text("testing DB 8")
+                   }
+                    Button{
+                        getTaskParticipants(classCode: "6i092y", title: "presentations") { peopleList in
+                            print(peopleList)
+                        }
+                   }label:{
+                       Text("testing DB 9")
+                   }
                     
                     Button{
                         addRequest(classCode: "56PG88", email: userID, hours: 7, type: "Robotics", description: "Brian the Robot")
@@ -189,18 +235,7 @@ struct SettingsView:View {
                         Text("hourhunter yearbook")
                     }
                     
-                    Button{
-                        getRequest(classCode: "6694rI") { arrayOfMap in
-                            if !arrayOfMap.isEmpty{
-                                print("\n")
-                                print(arrayOfMap)
-                                print(arrayOfMap.first!["email"])
-                                print("\n")
-                            }
-                        }
-                    }label:{
-                        Text("testing DB 5")
-                    }
+                   
                     
                     //random sections
                     ForEach(0..<testData.count){num in

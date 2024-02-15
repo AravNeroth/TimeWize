@@ -168,8 +168,8 @@ func getRequest(classCode: String, completion: @escaping ([[String:String]]) -> 
             print(error.localizedDescription)
             completion([])
         }else{
-            var com:[[String:String]] = []
-            var output: [String:String] = [:]
+            var com:[[String:String]] = []//completion output
+            var output: [String:String] = [:]//temp for each document
             if let docs = docs{
                 for document in docs.documents {
                     
@@ -191,4 +191,75 @@ func getRequest(classCode: String, completion: @escaping ([[String:String]]) -> 
     }
     
     
+}
+
+
+func addTask(classCode: String, title: String, date: Date, listOfPeople: [String]? = []){
+   
+    let dateFormated = date.formatted(date: .numeric, time: .omitted) //the date is numeric but it omits the time stamp ex: 2/15/2024
+    db.collection("classes").document(classCode).collection("tasks").document(classCode + title)
+        .setData(
+            ["title": title, "date":dateFormated,"people":listOfPeople ?? []]
+        )
+                                                                                    
+                                                                                    
+    
+    
+}
+
+func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Void){
+    
+    db.collection("classes").document(classCode).collection("tasks").getDocuments { docs, error in
+        if let error = error{
+            print(error.localizedDescription)
+            completion([])
+        }else{
+            var com:[[String:String]] = [] //completion output
+            var output: [String:String] = [:] //temp for each document
+            if let docs = docs{
+                for document in docs.documents {
+                    
+                    let data = document.data()
+                    output["title"] = data["title"] as? String ?? ""
+                    output["date"] = data["date"] as? String ?? ""
+                    
+                    if let peopleList = data["people"] as? [String]{
+                        output["people"] = "\(peopleList.count)"
+                    }
+                    
+                   
+                
+                    com.append(output)
+                    output = [:]
+                }
+                completion(com)
+            }else{
+                completion([])
+            }
+        }
+        
+    }
+    
+    
+}
+
+//to cancel signup/unregister from task:
+//simpliy get the people from getTaskParticipants
+//and find the index of your email,
+//update using this function and listOfPeople is the new list with you removed
+func updateTaskParticipants(classCode:String, title: String, listOfPeople: [String]){
+    db.collection("classes").document(classCode).collection("tasks").document(classCode + title).updateData(["people" : listOfPeople])
+}
+
+func getTaskParticipants(classCode:String, title:String, completion: @escaping([String])->Void){
+    db.collection("classes").document(classCode).collection("tasks").document(classCode + title).getDocument { doc, error in
+        if let error = error{
+            print(error.localizedDescription)
+        }else{
+            if let doc = doc{
+                completion(doc["people"] as? [String] ?? [])
+            }
+     
+        }
+    }
 }
