@@ -36,7 +36,9 @@ struct TaskView: View {
                 
                 HStack {
                     Text("\(currPpl)/\(totalPpl)")
+                        .bold()
                     Image(systemName: "person.2")
+                        .bold()
                 }
                 .padding(.leading, 275.0)
                 .padding(.top, 5.0)
