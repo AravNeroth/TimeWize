@@ -26,6 +26,7 @@ struct SettingsView:View {
     @AppStorage("hours") var hoursEarned = 0
     @EnvironmentObject var settingsManager: SettingsManager
     @State var updated = false
+    // Dark mode needs to be AppStorage !
     @State private var isDarkMode = false
     @AppStorage("authuid") private var authID = ""
     @State private var newPfp = UIImage(systemName: "person")
@@ -177,6 +178,18 @@ struct SettingsView:View {
                     }
                     
                     Button{
+                        addRequest(classCode: "56PG88", email: userID, hours: 7, type: "Robotics", description: "Brian the Robot")
+                    }label:{
+                        Text("hourhunter robotics")
+                    }
+                    
+                    Button{
+                        addRequest(classCode: "41K78c", email: userID, hours: 4, type: "Yearbook", description: "Quill & Scroll")
+                    }label:{
+                        Text("hourhunter yearbook")
+                    }
+                    
+                    Button{
                         getRequest(classCode: "6694rI") { arrayOfMap in
                             if !arrayOfMap.isEmpty{
                                 print("\n")
@@ -195,7 +208,9 @@ struct SettingsView:View {
                     }
                     
                 }
-            }.onAppear{
+            }
+        
+            .onAppear{
                 if(userID == ""){
                     getData(uid: "\(userData.currentUser.email)") { currUser in
                         name = currUser!.displayName!
