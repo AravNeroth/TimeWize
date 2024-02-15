@@ -164,6 +164,31 @@ struct SettingsView:View {
                         Text("testing DB 2")
                     }
                     
+                    Button{
+                        addRequest(classCode: "6i092y", email: "jonathan.cs@gmail.com", hours: 2, type: "Math", description: "UIL Math")
+                    }label:{
+                        Text("testing DB 3")
+                    }
+                    
+                    Button{
+                        addRequest(classCode: "6694rI", email: "jonathan.cs@gmail.com", hours: 3, type: "Math", description: "UIL Math")
+                    }label:{
+                        Text("testing DB 4")
+                    }
+                    
+                    Button{
+                        getRequest(classCode: "6694rI") { arrayOfMap in
+                            if !arrayOfMap.isEmpty{
+                                print("\n")
+                                print(arrayOfMap)
+                                print(arrayOfMap.first!["email"])
+                                print("\n")
+                            }
+                        }
+                    }label:{
+                        Text("testing DB 5")
+                    }
+                    
                     //random sections
                     ForEach(0..<testData.count){num in
                         Text("\(testData[num])")

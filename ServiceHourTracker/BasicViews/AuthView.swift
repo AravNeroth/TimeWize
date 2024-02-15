@@ -68,6 +68,7 @@ struct AuthView: View {
                     currentView = .StudentView
                 } else {
                     clearAppStorageAndObjects()
+                    isLoaded = false
                     currentView = .LoginView
                 }
             }
@@ -114,24 +115,15 @@ struct AuthView: View {
         
     }
     private func loadData(completion: @escaping (Result<Void, Error>)-> Void){
-        if userID == "" || authUID == ""{
-            //needs to go to AuthView but done
-            completion(.success(()))
-        }else{
-            
-            //the pfp
-           
+        
             downloadImageFromUserStorage(id: "\(authUID)", file: "Pfp\(authUID).jpg", completion: { image in
                 if let image = image{
                     settingsManager.pfp = image
                 }
             })
             
-            
-            //if nothing bad happened:
             completion(.success(()))
-            
-        }
+        
     }
     private func isLoggedIn() -> Bool {
         if userID == ""{

@@ -24,7 +24,8 @@ class ClassData: ObservableObject{
 
 
 struct Classroom: Codable, Hashable, Identifiable{
-
+//    var requestInfo: [String] = []
+//    var requests: [String:[String]] = [:]
     let code: String
     let title: String
     let owner: String
@@ -41,6 +42,7 @@ func storeClassInfoInFirestore(org: Classroom) {
     
     do {
         try db.collection("classes").document(org.code).setData(from: org)
+        
     } catch {
         print("error storing new class")
     }
@@ -119,6 +121,7 @@ func createClassCode() -> String{
            randomString.append(randomNumber)
        }
        
+    
        // Shuffle the string to randomize the order
        randomString = String(randomString.shuffled())
        
@@ -132,7 +135,7 @@ func createClassCode() -> String{
 
 func isCodeUsedInCollection(code: String, collectionName: String, completion: @escaping (Bool) -> Void) {
     
-    let db = Firestore.firestore()
+//    let db = Firestore.firestore()
     
     let collectionRef = db.collection(collectionName)
     
@@ -148,3 +151,44 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
     }
 }
 
+//use class to get into class, goes to the requests collection or creates a requests collection and adds a document with our data
+func addRequest(classCode: String, email: String, hours: Int, type: String, description: String){
+   
+   
+    db.collection("classes").document(classCode).collection("requests").addDocument(data: ["email": email, "hours":hours,"type":type,"description":description])
+    
+    
+}
+
+//didnt finish thinking through
+func getRequest(classCode: String, completion: @escaping ([[String:String]]) -> Void){
+    
+    db.collection("classes").document(classCode).collection("requests").getDocuments { docs, error in
+        if let error = error{
+            print(error.localizedDescription)
+            completion([])
+        }else{
+            var com:[[String:String]] = []
+            var output: [String:String] = [:]
+            if let docs = docs{
+                for document in docs.documents {
+                    
+                    let data = document.data()
+                    output["email"] = data["email"] as? String ?? ""
+                    output["hours"] = "\(data["hours"] ?? 0)" 
+                    output["type"] = data["type"] as? String ?? ""
+                    output["description"] = data["description"] as? String ?? ""
+                
+                    com.append(output)
+                    output = [:]
+                }
+                completion(com)
+            }else{
+                completion([])
+            }
+        }
+        
+    }
+    
+    
+}
