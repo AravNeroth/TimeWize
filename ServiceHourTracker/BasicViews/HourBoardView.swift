@@ -94,6 +94,7 @@ struct HourBoardView: View {
                                                if let hoursString = request["hours"],
                                                   let hours = Int(hoursString) {
                                                    totalHoursEarned += hours
+                                                   updateHours(uid: userID, newHourCount: Float(totalHoursEarned))
                                                }
                                                
                                                // Store type in className and desc in classDescription
