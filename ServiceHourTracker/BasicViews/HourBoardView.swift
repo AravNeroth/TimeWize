@@ -42,7 +42,7 @@ struct HourBoardView: View {
                     .stroke(Color.gray, lineWidth: 20)
                     .frame(width: 200, height: 200)
                 Circle()
-                    .trim(from: 0, to: animate ? CGFloat(totalHoursEarned) / CGFloat(settingsManager.perfHourRange) : 1)
+                    .trim(from: 0, to: animate ? CGFloat(totalHoursEarned) / CGFloat(goalHours ?? settingsManager.perfHourRange) : 1)
                     .stroke(Color.green, lineWidth: 20)
                     .frame(width: 200, height: 200)
                     .rotationEffect(.degrees(-90))
@@ -74,10 +74,10 @@ struct HourBoardView: View {
             
                    }
         
-                .sheet(isPresented: $isSettingGoal) {
-                    GoalSettingView(goalHours: $goalHours)
-                }
-        
+        .sheet(isPresented: $isSettingGoal) {
+            GoalSettingView(isSettingGoal: $isSettingGoal, goalHours: $goalHours) // Corrected the order
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.5)
+        }
                    .onAppear {
                        // Fetch data from Firestore when the view appears
                        let userDocument = db.collection("userInfo").document(userID)
@@ -121,32 +121,43 @@ struct HourBoardView_Previews: PreviewProvider {
 }
 
 struct GoalSettingView: View {
+    @Binding var isSettingGoal: Bool
     @Binding var goalHours: Int?
+    @FocusState private var isTextFieldFocused: Bool
+
     @State private var enteredGoal: String = ""
-    
+    @State private var tempGoal: Int?
+
     var body: some View {
         VStack {
+            Text("Enter an Hour Goal")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.green))
             TextField("Enter Goal", text: $enteredGoal)
                 .keyboardType(.numberPad)
                 .padding()
+                .focused($isTextFieldFocused)
                 .onAppear {
-                    // Auto select field (this was annoying)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        UIApplication.shared.sendAction(#selector(UIResponder.becomeFirstResponder), to: nil, from: nil, for: nil)
-                    }
+                    isTextFieldFocused = true
                 }
+                .background(Color.green.opacity(0.45))
+                .cornerRadius(15)
             
             Button("Set Goal") {
-                // set goal
                 if let goal = Int(enteredGoal) {
                     goalHours = goal
+                    isSettingGoal = false
                 }
             }
+            .foregroundColor(.white)
             .padding()
-            .background(RoundedRectangle(cornerRadius: 10).fill(Color.green))
+            .background(Color.green)
+            .cornerRadius(15)
             
-            Spacer()
         }
+        
         .padding()
+        
     }
 }
