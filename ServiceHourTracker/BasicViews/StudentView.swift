@@ -12,6 +12,7 @@ enum view{
     case SettingsView
     case ClassesView
     case classroomView
+    case ManagerTestClass
 }
 
 var currentView: view = .ClassesView
@@ -52,28 +53,10 @@ struct StudentView: View {
                 }
             case .classroomView:
                 
-                classroomView().navigationBarTitleDisplayMode(.inline).navigationTitle(settingsManager.title).toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button{
-                            settingsManager.tab = 2
-                        }label: {
-                            Image(systemName: "chevron.left").foregroundStyle(.blue)
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button{
-                            
-                        }label: {
-                            Image(systemName: "plus")
-                        }
-                    }
-                    
-//                    ToolbarItem(placement: .bottomBar) {
-//                        
-//                        bottomPicks(selection: $tabSelection)
-//                        
-//                    }
-                }
+                classroomView().navigationBarTitleDisplayMode(.inline).navigationTitle(settingsManager.title)
+                
+            case .ManagerTestClass:
+                           ManagerTestClass()
             }
                    
                 
@@ -84,6 +67,7 @@ struct StudentView: View {
             case 2: settingsManager.title = "Classes"; currentView = .ClassesView
             case 3: settingsManager.title = "Settings"; currentView = .SettingsView
             case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .classroomView
+            case 5: settingsManager.title = "ManagerTest"; currentView = .ManagerTestClass
             default:
                 settingsManager.title = ""
             }
