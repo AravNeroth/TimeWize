@@ -9,10 +9,10 @@ import SwiftUI
 
 struct TaskView: View {
     
-    var title: String = "Test Title"
-    var date: String = "01/01/1999"
-    var totalPpl: Int = 0
-    var currPpl: Int = 0
+    @State var title: String = "Test Title"
+    @State var date: String = "01/01/1999"
+    @State var totalPpl: Int = 0
+    @State var currPpl: Int = 0
     @State var isSignedUp: Bool = false
     
     var body: some View {
@@ -40,6 +40,13 @@ struct TaskView: View {
                     
                     Button(action: {
                         isSignedUp.toggle()
+                        
+                        if isSignedUp {
+                            currPpl += 1
+                        } else {
+                            currPpl -= 1
+                        }
+                        
                     }) {
                         if isSignedUp {
                             ZStack {
