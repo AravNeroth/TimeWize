@@ -23,7 +23,7 @@ struct TaskView: View {
             VStack {
                 HStack {
                     Text(title)
-                        .font(.largeTitle)
+                        .font(.title3)
                         .bold()
                         .padding(.horizontal, 30)
                     Spacer()

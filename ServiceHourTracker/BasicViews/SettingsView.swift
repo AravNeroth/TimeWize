@@ -185,28 +185,29 @@ struct SettingsView:View {
                                print("\n")
                            }
                        }
-                   }label:{
+                   } label: {
                        Text("testing DB 5")
                    }
                     
                     Button{
-                       addTask(classCode: "6i092y", title: "presentations", date: Date())
-                   }label:{
+                        addTask(classCode: "6i092y", title: "presentations", date: Date())
+                        addTask(classCode: "6i092y", title: "test", date: Date())
+                        addTask(classCode: "6i092y", title: "test2", date: Date())
+                        print("hit button 6")
+                   } label: {
                        Text("testing DB 6")
                    }
                     
                     Button{
                         getTasks(classCode: "6i092y") { tasks in
-                            
-                        
-                           if !tasks.isEmpty{
+                           if !tasks.isEmpty {
                                print("\n")
                                print(tasks)
                                print(tasks.first!["people"])
                                print("\n")
                            }
                        }
-                   }label:{
+                   } label: {
                        Text("testing DB 7")
                    }
                     

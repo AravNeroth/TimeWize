@@ -15,6 +15,7 @@ struct classroomView: View {
     
     
     @State var showReqHours = false
+    @State var tasks: [[String: String]] = []
 //    @State var taskTitle = ""
 //    @State var enteredCode = ""
 //    @State var taskDisc = ""
@@ -44,14 +45,40 @@ struct classroomView: View {
             VStack{
                 ScrollView{
                     if let image = classInfoManager.classImages[settingsManager.title]{
-                        Image(uiImage: image).resizable().scaledToFill().frame(width: 500, height: 200).padding()
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20.0)
+                                .frame(width: 375, height: 200)
+                            
+                            Image(uiImage: image).scaledToFill().frame(width: 375, height: 200)
+                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                        }
                     }
-                    Text("\(settingsManager.title)").padding()
+                    
+                    Divider()
+                        .frame(width: 375)
+                        .padding(6)
+                    
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20.0)
+                            .frame(width: 375, height: 75)
+                            .foregroundStyle(.green1)
+                        Text("\(settingsManager.title) Tasks")
+                            .font(.title)
+                            .bold()
+                            .padding()
+                    }
                     Spacer()
-                    Button{
+                    
+                    /*Button{
                         showIMGPicker = true
                     }label:{
                         Text("change the image").padding().clipShape(.capsule).cornerRadius(50).background(.blue).foregroundStyle(.white).padding()
+                    }*/
+                    
+                    ForEach(tasks, id:\.self) { task in
+                        
+                        TaskView(title: "\(task["title"]!)", date: "\(task["date"]!)", currPpl: task["people"]!.count)
                     }
                 }
                 if showReqHours {
@@ -90,12 +117,15 @@ struct classroomView: View {
 //
                 }
             }
-            .onDisappear(){
+            .onDisappear() {
                 if let image = classImage {
                     _ = saveImageToDocumentsDirectory(image: image, fileName: "\(settingsManager.title).jpg")
                 }
+            }.onAppear() {
+                getTasks(classCode: classData.code) { newTasks in
+                    tasks = newTasks
+                }
             }
-            
         }
     }
 }
