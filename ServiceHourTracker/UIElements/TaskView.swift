@@ -13,6 +13,7 @@ struct TaskView: View {
     var date: String = "01/01/1999"
     var totalPpl: Int = 0
     var currPpl: Int = 0
+    @State var isSignedUp: Bool = false
     
     var body: some View {
         ZStack {
@@ -35,15 +36,42 @@ struct TaskView: View {
                     .frame(width: 375)
                 
                 HStack {
-                    Text("\(currPpl)/\(totalPpl)")
-                        .bold()
-                    Image(systemName: "person.2")
-                        .bold()
-                }
-                .padding(.leading, 275.0)
-                .padding(.top, 5.0)
-                
+                    Spacer()
                     
+                    Button(action: {
+                        isSignedUp.toggle()
+                    }) {
+                        if isSignedUp {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 7.5)
+                                    .foregroundStyle(.red)
+                                    .frame(width: 100, height: 25)
+                                Text("Quit")
+                                    .foregroundStyle(.black)
+                            }
+                        } else {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 7.5)
+                                    .foregroundStyle(.green)
+                                    .frame(width: 100, height: 25)
+                                Text("Sign Up")
+                                    .foregroundStyle(.black)
+                            }
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    HStack {
+                        Text("\(currPpl)/\(totalPpl)")
+                            .bold()
+                        Image(systemName: "person.2")
+                            .bold()
+                    }
+                    
+                    Spacer()
+                }
+                .padding(5.0)
             }
         }
     }
