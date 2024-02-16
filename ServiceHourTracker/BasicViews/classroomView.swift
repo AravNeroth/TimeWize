@@ -76,8 +76,12 @@ struct classroomView: View {
                         Text("change the image").padding().clipShape(.capsule).cornerRadius(50).background(.blue).foregroundStyle(.white).padding()
                     }*/
                     
-                    ForEach(tasks, id:\.self) { task in
-                        TaskView(title: "\(task["title"]!)", date: "\(task["date"]!)", currPpl: task["people"]!.count)
+                    if tasks.count != 0 {
+                        ForEach(tasks, id:\.self) { task in
+                            TaskView(title: "\(task["title"]!)", date: "\(task["date"]!)", currPpl: task["people"]!.count)
+                        }
+                    } else {
+                        Text("No Tasks")
                     }
                 }
                 if showReqHours {
