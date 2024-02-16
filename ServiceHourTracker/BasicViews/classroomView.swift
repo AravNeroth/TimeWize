@@ -77,7 +77,6 @@ struct classroomView: View {
                     }*/
                     
                     ForEach(tasks, id:\.self) { task in
-                        
                         TaskView(title: "\(task["title"]!)", date: "\(task["date"]!)", currPpl: task["people"]!.count)
                     }
                 }

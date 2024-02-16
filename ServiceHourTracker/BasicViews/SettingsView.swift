@@ -212,7 +212,9 @@ struct SettingsView:View {
                    }
                     
                     Button{
-                       updateTaskParticipants(classCode: "6i092y", title: "presentations", listOfPeople: ["jonathan.cs@gmail.com","parker.cs@gmail.com"])
+                        updateTaskParticipants(classCode: "6i092y", title: "presentations", listOfPeople: ["jonathan.cs@gmail.com","parker.cs@gmail.com"])
+                        updateTaskParticipants(classCode: "6i092y", title: "test", listOfPeople: ["jonathan.cs@gmail.com"])
+                        updateTaskParticipants(classCode: "6i092y", title: "test2", listOfPeople: ["parker.huang10@k12.leanderisd.org", "jonathan.cs@gmail.com","parker.cs@gmail.com"])
                    }label:{
                        Text("testing DB 8")
                    }
