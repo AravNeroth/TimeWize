@@ -8,7 +8,7 @@ import SwiftUI
 struct ClassTabView: View {
     
     var name: String
-    var mainManager: String
+    var classCode: String
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
@@ -65,7 +65,7 @@ struct ClassTabView: View {
                         print("tap")
                         currentView = .classroomView
                         settingsManager.title = name
-                        classData.code = mainManager
+                        classData.code = classCode
                         
                     }label: {
                         Text(name)
@@ -78,7 +78,7 @@ struct ClassTabView: View {
                         Button{
                             getCodes(uid: userID) { codesList in
                                 if let codesList = codesList{
-                                    unenrollClass(uid: userID, codes: codesList, code: mainManager)
+                                    unenrollClass(uid: userID, codes: codesList, code: classCode)
                                     
                                     refreshed = false
                                 }

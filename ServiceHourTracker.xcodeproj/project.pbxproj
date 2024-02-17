@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C520212B806323008E6286 /* ManagerBottomBar.swift */; };
 		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
 		06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A52B59C92300A7A36D /* TermsAndServices.swift */; };
 		06E576A92B5A29E100A7A36D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A82B5A29E100A7A36D /* String.swift */; };
@@ -28,14 +29,14 @@
 		06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */; };
 		06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3C2B77E77D00FD6069 /* AppObjects.swift */; };
 		06FD082F2B6996D400484FEE /* classroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* classroomView.swift */; };
-		CFE866F02B7E9C4300CFA6FB /* ManagerTestClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE866EF2B7E9C4300CFA6FB /* ManagerTestClass.swift */; };
+		CFE866F02B7E9C4300CFA6FB /* ManagerClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE866EF2B7E9C4300CFA6FB /* ManagerClass.swift */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
 		EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB75C7992B7C0F9B00DC615D /* TaskView.swift */; };
 		EB78CFE72B23A8D4007E0C20 /* ClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */; };
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
 		EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */; };
-		EE5C23FF2B7424AF00D4DCBC /* ManagerClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FC2B7424AE00D4DCBC /* ManagerClassView.swift */; };
+		EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */; };
 		EE5C24002B7424AF00D4DCBC /* ManagerCreateClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FD2B7424AF00D4DCBC /* ManagerCreateClass.swift */; };
 		EE5C24012B7424AF00D4DCBC /* JoinCodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FE2B7424AF00D4DCBC /* JoinCodesView.swift */; };
 		EE5C24032B742AAA00D4DCBC /* ManagerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C24022B742AAA00D4DCBC /* ManagerSettingsView.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06C520212B806323008E6286 /* ManagerBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerBottomBar.swift; sourceTree = "<group>"; };
 		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		06E576A52B59C92300A7A36D /* TermsAndServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServices.swift; sourceTree = "<group>"; };
 		06E576A82B5A29E100A7A36D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -83,14 +85,14 @@
 		06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		06F54A3C2B77E77D00FD6069 /* AppObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppObjects.swift; sourceTree = "<group>"; };
 		06FD082E2B6996D400484FEE /* classroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classroomView.swift; sourceTree = "<group>"; };
-		CFE866EF2B7E9C4300CFA6FB /* ManagerTestClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTestClass.swift; sourceTree = "<group>"; };
+		CFE866EF2B7E9C4300CFA6FB /* ManagerClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerClass.swift; sourceTree = "<group>"; };
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EB75C7992B7C0F9B00DC615D /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTabView.swift; sourceTree = "<group>"; };
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
 		EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		EE5C23FC2B7424AE00D4DCBC /* ManagerClassView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerClassView.swift; sourceTree = "<group>"; };
+		EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
 		EE5C23FD2B7424AF00D4DCBC /* ManagerCreateClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerCreateClass.swift; sourceTree = "<group>"; };
 		EE5C23FE2B7424AF00D4DCBC /* JoinCodesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinCodesView.swift; sourceTree = "<group>"; };
 		EE5C24022B742AAA00D4DCBC /* ManagerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerSettingsView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			children = (
 				EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */,
 				06F54A302B727F0500FD6069 /* bottomPicks.swift */,
+				06C520212B806323008E6286 /* ManagerBottomBar.swift */,
 				06F54A322B72808900FD6069 /* LoadingScreen.swift */,
 				EB75C7992B7C0F9B00DC615D /* TaskView.swift */,
 			);
@@ -176,10 +179,10 @@
 			children = (
 				06E576B92B5F0B1C00A7A36D /* ManagerMode.swift */,
 				EE5C23FE2B7424AF00D4DCBC /* JoinCodesView.swift */,
-				EE5C23FC2B7424AE00D4DCBC /* ManagerClassView.swift */,
+				EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */,
 				EE5C23FD2B7424AF00D4DCBC /* ManagerCreateClass.swift */,
 				EE5C24022B742AAA00D4DCBC /* ManagerSettingsView.swift */,
-				CFE866EF2B7E9C4300CFA6FB /* ManagerTestClass.swift */,
+				CFE866EF2B7E9C4300CFA6FB /* ManagerClass.swift */,
 			);
 			path = "Manager Views";
 			sourceTree = "<group>";
@@ -408,15 +411,16 @@
 				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,
 				EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */,
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
-				EE5C23FF2B7424AF00D4DCBC /* ManagerClassView.swift in Sources */,
+				EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */,
 				06F54A392B773CCB00FD6069 /* MiscFuncs.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
 				06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */,
 				06E576A92B5A29E100A7A36D /* String.swift in Sources */,
 				06F54A352B773A7300FD6069 /* allExtensions.swift in Sources */,
-				CFE866F02B7E9C4300CFA6FB /* ManagerTestClass.swift in Sources */,
+				CFE866F02B7E9C4300CFA6FB /* ManagerClass.swift in Sources */,
 				06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */,
 				EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */,
+				06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */,
 				06E576BA2B5F0B1C00A7A36D /* ManagerMode.swift in Sources */,
 				EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */,
 				EE5C24012B7424AF00D4DCBC /* JoinCodesView.swift in Sources */,

@@ -81,7 +81,7 @@ struct ClassesView: View {
                         
                             
                             ClassTabView(name: classroom.title,
-                                         mainManager: classroom.code,
+                                         classCode: classroom.code,
                                          banner: classInfoManager.classImages[classroom.title],
                                          pfp: classInfoManager.classPfp[classroom.title],
                                          refreshed: $done)

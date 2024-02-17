@@ -8,10 +8,10 @@
 import Foundation
 import SwiftUI
 
-struct ManagerTestClass: View{
+struct ManagerClass: View{
     var body: some View{
         VStack{
-            
+            Text("manager class")
         }
     }
 }

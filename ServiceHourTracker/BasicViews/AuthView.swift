@@ -12,7 +12,8 @@ enum Views {
     case LoginView
     case StudentView
     case ClassMode
-    //case ManagerViews
+    case ManagerView
+    case ManagerClass
 }
 
 
@@ -44,12 +45,21 @@ struct AuthView: View {
                         }
                        
                     }
+                case .ManagerView:
+                    ManagerView()
+                        
+                case .ManagerClass:
+                    ManagerClass()
                 }
             }
             .onAppear {
                 
                 if isLoggedIn() {
-                    currentView = .StudentView
+                    if(settingsManager.isManagerMode){
+                        currentView = .ManagerView
+                    }else{
+                        currentView = .StudentView
+                    }
                 } else {
                     currentView = .LoginView
                 }
@@ -70,6 +80,15 @@ struct AuthView: View {
                     currentView = .ClassMode
                 }else{
                     currentView = .StudentView
+                }
+            }
+            .onChange(of: settingsManager.isManagerMode) { oldValue, newValue in
+                if newValue == false{
+                    //student mode
+                    currentView = .StudentView
+                }else{
+                    //manager mode
+                    currentView = .ManagerView
                 }
             }
         }else{

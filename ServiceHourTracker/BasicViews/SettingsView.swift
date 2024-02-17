@@ -26,17 +26,14 @@ struct SettingsView:View {
     @AppStorage("hours") var hoursEarned = 0
     @EnvironmentObject var settingsManager: SettingsManager
     @State var updated = false
-    // Dark mode needs to be AppStorage !
-    @State private var isDarkMode = false
+
     @AppStorage("authuid") private var authID = ""
     @State private var newPfp = UIImage(systemName: "person")
     @State private var changePfp = false
     @State private var managerIndex = 0
     var body: some View {
         NavigationStack{
-//            Rectangle()
-//                .foregroundColor(Color("green-8"))
-//                .frame(width: 400, height: 50)
+
             
             Form{
                 
@@ -257,7 +254,7 @@ struct SettingsView:View {
                         NavigationLink(destination: JoinCodesView() ) {
                             Text("ClassJoining")
                         }
-                        NavigationLink(destination: ManagerClassView() ) {
+                        NavigationLink(destination: ManagerView() ) {
                             Text("Class View")
                         }
                         NavigationLink(destination: ManagerCreateClassView() ) {
@@ -267,7 +264,7 @@ struct SettingsView:View {
                             Text("settings")
                             //needs to use same settings
                         }
-                        NavigationLink(destination: ManagerTestClass() ) {
+                        NavigationLink(destination: ManagerClass() ) {
                             Text("test class")
                         }
                     }label:{
@@ -303,6 +300,7 @@ struct SettingsView:View {
                     
                     
                 }
+                print(settingsManager.isManagerMode)
                 managerIndex = settingsManager.isManagerMode ? 1 : 0
             }.onChange(of: updated) { oldValue, newValue in
                 if(newName != ""){
@@ -350,7 +348,7 @@ struct SettingsView:View {
         }
         .fullScreenCover(isPresented: $changePfp){
             ImagePicker(image: $newPfp)
-//                .frame(maxHeight: UIScreen.main.bounds.height)
+
                 .ignoresSafeArea(edges: .bottom)
 
         }
@@ -364,7 +362,7 @@ struct SettingsView:View {
             
         })
         
-        .preferredColorScheme(isDarkMode ? .dark : .light)
+
     }
     
 }
