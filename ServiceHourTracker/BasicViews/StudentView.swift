@@ -53,7 +53,7 @@ struct StudentView: View {
                 }
             case .classroomView:
                 
-                classroomView().navigationBarTitleDisplayMode(.inline).navigationTitle(settingsManager.title)
+                ClassroomView().navigationBarTitleDisplayMode(.inline).navigationTitle(settingsManager.title)
                 
             case .ManagerTestClass:
                            ManagerClass()

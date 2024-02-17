@@ -9,12 +9,15 @@ import SwiftUI
 
 struct TaskView: View {
     
+    @State var classCode: String = ""
     @State var title: String = "Test Title"
     @State var date: String = "01/01/1999"
     @State var totalPpl: Int = 0
     @State var currPpl: Int = 0
     @State var isSignedUp: Bool = false
     @State var showingAlert: Bool = false
+    @State var participants: [String] = []
+    @AppStorage("uid") var userID: String = ""
     
     var body: some View {
         ZStack {
@@ -57,8 +60,12 @@ struct TaskView: View {
                             isSignedUp.toggle()
                         
                             if isSignedUp {
+                                participants.append(userID)
+                                updateTaskParticipants(classCode: classCode, title: title, listOfPeople: participants)
                                 currPpl += 1
                             } else {
+                                participants.remove(at: participants.firstIndex(of: userID)!)
+                                updateTaskParticipants(classCode: classCode, title: title, listOfPeople: participants)
                                 currPpl -= 1
                             }
                         
@@ -95,6 +102,17 @@ struct TaskView: View {
                     Spacer()
                 }
                 .padding(5.0)
+            }
+        }
+        .onAppear() {
+            getTaskParticipants(classCode: classCode, title: title) { peopleList in
+                participants = peopleList
+                currPpl = participants.count
+                if participants.firstIndex(of: userID) == nil {
+                    isSignedUp = false
+                } else {
+                    isSignedUp = true
+                }
             }
         }
     }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct classroomView: View {
+struct ClassroomView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
@@ -78,7 +78,7 @@ struct classroomView: View {
                     
                     if tasks.count != 0 {
                         ForEach(tasks, id:\.self) { task in
-                            TaskView(title: "\(task["title"]!)", date: "\(task["date"]!)", totalPpl: Int(task["size"]!) ?? 0, currPpl: Int(task["people"]!) ?? 0)
+                            TaskView(classCode: classData.code, title: "\(task["title"]!)", date: "\(task["date"]!)", totalPpl: Int(task["size"]!) ?? 0)
                         }
                     } else {
                         Text("No Tasks")
@@ -192,5 +192,5 @@ struct Popup: View {
 
 
 #Preview {
-    classroomView()
+    ClassroomView()
 }
