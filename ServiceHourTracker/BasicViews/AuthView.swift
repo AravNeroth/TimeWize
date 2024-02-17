@@ -42,15 +42,7 @@ struct AuthView: View {
                         ToolbarItem(placement: .topBarLeading) {
                             Image(systemName: "plus")
                         }
-                        //                    ToolbarItem(placement: .topBarLeading) {
-                        //                        Button{
-                        //
-                        //                        }label: {
-                        //                            Image(systemName: "chevron.left")
-                        //                            .font(.title)
-                        //                            .foregroundColor(.blue)
-                        //                        }
-                        //                    }
+                       
                     }
                 }
             }
@@ -66,6 +58,7 @@ struct AuthView: View {
             }.onChange(of: userID) { oldValue, newValue in
                 if isLoggedIn() {
                     currentView = .StudentView
+                    loadData()
                 } else {
                     clearAppStorageAndObjects()
                     isLoaded = false
@@ -114,15 +107,16 @@ struct AuthView: View {
         userID = ""
         
     }
-    private func loadData(completion: @escaping (Result<Void, Error>)-> Void){
+    private func loadData(completion: ((Result<Void, Error>)-> Void)? = nil){
         
             downloadImageFromUserStorage(id: "\(authUID)", file: "Pfp\(authUID).jpg", completion: { image in
                 if let image = image{
                     settingsManager.pfp = image
                 }
             })
-            
+        if let completion = completion{
             completion(.success(()))
+        }
         
     }
     private func isLoggedIn() -> Bool {

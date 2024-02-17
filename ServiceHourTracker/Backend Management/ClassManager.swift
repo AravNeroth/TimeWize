@@ -175,10 +175,10 @@ func getRequest(classCode: String, completion: @escaping ([[String:String]]) -> 
                     
                     let data = document.data()
                     output["email"] = data["email"] as? String ?? ""
-                    output["hours"] = "\(data["hours"] ?? 0)" 
+                    output["hours"] = "\(data["hours"] ?? 0)"
                     output["type"] = data["type"] as? String ?? ""
                     output["description"] = data["description"] as? String ?? ""
-                
+                    output["ID"] = document.documentID
                     com.append(output)
                     output = [:]
                 }
@@ -194,12 +194,12 @@ func getRequest(classCode: String, completion: @escaping ([[String:String]]) -> 
 }
 
 
-func addTask(classCode: String, title: String, date: Date, listOfPeople: [String]? = []){
+func addTask(classCode: String, title: String, date: Date, maxSize: Int, listOfPeople: [String]? = []){
    
     let dateFormated = date.formatted(date: .numeric, time: .omitted) //the date is numeric but it omits the time stamp ex: 2/15/2024
     db.collection("classes").document(classCode).collection("tasks").document(classCode + title)
         .setData(
-            ["title": title, "date":dateFormated,"people":listOfPeople ?? []]
+            ["title": title, "date":dateFormated, "size": maxSize, "people":listOfPeople ?? []]
         )
                                                                                     
                                                                                     
@@ -226,7 +226,8 @@ func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Vo
                     if let peopleList = data["people"] as? [String]{
                         output["people"] = "\(peopleList.count)"
                     }
-                    
+                    output["size"] = "\(data["size"] ?? 0)"
+                    output["ID"] = document.documentID
                    
                 
                     com.append(output)
@@ -248,7 +249,21 @@ func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Vo
 //and find the index of your email,
 //update using this function and listOfPeople is the new list with you removed
 func updateTaskParticipants(classCode:String, title: String, listOfPeople: [String]){
-    db.collection("classes").document(classCode).collection("tasks").document(classCode + title).updateData(["people" : listOfPeople])
+    db.collection("classes").document(classCode).collection("tasks").document(classCode + title).getDocument { doc, error in
+        if let error = error{
+            print(error.localizedDescription)
+        }else{
+            if let doc = doc{
+                if listOfPeople.count <= (doc["size"] as? Int) ?? 0 {
+                    db.collection("classes").document(classCode).collection("tasks").document(classCode + title).updateData(["people" : listOfPeople])
+                    
+                }else{
+                    print("too many people added")
+                }
+            }
+        }
+    }
+    
 }
 
 func getTaskParticipants(classCode:String, title:String, completion: @escaping([String])->Void){
@@ -261,5 +276,42 @@ func getTaskParticipants(classCode:String, title:String, completion: @escaping([
             }
      
         }
+    }
+}
+
+func acceptRequest(request: [String:String], classCode:String){
+    
+    let email = request["email"]!
+    let hours = Int(request["hours"] ?? "0")!
+    let type = request["type"]!
+    let id = request["ID"] ?? ""
+    getClassHours(email: email, type: type) { classHours in
+        if var classHours = classHours{
+            let currHours: Int = classHours[type] ?? 0
+            
+            classHours[type] = currHours + hours
+            db.collection("userInfo").document(email).updateData(["classHours":classHours])
+            
+        
+            
+            
+        }
+    }
+    
+    getData(uid: email) { user in
+        if let user = user{
+            updateHours(uid: email, newHourCount: (user.hours ?? 0) + Float(hours))
+        }
+    }
+    
+    if id != "" {
+        db.collection("classes").document(classCode).collection("requests").document(id).delete()
+    }
+    
+}
+
+func declineRequest(request: [String:String], classCode:String){
+    if let requestID = request["ID"]{
+        db.collection("classes").document(classCode).collection("requests").document(requestID).delete()
     }
 }

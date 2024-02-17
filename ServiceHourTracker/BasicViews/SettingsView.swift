@@ -190,9 +190,9 @@ struct SettingsView:View {
                    }
                     
                     Button{
-                        addTask(classCode: "6i092y", title: "presentations", date: Date())
-                        addTask(classCode: "6i092y", title: "test", date: Date())
-                        addTask(classCode: "6i092y", title: "test2", date: Date())
+                        addTask(classCode: "6i092y", title: "presentations", date: Date(), maxSize: 5)
+                        addTask(classCode: "6i092y", title: "test", date: Date(), maxSize: 5)
+                        addTask(classCode: "6i092y", title: "test2", date: Date(), maxSize: 6)
                         print("hit button 6")
                    } label: {
                        Text("testing DB 6")
