@@ -10,6 +10,7 @@ import SwiftUI
 
 class SettingsManager: ObservableObject{
     static let shared =  SettingsManager()
+    @AppStorage("managerMode") var isManagerMode:Bool = false
     @Published var pfp: UIImage = UIImage()
     @Published var perfHourRange = 20
     @AppStorage("isDarkModeEnabled") var isDarkModeEnabled: Bool = false

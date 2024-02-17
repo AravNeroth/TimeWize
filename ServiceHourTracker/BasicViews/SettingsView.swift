@@ -31,6 +31,7 @@ struct SettingsView:View {
     @AppStorage("authuid") private var authID = ""
     @State private var newPfp = UIImage(systemName: "person")
     @State private var changePfp = false
+    @State private var managerIndex = 0
     var body: some View {
         NavigationStack{
 //            Rectangle()
@@ -45,7 +46,11 @@ struct SettingsView:View {
                         VStack{
                             
                             Text("\(name)").font(.title).padding(.leading).bold()
-                            Text("notifications").font(.subheadline).padding(.leading)
+                            Button{
+                                
+                            }label:{
+                                Image(systemName: "bell.fill")
+                            }.padding(.leading)
                             Spacer()
                         }.padding(.top)
                         
@@ -116,6 +121,16 @@ struct SettingsView:View {
                         Text("Dark Mode")
                     })
                     
+                    Picker(selection: $managerIndex, label: Text("Account mode")) {
+                        
+                        Text("Student").tag(0)
+                        Text("Manager").tag(1)
+                           
+                        
+                    }.frame(width:300)
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+//                    Text("manager mode: \(settingsManager.isManagerMode)")
                     Button{
                         navToManager = true
                     }label: {
@@ -238,14 +253,36 @@ struct SettingsView:View {
                         Text("hourhunter yearbook")
                     }
                     
-                   
+                    Menu{
+                        NavigationLink(destination: JoinCodesView() ) {
+                            Text("ClassJoining")
+                        }
+                        NavigationLink(destination: ManagerClassView() ) {
+                            Text("Class View")
+                        }
+                        NavigationLink(destination: ManagerCreateClassView() ) {
+                            Text("create class")
+                        }
+                        NavigationLink(destination: ManagerSettingsView() ) {
+                            Text("settings")
+                            //needs to use same settings
+                        }
+                        NavigationLink(destination: ManagerTestClass() ) {
+                            Text("test class")
+                        }
+                    }label:{
+                        Text("Manager Views")
+                    }
                     
                     //random sections
                     ForEach(0..<testData.count){num in
                         Text("\(testData[num])")
                     }
                     
+                }header:{
+                    Text("Dev controls")
                 }
+                
             }
         
             .onAppear{
@@ -253,19 +290,20 @@ struct SettingsView:View {
                     getData(uid: "\(userData.currentUser.email)") { currUser in
                         name = currUser!.displayName!
                     }
-                }
-                getData(uid: userID) { currUser in
-
-                    if let currentUser = currUser{
-                        name = currentUser.displayName ?? "Name"
-                    }else{
-                        name = userData.currentUser.displayName!
+                }else{
+                    getData(uid: userID) { currUser in
+                        
+                        if let currentUser = currUser{
+                            name = currentUser.displayName ?? "Name"
+                        }else{
+                            name = userData.currentUser.displayName!
+                        }
+                        
                     }
                     
+                    
                 }
-                
-                
-                
+                managerIndex = settingsManager.isManagerMode ? 1 : 0
             }.onChange(of: updated) { oldValue, newValue in
                 if(newName != ""){
                     
@@ -277,6 +315,13 @@ struct SettingsView:View {
                             name = userData.currentUser.displayName!
                         }
                     }
+                }
+            }
+            .onChange(of: managerIndex) { oldV, newV in
+                if managerIndex == 0 {
+                    settingsManager.isManagerMode = false
+                }else{
+                    settingsManager.isManagerMode = true
                 }
             }
             
