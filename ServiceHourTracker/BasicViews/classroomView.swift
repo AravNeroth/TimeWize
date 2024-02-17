@@ -78,7 +78,7 @@ struct classroomView: View {
                     
                     if tasks.count != 0 {
                         ForEach(tasks, id:\.self) { task in
-                            TaskView(title: "\(task["title"]!)", date: "\(task["date"]!)", currPpl: task["people"]!.count)
+                            TaskView(title: "\(task["title"]!)", date: "\(task["date"]!)", totalPpl: Int(task["size"]!) ?? 0, currPpl: Int(task["people"]!) ?? 0)
                         }
                     } else {
                         Text("No Tasks")

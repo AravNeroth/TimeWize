@@ -245,7 +245,7 @@ func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Vo
 }
 
 //to cancel signup/unregister from task:
-//simpliy get the people from getTaskParticipants
+//simply get the people from getTaskParticipants
 //and find the index of your email,
 //update using this function and listOfPeople is the new list with you removed
 func updateTaskParticipants(classCode:String, title: String, listOfPeople: [String]){

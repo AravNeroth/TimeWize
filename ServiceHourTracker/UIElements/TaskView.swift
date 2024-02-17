@@ -14,6 +14,7 @@ struct TaskView: View {
     @State var totalPpl: Int = 0
     @State var currPpl: Int = 0
     @State var isSignedUp: Bool = false
+    @State var showingAlert: Bool = false
     
     var body: some View {
         ZStack {
@@ -37,38 +38,53 @@ struct TaskView: View {
                 
                 HStack {
                     Spacer()
-                    
-                    Button(action: {
-                        isSignedUp.toggle()
-                        
-                        if isSignedUp {
-                            currPpl += 1
-                        } else {
-                            currPpl -= 1
-                        }
-                        
-                    }) {
-                        if isSignedUp {
+                    if totalPpl == currPpl {
+                        Button(action: {
+                            showingAlert = true
+                        }) {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 7.5)
-                                    .foregroundStyle(.red)
-                                    .frame(width: 100, height: 25)
-                                Text("Quit")
-                                    .foregroundStyle(.black)
-                            }
-                        } else {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 7.5)
-                                    .foregroundStyle(.green)
+                                    .foregroundStyle(.gray)
                                     .frame(width: 100, height: 25)
                                 Text("Sign Up")
                                     .foregroundStyle(.black)
                             }
+                        }.alert("Cannot Sign Up, Task Is Full", isPresented: $showingAlert) {
+                            Button("OK", role: .cancel) {}
+                        }
+                    } else {
+                        Button(action: {
+                            isSignedUp.toggle()
+                        
+                            if isSignedUp {
+                                currPpl += 1
+                            } else {
+                                currPpl -= 1
+                            }
+                        
+                        }) {
+                            if isSignedUp {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 7.5)
+                                        .foregroundStyle(.red)
+                                        .frame(width: 100, height: 25)
+                                    Text("Quit")
+                                        .foregroundStyle(.black)
+                                }
+                            } else {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 7.5)
+                                        .foregroundStyle(.green)
+                                        .frame(width: 100, height: 25)
+                                    Text("Sign Up")
+                                        .foregroundStyle(.black)
+                                }
+                            }
                         }
                     }
-                    
+                        
                     Spacer()
-                    
+                        
                     HStack {
                         Text("\(currPpl)/\(totalPpl)")
                             .bold()
