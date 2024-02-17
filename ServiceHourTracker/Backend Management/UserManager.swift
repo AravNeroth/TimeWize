@@ -299,6 +299,35 @@ func getClassHours(email: String, type: String, completion: @escaping ([String:I
     
 }
 
+func getClassHoursField(email: String, completion: @escaping ([[String:String]]?) -> Void) {
+    let docRef = db.collection("userInfo").document(email)
+    
+    docRef.getDocument { document, error in
+        if let error = error {
+            print("Error fetching class hours: \(error)")
+            completion(nil)
+        } else {
+            if let document = document, document.exists {
+                if let classHoursData = document.data()?["classHours"] as? [String: Int] {
+                    let classHours = classHoursData.map { (className, hours) in
+                        return ["className": className, "hours": "\(hours)"]
+                    }
+                    completion(classHours)
+                } else {
+                    print("No class hours data found.")
+                    completion(nil)
+                }
+            } else {
+                print("Document does not exist for email: \(email)")
+                completion(nil)
+            }
+        }
+    }
+}
+
+
+
+
 //sets/updates the dict of classType:hour pair by changing value of hour for the type field
 func setClassHours(email:String, type: String, hours: Int){
     let docRef = db.collection("userInfo").document(email)
