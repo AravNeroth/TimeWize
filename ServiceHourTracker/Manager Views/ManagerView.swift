@@ -10,7 +10,7 @@ import SwiftUI
 
 enum ManagerViews{
     case SettingsView
-    case ManagerClass
+//    case ManagerClass
     case ManagerHome
     //case historyLog
 }
@@ -32,12 +32,12 @@ struct ManagerView: View {
                         ManagerBottomBar(selection: $tabSelection)
                     }
                 }
-            case .ManagerClass:
-                ManagerClass().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
-                    ToolbarItem(placement: .bottomBar) {
-                        ManagerBottomBar(selection: $tabSelection)
-                    }
-                }
+//            case .ManagerClass:
+//                ManagerClass(loaded: .constant(true)).navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
+//                    ToolbarItem(placement: .bottomBar) {
+//                        ManagerBottomBar(selection: $tabSelection)
+//                    }
+//                }
             case .ManagerHome:
                 ManagerMode().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
                     ToolbarItem(placement: .bottomBar) {
@@ -52,6 +52,7 @@ struct ManagerView: View {
                 switch settingsManager.manTab{
                 case 0: settingsManager.title = "Classes"; currManagerView = .ManagerHome
                 case 1: settingsManager.title = "Settings"; currManagerView = .SettingsView
+//                case 2: currManagerView = .ManagerClass
                 default:
                     settingsManager.title = ""
                 }

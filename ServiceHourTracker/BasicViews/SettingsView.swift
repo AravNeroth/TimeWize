@@ -160,7 +160,7 @@ struct SettingsView:View {
                     }
                     
                     Stepper("Max Hours", value: $settingsManager.perfHourRange, in: 0...100, step: 2)
-                
+                /*
                     Button{
                         setClassHours(email: userID, type: "Math", hours: 2)
                     }label:{
@@ -270,7 +270,7 @@ struct SettingsView:View {
                     }label:{
                         Text("Manager Views")
                     }
-                    
+                    */
                     //random sections
                     ForEach(0..<testData.count){num in
                         Text("\(testData[num])")

@@ -13,7 +13,7 @@ enum Views {
     case StudentView
     case ClassMode
     case ManagerView
-    case ManagerClass
+//    case ManagerClass
 }
 
 
@@ -48,8 +48,8 @@ struct AuthView: View {
                 case .ManagerView:
                     ManagerView()
                         
-                case .ManagerClass:
-                    ManagerClass()
+//                case .ManagerClass:
+//                    ManagerClass(loaded: .constant(true))
                 }
             }
             .onAppear {

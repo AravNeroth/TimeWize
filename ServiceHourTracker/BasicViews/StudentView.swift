@@ -12,7 +12,7 @@ enum currStudentView{
     case SettingsView
     case ClassesView
     case classroomView
-    case ManagerTestClass
+//    case ManagerClass
 }
 
 var currentView: currStudentView = .ClassesView
@@ -55,8 +55,8 @@ struct StudentView: View {
                 
                 ClassroomView().navigationBarTitleDisplayMode(.inline).navigationTitle(settingsManager.title)
                 
-            case .ManagerTestClass:
-                           ManagerClass()
+//            case .ManagerClass:
+//                ManagerClass(loaded: .constant(true))
             }
                    
                 
@@ -68,7 +68,7 @@ struct StudentView: View {
             case 2: settingsManager.title = "Classes"; currentView = .ClassesView
             case 3: settingsManager.title = "Settings"; currentView = .SettingsView
             case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .classroomView
-            case 5: settingsManager.title = "ManagerTest"; currentView = .ManagerTestClass
+//            case 5: settingsManager.title = "ManagerTest"; currentView = .ManagerTestClass
             default:
                 settingsManager.title = ""
             }

@@ -25,15 +25,7 @@ struct ClassesView: View {
     var body: some View {
         if done != true{
             LoadingScreen()
-                .toolbar{
-                ToolbarItem(placement: .topBarLeading) {
-               
-                    NavigationLink(destination: SettingsView()) {
-                        Image(systemName: "chevron.left")
-                    }
-                    
-                }
-            }
+                
                 .animation(.easeInOut)
                 .onAppear(){
                         print("classes view")
@@ -41,18 +33,23 @@ struct ClassesView: View {
                         getCodes(uid: userID) { codes in
 //                            print("in")
 //                            print("in: \(String(describing: codes))")
+                            
                             if var codes = codes{
-                                let remove = codes.firstIndex(of: "")
-                                
-                                if let index = remove{
-                                    codes.remove(at: index)
+                                while codes.contains(""){
                                     
+                                    
+                                    let remove = codes.firstIndex(of: "")
+                                    
+                                    if let index = remove{
+                                        codes.remove(at: index)
+                                        
+                                    }
                                 }
-                                classCodes = codes
-//                                print(classCodes)
+                                    classCodes = codes
+                                    
                                 
                             }
-//                            print(classCodes)
+//                         ]
                             loadClassInfo(images: classInfoManager.classImages){ completed in
                                 if completed{
                                     self.done = true
@@ -86,13 +83,6 @@ struct ClassesView: View {
                                          pfp: classInfoManager.classPfp[classroom.title],
                                          refreshed: $done)
                                 .animation(.spring(duration: 1))
-//                                .onTapGesture {
-//                                    settingsManager.tab = 4
-//                                    print("tap")
-//                                    currentView = .classroomView
-//                                    settingsManager.title = classroom.title
-//                                    
-//                                }
                             
                         }
                         
