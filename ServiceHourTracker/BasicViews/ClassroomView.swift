@@ -138,7 +138,7 @@ struct Popup: View {
     @State private var title = ""
     @State private var email = ""
     @State private var hourCount: Double = 0
-    @State private var options = ["Attendance Hour", "Service Hour", "Club Specific Hour"]
+    @State private var options = ["Attendance", "Service", "Club Specific"]
     @State private var selectedOption = "Attendance Hour"
     @EnvironmentObject private var classData:ClassData
 
