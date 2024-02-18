@@ -133,27 +133,34 @@ struct ClassroomView: View {
         }
     }
 }
-
 struct Popup: View {
     @Binding var showReqHours: Bool
     @State private var title = ""
-    @State private var HourCount: Double = 0
-    @State private var options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"]
-    @State private var selectedOption = ""
-    
-    
+    @State private var email = ""
+    @State private var hourCount: Double = 0
+    @State private var options = ["Attendance Hour", "Service Hour", "Club Specific Hour"]
+    @State private var selectedOption = "Attendance Hour"
+    @EnvironmentObject private var classData:ClassData
 
-    var body: some View{
-        
+    var onRequestSubmit: ((_ title: String, _ email: String, _ hourCount: Double, _ selectedOption: String) -> Void)?
+
+    var body: some View {
         VStack(spacing: 20) {
-            TextField("Enter Title", text: $title)
+            TextField("Enter Email", text: $email)
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green7, lineWidth: 1))
+                .background(Color.green3).cornerRadius(10)
+                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green6, lineWidth: 2))
+                .padding(.horizontal)
+            TextField("Enter Description", text: $title)
+                .padding()
+                .background(Color.green3).cornerRadius(10)
+                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green6, lineWidth: 2))
                 .padding(.horizontal)
             
-            Slider(value: $HourCount, in: 0...20, step: 1)
-                            .padding()
-            Text("Hours Requested: \(Int(HourCount))")
+
+            Slider(value: $hourCount, in: 0...7, step: 1)
+                .padding().tint(Color.green3)
+            Text("Hours Requested: \(Int(hourCount))")
 
             Picker("Select Hour type", selection: $selectedOption) {
                 ForEach(options, id: \.self) {
@@ -162,32 +169,38 @@ struct Popup: View {
             }
             .pickerStyle(.menu)
             .padding()
-            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green7, lineWidth: 1))
+            .background(Color.green3).cornerRadius(10)
+            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green6, lineWidth: 1))
             .padding(.horizontal)
-            HStack{
+
+            HStack {
                 Button("Send Request") {
                     showReqHours = false
-                    print(title)
-                    print(HourCount)
-                    print(selectedOption)
-                }.padding()
-                    .background(Color.blue4)
-                    .foregroundColor(.green6)
-                    .cornerRadius(10)
-                
-                Button("Cancel"){
+                    onRequestSubmit?(title, email, hourCount, selectedOption)
+                    
+                    addRequest(classCode: classData.code, email: email, hours: Int(hourCount), type: selectedOption, description: title)
+                }
+                .padding()
+                .background(Color.green3)
+                .foregroundColor(.green6)
+                .cornerRadius(10)
+
+                Button("Cancel") {
                     showReqHours = false
                     title = ""
-                    HourCount = 0
+                    hourCount = 0
                     selectedOption = ""
-                }.padding()
-                    .background(Color.blue4)
-                    .foregroundColor(.green6)
-                    .cornerRadius(10)
+                }
+                .padding()
+                .background(Color.green3)
+                .foregroundColor(.green6)
+                .cornerRadius(10)
             }
-            
-        }.padding().background(Color.green4).cornerRadius(20, corners: .allCorners)
-        
+        }
+        .padding()
+        .background(Color.green5)
+        .cornerRadius(20, corners: .allCorners)
+        .ignoresSafeArea()
     }
 }
 
