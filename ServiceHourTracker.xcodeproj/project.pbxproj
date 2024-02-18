@@ -37,6 +37,7 @@
 		EB78CFE72B23A8D4007E0C20 /* ClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */; };
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
 		EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD72B818AAE00614CCE /* RequestView.swift */; };
+		EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */; };
 		EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */; };
 		EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */; };
 		EE5C24002B7424AF00D4DCBC /* ManagerCreateClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FD2B7424AF00D4DCBC /* ManagerCreateClass.swift */; };
@@ -95,6 +96,7 @@
 		EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTabView.swift; sourceTree = "<group>"; };
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
 		EBAECDD72B818AAE00614CCE /* RequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
+		EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerReqListView.swift; sourceTree = "<group>"; };
 		EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
 		EE5C23FD2B7424AF00D4DCBC /* ManagerCreateClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerCreateClass.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				EE5C23FD2B7424AF00D4DCBC /* ManagerCreateClass.swift */,
 				EE5C24022B742AAA00D4DCBC /* ManagerSettingsView.swift */,
 				CFE866EF2B7E9C4300CFA6FB /* ManagerClass.swift */,
+				EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */,
 			);
 			path = "Manager Views";
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				EB78CFE72B23A8D4007E0C20 /* ClassTabView.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
 				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,
+				EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */,
 				EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */,
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
 				EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */,

@@ -10,12 +10,12 @@ import SwiftUI
 struct RequestView: View {
     
     @State var className: String = "Test Class"
+    @State var classCode: String = "testCode"
     @State var description: String = "Test Description"
     @State var numHours: Int = 0
     @State var hourType: String = "General"
     @State var email: String = "testEmail@gmail.com"
-    @State var accepted: Bool = false
-    @State var declined: Bool = false
+    @State var request: [String:String] = [:]
     
     var body: some View {
         RoundedRectangle(cornerRadius: 20.0, style: .circular)
@@ -43,14 +43,16 @@ struct RequestView: View {
                 
             HStack {
                 Text(description)
-                    .multilineTextAlignment(.leading)
+                    .multilineTextAlignment(.center)
                     .frame(width: 175, height: 75)
-                    .padding(.vertical, 10)
+                    .padding(10)
                     
                 Spacer()
                     
-                Text("Hour Type: \(hourType)")
+                Text("Hour Type:\n\(hourType)")
+                    .multilineTextAlignment(.center)
                     .bold()
+                    .frame(height: 75)
                     .padding(10)
             }
                 
@@ -69,7 +71,7 @@ struct RequestView: View {
                 
                 HStack {
                     Button(action: {
-                        accepted = true
+                        acceptRequest(request: request, classCode: classCode)
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 5.0)
@@ -80,7 +82,7 @@ struct RequestView: View {
                         }
                     }
                     Button(action: {
-                        declined = true
+                        declineRequest(request: request, classCode: classCode)
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 5.0)

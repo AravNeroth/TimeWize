@@ -13,7 +13,7 @@ struct SettingsView:View {
     @State private var navToManager = false
     @State private var navToManagerViews = false
 
-
+    @State private var navToReqList = false
     @State private var navToOrigin = false
     @State private var testData = ["General","Resume","Job options","Appearance","stuff","stuff"]
   
@@ -276,6 +276,12 @@ struct SettingsView:View {
                         Text("\(testData[num])")
                     }
                     
+                    Button(action: {
+                        navToReqList = true
+                    }) {
+                        Text("Straight to Request List")
+                    }
+                    
                 }header:{
                     Text("Dev controls")
                 }
@@ -333,6 +339,7 @@ struct SettingsView:View {
             NavigationLink(destination: LoginView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToSign){}
             NavigationLink(destination: AuthView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToOrigin){}
             NavigationLink(destination: ManagerMode().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToManager){}
+            NavigationLink(destination: ManagerReqListView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToReqList){}
 
 //                .navigationTitle("Settings")
         }.alert("Enter new name", isPresented: $nameAlert) {

@@ -24,23 +24,32 @@ struct TaskView: View {
             RoundedRectangle(cornerRadius: 20.0, style: .circular)
                 .frame(width: 375, height: 120)
                 .foregroundColor(.green5)
+                .overlay(
             VStack {
                 HStack {
+                    Spacer()
+                    
                     Text(title)
+                        .font(.title)
+                        .bold()
+                        .frame(width: 200)
+                    
+                    Spacer()
+                    
+                    Text(date)
                         .font(.title3)
                         .bold()
-                        .padding(.horizontal, 30)
+                    
                     Spacer()
-                    Text(date)
-                        .font(.headline)
-                        .padding(.horizontal, 25)
-                }.padding(.bottom, 10)
-                
+                }
+                .padding(7.5)
+                        
                 Divider()
                     .frame(width: 350)
-                
+                        
                 HStack {
                     Spacer()
+                            
                     if totalPpl == currPpl {
                         Button(action: {
                             showingAlert = true
@@ -58,7 +67,7 @@ struct TaskView: View {
                     } else {
                         Button(action: {
                             isSignedUp.toggle()
-                        
+                                    
                             if isSignedUp {
                                 participants.append(userID)
                                 updateTaskParticipants(classCode: classCode, title: title, listOfPeople: participants)
@@ -68,7 +77,7 @@ struct TaskView: View {
                                 updateTaskParticipants(classCode: classCode, title: title, listOfPeople: participants)
                                 currPpl -= 1
                             }
-                        
+                                    
                         }) {
                             if isSignedUp {
                                 ZStack {
@@ -89,31 +98,31 @@ struct TaskView: View {
                             }
                         }
                     }
-                        
+                            
                     Spacer()
-                        
+                            
                     HStack {
                         Text("\(currPpl)/\(totalPpl)")
                             .bold()
                         Image(systemName: "person.2")
                             .bold()
                     }
-                    
+                            
                     Spacer()
                 }
-                .padding(5.0)
-            }
-        }
-        .onAppear() {
-            getTaskParticipants(classCode: classCode, title: title) { peopleList in
-                participants = peopleList
-                currPpl = participants.count
-                if participants.firstIndex(of: userID) == nil {
-                    isSignedUp = false
-                } else {
-                    isSignedUp = true
+                .padding(10)
+            })
+            .onAppear() {
+                getTaskParticipants(classCode: classCode, title: title) { peopleList in
+                    participants = peopleList
+                    currPpl = participants.count
+                    if participants.firstIndex(of: userID) == nil {
+                        isSignedUp = false
+                    } else {
+                        isSignedUp = true
+                    }
                 }
-            }
+             }
         }
     }
 }

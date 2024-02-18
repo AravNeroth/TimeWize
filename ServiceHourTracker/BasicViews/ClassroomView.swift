@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ClassroomView: View {
+    
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
