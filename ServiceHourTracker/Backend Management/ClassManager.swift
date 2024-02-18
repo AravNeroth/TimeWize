@@ -179,6 +179,7 @@ func getRequests(classCode: String, completion: @escaping ([[String:String]]) ->
                     output["type"] = data["type"] as? String ?? ""
                     output["description"] = data["description"] as? String ?? ""
                     output["ID"] = document.documentID
+                    output["classCode"] = classCode
                     com.append(output)
                     output = [:]
                 }
