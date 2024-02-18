@@ -152,7 +152,7 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
 }
 
 //use class to get into class, goes to the requests collection or creates a requests collection and adds a document with our data
-func addRequest(classCode: String, email: String, hours: Int, type: String, description: String){
+func addRequest(classCode: String, email: String, hours: Int, type: String, description: String) {
    
    
     db.collection("classes").document(classCode).collection("requests").addDocument(data: ["email": email, "hours":hours,"type":type,"description":description])
@@ -161,7 +161,7 @@ func addRequest(classCode: String, email: String, hours: Int, type: String, desc
 }
 
 //didnt finish thinking through
-func getRequest(classCode: String, completion: @escaping ([[String:String]]) -> Void){
+func getRequests(classCode: String, completion: @escaping ([[String:String]]) -> Void){
     
     db.collection("classes").document(classCode).collection("requests").getDocuments { docs, error in
         if let error = error{

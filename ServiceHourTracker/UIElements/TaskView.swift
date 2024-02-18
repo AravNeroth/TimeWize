@@ -37,7 +37,7 @@ struct TaskView: View {
                 }.padding(.bottom, 10)
                 
                 Divider()
-                    .frame(width: 375)
+                    .frame(width: 350)
                 
                 HStack {
                     Spacer()

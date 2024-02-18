@@ -23,9 +23,7 @@ struct ClassTabView: View {
                 .frame(width: 375, height: 120)
                 .foregroundColor(.green5)
                 .overlay(
-                
-
-            VStack(alignment: .center){
+            VStack(alignment: .center) {
                 Spacer()
                 HStack{
                     Spacer()
@@ -55,8 +53,7 @@ struct ClassTabView: View {
                     }
                     .padding(.trailing, 8)
                 }.padding(0)
-            }
-            )
+            })
             VStack {
                 Spacer()
                 HStack{
