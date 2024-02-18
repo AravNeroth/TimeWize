@@ -22,30 +22,26 @@ struct TaskView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20.0, style: .circular)
-                .frame(width: 375, height: 120)
+                .frame(width: 375, height: 150)
                 .foregroundColor(.green5)
                 .overlay(
             VStack {
-                HStack {
-                    Spacer()
-                    
-                    Text(title)
-                        .font(.title)
-                        .bold()
-                        .frame(width: 200)
-                    
-                    Spacer()
-                    
-                    Text(date)
-                        .font(.title3)
-                        .bold()
-                    
-                    Spacer()
-                }
-                .padding(7.5)
+                Text(title)
+                    .font(.title)
+                    .minimumScaleFactor(0.5)
+                    .bold()
+                    .padding(.horizontal)
+                
+                Text(date)
+                    .font(.title3)
+                    .minimumScaleFactor(0.5)
+                    .bold()
+                    .padding(.horizontal)
                         
                 Divider()
                     .frame(width: 350)
+                    .padding(5)
+                    .padding(.bottom, 5)
                         
                 HStack {
                     Spacer()
@@ -110,7 +106,6 @@ struct TaskView: View {
                             
                     Spacer()
                 }
-                .padding(10)
             })
             .onAppear() {
                 getTaskParticipants(classCode: classCode, title: title) { peopleList in

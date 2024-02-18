@@ -23,24 +23,23 @@ struct RequestView: View {
         // further look into it later
         if !acknowledged {
             RoundedRectangle(cornerRadius: 20.0, style: .circular)
-                .frame(width: 375, height: 250)
+                .frame(width: 375, height: 275)
                 .foregroundColor(.green5)
                 .overlay(
                     VStack {
-                        HStack {
-                            Text(className)
-                                .multilineTextAlignment(.center)
-                                .font(.title)
-                                .bold()
-                                .padding(10)
-                            
-                            Spacer()
-                            
-                            Text(email)
-                                .multilineTextAlignment(.center)
-                                .bold()
-                                .padding(10)
-                        }
+                        
+                        Text(className)
+                            .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.5)
+                            .font(.title)
+                            .bold()
+                            .padding(.horizontal)
+                        
+                        Text(email)
+                            .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.5)
+                            .bold()
+                            .padding(.horizontal)
                         
                         Divider()
                             .frame(width: 350)
