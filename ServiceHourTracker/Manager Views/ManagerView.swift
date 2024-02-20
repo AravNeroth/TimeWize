@@ -13,6 +13,7 @@ enum ManagerViews{
 //    case ManagerClass
     case ManagerHome
     //case historyLog
+    case RequestsView
 }
 
 var currManagerView: ManagerViews = .ManagerHome
@@ -44,6 +45,12 @@ struct ManagerView: View {
                         ManagerBottomBar(selection: $tabSelection)
                     }
                 } //change the view
+            case .RequestsView:
+                ManagerReqListView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
+                    ToolbarItem(placement: .bottomBar) {
+                        ManagerBottomBar(selection: $tabSelection)
+                    }
+                }
             }
         }.navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
         
@@ -53,6 +60,7 @@ struct ManagerView: View {
                 case 0: settingsManager.title = "Classes"; currManagerView = .ManagerHome
                 case 1: settingsManager.title = "Settings"; currManagerView = .SettingsView
 //                case 2: currManagerView = .ManagerClass
+                case 2: settingsManager.title = "Requests"; currManagerView = .RequestsView
                 default:
                     settingsManager.title = ""
                 }

@@ -141,16 +141,16 @@ struct Popup: View {
     @State private var options = ["Attendance", "Service", "Club Specific"]
     @State private var selectedOption = "Attendance Hour"
     @EnvironmentObject private var classData:ClassData
-
+    @AppStorage("uid") private var userID = ""
     var onRequestSubmit: ((_ title: String, _ email: String, _ hourCount: Double, _ selectedOption: String) -> Void)?
 
     var body: some View {
         VStack(spacing: 20) {
-            TextField("Enter Email", text: $email)
-                .padding()
-                .background(Color.green3).cornerRadius(10)
-                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green6, lineWidth: 2))
-                .padding(.horizontal)
+//            TextField("Enter Email", text: $email)
+//                .padding()
+//                .background(Color.green3).cornerRadius(10)
+//                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green6, lineWidth: 2))
+//                .padding(.horizontal)
             TextField("Enter Description", text: $title)
                 .padding()
                 .background(Color.green3).cornerRadius(10)
@@ -178,7 +178,7 @@ struct Popup: View {
                     showReqHours = false
                     onRequestSubmit?(title, email, hourCount, selectedOption)
                     
-                    addRequest(classCode: classData.code, email: email, hours: Int(hourCount), type: selectedOption, description: title)
+                    addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selectedOption, description: title)
                 }
                 .padding()
                 .background(Color.green3)

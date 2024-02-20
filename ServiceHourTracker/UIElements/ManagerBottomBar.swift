@@ -17,6 +17,19 @@ struct ManagerBottomBar: View {
             
             Button{
 
+                settingsManager.manTab = 2
+            }label: {
+                VStack{
+
+                    Image(systemName: "list.clipboard.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    Text("Requests").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                }
+            }
+            
+            Spacer()
+            
+            Button{
+
                 settingsManager.manTab = 0
             }label: {
                 VStack{

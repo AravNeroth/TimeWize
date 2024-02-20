@@ -86,7 +86,7 @@ struct ManagerMode: View {
                         
                     }
                     
-                }.padding(.top, 100)
+                }
                 
                 // button creates classes
 //                Button{
