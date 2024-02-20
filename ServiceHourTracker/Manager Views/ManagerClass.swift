@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ManagerClass: View{
+struct ManagerClass: View {
     @Binding var loaded: Bool
     @State private var imageSelection = false
     @State private var newBanner = UIImage(systemName: "person")
