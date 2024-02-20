@@ -22,7 +22,6 @@ struct ManagerReqListView: View {
                 Text("You have no requests")
             }
             ForEach(allRequests, id:\.self) { request in
-               
                 RequestView(className: classNamesAndCodes[request["classCode"]!]!, classCode: request["classCode"]!, description: request["description"]!, numHours: Int(request["hours"]!) ?? 0, hourType: request["type"]!, email: request["email"]!, request: request)
             }
         }
@@ -41,7 +40,6 @@ struct ManagerReqListView: View {
                         }
                     }
                 }
-                
             }
         }
     }

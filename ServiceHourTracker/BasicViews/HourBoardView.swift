@@ -96,12 +96,6 @@ struct HourBoardView: View {
     }
 }
 
-struct HourBoardView_Previews: PreviewProvider {
-    static var previews: some View {
-        HourBoardView()
-    }
-}
-
 struct GoalSettingView: View {
     @Binding var isSettingGoal: Bool
     @Binding var goalHours: Int?
@@ -147,4 +141,9 @@ struct GoalSettingView: View {
         .padding()
         
     }
+}
+
+
+#Preview {
+    HourBoardView()
 }

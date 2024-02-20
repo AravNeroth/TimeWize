@@ -69,13 +69,8 @@ struct ClassroomView: View {
                             .bold()
                             .padding()
                     }
-                    Spacer()
                     
-                    /*Button{
-                        showIMGPicker = true
-                    }label:{
-                        Text("change the image").padding().clipShape(.capsule).cornerRadius(50).background(.blue).foregroundStyle(.white).padding()
-                    }*/
+                    Spacer()
                     
                     if tasks.count != 0 {
                         ForEach(tasks, id:\.self) { task in
@@ -86,14 +81,9 @@ struct ClassroomView: View {
                     }
                 }
                 if showReqHours {
-                            Popup(showReqHours: $showReqHours)
+                    Popup(showReqHours: $showReqHours)
                         .frame(width: 300, height: 500, alignment: .center).offset(y: -130)
-                        }
-                Button{
-                    settingsManager.tab = 5
-                }label: {
-                    Image(systemName: "bell.fill")
-                }
+                    }
                 
             }.animation(.easeInOut)
             .fullScreenCover(isPresented: $showIMGPicker) {
@@ -133,6 +123,7 @@ struct ClassroomView: View {
         }
     }
 }
+
 struct Popup: View {
     @Binding var showReqHours: Bool
     @State private var title = ""

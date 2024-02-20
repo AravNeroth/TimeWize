@@ -10,8 +10,12 @@ import FirebaseFirestore
 struct ManagerMode: View {
     
     @State var className: String = ""
+    @State var minServiceHours: Int = 0
+    @State var minClassSpecificHours: Int = 0
     @State var classCreationAlert = false
-    @State var alertField: String = ""
+    @State var classNameField: String = ""
+    @State var classServiceField: String = ""
+    @State var classSpecificField: String = ""
     @ObservedObject private var settingsMan = SettingsManager.shared
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @AppStorage("uid") var userID: String = ""
@@ -102,9 +106,13 @@ struct ManagerMode: View {
                 
                 ///
                     .alert("Create a class name", isPresented: $classCreationAlert) {
-                        TextField("Enter Name", text: $alertField).foregroundColor(.black)
+                        TextField("Enter Name", text: $classNameField)
+                        TextField("Minimum Service Hours", text: $classServiceField)
+                        TextField("Minimum Specific Hours", text: $classSpecificField)
                         Button("OK") {
-                            className = alertField
+                            className = classNameField
+                            minServiceHours = Int(classServiceField) ?? 0
+                            minClassSpecificHours = Int(classSpecificField) ?? 0
                         }
                         Button("Cancel"){
                             
@@ -115,7 +123,7 @@ struct ManagerMode: View {
 
                     .onChange(of: className) { oldValue, newValue in
                         
-                        let newClass = Classroom(code: "\(createClassCode())", title: "\(className)", owner: authID)
+                        let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours)
                         
                         storeClassInfoInFirestore(org: newClass)
                         

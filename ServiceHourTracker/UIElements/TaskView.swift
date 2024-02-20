@@ -17,6 +17,7 @@ struct TaskView: View {
     @State var isSignedUp: Bool = false
     @State var showingAlert: Bool = false
     @State var participants: [String] = []
+    @State var numHours: Int = 0
     @AppStorage("uid") var userID: String = ""
     
     var body: some View {
@@ -32,11 +33,19 @@ struct TaskView: View {
                     .bold()
                     .padding(.horizontal)
                 
-                Text(date)
-                    .font(.title3)
-                    .minimumScaleFactor(0.5)
-                    .bold()
-                    .padding(.horizontal)
+                HStack {
+                    Text("Hours: \(numHours)")
+                        .font(.title3)
+                        .minimumScaleFactor(0.5)
+                        .bold()
+                        .padding(.horizontal)
+                    
+                    Text(date)
+                        .font(.title3)
+                        .minimumScaleFactor(0.5)
+                        .bold()
+                        .padding(.horizontal)
+                }
                         
                 Divider()
                     .frame(width: 350)
@@ -107,17 +116,17 @@ struct TaskView: View {
                     Spacer()
                 }
             })
-            .onAppear() {
-                getTaskParticipants(classCode: classCode, title: title) { peopleList in
-                    participants = peopleList
-                    currPpl = participants.count
-                    if participants.firstIndex(of: userID) == nil {
-                        isSignedUp = false
-                    } else {
-                        isSignedUp = true
-                    }
-                }
-             }
+//            .onAppear() {
+//                getTaskParticipants(classCode: classCode, title: title) { peopleList in
+//                    participants = peopleList
+//                    currPpl = participants.count
+//                    if participants.firstIndex(of: userID) == nil {
+//                        isSignedUp = false
+//                    } else {
+//                        isSignedUp = true
+//                    }
+//                }
+//             }
         }
     }
 }

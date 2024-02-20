@@ -19,9 +19,9 @@ struct RequestView: View {
     @State var acknowledged: Bool = false
     
     var body: some View {
-        // quick fix for accept/deny to disappear right away
-        // further look into it later
-        if !acknowledged {
+        if acknowledged {
+            
+        } else {
             RoundedRectangle(cornerRadius: 20.0, style: .circular)
                 .frame(width: 375, height: 275)
                 .foregroundColor(.green5)
@@ -101,8 +101,6 @@ struct RequestView: View {
                             .padding(10)
                         }
                     })
-        } else {
-            
         }
     }
 }
