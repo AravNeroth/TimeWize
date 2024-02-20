@@ -12,13 +12,13 @@ struct ManagerReqListView: View {
     @State var classesList: [String] = []
     @State private var classNamesAndCodes: [String:String] = [:]
     @State var classNamesList: [String] = [] //names
-    @State var classCodesList: [String] = []//codes
+    @State var classCodesList: [String] = [] //codes
     @State var allRequests: [[String:String]] = []
     @AppStorage("uid") var userID: String = ""
     
     var body: some View {
         ScrollView {
-            if allRequests.isEmpty{
+            if allRequests.isEmpty {
                 Text("You have no requests")
             }
             ForEach(allRequests, id:\.self) { request in
@@ -44,26 +44,6 @@ struct ManagerReqListView: View {
                 
             }
         }
-//        .onAppear() {
-//            getClasses(uid: userID) { currClasses in
-//                if let currClasses = currClasses {
-//                    for currClass in currClasses {
-//                        classesList.append(currClass)
-//                    }
-//                }
-//                for currClass in classesList {
-//                    getClassInfo(classCloudCode: currClass) { classInfo in
-//                        getRequests(classCode: currClass) { requestList in
-//                            for request in requestList {
-//                                allRequests.append(request)
-//                                classNamesList.append(classInfo!.title)
-//                                classCodesList.append(currClass)
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
     }
 }
 
