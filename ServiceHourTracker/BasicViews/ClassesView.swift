@@ -16,7 +16,7 @@ struct ClassesView: View {
     @State var enteredCode = ""
     @AppStorage("uid") var userID = ""
     @State var alertMessage = ""
-    @State var allClasses: [Classroom] = []
+    @State var allClasses: [Classroom?] = []
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @State var classCodes: [String] = [""]
     @State var done: Bool = false
@@ -51,10 +51,10 @@ struct ClassesView: View {
             NavigationStack{
                 VStack(spacing: 0) {
                     ScrollView {
-                        if allClasses.isEmpty {
+                        if classInfoManager.classInfo.isEmpty {
                             Text("No Classes")
                         } else {
-                            ForEach(allClasses, id: \.self) { classroom in
+                            ForEach(classInfoManager.classInfo) { classroom in
                                 ClassTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.classImages[classroom.title], pfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
                                     .animation(.spring(duration: 1))
                             }
@@ -110,6 +110,7 @@ struct ClassesView: View {
                     if !classInfoManager.classInfo.contains(classroom) {
                         classInfoManager.classInfo.append(classroom)
                         allClasses.append(classroom)
+                        print("added it to allClasses")
                         
                         downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
                             classInfoManager.classImages[classroom.title] = image
@@ -124,9 +125,9 @@ struct ClassesView: View {
                 }
                 
                 classInfoManager.classInfo.sort { $0.title < $1.title }
-                allClasses.sort { $0.title < $1.title }
-                print("\(classInfoManager.classInfo)")
-                print("\(allClasses)")
+                allClasses.sort { $0!.title < $1!.title }
+                print("Class Info Manager:  \(classInfoManager.classInfo)")
+                print("All Classes:  \(allClasses)")
             }
         }
     

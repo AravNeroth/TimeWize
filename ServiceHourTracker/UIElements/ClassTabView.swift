@@ -16,7 +16,7 @@ struct ClassTabView: View {
     var banner: UIImage? = UIImage(resource: .image3)
     var pfp: UIImage? = UIImage(resource: .image2)
     @AppStorage("uid") private var userID = ""
-    @Binding var allClasses: [Classroom]
+    @Binding var allClasses: [Classroom?]
     @State var classroom: Classroom
     
     var body: some View {
@@ -39,11 +39,11 @@ struct ClassTabView: View {
                                 .cornerRadius(30, corners: [.bottomRight, .bottomLeft])
                                 .opacity(0.8)
                         }
-                        HStack(alignment: .bottom){
+                        HStack(alignment: .bottom) {
 
-                            VStack(alignment: .trailing){
+                            VStack(alignment: .trailing) {
                                 Spacer()
-                                if let pfp = pfp{
+                                if let pfp = pfp {
                                     Image(uiImage: pfp)
                                         .resizable()
                                         .clipShape(Circle())
@@ -58,15 +58,15 @@ struct ClassTabView: View {
             })
             VStack {
                 Spacer()
-                HStack{
-                    Button{
+                HStack {
+                    Button {
                         settingsManager.tab = 4
                         print("tap")
                         currentView = .classroomView
                         settingsManager.title = name
                         classData.code = classCode
                         
-                    }label: {
+                    } label: {
                         Text(name)
                         .font(.title)
                         .fontWeight(.black)
@@ -78,7 +78,7 @@ struct ClassTabView: View {
                             getCodes(uid: userID) { codesList in
                                 if let codesList = codesList {
                                     unenrollClass(uid: userID, codes: codesList, code: classCode)
-                                    allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
+                                    //allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
                                 }
                             }
                         } label: {

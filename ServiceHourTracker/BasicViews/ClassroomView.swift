@@ -97,7 +97,7 @@ struct ClassroomView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button{
                         settingsManager.tab = 2
-                    }label: {
+                    } label: {
                         Image(systemName: "chevron.left").foregroundStyle(.blue)
                     }
                 }
