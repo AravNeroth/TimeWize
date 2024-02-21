@@ -17,6 +17,8 @@ struct ClassTabView: View {
     var pfp: UIImage? = UIImage(resource: .image2)
     @AppStorage("uid") private var userID = ""
     @Binding var refreshed: Bool
+    @Binding var 
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 30)
@@ -72,15 +74,15 @@ struct ClassTabView: View {
                     }
                     
                     Menu {
-                        Button{
+                        Button {
                             getCodes(uid: userID) { codesList in
-                                if let codesList = codesList{
+                                if let codesList = codesList {
                                     unenrollClass(uid: userID, codes: codesList, code: classCode)
                                     
-                                    refreshed = false
+                                    refreshed.toggle()
                                 }
                             }
-                        }label: {
+                        } label: {
                             Text("unenroll")
                         }
                     } label: {

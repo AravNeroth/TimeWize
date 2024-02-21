@@ -10,6 +10,9 @@ import FirebaseFirestore
 struct ManagerMode: View {
     
     @State var className: String = ""
+    @State var managerCodeAlert = false
+    @State var managerCodeField: String = ""
+    @State var managerCode: String = ""
     @State var minServiceHours: Int = 0
     @State var minClassSpecificHours: Int = 0
     @State var classCreationAlert = false
@@ -91,21 +94,7 @@ struct ManagerMode: View {
                     }
                     
                 }
-                
-                // button creates classes
-//                Button{
-//                    withAnimation{
-//                        classCreationAlert = true
-//                        
-//                    }
-//                    
-//                    
-//                }label: {
-//                    Image(systemName: "plus")
-//                }.padding()
-                
-                ///
-                    .alert("Create a class name", isPresented: $classCreationAlert) {
+                    .alert("Create A Class", isPresented: $classCreationAlert) {
                         TextField("Enter Name", text: $classNameField)
                         TextField("Minimum Service Hours", text: $classServiceField)
                         TextField("Minimum Specific Hours", text: $classSpecificField)
@@ -114,13 +103,21 @@ struct ManagerMode: View {
                             minServiceHours = Int(classServiceField) ?? 0
                             minClassSpecificHours = Int(classSpecificField) ?? 0
                         }
-                        Button("Cancel"){
+                        Button("Cancel") {
                             
                         }
                     } message: {
                         Text("create a name")
                     }
-
+                    .alert("Enter Manager Code", isPresented: $managerCodeAlert) {
+                        TextField("Enter Code", text: $managerCodeField)
+                        Button("OK") {
+                            managerCode = managerCodeField
+                        }
+                        Button("Cancel") {
+                            
+                        }
+                    }
                     .onChange(of: className) { oldValue, newValue in
                         
                         let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours)
@@ -137,10 +134,12 @@ struct ManagerMode: View {
                         storeUserCodeInFirestore(uid: userID,
                                                  codes: settingsMan.classes
                         )
-                        
-                        
-                        
                     }
+//                    .onChange(of: managerCode) {
+//                        fetchClass =
+//                        
+//                        settingsMan.classes.append()
+//                    }
                 
                 
             }.toolbar{

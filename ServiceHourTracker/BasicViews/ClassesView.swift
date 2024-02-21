@@ -51,7 +51,7 @@ struct ClassesView: View {
                             }
 //                         ]
                             loadClassInfo(images: classInfoManager.classImages){ completed in
-                                if completed{
+                                if completed {
                                     self.done = true
                                 }
                                 
@@ -71,21 +71,29 @@ struct ClassesView: View {
 //                        .frame(width: 400, height: 50)
                     
                     ScrollView {
-                        if classInfoManager.classInfo.isEmpty{
+                        if classInfoManager.classInfo.isEmpty {
                             Text("No Classes")
+                        } else if done {
+                            ForEach(classInfoManager.classInfo) { classroom in
+                                ClassTabView(name: classroom.title,
+                                             classCode: classroom.code,
+                                             banner: classInfoManager.classImages[classroom.title],
+                                             pfp: classInfoManager.classPfp[classroom.title],
+                                             refreshed: $done)
+                                    .animation(.spring(duration: 1))
+                                
+                            }
+                        } else {
+                            ForEach(classInfoManager.classInfo) { classroom in
+                                ClassTabView(name: classroom.title,
+                                             classCode: classroom.code,
+                                             banner: classInfoManager.classImages[classroom.title],
+                                             pfp: classInfoManager.classPfp[classroom.title],
+                                             refreshed: $done)
+                                    .animation(.spring(duration: 1))
+                                
+                            }
                         }
-                        ForEach(classInfoManager.classInfo){ classroom in
-                        
-                            
-                            ClassTabView(name: classroom.title,
-                                         classCode: classroom.code,
-                                         banner: classInfoManager.classImages[classroom.title],
-                                         pfp: classInfoManager.classPfp[classroom.title],
-                                         refreshed: $done)
-                                .animation(.spring(duration: 1))
-                            
-                        }
-                        
                         
                     }.padding(.bottom, 7).padding(.top, 7)
                     
