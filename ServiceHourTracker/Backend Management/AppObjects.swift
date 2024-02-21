@@ -35,8 +35,6 @@ class ClassInfoManager: ObservableObject {
     @Published var classInfo: [Classroom] = []
     @Published var classImages: [String: UIImage] = [:]
     @Published var classPfp: [String: UIImage] = [:]
-    
-    
     @Published var managerClassImages: [String: UIImage] = [:]
     @Published var managerClassPfp: [String: UIImage] = [:]
 }

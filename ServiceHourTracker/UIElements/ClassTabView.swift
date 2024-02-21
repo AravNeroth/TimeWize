@@ -16,8 +16,8 @@ struct ClassTabView: View {
     var banner: UIImage? = UIImage(resource: .image3)
     var pfp: UIImage? = UIImage(resource: .image2)
     @AppStorage("uid") private var userID = ""
-    @Binding var refreshed: Bool
-    @Binding var 
+    @Binding var allClasses: [Classroom]
+    @State var classroom: Classroom
     
     var body: some View {
         ZStack {
@@ -78,12 +78,11 @@ struct ClassTabView: View {
                             getCodes(uid: userID) { codesList in
                                 if let codesList = codesList {
                                     unenrollClass(uid: userID, codes: codesList, code: classCode)
-                                    
-                                    refreshed.toggle()
+                                    allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
                                 }
                             }
                         } label: {
-                            Text("unenroll")
+                            Text("Unenroll Class")
                         }
                     } label: {
                         Image(systemName: "line.3.horizontal").fontWeight(.black)
@@ -128,5 +127,3 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
-
-

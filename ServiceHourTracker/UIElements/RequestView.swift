@@ -16,7 +16,6 @@ struct RequestView: View {
     @State var hourType: String = "General"
     @State var email: String = "testEmail@gmail.com"
     @State var request: [String:String] = [:]
-    @Binding var toggler: Bool
     @Binding var reqList: [[String:String]]
     
     var body: some View {
@@ -74,7 +73,6 @@ struct RequestView: View {
                             Button(action: {
                                 acceptRequest(request: request, classCode: classCode)
                                 reqList.remove(at: reqList.firstIndex(of: request)!)
-                                toggler.toggle()
                             }) {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 5.0)
@@ -87,7 +85,6 @@ struct RequestView: View {
                             Button(action: {
                                 declineRequest(request: request, classCode: classCode)
                                 reqList.remove(at: reqList.firstIndex(of: request)!)
-                                toggler.toggle()
                             }) {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 5.0)
