@@ -36,14 +36,13 @@ struct AuthView: View {
                 case .StudentView:
                     StudentView()
                 case .ClassMode:
-                    ClassroomView().toolbar{
+                    ClassroomView().toolbar {
                         ToolbarItem(placement: .bottomBar) {
                             bottomPicks(selection: $tabSelection)
                         }
                         ToolbarItem(placement: .topBarLeading) {
                             Image(systemName: "plus")
                         }
-                       
                     }
                 case .ManagerView:
                     ManagerView()

@@ -12,9 +12,6 @@ struct ClassroomView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
-    
-    
-    
     @State var showReqHours = false
     @State var tasks: [[String: String]] = []
     @State private var showIMGPicker = false
@@ -78,7 +75,7 @@ struct ClassroomView: View {
                 
                 if showReqHours {
                     Popup(showReqHours: $showReqHours)
-                        .frame(width: 300, height: 500, alignment: .center).offset(y: -130)
+                        .frame(width: 400, height: 500, alignment: .center).offset(y: -130)
                     }
                 
             }
@@ -134,11 +131,6 @@ struct Popup: View {
 
     var body: some View {
         VStack(spacing: 20) {
-//            TextField("Enter Email", text: $email)
-//                .padding()
-//                .background(Color.green3).cornerRadius(10)
-//                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green6, lineWidth: 2))
-//                .padding(.horizontal)
             TextField("Enter Description", text: $title)
                 .padding()
                 .background(Color.green3).cornerRadius(10)
@@ -190,9 +182,4 @@ struct Popup: View {
         .cornerRadius(20, corners: .allCorners)
         .ignoresSafeArea()
     }
-}
-
-
-#Preview {
-    ClassroomView()
 }
