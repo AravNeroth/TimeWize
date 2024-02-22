@@ -19,7 +19,7 @@ struct ServiceHourTrackerApp: App {
     
     
     
-    init(){
+    init() {
         FirebaseApp.configure()
         
     }

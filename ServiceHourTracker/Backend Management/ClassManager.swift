@@ -245,10 +245,10 @@ func addTask(classCode: String, title: String, date: Date, maxSize: Int, listOfP
 func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Void){
     
     db.collection("classes").document(classCode).collection("tasks").getDocuments { docs, error in
-        if let error = error{
+        if let error = error {
             print(error.localizedDescription)
             completion([])
-        }else{
+        } else {
             var com:[[String:String]] = [] //completion output
             var output: [String:String] = [:] //temp for each document
             if let docs = docs{

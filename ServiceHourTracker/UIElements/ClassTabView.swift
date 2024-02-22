@@ -62,7 +62,7 @@ struct ClassTabView: View {
                     Button {
                         settingsManager.tab = 4
                         print("tap")
-                        currentView = .classroomView
+                        currentView = .ClassroomView
                         settingsManager.title = name
                         classData.code = classCode
                         

@@ -75,9 +75,11 @@ struct ClassesView: View {
                         checkIfDocumentExists(documentID: enteredCode) { result in
                             if result {
                                 updateCodes(uid: userID, newCode: enteredCode)
-                                settingsManager.tab = 4
-                                currentView = .classroomView
-                                settingsManager.title = "Welcome"
+                                loadClassInfo(images: classInfoManager.classImages) { completed in
+                                    if completed {
+                                        done = false
+                                    }
+                                }
                             } else {
                                 alertMessage = "The code is wrong"
                                 showJoinMessage = true
@@ -122,14 +124,11 @@ struct ClassesView: View {
                     }
                     if !allClasses.contains(classroom) {
                         allClasses.append(classroom)
-                        print("added it to allClasses")
                     }
                 }
                 
                 classInfoManager.classInfo.sort { $0.title < $1.title }
                 allClasses.sort { $0.title < $1.title }
-                print("Class Info Manager:  \(classInfoManager.classInfo)")
-                print("All Classes:  \(allClasses)")
             }
         }
     

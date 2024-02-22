@@ -17,12 +17,6 @@ struct ClassroomView: View {
     
     @State var showReqHours = false
     @State var tasks: [[String: String]] = []
-//    @State var taskTitle = ""
-//    @State var enteredCode = ""
-//    @State var taskDisc = ""
-//    @State var hourTypeSelection = 0
-//    let hourType = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"]
-
     @State private var showIMGPicker = false
     @State private var selectedImage: UIImage?
     @State private var classImage: UIImage?
@@ -30,23 +24,24 @@ struct ClassroomView: View {
     @AppStorage("authuid") private var authID = ""
 
     var body: some View {
-        if loading{
-            LoadingScreen().padding()
+        if loading {
+            LoadingScreen()
+                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(ignoresSafeAreaEdges: .all)
                 .animation(.easeOut(duration: 2))
-                .onAppear(){
+                .onAppear() {
                     downloadImageFromClassroomStorage(code: "\(classData.code)", file: "\(settingsManager.title).jpg", done: $loading) { image in
-                        if let image = image{
+                        if let image = image {
                             classImage = image
                         }
+                        loading.toggle()
                     }
                 }
         } else {
-            VStack{
-                ScrollView{
-                    if let image = classInfoManager.classImages[settingsManager.title]{
-                        
+            VStack {
+                ScrollView {
+                    if let image = classInfoManager.classImages[settingsManager.title] {
                         ZStack {
                             RoundedRectangle(cornerRadius: 20.0)
                                 .frame(width: 375, height: 200)
@@ -80,16 +75,19 @@ struct ClassroomView: View {
                         Text("No Tasks")
                     }
                 }
+                
                 if showReqHours {
                     Popup(showReqHours: $showReqHours)
                         .frame(width: 300, height: 500, alignment: .center).offset(y: -130)
                     }
                 
-            }.animation(.easeInOut)
+            }
+            .animation(.easeInOut)
             .fullScreenCover(isPresented: $showIMGPicker) {
                 ImagePicker(image: $selectedImage)
                     .ignoresSafeArea(edges: .bottom)
-            }.onChange(of: selectedImage) { oldValue, newValue in
+            }
+            .onChange(of: selectedImage) { oldValue, newValue in
                 if let image = selectedImage{
                     uploadImageToUserStorage(id: authID, image: selectedImage!,file: settingsManager.title, done: $loading)
                 }
@@ -101,7 +99,6 @@ struct ClassroomView: View {
                         Image(systemName: "chevron.left").foregroundStyle(.blue)
                     }
                 }
-                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button{
                         showReqHours = true

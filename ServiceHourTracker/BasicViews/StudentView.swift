@@ -11,7 +11,7 @@ enum currStudentView{
     case HourBoardView
     case SettingsView
     case ClassesView
-    case classroomView
+    case ClassroomView
 //    case ManagerClass
 }
 
@@ -51,9 +51,20 @@ struct StudentView: View {
                         
                     }
                 }
-            case .classroomView:
+            case .ClassroomView:
                 
-                ClassroomView().navigationBarTitleDisplayMode(.inline).navigationTitle(settingsManager.title)
+                ClassroomView().navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle(settingsManager.title)
+//                    .toolbar {
+//                        ToolbarItem(placement: .topBarLeading) {
+//                            Button{
+//                                settingsManager.tab = 2
+//                            } label: {
+//                                Image(systemName: "chevron.left").foregroundStyle(.blue)
+//                            }
+//                        }
+//                    }
+                
                 
 //            case .ManagerClass:
 //                ManagerClass(loaded: .constant(true))
@@ -67,7 +78,7 @@ struct StudentView: View {
             case 0: settingsManager.title = "Hours Log"; currentView = .HourBoardView
             case 2: settingsManager.title = "Classes"; currentView = .ClassesView
             case 3: settingsManager.title = "Settings"; currentView = .SettingsView
-            case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .classroomView
+            case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .ClassroomView
 //            case 5: settingsManager.title = "ManagerTest"; currentView = .ManagerTestClass
             default:
                 settingsManager.title = ""
