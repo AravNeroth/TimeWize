@@ -124,7 +124,7 @@ struct Popup: View {
     @State private var email = ""
     @State private var hourCount: Double = 0
     @State private var options = ["Attendance", "Service", "Club Specific"]
-    @State private var selectedOption = "Attendance Hour"
+    @State private var selectedOption = "Attendance"
     @EnvironmentObject private var classData:ClassData
     @AppStorage("uid") private var userID = ""
     var onRequestSubmit: ((_ title: String, _ email: String, _ hourCount: Double, _ selectedOption: String) -> Void)?
