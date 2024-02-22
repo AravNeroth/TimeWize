@@ -35,7 +35,7 @@ struct ClassroomView: View {
                         if let image = image {
                             classImage = image
                         }
-                        loading.toggle()
+                        loading = false
                     }
                 }
         } else {
@@ -69,7 +69,7 @@ struct ClassroomView: View {
                     
                     if tasks.count != 0 {
                         ForEach(tasks, id:\.self) { task in
-                            TaskView(classCode: classData.code, title: "\(task["title"]!)", date: "\(task["date"]!)", totalPpl: Int(task["size"]!) ?? 0)
+                            TaskView(classCode: classData.code, title: "\(task["title"] ?? "No Title")", date: "\(task["date"] ?? "0/0/0000")", totalPpl: Int(task["size"] ?? "0")!)
                         }
                     } else {
                         Text("No Tasks")
