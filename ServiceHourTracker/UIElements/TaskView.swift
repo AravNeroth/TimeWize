@@ -116,17 +116,17 @@ struct TaskView: View {
                     Spacer()
                 }
             })
-//            .onAppear() {
-//                getTaskParticipants(classCode: classCode, title: title) { peopleList in
-//                    participants = peopleList
-//                    currPpl = participants.count
-//                    if participants.firstIndex(of: userID) == nil {
-//                        isSignedUp = false
-//                    } else {
-//                        isSignedUp = true
-//                    }
-//                }
-//             }
+            .onAppear() {
+                getTaskParticipants(classCode: classCode, title: title) { peopleList in
+                    participants = peopleList
+                    currPpl = participants.count
+                    if participants.firstIndex(of: userID) == nil {
+                        isSignedUp = false
+                    } else {
+                        isSignedUp = true
+                    }
+                }
+             }
         }
     }
 }
