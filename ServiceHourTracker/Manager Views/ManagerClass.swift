@@ -72,8 +72,8 @@ struct taskPopup: View {
     @State private var taskName = ""
 
     @State private var date: Date = Date()
-    @State private var taskHours:Double = 0
-    @State private var maxPeople:Double = 0
+    @State private var taskHours: Double = 0
+    @State private var maxPeople: Double = 0
     
     @EnvironmentObject private var classData:ClassData
     @AppStorage("uid") private var userID = ""
@@ -86,16 +86,19 @@ struct taskPopup: View {
             
             DatePicker("", selection: $date).padding()
             
-            Slider(value: $taskHours, in: 0...7, step: 1)
+            Slider(value: $taskHours, in: 0...10, step: 1)
                 .padding().tint(Color.green7)
+            Text("Hours: \(Int(taskHours))")
             
             Slider(value: $maxPeople, in: 0...20, step: 1)
                 .padding().tint(Color.green7)
+            Text("Max People: \(Int(maxPeople))")
+            
             HStack{
                 Button("OK") {
                     showPop = false
-                    let people:Int = Int(maxPeople)
-                    addTask(classCode: classData.code, title: taskName, date: date, maxSize: people)
+                    addTask(classCode: classData.code, title: taskName, date: date, maxSize: Int(maxPeople), numHours: Int(taskHours))
+                    print("Hours: \(taskHours) in Button")
                 }.padding().tint(Color.green7)
                 Button("Cancel") {
                     showPop = false

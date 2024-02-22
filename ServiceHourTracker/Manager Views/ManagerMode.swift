@@ -76,7 +76,7 @@ struct ManagerMode: View {
                 //update the settingsManager classes list
                     
             
-        }else{
+        } else {
             VStack{
                 ScrollView{
                     

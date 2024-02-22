@@ -229,20 +229,17 @@ func getRequests(classCode: String, completion: @escaping ([[String:String]]) ->
 }
 
 
-func addTask(classCode: String, title: String, date: Date, maxSize: Int, listOfPeople: [String]? = []){
+func addTask(classCode: String, title: String, date: Date, maxSize: Int, numHours: Int, listOfPeople: [String]? = []) {
    
     let dateFormated = date.formatted(date: .numeric, time: .omitted) //the date is numeric but it omits the time stamp ex: 2/15/2024
     db.collection("classes").document(classCode).collection("tasks").document(classCode + title)
         .setData(
-            ["title": title, "date":dateFormated, "size": maxSize, "people":listOfPeople ?? []]
+            ["title" : title, "date" : dateFormated, "size" : maxSize, "hours": numHours, "people": listOfPeople ?? []]
         )
-                                                                                    
-                                                                                    
-    
-    
+    print("Hours: \(numHours) in addTask")
 }
 
-func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Void){
+func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Void) {
     
     db.collection("classes").document(classCode).collection("tasks").getDocuments { docs, error in
         if let error = error {
@@ -262,6 +259,7 @@ func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Vo
                         output["people"] = "\(peopleList.count)"
                     }
                     output["size"] = "\(data["size"] ?? 0)"
+                    output["hours"] = "\(data["hours"] ?? 0)"
                     output["ID"] = document.documentID
                    
                 
@@ -269,7 +267,7 @@ func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Vo
                     output = [:]
                 }
                 completion(com)
-            }else{
+            } else {
                 completion([])
             }
         }
@@ -292,7 +290,7 @@ func updateTaskParticipants(classCode:String, title: String, listOfPeople: [Stri
                 if listOfPeople.count <= (doc["size"] as? Int) ?? 0 {
                     db.collection("classes").document(classCode).collection("tasks").document(classCode + title).updateData(["people" : listOfPeople])
                     
-                }else{
+                } else {
                     print("too many people added")
                 }
             }
