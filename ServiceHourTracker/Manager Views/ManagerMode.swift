@@ -120,7 +120,7 @@ struct ManagerMode: View {
                     }
                     .onChange(of: className) { oldValue, newValue in
                         
-                        let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours)
+                        let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, peopleList: [], managerList: [userID], minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours)
                         
                         storeClassInfoInFirestore(org: newClass)
                         

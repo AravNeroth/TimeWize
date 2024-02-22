@@ -75,6 +75,7 @@ struct ClassesView: View {
                         checkIfDocumentExists(documentID: enteredCode) { result in
                             if result {
                                 updateCodes(uid: userID, newCode: enteredCode)
+                                addPersonToClass(person: userID, classCode: enteredCode)
                                 loadClassInfo(images: classInfoManager.classImages) { completed in
                                     if completed {
                                         done = false

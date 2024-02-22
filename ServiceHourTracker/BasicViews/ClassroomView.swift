@@ -36,84 +36,86 @@ struct ClassroomView: View {
                     }
                 }
         } else {
-            VStack {
-                ScrollView {
-                    if let image = classInfoManager.classImages[settingsManager.title] {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 20.0)
-                                .frame(width: 375, height: 200)
-                            
-                            Image(uiImage: image).scaledToFill().frame(width: 375, height: 200)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                        }
-                    }
-                    
-                    Divider()
-                        .frame(width: 375)
-                        .padding(6)
-                    
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20.0)
-                            .frame(width: 375, height: 75)
-                            .foregroundStyle(.green1)
-                        Text("\(settingsManager.title) Tasks")
-                            .font(.title)
-                            .bold()
-                            .padding()
-                    }
-                    
-                    Spacer()
-                    
-                    if tasks.count != 0 {
-                        ForEach(tasks, id:\.self) { task in
-                            TaskView(classCode: classData.code, title: "\(task["title"] ?? "No Title")", date: "\(task["date"] ?? "0/0/0000")", totalPpl: Int(task["size"] ?? "0")!)
-                        }
-                    } else {
-                        Text("No Tasks")
-                    }
-                }
-                
+            ZStack {
                 if showReqHours {
                     Popup(showReqHours: $showReqHours)
-                        .frame(width: 400, height: 500, alignment: .center).offset(y: -130)
+                        .frame(alignment: .center)
+                        .padding(40)
+                        .zIndex(1)
+                }
+                VStack {
+                    ScrollView {
+                        if let image = classInfoManager.classImages[settingsManager.title] {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 20.0)
+                                    .frame(width: 375, height: 200)
+                                
+                                Image(uiImage: image).scaledToFill().frame(width: 375, height: 200)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            }
+                        }
+                        
+                        Divider()
+                            .frame(width: 375)
+                            .padding(6)
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20.0)
+                                .frame(width: 375, height: 75)
+                                .foregroundStyle(.green1)
+                            Text("\(settingsManager.title) Tasks")
+                                .font(.title)
+                                .bold()
+                                .padding()
+                        }
+                        
+                        Spacer()
+                        
+                        if tasks.count != 0 {
+                            ForEach(tasks, id:\.self) { task in
+                                TaskView(classCode: classData.code, title: "\(task["title"] ?? "No Title")", date: "\(task["date"] ?? "0/0/0000")", totalPpl: Int(task["size"] ?? "0")!)
+                            }
+                        } else {
+                            Text("No Tasks")
+                        }
                     }
-                
-            }
-            .animation(.easeInOut)
-            .fullScreenCover(isPresented: $showIMGPicker) {
-                ImagePicker(image: $selectedImage)
-                    .ignoresSafeArea(edges: .bottom)
-            }
-            .onChange(of: selectedImage) { oldValue, newValue in
-                if let image = selectedImage{
-                    uploadImageToUserStorage(id: authID, image: selectedImage!,file: settingsManager.title, done: $loading)
                 }
-            }.toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button{
-                        settingsManager.tab = 2
-                    } label: {
-                        Image(systemName: "chevron.left").foregroundStyle(.blue)
+                .animation(.easeInOut)
+                .fullScreenCover(isPresented: $showIMGPicker) {
+                    ImagePicker(image: $selectedImage)
+                        .ignoresSafeArea(edges: .bottom)
+                }
+                .onChange(of: selectedImage) { oldValue, newValue in
+                    if let image = selectedImage{
+                        uploadImageToUserStorage(id: authID, image: selectedImage!,file: settingsManager.title, done: $loading)
+                    }
+                }.toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button{
+                            settingsManager.tab = 2
+                        } label: {
+                            Image(systemName: "chevron.left").foregroundStyle(.blue)
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button{
+                            showReqHours = true
+                        }label: {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button{
-                        showReqHours = true
-                    }label: {
-                        Image(systemName: "plus")
+                .onDisappear() {
+                    if let image = classImage {
+                        _ = saveImageToDocumentsDirectory(image: image, fileName: "\(settingsManager.title).jpg")
                     }
-//
+                }.onAppear() {
+                    getTasks(classCode: classData.code) { newTasks in
+                        tasks = newTasks
+                    }
                 }
             }
-            .onDisappear() {
-                if let image = classImage {
-                    _ = saveImageToDocumentsDirectory(image: image, fileName: "\(settingsManager.title).jpg")
-                }
-            }.onAppear() {
-                getTasks(classCode: classData.code) { newTasks in
-                    tasks = newTasks
-                }
-            }
+            .ignoresSafeArea(.keyboard, edges: .bottom)
         }
     }
 }
@@ -124,22 +126,21 @@ struct Popup: View {
     @State private var email = ""
     @State private var hourCount: Double = 0
     @State private var options = ["Attendance", "Service", "Club Specific"]
-    @State private var selectedOption = "Attendance"
+    @State private var selectedOption = "Attendance Hour"
     @EnvironmentObject private var classData:ClassData
     @AppStorage("uid") private var userID = ""
-    var onRequestSubmit: ((_ title: String, _ email: String, _ hourCount: Double, _ selectedOption: String) -> Void)?
+    
 
     var body: some View {
         VStack(spacing: 20) {
             TextField("Enter Description", text: $title)
                 .padding()
-                .background(Color.green3).cornerRadius(10)
-                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green6, lineWidth: 2))
+                .background(Color.white).cornerRadius(10)
+                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 2))
                 .padding(.horizontal)
-            
 
-            Slider(value: $hourCount, in: 0...7, step: 1)
-                .padding().tint(Color.green3)
+            Slider(value: $hourCount, in: 0...10, step: 1)
+                .padding().tint(Color.blue)
             Text("Hours Requested: \(Int(hourCount))")
 
             Picker("Select Hour type", selection: $selectedOption) {
@@ -149,20 +150,20 @@ struct Popup: View {
             }
             .pickerStyle(.menu)
             .padding()
-            .background(Color.green3).cornerRadius(10)
-            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green6, lineWidth: 1))
+            .background(Color.white).cornerRadius(10)
+            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
             .padding(.horizontal)
 
             HStack {
                 Button("Send Request") {
                     showReqHours = false
-                    onRequestSubmit?(title, email, hourCount, selectedOption)
+                    
                     
                     addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selectedOption, description: title)
                 }
-                .padding()
-                .background(Color.green3)
-                .foregroundColor(.green6)
+                .padding().background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                .background(Color.white)
+                .foregroundColor(.blue)
                 .cornerRadius(10)
 
                 Button("Cancel") {
@@ -171,15 +172,17 @@ struct Popup: View {
                     hourCount = 0
                     selectedOption = ""
                 }
-                .padding()
-                .background(Color.green3)
-                .foregroundColor(.green6)
+                .padding().background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                .background(Color.white)
+                .foregroundColor(.blue)
                 .cornerRadius(10)
             }
         }
         .padding()
-        .background(Color.green5)
+        .background(Color.white)
         .cornerRadius(20, corners: .allCorners)
-        .ignoresSafeArea()
+        .overlay(RoundedRectangle(cornerRadius: 20)
+                .stroke(.gray, lineWidth: 2)
+        )
     }
 }

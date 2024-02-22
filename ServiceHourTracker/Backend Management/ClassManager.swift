@@ -30,6 +30,8 @@ struct Classroom: Codable, Hashable, Identifiable {
     let managerCode: String
     let title: String
     let owner: String
+    let peopleList: [String]
+    let managerList: [String]
     let minServiceHours: Int
     let minSpecificHours: Int
     var id: String {
@@ -38,8 +40,6 @@ struct Classroom: Codable, Hashable, Identifiable {
 }
 
 let db = Firestore.firestore()
-
-
 
 func storeClassInfoInFirestore(org: Classroom) {
     do {
@@ -301,7 +301,7 @@ func updateTaskParticipants(classCode:String, title: String, listOfPeople: [Stri
     
 }
 
-func getTaskParticipants(classCode:String, title:String, completion: @escaping([String])->Void){
+func getTaskParticipants(classCode:String, title:String, completion: @escaping([String]) -> Void) {
     db.collection("classes").document(classCode).collection("tasks").document(classCode + title).getDocument { doc, error in
         if let error = error{
             print(error.localizedDescription)
@@ -334,7 +334,7 @@ func acceptRequest(request: [String:String], classCode:String){
     }
     
     getData(uid: email) { user in
-        if let user = user{
+        if let user = user {
             updateHours(uid: email, newHourCount: (user.hours ?? 0) + Float(hours))
         }
     }
@@ -345,9 +345,88 @@ func acceptRequest(request: [String:String], classCode:String){
     
 }
 
-func declineRequest(request: [String:String], classCode:String) {
-    if let requestID = request["ID"]{
+func declineRequest(request: [String:String], classCode: String) {
+    if let requestID = request["ID"] {
         db.collection("classes").document(classCode).collection("requests").document(requestID).delete()
     }
 }
 
+func addPersonToClass(person: String, classCode: String) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+        } else {
+            if let document = document {
+                let map = document.data()
+                var people = map?["peopleList"] as? [String] ?? [""]
+                
+                people.append(person)
+                db.collection("classes").document(classCode).updateData(["peopleList":people])
+            }
+        }
+    }
+}
+
+func removePersonFromClass(person: String, classCode: String) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+        } else {
+            if let document = document {
+                let map = document.data()
+                var people = map?["peopleList"] as? [String] ?? [""]
+                let personIndex = people.firstIndex(of: person)
+                
+                if personIndex != nil {
+                    people.remove(at: personIndex!)
+                }
+                
+                db.collection("classes").document(classCode).updateData(["peopleList":people])
+            }
+        }
+    }
+}
+
+func addManagerToClass(person: String, classCode: String) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+        } else {
+            if let document = document {
+                let map = document.data()
+                var managers = map?["managerList"] as? [String] ?? [""]
+                
+                managers.append(person)
+                db.collection("classes").document(classCode).updateData(["managerList":managers])
+            }
+        }
+    }
+}
+
+func removeManagerFromClass(person: String, classCode: String) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+        } else {
+            if let document = document {
+                let map = document.data()
+                var managers = map?["managerList"] as? [String] ?? [""]
+                let personIndex = managers.firstIndex(of: person)
+                
+                if personIndex != nil {
+                    managers.remove(at: personIndex!)
+                }
+                
+                db.collection("classes").document(classCode).updateData(["managerList":managers])
+            }
+        }
+    }
+}
