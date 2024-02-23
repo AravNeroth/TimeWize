@@ -12,9 +12,8 @@ import FirebaseAuth
 import FirebaseFirestore
 
 
-class ClassData: ObservableObject{
-    @Published var code:String
-    
+class ClassData: ObservableObject {
+    @Published var code: String
     init(code: String) {
         self.code = code
     }
@@ -102,7 +101,7 @@ func checkIfDocumentExists(documentID: String, completion: @escaping (Bool) -> V
 }
 
 
-func createClassCode() -> String{
+func createClassCode() -> String {
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
        let numbers = "0123456789"
        
@@ -312,7 +311,7 @@ func getTaskParticipants(classCode:String, title:String, completion: @escaping([
     }
 }
 
-func acceptRequest(request: [String:String], classCode:String){
+func acceptRequest(request: [String:String], classCode: String) {
     
     let email = request["email"]!
     let hours = Int(request["hours"] ?? "0")!
@@ -384,6 +383,21 @@ func removePersonFromClass(person: String, classCode: String) {
                 }
                 
                 db.collection("classes").document(classCode).updateData(["peopleList":people])
+            }
+        }
+    }
+}
+
+func getPeopleList(classCode: String, completion: @escaping([String]) -> Void) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document \(error.localizedDescription)")
+            completion([])
+        } else {
+            if let document = document {
+                completion(document["peopleList"] as? [String] ?? [])
             }
         }
     }

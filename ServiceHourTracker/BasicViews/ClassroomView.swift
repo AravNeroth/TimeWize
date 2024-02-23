@@ -18,6 +18,7 @@ struct ClassroomView: View {
     @State private var selectedImage: UIImage?
     @State private var classImage: UIImage?
     @State private var loading = true
+    @State var showPplList = false
     @AppStorage("authuid") private var authID = ""
 
     var body: some View {
@@ -91,16 +92,24 @@ struct ClassroomView: View {
                     }
                 }.toolbar {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button{
+                        Button {
                             settingsManager.tab = 2
+                            settingsManager.title = "Classes"
                         } label: {
                             Image(systemName: "chevron.left").foregroundStyle(.blue)
                         }
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            showPplList = true
+                        } label: {
+                            Image(systemName: "person.3")
+                        }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
                         Button{
                             showReqHours = true
-                        }label: {
+                        } label: {
                             Image(systemName: "plus")
                         }
                     }
@@ -116,6 +125,9 @@ struct ClassroomView: View {
                 }
             }
             .ignoresSafeArea(.keyboard, edges: .bottom)
+            .sheet(isPresented: $showPplList) {
+                PeopleListView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPplList)
+            }
         }
     }
 }
@@ -157,8 +169,6 @@ struct Popup: View {
             HStack {
                 Button("Send Request") {
                     showReqHours = false
-                    
-                    
                     addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selectedOption, description: title)
                 }
                 .padding().background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))

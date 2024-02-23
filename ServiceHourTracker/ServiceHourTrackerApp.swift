@@ -15,18 +15,13 @@ struct ServiceHourTrackerApp: App {
     @StateObject private var settingsManager = SettingsManager()
     @StateObject private var userData = UserData(user:User())
     @StateObject private var classData = ClassData(code: "")
-    
-    
-    
-    
+
     init() {
         FirebaseApp.configure()
-        
     }
     
     var body: some Scene {
         WindowGroup {
-            
                 AuthView()
                     .environmentObject(settingsManager)
                     .preferredColorScheme(settingsManager.isDarkModeEnabled ? .dark : .light)

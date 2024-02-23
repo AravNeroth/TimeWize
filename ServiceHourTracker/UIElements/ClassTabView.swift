@@ -12,7 +12,6 @@ struct ClassTabView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
-    @State var navToClass = false
     var banner: UIImage? = UIImage(resource: .image3)
     var pfp: UIImage? = UIImage(resource: .image2)
     @AppStorage("uid") private var userID = ""
@@ -104,13 +103,7 @@ struct ClassTabView: View {
             .frame(height: 90)
             
         }
-
-//            .padding(.vertical, 5.0)
-            
-        
-
     }
-   
 }
 
 

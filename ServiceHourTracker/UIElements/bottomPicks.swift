@@ -14,12 +14,10 @@ struct bottomPicks: View {
     var body: some View {
         HStack{
             Spacer()
-            Button{
-
+            Button {
                 settingsManager.tab = 0
-            }label: {
+            } label: {
                 VStack{
-
                     Image(systemName: "clock.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                     Text("Hours Log").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
@@ -28,9 +26,8 @@ struct bottomPicks: View {
             Button{
 
                 settingsManager.tab = 2
-            }label: {
+            } label: {
                 VStack{
-
                     Image(systemName: "house.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                     Text("Classes").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }

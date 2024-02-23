@@ -55,30 +55,30 @@ struct StudentView: View {
                 
                 ClassroomView().navigationBarTitleDisplayMode(.inline)
                     .navigationTitle(settingsManager.title)
-//                    .toolbar {
-//                        ToolbarItem(placement: .topBarLeading) {
-//                            Button{
-//                                settingsManager.tab = 2
-//                            } label: {
-//                                Image(systemName: "chevron.left").foregroundStyle(.blue)
-//                            }
-//                        }
-//                    }
+                //                    .toolbar {
+                //                        ToolbarItem(placement: .topBarLeading) {
+                //                            Button{
+                //                                settingsManager.tab = 2
+                //                            } label: {
+                //                                Image(systemName: "chevron.left").foregroundStyle(.blue)
+                //                            }
+                //                        }
+                //                    }
                 
                 
-//            case .ManagerClass:
-//                ManagerClass(loaded: .constant(true))
+                //            case .ManagerClass:
+                //                ManagerClass(loaded: .constant(true))
             }
                    
                 
             
         }
         .onChange(of: settingsManager.tab, { old, new in
-            switch settingsManager.tab{
-            case 0: settingsManager.title = "Hours Log"; currentView = .HourBoardView
-            case 2: settingsManager.title = "Classes"; currentView = .ClassesView
-            case 3: settingsManager.title = "Settings"; currentView = .SettingsView
-            case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .ClassroomView
+            switch settingsManager.tab {
+            case 0: settingsManager.title = "Hours Log"; currentView = .HourBoardView; break;
+            case 2: settingsManager.title = "Classes"; currentView = .ClassesView; break;
+            case 3: settingsManager.title = "Settings"; currentView = .SettingsView; break;
+            case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .ClassroomView; break;
 //            case 5: settingsManager.title = "ManagerTest"; currentView = .ManagerTestClass
             default:
                 settingsManager.title = ""
@@ -90,11 +90,6 @@ struct StudentView: View {
 //        .preferredColorScheme(.dark)
     }
 }
-
-
-
-
-
 
 #Preview {
     StudentView()
