@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct ManagerClass: View {
+    @State private var showPpl = false
     @Binding var loaded: Bool
     @State private var imageSelection = false
     @State private var newBanner = UIImage(systemName: "person")
@@ -32,6 +33,11 @@ struct ManagerClass: View {
             ToolbarItem(placement: .topBarTrailing) {
                 HStack{
                     Button{
+                        showPpl = true
+                    }label: {
+                        Image(systemName: "person.3")
+                    }
+                    Button{
                         
                         imageSelection = true
                     }label: {
@@ -47,7 +53,9 @@ struct ManagerClass: View {
             }
             
         }
-            
+        .sheet(isPresented: $showPpl) {
+            PeopleListView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPpl)
+        }
         .fullScreenCover(isPresented: $imageSelection) {
             ImagePicker(image: $newBanner)
                 
@@ -70,7 +78,7 @@ struct ManagerClass: View {
 struct taskPopup: View {
     @Binding var showPop: Bool
     @State private var taskName = ""
-
+    
     @State private var date: Date = Date()
     @State private var taskHours: Double = 0
     @State private var maxPeople: Double = 0
