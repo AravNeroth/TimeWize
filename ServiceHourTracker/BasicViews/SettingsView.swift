@@ -338,7 +338,7 @@ struct SettingsView:View {
             
             NavigationLink(destination: LoginView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToSign){}
             NavigationLink(destination: AuthView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToOrigin){}
-            NavigationLink(destination: ManagerMode().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToManager){}
+            NavigationLink(destination: ManagerClassesView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToManager){}
             NavigationLink(destination: ManagerReqListView().ignoresSafeArea().navigationBarBackButtonHidden(true), isActive: $navToReqList){}
 
 //                .navigationTitle("Settings")

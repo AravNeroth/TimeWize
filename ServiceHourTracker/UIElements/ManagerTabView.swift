@@ -9,7 +9,6 @@ struct ManagerTabView: View {
     
     var name: String
     var classCode: String
-    @Binding var loaded: Bool
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
@@ -132,7 +131,7 @@ struct ManagerTabView: View {
             }
             .frame(height: 90)
             NavigationLink(
-                destination: ManagerClass(loaded: $loaded),
+                destination: ManagerClassroomView(),
                             isActive: $navToClass,
                             label: {
                                 EmptyView()

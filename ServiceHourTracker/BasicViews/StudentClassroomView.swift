@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ClassroomView: View {
+struct StudentClassroomView: View {
     
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager

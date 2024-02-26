@@ -30,7 +30,7 @@ struct StudentView: View {
             
             switch currentView {
             case .ClassesView:
-                ClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title)
+                StudentClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title)
             case .SettingsView:
                 SettingsView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).toolbar {
                     
@@ -53,7 +53,7 @@ struct StudentView: View {
                 }
             case .ClassroomView:
                 
-                ClassroomView().navigationBarTitleDisplayMode(.inline)
+                StudentClassroomView().navigationBarTitleDisplayMode(.inline)
                     .navigationTitle(settingsManager.title)
                 //                    .toolbar {
                 //                        ToolbarItem(placement: .topBarLeading) {

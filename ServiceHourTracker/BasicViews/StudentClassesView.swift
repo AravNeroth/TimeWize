@@ -8,7 +8,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
-struct ClassesView: View {
+struct StudentClassesView: View {
     
     @EnvironmentObject var settingsManager: SettingsManager
     @State var showJoinMessage = false

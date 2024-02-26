@@ -36,7 +36,7 @@ struct AuthView: View {
                 case .StudentView:
                     StudentView()
                 case .ClassMode:
-                    ClassroomView().toolbar {
+                    StudentClassroomView().toolbar {
                         ToolbarItem(placement: .bottomBar) {
                             bottomPicks(selection: $tabSelection)
                         }

@@ -7,10 +7,9 @@
 
 import SwiftUI
 import FirebaseFirestore
-struct ManagerMode: View {
+struct ManagerClassesView: View {
     
     @State var className: String = ""
-    
     @State var managerCodeAlert = false
     @State var managerCodeField: String = ""
     @State var managerCode: String = ""
@@ -29,67 +28,45 @@ struct ManagerMode: View {
     @AppStorage("authuid") private var authID = ""
     
     var body: some View {
-        if refreshed == false{
+        if refreshed == false {
             LoadingScreen()
                 .animation(.easeInOut)
-                .onAppear(){
+                .onAppear() {
+                    getClasses(uid: userID) { list in
+                        settingsMan.classes = list ?? [] //list of codes
+                    }
                     
-                  
-                        
-                        
-                        getClasses(uid: userID) { list in
-                            settingsMan.classes = list ?? [] //list of codes
-                        }
-                        for _ in 0..<1 {
-                            for code in settingsMan.classes{
-                                
-                                getClassInfo(classCloudCode: code) { classroom in
-                                    if let classroom = classroom{
-                                        if !settingsMan.managerClassObjects.contains(classroom){
-                                            
-                                            settingsMan.managerClassObjects.append(classroom)
-                                            
-                                            downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg", completion: { image in
-                                                classInfoManager.managerClassImages[classroom.title] = image
-                                            })
-                                            
-                                            downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") {
-                                                
-                                                image in
-                                                if let image = image{
-                                                    print("found \(code)")
-                                                    classInfoManager.managerClassPfp[classroom.title] = image
-                                                }else{
-                                                    print("no pfp for class with code \(code) and name \(classroom.title)")
-                                                }
-                                            }
-                                            
-                                        }
+                    for code in settingsMan.classes {
+                        getClassInfo(classCloudCode: code) { classroom in
+                            if let classroom = classroom {
+                                if !settingsMan.managerClassObjects.contains(classroom) {
+                                    
+                                    settingsMan.managerClassObjects.append(classroom)
+                                    
+                                    downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
+                                        classInfoManager.managerClassImages[classroom.title] = image
                                     }
                                     
+                                    downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
+                                        if let image = image {
+                                            print("found \(code)")
+                                            classInfoManager.managerClassPfp[classroom.title] = image
+                                        } else {
+                                            print("no pfp for class with code \(code) and name \(classroom.title)")
+                                        }
+                                    }
                                 }
                             }
-                           
-                                                            
                         }
+                    }
                     settingsMan.managerClassObjects.sort { $0.title < $1.title }
                     refreshed = true
-
-                    }
-                //update the settingsManager classes list
-                    
-            
+                }
         } else {
-            VStack{
-                ScrollView{
-                    
+            VStack {
+                ScrollView {
                     ForEach(settingsMan.managerClassObjects, id: \.self) { classroom in
-                        
-                        ManagerTabView(name: classroom.title,
-                                       classCode: classroom.code,
-                                       loaded: $refreshed,
-                                       banner: classInfoManager.managerClassImages[classroom.title],
-                                       pfp: classInfoManager.managerClassPfp[classroom.title]
+                        ManagerTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.managerClassImages[classroom.title], pfp: classInfoManager.managerClassPfp[classroom.title]
                             
                                        
                         ).padding(.bottom, 10).animation(.spring(duration: 1))
@@ -133,10 +110,10 @@ struct ManagerMode: View {
                         )
                         
                         settingsMan.classes.append(newClass.code)
+                        storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
+                        addManagerToClass(person: userID, classCode: newClass.code)
                         
-                        storeUserCodeInFirestore(uid: userID,
-                                                 codes: settingsMan.classes
-                        )
+                        refreshed = false
                     }
 //                    .onChange(of: managerCode) {
 //                        fetchClass =
@@ -265,6 +242,6 @@ struct ManagerMode: View {
 
 
 #Preview {
-    ManagerMode()
+    ManagerClassesView()
 }
 

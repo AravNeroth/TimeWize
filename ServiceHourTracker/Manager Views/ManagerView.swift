@@ -40,7 +40,7 @@ struct ManagerView: View {
 //                    }
 //                }
             case .ManagerHome:
-                ManagerMode().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
+                ManagerClassesView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
                     ToolbarItem(placement: .bottomBar) {
                         ManagerBottomBar(selection: $tabSelection)
                     }

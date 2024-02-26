@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-struct ManagerClass: View {
+struct ManagerClassroomView: View {
     @State private var showPpl = false
-    @Binding var loaded: Bool
+    //@Binding var loaded: Bool
     @State private var imageSelection = false
     @State private var newBanner = UIImage(systemName: "person")
     @EnvironmentObject var classData: ClassData
@@ -66,7 +66,6 @@ struct ManagerClass: View {
                 print("code: \(classData.code)")
                 uploadImageToClassroomStorage(code: classData.code , image: newBanner, file: "\(settingsManager.title)")
                 classInfoManager.managerClassImages[settingsManager.title] = newBanner
-                loaded = false
             }
         }
     }
