@@ -85,7 +85,7 @@ struct ManagerMode: View {
                     
                     ForEach(settingsMan.managerClassObjects, id: \.self) { classroom in
                         
-                        ManagerTabVIew(name: classroom.title,
+                        ManagerTabView(name: classroom.title,
                                        classCode: classroom.code,
                                        loaded: $refreshed,
                                        banner: classInfoManager.managerClassImages[classroom.title],

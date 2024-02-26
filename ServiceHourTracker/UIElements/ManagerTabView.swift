@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-struct ManagerTabVIew: View {
+struct ManagerTabView: View {
     
     var name: String
     var classCode: String
