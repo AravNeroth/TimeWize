@@ -25,7 +25,7 @@ struct StudentClassesView: View {
     var body: some View {
         if !done {
             LoadingScreen()
-                .animation(.easeInOut)
+                .animation(.easeInOut, value: done)
                 .onAppear() {
                     getCodes(uid: userID) { codes in
                         if var codes = codes {
@@ -56,7 +56,7 @@ struct StudentClassesView: View {
                         } else {
                             ForEach(allClasses, id: \.self) { classroom in
                                 ClassTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.classImages[classroom.title], pfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
-                                    .animation(.spring(duration: 1))
+                                    .animation(.spring(duration: 1), value: done)
                             }
                         }
                     }

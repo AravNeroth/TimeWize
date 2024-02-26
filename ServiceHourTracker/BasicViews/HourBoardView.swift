@@ -46,7 +46,7 @@ struct HourBoardView: View {
                     .stroke(Color.green, lineWidth: 20)
                     .frame(width: 200, height: 200)
                     .rotationEffect(.degrees(-90))
-                    .animation(.easeInOut(duration: 1.5))
+                    .animation(.easeInOut(duration: 1.5), value: animate)
                 Text("\(totalHoursEarned) hours") // Display total hours earned
                     .font(.title)
             }

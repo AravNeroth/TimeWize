@@ -30,10 +30,10 @@ struct ManagerClassesView: View {
     var body: some View {
         if refreshed == false {
             LoadingScreen()
-                .animation(.easeInOut)
+                .animation(.easeInOut, value: refreshed)
                 .onAppear() {
                     getClasses(uid: userID) { list in
-                        settingsMan.classes = list ?? [] //list of codes
+                        settingsMan.classes = list ?? [] // list of codes
                     }
                     
                     for code in settingsMan.classes {
@@ -59,112 +59,90 @@ struct ManagerClassesView: View {
                             }
                         }
                     }
-                    settingsMan.managerClassObjects.sort { $0.title < $1.title }
+                    settingsMan.managerClassObjects.sort{ $0.title < $1.title }
                     refreshed = true
                 }
         } else {
             VStack {
                 ScrollView {
                     ForEach(settingsMan.managerClassObjects, id: \.self) { classroom in
-                        ManagerTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.managerClassImages[classroom.title], pfp: classInfoManager.managerClassPfp[classroom.title]
-                            
-                                       
-                        ).padding(.bottom, 10).animation(.spring(duration: 1))
-                        
+                        ManagerTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.managerClassImages[classroom.title], pfp: classInfoManager.managerClassPfp[classroom.title])
+                            .padding(.bottom, 10)
+                            .animation(.spring(duration: 1), value: refreshed)
                     }
-                    
                 }
-                    .alert("Create A Class", isPresented: $classCreationAlert) {
-                        TextField("Enter Name", text: $classNameField)
-                        TextField("Minimum Service Hours", text: $classServiceField)
-                        TextField("Minimum Specific Hours", text: $classSpecificField)
-                        Button("OK") {
-                            className = classNameField
-                            minServiceHours = Int(classServiceField) ?? 0
-                            minClassSpecificHours = Int(classSpecificField) ?? 0
-                        }
-                        Button("Cancel") {
-                            
-                        }
-                    } message: {
-                        Text("create a name")
+                .alert("Create A Class", isPresented: $classCreationAlert) {
+                    TextField("Enter Name", text: $classNameField)
+                    TextField("Minimum Service Hours", text: $classServiceField)
+                    TextField("Minimum Specific Hours", text: $classSpecificField)
+                    Button("OK") {
+                        className = classNameField
+                        minServiceHours = Int(classServiceField) ?? 0
+                        minClassSpecificHours = Int(classSpecificField) ?? 0
+                        classNameField = ""
+                        classServiceField = ""
+                        classSpecificField = ""
                     }
-                    .alert("Enter Manager Code", isPresented: $managerCodeAlert) {
-                        TextField("Enter Code", text: $managerCodeField)
-                        Button("OK") {
-                            managerCode = managerCodeField
-                        }
-                        Button("Cancel") {
-                            
+                    Button("Cancel") {}
+                }
+                .alert("Enter Manager Code", isPresented: $managerCodeAlert) {
+                    TextField("Enter Code", text: $managerCodeField)
+                    Button("OK") {
+                        managerCode = managerCodeField
+                    }
+                    Button("Cancel") {}
+                }
+                .onChange(of: className) { oldValue, newValue in
+                    
+                    let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, peopleList: [], managerList: [userID], minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours)
+                    
+                    storeClassInfoInFirestore(org: newClass)
+                    uploadImageToClassroomStorage(code: "\(newClass.code)", image: settingsMan.pfp, file: "Pfp\(newClass.code)")
+                    
+                    settingsMan.classes.append(newClass.code)
+                    storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
+                    
+                    refreshed = false
+                }
+                .alert("Join Class", isPresented: $managerCodeAlert) {
+                    TextField("Enter Manager Code", text: $joinCode)
+                    Button("Ok") {
+                        checkIfManagerCodeExists(manCode: joinCode) { exists in
+                            if exists {
+                                fetchClassDetailsForManagerCode(manCode: joinCode)
+                                joinCode = ""
+                            } else {
+                                alertMessage = "Code does not exist"
+                                joinCode = ""
+                                managerCodeAlert = false
+                                managerCodeAlert = true
+                            }
                         }
                     }
-                    .onChange(of: className) { oldValue, newValue in
-                        
-                        let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, peopleList: [], managerList: [userID], minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours)
-                        
-                        storeClassInfoInFirestore(org: newClass)
-                        
-                        uploadImageToClassroomStorage(code: "\(newClass.code)",
-                                                      image: settingsMan.pfp,
-                                                      file: "Pfp\(newClass.code)"
-                        )
-                        
-                        settingsMan.classes.append(newClass.code)
-                        storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
-                        addManagerToClass(person: userID, classCode: newClass.code)
-                        
-                        refreshed = false
-                    }
-//                    .onChange(of: managerCode) {
-//                        fetchClass =
-//                        
-//                        settingsMan.classes.append()
-//                    }
-                    .alert("Join Class", isPresented: $managerCodeAlert) {
-                                       TextField("Enter Manager Code", text: $joinCode)
-                                       Button("Ok") {
-                                           
-                                           checkIfManagerCodeExists(manCode: joinCode) { exists in
-                                               if exists{
-                                                   fetchClassDetailsForManagerCode(manCode: joinCode)
-                                                   joinCode = ""
-                                               }else{
-                                                   alertMessage = "Code does not exist"
-                                                   joinCode = ""
-                                                   managerCodeAlert = false
-                                                   managerCodeAlert = true
-                                               }
-                                               
-                                           }
-                                           
-                                           
-                                       }
-                                       Button("Cancel") {}
-                                   }message: {
-                                       Text(alertMessage)
-                                   }
+                    Button("Cancel") {}
+                } message: {
+                    Text(alertMessage)
+                }
                 
-            }.toolbar{
-                
+            }
+            .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    HStack{
-                        Button{
+                    HStack {
+                        Button {
                             alertMessage = "Manager Code"
                             managerCodeAlert = true
-                            
-                        }label: {
+                        } label: {
                             Image(systemName: "plus.magnifyingglass")
-                        }.padding(2)
-                        Button{
+                        }
+                        .padding(2)
+                        Button {
                             withAnimation{
                                 classCreationAlert = true
-                                
                             }
-                            
-                            
-                        }label: {
+                        } label: {
                             Image(systemName: "plus")
-                        }.padding()
+                        }
+                        .padding()
                     }
                 }
             }
