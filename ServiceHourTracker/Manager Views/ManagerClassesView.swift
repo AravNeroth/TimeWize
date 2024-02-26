@@ -112,7 +112,7 @@ struct ManagerClassesView: View {
                                 fetchClassDetailsForManagerCode(manCode: joinCode)
                                 joinCode = ""
                             } else {
-                                alertMessage = "Code does not exist"
+                                alertMessage = "Code Does Not Exist"
                                 joinCode = ""
                                 managerCodeAlert = false
                                 managerCodeAlert = true
