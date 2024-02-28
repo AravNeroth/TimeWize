@@ -108,13 +108,17 @@ struct AuthView: View {
     
     private func clearAppStorageAndObjects(){
         //not including the darkmode
+        SettingsManager.shared = SettingsManager()
         settingsManager.pfp = UIImage()
         settingsManager.perfHourRange = 20
+        settingsManager.title = "Login"
         settingsManager.classes = []
         settingsManager.inClass = false
         classInfoManager.classInfo = []
         classInfoManager.classImages = [:]
         classInfoManager.classPfp = [:]
+        classInfoManager.managerClassImages = [:]
+        classInfoManager.managerClassPfp = [:]
         @AppStorage("name") var name = ""
         name = ""
         @AppStorage("hours") var hours = 0
@@ -123,6 +127,7 @@ struct AuthView: View {
         authID = ""
         @AppStorage("uid") var userID = ""
         userID = ""
+        try? Auth.auth().signOut()
         
     }
     private func loadData(completion: ((Result<Void, Error>)-> Void)? = nil){

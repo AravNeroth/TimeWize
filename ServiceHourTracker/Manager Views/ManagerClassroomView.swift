@@ -24,7 +24,7 @@ struct ManagerClassroomView: View {
                 Text("manager class: \(classData.code)")
                 if showTaskPopup {
                     taskPopup(showPop: $showTaskPopup)
-                        .frame(width: 300, height: 500, alignment: .center).offset(y: -130)
+                        .frame(width: 375, height: 500, alignment: .center).offset(y: -130)
                 }
             }
             
@@ -81,31 +81,54 @@ struct taskPopup: View {
     @State private var date: Date = Date()
     @State private var taskHours: Double = 0
     @State private var maxPeople: Double = 0
-    
+    @State private var showStroke:Bool = false
+    @State private var datePassed:Bool = false
     @EnvironmentObject private var classData:ClassData
     @AppStorage("uid") private var userID = ""
     
 
     var body: some View {
-        VStack(spacing: 20) {
-          
+        ScrollView() {
+          //spacing 20 VStack
             TextField("Enter Task Title", text: $taskName).tint(Color.green7).padding()
+                .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                
+                    .stroke(lineWidth: 1)
+                    .foregroundColor(showStroke ? .red : .black)
+                )
             
-            DatePicker("", selection: $date).padding()
+            DatePicker("", selection: $date, displayedComponents: .date).padding().datePickerStyle(GraphicalDatePickerStyle()).tint(datePassed ? .red : .blue)
             
             Slider(value: $taskHours, in: 0...10, step: 1)
-                .padding().tint(Color.green7)
+                .padding().tint(Color.blue)
             Text("Hours: \(Int(taskHours))")
             
             Slider(value: $maxPeople, in: 0...20, step: 1)
-                .padding().tint(Color.green7)
+                .padding().tint(Color.blue)
             Text("Max People: \(Int(maxPeople))")
             
             HStack{
                 Button("OK") {
-                    showPop = false
-                    addTask(classCode: classData.code, title: taskName, date: date, maxSize: Int(maxPeople), numHours: Int(taskHours))
-                    print("Hours: \(taskHours) in Button")
+                    
+                    if taskName != ""{
+                        showStroke = false
+                                            print(date.formatted(.dateTime.year().month().day()))
+                        let passed = hasDatePassed(date: date.formatted(.dateTime.year().month().day()))
+                                                print(passed)
+                        if !passed {
+                            datePassed = false
+                            showPop = false
+                            addTask(classCode: classData.code, title: taskName, date: date, maxSize: Int(maxPeople), numHours: Int(taskHours))
+                            print("Hours: \(taskHours) in Button")
+                        }else{
+                            datePassed = true
+                        }
+                    }else{
+                        showStroke = true
+                    }
+                    
+                    
                 }.padding().tint(Color.green7)
                 Button("Cancel") {
                     showPop = false
@@ -115,8 +138,8 @@ struct taskPopup: View {
                 }.padding().tint(Color.green7)
             }
         }.padding(10)
-        .background(Color.green3).cornerRadius(10)
-       .background(RoundedRectangle(cornerRadius: 10).stroke(Color.green6, lineWidth: 1))
+            .background(.white).cornerRadius(10) // was green3
+       .background(RoundedRectangle(cornerRadius: 10).stroke(.black, lineWidth: 1)) // was green6
        .padding(.horizontal)
     }
            

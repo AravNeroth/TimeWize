@@ -26,7 +26,7 @@ struct ManagerClassesView: View {
     @AppStorage("uid") var userID: String = ""
     @State var refreshed = false
     @AppStorage("authuid") private var authID = ""
-    
+    @State private var alreadyInAlert = false
     var body: some View {
         if refreshed == false {
             LoadingScreen()
@@ -93,6 +93,16 @@ struct ManagerClassesView: View {
                         TextField("Enter Code", text: $managerCodeField)
                         Button("OK") {
                             managerCode = managerCodeField
+                            
+                        }
+                        Button("Cancel") {
+                            
+                        }
+                    }
+                    .alert("You are already managing this class", isPresented: $alreadyInAlert) {
+                        
+                        Button("OK") {
+                            joinCode = ""
                         }
                         Button("Cancel") {
                             
@@ -121,28 +131,36 @@ struct ManagerClassesView: View {
 //                        settingsMan.classes.append()
 //                    }
                     .alert("Join Class", isPresented: $managerCodeAlert) {
-                                       TextField("Enter Manager Code", text: $joinCode)
-                                       Button("Ok") {
-                                           
-                                           checkIfManagerCodeExists(manCode: joinCode) { exists in
-                                               if exists{
-                                                   fetchClassDetailsForManagerCode(manCode: joinCode)
-                                                   joinCode = ""
-                                               }else{
-                                                   alertMessage = "Code does not exist"
-                                                   joinCode = ""
-                                                   managerCodeAlert = false
-                                                   managerCodeAlert = true
-                                               }
-                                               
-                                           }
-                                           
-                                           
+                       TextField("Enter Manager Code", text: $joinCode)
+                       Button("Ok") {
+                           
+                           checkIfManagerCodeExists(manCode: joinCode) { exists in
+                               if exists{
+                                   fetchClassDetailsForManagerCode(manCode: joinCode){ completed in
+                                       if !completed{alreadyInAlert = true}
+                                       else{
+                                           //completed adding manager class
+                                           print("completed?")
                                        }
-                                       Button("Cancel") {}
-                                   }message: {
-                                       Text(alertMessage)
+                                       
                                    }
+                                   
+                                   joinCode = ""
+                               }else{
+                                   alertMessage = "Code does not exist"
+                                   joinCode = ""
+                                   managerCodeAlert = false
+                                   managerCodeAlert = true
+                               }
+                               
+                           }
+                           
+                           
+                       }
+                       Button("Cancel") {}
+                   }message: {
+                       Text(alertMessage)
+                   }
                 
             }.toolbar{
                 
@@ -171,7 +189,7 @@ struct ManagerClassesView: View {
         }
     }
     
-    private func fetchClassDetailsForManagerCode(manCode: String) {
+    private func fetchClassDetailsForManagerCode(manCode: String, completion: @escaping (Bool) -> Void) {
            let db = Firestore.firestore()
            db.collection("classes").whereField("managerCode", isEqualTo: manCode).getDocuments { snapshot, error in
                if let error = error {
@@ -179,18 +197,36 @@ struct ManagerClassesView: View {
                } else {
                    for document in snapshot!.documents {
                        let classData = document.data()
-                       if let className = classData["title"] as? String,
+                       if
                           let classCode = classData["code"] as? String,
-                          var managerList = classData["managerList"] as? [String],
-                          let minSpecificHours = classData["minSpecificHours"] as? Int,
-                          let minServiceHours = classData["minServiceHours"] as? Int,
-                          let peopleList = classData["peopleList"] as? [String],
-                          let owner = classData["owner"] as? String {
-                           managerList.append(userID)
-                           let classroom = Classroom(code: classCode, managerCode: manCode, title: className, owner: owner, peopleList: peopleList, managerList: managerList, minServiceHours: minServiceHours, minSpecificHours: minSpecificHours)
-                           settingsMan.classes.append(classroom.code)
-                           storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
-                          }
+                          var managerList = classData["managerList"] as? [String]
+//                          ,let className = classData["title"] as? String,
+//                          let minSpecificHours = classData["minSpecificHours"] as? Int,
+//                          let minServiceHours = classData["minServiceHours"] as? Int,
+//                          let peopleList = classData["peopleList"] as? [String],
+//                          let owner = classData["owner"] as? String 
+                       {
+                           getManagersList(classCode: classCode) { list in
+                               
+                               if !list.contains(userID) {
+//                                   managerList.append(userID)
+//                                   let classroom = Classroom(code: classCode, managerCode: manCode, title: className, owner: owner, peopleList: peopleList, managerList: managerList, minServiceHours: minServiceHours, minSpecificHours: minSpecificHours)
+//                                   settingsMan.classes.append(classroom.code)
+//                                   storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
+                                   managerList.append(userID)
+                                   db.collection("classes").document(classCode).updateData(["managerList":managerList])
+                                   settingsMan.classes.append(classCode)
+                                   storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
+                                   
+                                   completion(true)
+                               }else{
+                                   completion(false)
+                               }
+                           }
+                           
+                           
+                      }
+                       
                    }
                }
            }

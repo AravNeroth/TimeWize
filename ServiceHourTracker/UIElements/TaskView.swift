@@ -18,6 +18,8 @@ struct TaskView: View {
     @State var showingAlert: Bool = false
     @State var participants: [String] = []
     @State var numHours: Int = 0
+    @State private var dateInvalid:Bool = false
+    @State private var dateInvalidAlert:Bool = false
     @AppStorage("uid") var userID: String = ""
     
     var body: some View {
@@ -71,36 +73,53 @@ struct TaskView: View {
                         }
                     } else {
                         Button(action: {
-                            isSignedUp.toggle()
-                                    
-                            if isSignedUp {
-                                participants.append(userID)
-                                updateTaskParticipants(classCode: classCode, title: title, listOfPeople: participants)
-                                currPpl += 1
-                            } else {
+                            if !dateInvalid{
+                                isSignedUp.toggle()
+                            }
+                            if dateInvalid{
+                                dateInvalidAlert = true
+                            } else if isSignedUp {
+                                getTaskParticipants(classCode: classCode, title: title) { list in
+                                    if !list.contains(userID){
+                                        participants.append(userID)
+                                        updateTaskParticipants(classCode: classCode, title: title, listOfPeople: participants)
+                                        currPpl += 1
+                                    }
+                                }
+                                
+                            }else {
                                 participants.remove(at: participants.firstIndex(of: userID)!)
                                 updateTaskParticipants(classCode: classCode, title: title, listOfPeople: participants)
                                 currPpl -= 1
                             }
                                     
                         }) {
-                            if isSignedUp {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 7.5)
-                                        .foregroundStyle(.red)
-                                        .frame(width: 100, height: 25)
-                                    Text("Quit")
-                                        .foregroundStyle(.black)
+                            
+                             if dateInvalid{
+                                 ZStack {
+                                     RoundedRectangle(cornerRadius: 7.5)
+                                         .foregroundStyle(.gray)
+                                         .frame(width: 100, height: 25)
+                                     Text("pending")
+                                         .foregroundStyle(.black)
+                                 }
+                                }else if isSignedUp {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 7.5)
+                                            .foregroundStyle(.red)
+                                            .frame(width: 100, height: 25)
+                                        Text("Quit")
+                                            .foregroundStyle(.black)
+                                    }
+                                }else {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 7.5)
+                                            .foregroundStyle(.green)
+                                            .frame(width: 100, height: 25)
+                                        Text("Sign Up")
+                                            .foregroundStyle(.black)
+                                    }
                                 }
-                            } else {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 7.5)
-                                        .foregroundStyle(.green)
-                                        .frame(width: 100, height: 25)
-                                    Text("Sign Up")
-                                        .foregroundStyle(.black)
-                                }
-                            }
                         }
                     }
                             
@@ -115,8 +134,14 @@ struct TaskView: View {
                             
                     Spacer()
                 }
+                
             })
             .onAppear() {
+                if hasDatePassed(date: date){
+                    dateInvalid = true
+                }else{
+                    
+                }
                 getTaskParticipants(classCode: classCode, title: title) { peopleList in
                     participants = peopleList
                     currPpl = participants.count
@@ -126,7 +151,17 @@ struct TaskView: View {
                         isSignedUp = true
                     }
                 }
-             }
+                
+            }
+            .alert("The Date Has Passed", isPresented: $dateInvalidAlert) {
+                
+                Button("OK") {
+                   dateInvalidAlert = false
+                }
+                Button("Cancel") {
+                    dateInvalidAlert = false
+                }
+            }
         }
     }
 }

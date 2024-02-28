@@ -9,24 +9,26 @@ import Foundation
 import SwiftUI
 
 class SettingsManager: ObservableObject {
-    static let shared =  SettingsManager()
+    static var shared =  SettingsManager()
     @AppStorage("managerMode") var isManagerMode: Bool = false
     @Published var pfp: UIImage = UIImage()
     @Published var perfHourRange = 20
     @AppStorage("isDarkModeEnabled") var isDarkModeEnabled: Bool = false
     @Published var title: String = "Classes"
-    @Published var classes: [String] = UserDefaults.standard.stringArray(forKey: "classes") ?? [] {
-        didSet{
-            updateUserDefaults()
-        }
-    }
+    @Published var classes: [String] = []
+//    UserDefaults.standard.stringArray(forKey: "classes") ?? [] {
+//        didSet{
+//            updateUserDefaults()
+//        }
+//    } //is UserDefaults creating the bug?
     @Published var managerClassObjects: [Classroom] = []
     @Published var inClass = false
     @Published var tab: Int = 2
     @Published var manTab: Int = 1
-    private func updateUserDefaults() {
-           UserDefaults.standard.set(classes, forKey: "classes")
-       }
+    
+//    private func updateUserDefaults() {
+//           UserDefaults.standard.set(classes, forKey: "classes")
+//       }
 }
 
 

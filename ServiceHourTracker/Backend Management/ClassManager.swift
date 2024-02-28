@@ -442,3 +442,23 @@ func removeManagerFromClass(person: String, classCode: String) {
         }
     }
 }
+
+func getManagersList(classCode:String, completion: @escaping ([String])->Void){
+    
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+            completion([])
+        } else {
+            if let document = document {
+                let map = document.data()
+                var managers = map?["managerList"] as? [String] ?? []
+                completion(managers)
+            }
+        }
+    }
+    
+}
+
