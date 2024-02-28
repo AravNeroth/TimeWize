@@ -128,7 +128,7 @@ struct AuthView: View {
         @AppStorage("uid") var userID = ""
         userID = ""
         try? Auth.auth().signOut()
-        
+        settingsManager.zeroUserDefaults()
     }
     private func loadData(completion: ((Result<Void, Error>)-> Void)? = nil){
         

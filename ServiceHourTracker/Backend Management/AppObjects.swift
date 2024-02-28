@@ -15,20 +15,23 @@ class SettingsManager: ObservableObject {
     @Published var perfHourRange = 20
     @AppStorage("isDarkModeEnabled") var isDarkModeEnabled: Bool = false
     @Published var title: String = "Classes"
-    @Published var classes: [String] = []
-//    UserDefaults.standard.stringArray(forKey: "classes") ?? [] {
-//        didSet{
-//            updateUserDefaults()
-//        }
-//    } //is UserDefaults creating the bug?
+    @Published var classes: [String] = UserDefaults.standard.stringArray(forKey: "classes") ?? [] {
+        didSet{
+            updateUserDefaults()
+        }
+    }
+    //is UserDefaults creating the bug?
     @Published var managerClassObjects: [Classroom] = []
     @Published var inClass = false
     @Published var tab: Int = 2
     @Published var manTab: Int = 1
     
-//    private func updateUserDefaults() {
-//           UserDefaults.standard.set(classes, forKey: "classes")
-//       }
+     func updateUserDefaults() {
+           UserDefaults.standard.set(classes, forKey: "classes")
+       }
+     func zeroUserDefaults(){
+        UserDefaults.standard.set([], forKey: "classes")
+    }
 }
 
 
