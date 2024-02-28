@@ -38,6 +38,8 @@ struct HourBoardView: View {
             Spacer()
             
             ZStack {
+                Spacer()
+                
                 Circle()
                     .stroke(Color.gray, lineWidth: 20)
                     .frame(width: 200, height: 200)
@@ -51,26 +53,37 @@ struct HourBoardView: View {
                     .font(.title)
             }
             .padding(.top, 20)
+            Spacer()
+            Spacer()
             
             // display from func getClassHoursField
-            Spacer()
             List(requests, id: \.self) { request in
-                VStack(alignment: .center) {
-                    Text(request["className"] ?? "")
-                    Text("\(request["hours"] ?? "") hours")
+                Spacer()
+                
+                VStack {
+                    Spacer()
+                    VStack(alignment: .center) {
+                        Text(request["className"] ?? "")
+                        Text("\(request["hours"] ?? "") hours")
+                    }
+                    .padding()
+                    .background(isDarkMode ? Color.green : Color.mint)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(isDarkMode ? Color.white : Color.black, lineWidth: 1)
+                    )
+                    Spacer()
                 }
-                .padding()
-                .background(isDarkMode ? Color.green : Color.mint)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(isDarkMode ? Color.white : Color.black, lineWidth: 1)
-                )
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal)
+                Spacer()
             }
             .padding(.horizontal)
-            Spacer()
-            Spacer()
+
         }
+        
+        
         .sheet(isPresented: $isSettingGoal) {
             GoalSettingView(isSettingGoal: $isSettingGoal, goalHours: $goalHours) // Corrected the order
                 .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.5)
@@ -107,9 +120,11 @@ struct GoalSettingView: View {
     var body: some View {
         VStack {
             Text("Enter an Hour Goal")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.green))
+                .multilineTextAlignment(.center)
+                .font(.largeTitle)
+                .bold()
+                .frame(width: 350, alignment: .center)
+            
             TextField("Enter Goal", text: $enteredGoal)
                 .keyboardType(.numberPad)
                 .padding()
