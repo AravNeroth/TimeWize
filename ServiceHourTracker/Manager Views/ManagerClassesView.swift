@@ -33,7 +33,9 @@ struct ManagerClassesView: View {
                 .animation(.easeInOut)
                 .onAppear() {
                     getClasses(uid: userID) { list in
-                        settingsMan.classes = list ?? [] //list of codes
+                        let set = NSOrderedSet(array: list ?? [])
+                        let arr = Array(set) as! [String]
+                        settingsMan.classes = arr  //list of codes
                         settingsMan.classes.sort { $0 < $1 }
                         settingsMan.updateUserDefaults()
                         
