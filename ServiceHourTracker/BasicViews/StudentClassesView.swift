@@ -55,7 +55,7 @@ struct StudentClassesView: View {
                             Text("No Classes")
                         } else {
                             ForEach(allClasses, id: \.self) { classroom in
-//                                ClassTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.classImages[classroom.title], pfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
+                                OldClassTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.classImages[classroom.title], pfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
                                 
                                 NewClassTabView(title: classroom.title, classCode: classroom.code, ownerPfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
                             }

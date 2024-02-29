@@ -12,9 +12,9 @@ struct NewClassTabView: View {
     @AppStorage("uid") var userID = ""
     var title: String = "Title"
     var classCode: String
-    var description: String = ""
+    var description: String = "Test Room"
     @State var colors: [Color] = [.green2, .green4]
-    @State var owner: String = "Owner"
+    @State var owner: String = ""
     var ownerPfp: UIImage? = UIImage(resource: .image2)
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
