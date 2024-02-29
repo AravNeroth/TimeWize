@@ -29,7 +29,6 @@ struct Classroom: Codable, Hashable, Identifiable {
     let managerCode: String
     let title: String
     let owner: String
-    let ownerName: String
     let peopleList: [String]
     let managerList: [String]
     let minServiceHours: Int
@@ -439,35 +438,6 @@ func removeManagerFromClass(person: String, classCode: String) {
                 }
                 
                 db.collection("classes").document(classCode).updateData(["managerList":managers])
-            }
-        }
-    }
-}
-
-func fetchOwnerName(classCode: String, completion: @escaping(String) -> Void) {
-    let classesDocRef = db.collection("classes").document(classCode)
-    //let peopleDocRef = db.collection("userInfo")
-    
-    classesDocRef.getDocument { document, error in
-        if let error = error as NSError? {
-            print("Error getting document: \(error.localizedDescription)")
-        } else {
-            if let document = document {
-                let map = document.data()
-                var email = map?["ownerName"] as? String ?? ""
-                
-                let peopleDocRef = db.collection("userInfo").document(email)
-                
-                peopleDocRef.getDocument { document, error in
-                    if let error = error as NSError? {
-                        print("Error getting document: \(error.localizedDescription)")
-                    } else {
-                        if let document = document {
-                            let peopleMap = document.data()
-                            completion(peopleMap?["displayName"] as? String ?? "")
-                        }
-                    }
-                }
             }
         }
     }

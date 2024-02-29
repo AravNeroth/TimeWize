@@ -13,7 +13,7 @@ struct NewClassTabView: View {
     var title: String = "Title"
     var classCode: String
     var description: String = ""
-    var color: Color = .green2
+    @State var colors: [Color] = [.green2, .green4]
     @State var owner: String = "Owner"
     var ownerPfp: UIImage? = UIImage(resource: .image2)
     @EnvironmentObject var settingsManager: SettingsManager
@@ -33,7 +33,7 @@ struct NewClassTabView: View {
             RoundedRectangle(cornerRadius: 15.0)
                 .fill(
                     LinearGradient(
-                        gradient: Gradient(colors: [.green2, .green4]),
+                        gradient: Gradient(colors: colors),
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -96,8 +96,26 @@ struct NewClassTabView: View {
                 )
         }
         .onAppear() {
-            fetchOwnerName(classCode: classCode) { name in
-                owner = name
+            getClassInfo(classCloudCode: classCode) { newClass in
+                let list = newClass?.managerList
+                
+                if let list = list {
+                    getData(uid: list.first!) { newUser in
+                        owner = (newUser?.displayName)!
+                    }
+                }
+            }
+            // change this to not make it random
+            switch (Int(arc4random_uniform(3)) + 1) {
+            case 1:
+                colors = [.green2, .green4]
+                break
+            case 2:
+                colors = [.blue2, .blue4]
+                break
+            default:
+                colors = [.purple2, .purple4]
+                break
             }
         }
         .buttonStyle(PlainButtonStyle())
