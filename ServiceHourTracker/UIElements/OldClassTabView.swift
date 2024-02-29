@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-struct ClassTabView: View {
+struct OldClassTabView: View {
     
     var name: String
     var classCode: String

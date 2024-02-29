@@ -45,7 +45,7 @@ struct User: Codable {
         self.email = "notloggedin@gmail.com"
     }
     
-    func getGuts()->String{
+    func getGuts()-> String{
         return  "email : \(email) \n uid: \(uid) \n displayName : \(String(describing: displayName)) \n classes : \(String(describing: classes)) \n hours : \(String(describing: hours)) \n"
     }
 }

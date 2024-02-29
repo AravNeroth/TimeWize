@@ -94,7 +94,7 @@ struct ManagerClassesView: View {
                 }
                 .onChange(of: className) { oldValue, newValue in
                     
-                    let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, peopleList: [], managerList: [userID], minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours)
+                    let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, ownerName: userID, peopleList: [], managerList: [userID], minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours)
                     
                     storeClassInfoInFirestore(org: newClass)
                     uploadImageToClassroomStorage(code: "\(newClass.code)", image: settingsMan.pfp, file: "Pfp\(newClass.code)")
@@ -165,7 +165,7 @@ struct ManagerClassesView: View {
                           let peopleList = classData["peopleList"] as? [String],
                           let owner = classData["owner"] as? String {
                            managerList.append(userID)
-                           let classroom = Classroom(code: classCode, managerCode: manCode, title: className, owner: owner, peopleList: peopleList, managerList: managerList, minServiceHours: minServiceHours, minSpecificHours: minSpecificHours)
+                           let classroom = Classroom(code: classCode, managerCode: manCode, title: className, owner: owner, ownerName: userID, peopleList: peopleList, managerList: managerList, minServiceHours: minServiceHours, minSpecificHours: minSpecificHours)
                            settingsMan.classes.append(classroom.code)
                            storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
                           }
@@ -216,10 +216,5 @@ struct ManagerClassesView: View {
            completion(true)
        }
 
-}
-
-
-#Preview {
-    ManagerClassesView()
 }
 
