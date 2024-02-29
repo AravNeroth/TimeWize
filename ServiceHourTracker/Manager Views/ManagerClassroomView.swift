@@ -12,7 +12,9 @@ struct ManagerClassroomView: View {
     @State private var showPpl = false
     //@Binding var loaded: Bool
     @State private var imageSelection = false
+    @State private var homeImageSelection = false
     @State private var newBanner = UIImage(systemName: "person")
+    @State private var newHome = UIImage(systemName: "person")
     @EnvironmentObject var classData: ClassData
     @EnvironmentObject private var classInfoManager: ClassInfoManager
     @EnvironmentObject private var settingsManager: SettingsManager
@@ -37,12 +39,18 @@ struct ManagerClassroomView: View {
                     }label: {
                         Image(systemName: "person.3")
                     }
-                    Button{
-                        
-                        imageSelection = true
+                    
+                    Menu{
+                        Button("Banner"){
+                            imageSelection = true
+                        }
+                        Button("Home"){
+                           homeImageSelection = true
+                        }
                     }label: {
                         Image(systemName: "photo.fill")
                     }
+                    
                     
                     Button{
                         showTaskPopup = true
@@ -61,6 +69,18 @@ struct ManagerClassroomView: View {
                 
                 .ignoresSafeArea(edges: .bottom)
         }
+        
+        .sheet(isPresented: $homeImageSelection, content: {
+            ImagePicker(image: $newHome)
+            
+                .ignoresSafeArea(edges: .bottom)
+        })
+        .onChange(of: newHome, {
+            if let newHome = newHome{
+                uploadImageToClassroomStorage(code: classData.code, image: newHome, file: "Home\(settingsManager.title)")
+                
+            }
+        })
         .onChange(of: newBanner) {
             if let newBanner = newBanner{
                 print("code: \(classData.code)")

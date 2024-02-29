@@ -34,6 +34,9 @@ struct ManagerClassesView: View {
                 .onAppear() {
                     getClasses(uid: userID) { list in
                         settingsMan.classes = list ?? [] //list of codes
+                        settingsMan.classes.sort { $0 < $1 }
+                        settingsMan.updateUserDefaults()
+                        
                     }
                     
                     for code in settingsMan.classes {
@@ -59,8 +62,20 @@ struct ManagerClassesView: View {
                             }
                         }
                     }
-                    settingsMan.managerClassObjects.sort { $0.title < $1.title }
-                    refreshed = true
+                    if(settingsMan.fresh){
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3 ){
+                            settingsMan.managerClassObjects.sort { $0.title < $1.title }
+                            
+                            refreshed = true
+                            settingsMan.fresh = false
+                            settingsMan.updateUserDefaults()
+                        }
+                        
+                    }else{
+                        settingsMan.managerClassObjects.sort { $0.title < $1.title }
+                        
+                        refreshed = true
+                    }
                 }
         } else {
             VStack {
@@ -122,8 +137,10 @@ struct ManagerClassesView: View {
                         settingsMan.classes.append(newClass.code)
                         storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
                         addManagerToClass(person: userID, classCode: newClass.code)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1 ){
+                            refreshed = false
+                        }
                         
-                        refreshed = false
                     }
 //                    .onChange(of: managerCode) {
 //                        fetchClass =

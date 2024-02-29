@@ -41,7 +41,15 @@ struct StudentClassesView: View {
                         
                         loadClassInfo(images: classInfoManager.classImages) { completed in
                             if completed {
-                                done = true
+                                if settingsManager.studentFresh {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5 ){
+                                        done = true
+                                        settingsManager.studentFresh = false
+                                    }
+                                }else{
+                                    done = true
+                                  
+                                }
                             }
                         }
                     }
@@ -78,7 +86,10 @@ struct StudentClassesView: View {
                                 addPersonToClass(person: userID, classCode: enteredCode)
                                 loadClassInfo(images: classInfoManager.classImages) { completed in
                                     if completed {
-                                        done = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1 ){
+                                            done = false
+                                        }
+                                        
                                     }
                                 }
                             } else {

@@ -129,6 +129,8 @@ struct AuthView: View {
         userID = ""
         try? Auth.auth().signOut()
         settingsManager.zeroUserDefaults()
+        settingsManager.fresh = true
+        settingsManager.studentFresh = true
     }
     private func loadData(completion: ((Result<Void, Error>)-> Void)? = nil){
         

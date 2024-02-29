@@ -29,12 +29,9 @@ struct StudentClassroomView: View {
                 .background(ignoresSafeAreaEdges: .all)
                 .animation(.easeOut(duration: 2))
                 .onAppear() {
-                    downloadImageFromClassroomStorage(code: "\(classData.code)", file: "\(settingsManager.title).jpg", done: $loading) { image in
-                        if let image = image {
-                            classImage = image
-                        }
-                        loading = false
-                    }
+                    
+                    getHomeImage()
+                    loading = false
                 }
         } else {
             ZStack {
@@ -46,13 +43,15 @@ struct StudentClassroomView: View {
                 }
                 VStack {
                     ScrollView {
-                        if let image = classInfoManager.classImages[settingsManager.title] {
+                        if let image = classImage {
                             ZStack {
+                                
                                 RoundedRectangle(cornerRadius: 20.0)
                                     .frame(width: 375, height: 200)
                                 
-                                Image(uiImage: image).scaledToFill().frame(width: 375, height: 200)
+                                Image(uiImage: image).resizable().scaledToFill().frame(width: 375, height: 200)
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                                //.ScaledToFill()
                             }
                         }
                         
@@ -115,9 +114,7 @@ struct StudentClassroomView: View {
                     }
                 }
                 .onDisappear() {
-                    if let image = classImage {
-                        _ = saveImageToDocumentsDirectory(image: image, fileName: "\(settingsManager.title).jpg")
-                    }
+                    
                 }.onAppear() {
                     getTasks(classCode: classData.code) { newTasks in
                         tasks = newTasks
@@ -129,6 +126,19 @@ struct StudentClassroomView: View {
                 PeopleListView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPplList)
             }
         }
+    }
+    
+    private func getHomeImage(){
+        
+        print("\n \(settingsManager.title)\n\n")
+
+        downloadImageFromClassroomStorage(code: classData.code, file: "Home\(settingsManager.title).jpg") { image in
+           
+            if let image = image{
+                classImage = image
+            }
+        }
+
     }
 }
 

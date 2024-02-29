@@ -10,6 +10,8 @@ import SwiftUI
 
 class SettingsManager: ObservableObject {
     static var shared =  SettingsManager()
+    @Published var fresh = false
+    @Published var studentFresh = false
     @AppStorage("managerMode") var isManagerMode: Bool = false
     @Published var pfp: UIImage = UIImage()
     @Published var perfHourRange = 20
