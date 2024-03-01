@@ -12,7 +12,6 @@ struct NewClassTabView: View {
     @AppStorage("uid") var userID = ""
     var title: String = "Title"
     var classCode: String
-    var description: String = "Test Room"
     @State var colors: [Color] = [.green2, .green4]
     @State var owner: String = ""
     var ownerPfp: UIImage? = UIImage(resource: .image2)
@@ -47,11 +46,6 @@ struct NewClassTabView: View {
                             Text(title)
                                 .font(.title)
                                 .fontWeight(.bold)
-                                .padding(.horizontal, 30.0)
-                            
-                            Text(description)
-                                .font(.subheadline)
-                                .fontWeight(.light)
                                 .padding(.horizontal, 30.0)
                             
                             Spacer()
