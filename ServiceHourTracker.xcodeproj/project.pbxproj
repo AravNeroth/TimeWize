@@ -19,6 +19,9 @@
 		06E576B62B5B47EA00A7A36D /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576B52B5B47EA00A7A36D /* UserManager.swift */; };
 		06E576B82B5F082D00A7A36D /* ClassManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576B72B5F082D00A7A36D /* ClassManager.swift */; };
 		06E576BA2B5F0B1C00A7A36D /* ManagerClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576B92B5F0B1C00A7A36D /* ManagerClassesView.swift */; };
+		06F110FC2B9194F600EB4F01 /* NewClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F110FB2B9194F600EB4F01 /* NewClassTabView.swift */; };
+		06F110FE2B91969300EB4F01 /* taskPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F110FD2B91969300EB4F01 /* taskPopup.swift */; };
+		06F111002B9196EC00EB4F01 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */; };
 		06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A102B702A7B00FD6069 /* ImagePicker.swift */; };
 		06F54A132B7031BB00FD6069 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 06F54A122B7031BB00FD6069 /* FirebaseStorage */; };
 		06F54A152B7031E700FD6069 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 06F54A142B7031E700FD6069 /* FirebaseStorageCombine-Community */; };
@@ -78,6 +81,9 @@
 		06E576B52B5B47EA00A7A36D /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		06E576B72B5F082D00A7A36D /* ClassManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassManager.swift; sourceTree = "<group>"; };
 		06E576B92B5F0B1C00A7A36D /* ManagerClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerClassesView.swift; sourceTree = "<group>"; };
+		06F110FB2B9194F600EB4F01 /* NewClassTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClassTabView.swift; sourceTree = "<group>"; };
+		06F110FD2B91969300EB4F01 /* taskPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskPopup.swift; sourceTree = "<group>"; };
+		06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		06F54A102B702A7B00FD6069 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		06F54A302B727F0500FD6069 /* bottomPicks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bottomPicks.swift; sourceTree = "<group>"; };
 		06F54A322B72808900FD6069 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
@@ -153,11 +159,14 @@
 			children = (
 				06A935052B81694500BD163F /* ManagerTabView.swift */,
 				EB78CFE62B23A8D4007E0C20 /* ClassTabView.swift */,
+				06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */,
 				06F54A302B727F0500FD6069 /* bottomPicks.swift */,
 				06C520212B806323008E6286 /* ManagerBottomBar.swift */,
+				06F110FB2B9194F600EB4F01 /* NewClassTabView.swift */,
 				06F54A322B72808900FD6069 /* LoadingScreen.swift */,
 				EB75C7992B7C0F9B00DC615D /* TaskView.swift */,
 				EBAECDD72B818AAE00614CCE /* RequestView.swift */,
+				06F110FD2B91969300EB4F01 /* taskPopup.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -407,6 +416,7 @@
 			files = (
 				06E576AB2B5A2DF200A7A36D /* AuthView.swift in Sources */,
 				EEF83F2F2B1FCDD90098D3A2 /* StudentClassesView.swift in Sources */,
+				06F110FC2B9194F600EB4F01 /* NewClassTabView.swift in Sources */,
 				06E576B62B5B47EA00A7A36D /* UserManager.swift in Sources */,
 				06E576B82B5F082D00A7A36D /* ClassManager.swift in Sources */,
 				EB78CFE72B23A8D4007E0C20 /* ClassTabView.swift in Sources */,
@@ -421,6 +431,7 @@
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
 				06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */,
 				06E576A92B5A29E100A7A36D /* String.swift in Sources */,
+				06F111002B9196EC00EB4F01 /* ColorPalette.swift in Sources */,
 				06F54A352B773A7300FD6069 /* allExtensions.swift in Sources */,
 				CFE866F02B7E9C4300CFA6FB /* ManagerClassroomView.swift in Sources */,
 				EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */,
@@ -436,6 +447,7 @@
 				06E576A42B59C86000A7A36D /* SignUp.swift in Sources */,
 				06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */,
 				06F54A372B773BFE00FD6069 /* StorageManager.swift in Sources */,
+				06F110FE2B91969300EB4F01 /* taskPopup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
