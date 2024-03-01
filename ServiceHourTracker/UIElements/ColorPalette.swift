@@ -13,8 +13,8 @@ import SwiftUI
 struct ColorPalette: View {
     @Binding var showPop: Bool
     
-    @State private var colors: [Color] = [.white]
-
+    @State private var colorsSelected: [Color] = [.white]
+    @State private var featuredColors: [[Color]] = [[.green2,.green4],[.blue2,.blue4],[.purple2,.purple4]]
     
     @State private var currPick = 0
     @EnvironmentObject private var classData:ClassData
@@ -45,7 +45,7 @@ struct ColorPalette: View {
                         }label: {
                             Circle().fill(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [.green2,.green4]),
+                                    gradient: Gradient(colors: featuredColors[0]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -58,7 +58,7 @@ struct ColorPalette: View {
                         }label: {
                             Circle().fill(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [.blue2,.blue4]),
+                                    gradient: Gradient(colors: featuredColors[1]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -71,7 +71,7 @@ struct ColorPalette: View {
                         }label: {
                             Circle().fill(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [.purple2,.purple4]),
+                                    gradient: Gradient(colors: featuredColors[2]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
