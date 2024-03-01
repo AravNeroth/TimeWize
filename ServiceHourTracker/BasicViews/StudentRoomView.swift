@@ -16,6 +16,7 @@ struct StudentRoomView: View {
     @State var tasks: [[String: String]] = []
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var loading = true
+    @State var menuPopUp = false
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
@@ -78,6 +79,7 @@ struct StudentRoomView: View {
                         }
                     } else {
                         Text("No Tasks")
+                            .padding(.vertical, 10.0)
                     }
                 }
             }
@@ -88,7 +90,19 @@ struct StudentRoomView: View {
                         settingsManager.tab = 2
                         settingsManager.title = "Classes"
                     } label: {
-                        Image(systemName: "chevron.left")
+                        HStack {
+                            Image(systemName: "chevron.left")
+                                .foregroundStyle(colors.last ?? .green4)
+                            
+                            Text("Back")
+                        }
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        menuPopUp = true
+                    } label: {
+                        Image(systemName: "line.3.horizontal")
                             .foregroundStyle(colors.last ?? .green4)
                     }
                 }
