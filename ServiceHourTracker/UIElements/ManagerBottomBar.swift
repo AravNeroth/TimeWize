@@ -21,7 +21,7 @@ struct ManagerBottomBar: View {
             }label: {
                 VStack{
 
-                    Image(systemName: "list.clipboard.fill").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
+                    Image(systemName: "list.clipboard.fill").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 18, height:27)
                     Text("Requests").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
             }
