@@ -18,7 +18,7 @@ struct ColorPalette: View {
     @State private var currPick = 0
     @EnvironmentObject private var classData:ClassData
     @AppStorage("uid") private var userID = ""
-    
+
 
     var body: some View {
         ScrollView() {
@@ -37,7 +37,7 @@ struct ColorPalette: View {
                         Image(systemName: "star").frame(width: 20, height: 10).fontWeight(.semibold).padding(.trailing, 5)
                         Text("Popular").font(.title3).fontWeight(.semibold).frame(height: 10)
                         Spacer()
-                    }
+                    }.padding(10)
                     HStack(spacing: 5){
                         Button{
                             currPick = 0
@@ -49,6 +49,7 @@ struct ColorPalette: View {
                                     endPoint: .bottomTrailing
                                 )
                             ).stroke(.blueLogin, lineWidth: (currPick==0) ? 4:0)
+                                .shadow(radius: 2.0, y: 2.0)
                         }
                         
                         Button{
@@ -61,6 +62,7 @@ struct ColorPalette: View {
                                     endPoint: .bottomTrailing
                                 )
                             ).stroke(.blueLogin, lineWidth: (currPick==1) ? 4:0)
+                                .shadow(radius: 2.0, y: 2.0)
                         }
                         
                         Button{
@@ -73,6 +75,7 @@ struct ColorPalette: View {
                                     endPoint: .bottomTrailing
                                 )
                             ).stroke(.blueLogin, lineWidth: (currPick==2) ? 4:0)
+                                .shadow(radius: 2.0, y: 2.0)
                         }
                         
                         
@@ -84,7 +87,7 @@ struct ColorPalette: View {
                         Image(systemName: "swatchpalette")
                         Text("other").font(.subheadline).fontWeight(.regular)
                         Spacer()
-                    }
+                    }.padding(10)
                     
                     /*
                     ScrollView(.horizontal){
@@ -154,9 +157,10 @@ struct ColorPalette: View {
                         }
                     }
                     */
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                                 ScrollViewReader { scrollView in
                                     HStack {
+                                        Spacer()
                                         ForEach(3..<10) { index in
                                             Button {
                                                 withAnimation {
@@ -172,17 +176,19 @@ struct ColorPalette: View {
                                                     )
                                                 )
                                                 .stroke(.blue, lineWidth: (currPick == index) ? 4 : 0)
-                                                .frame(width: 75, height: 75)
+                                                .shadow(radius: 2.0, y: 2.0)
+                                                .frame(width: 78, height: 78)
                                             }
                                         }
-                                    }.frame(height: 83)
+                                        Spacer()
+                                    }.frame(height: 90)
                                
                                     .onAppear {
                                         // Scroll to the middle circle initially
                                         scrollView.scrollTo(5, anchor: .center)
                                     }
                                 }
-                            }
+                    }.ignoresSafeArea()
                     
                     
                 }
@@ -216,10 +222,12 @@ struct ColorPalette: View {
             
             
         }
-        .padding(10)
-            .background(.white).cornerRadius(10) // was green3
-       .background(RoundedRectangle(cornerRadius: 10).stroke(.black, lineWidth: 1)) // was green6
-       .padding(.horizontal)
+       
+            .background(.white)
+            .cornerRadius(10) // was green3
+            .background(RoundedRectangle(cornerRadius: 10)
+            .stroke(.black, lineWidth: 1)) // was green6
+            .frame(width: 350, height: 500)
     }
            
        
