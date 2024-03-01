@@ -459,15 +459,5 @@ func getColorScheme(classCode: String, completion: @escaping([String]) -> Void) 
 }
 
 func setColorScheme(classCode: String, colors: [String]) {
-    let docRef = db.collection("classes").document(classCode)
-    
-    docRef.getDocument { document, error in
-        if let error = error as NSError? {
-            print("Error getting document: \(error.localizedDescription)")
-        } else {
-            if let document = document {
-                db.collection("classes").document(classCode).updateData(["colors":colors])
-            }
-        }
-    }
+    db.collection("classes").document(classCode).updateData(["colors":colors])
 }

@@ -272,14 +272,20 @@ struct SettingsView:View {
                     }
                     */
                     //random sections
-                    ForEach(0..<testData.count){num in
+                    ForEach(0..<testData.count){ num in
                         Text("\(testData[num])")
                     }
                     
                     Button(action: {
-                        navToReqList = true
+                        setColorScheme(classCode: "5788MR", colors: ["C77DFF", "7B2CBF"])
                     }) {
-                        Text("Straight to Request List")
+                        Text("change color to purple")
+                    }
+                    
+                    Button(action: {
+                        setColorScheme(classCode: "5788MR", colors: ["FFFFFF", "777777"])
+                    }) {
+                        Text("change color to white/gray")
                     }
                     
                 }header:{
