@@ -1,123 +1,148 @@
 //
-//  ClassTabView.swift
+//  NewClassTabView.swift
 //  ServiceHourTracker
-
+//
+//  Created by huang_931310 on 2/28/24.
+//
 
 import SwiftUI
 
 struct ClassTabView: View {
     
-    var name: String
+    @AppStorage("uid") var userID = ""
+    var title: String = "Title"
     var classCode: String
+    @State var colors: [Color] = []
+    @State var owner: String = ""
+    var ownerPfp: UIImage? = UIImage(resource: .image2)
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
-    var banner: UIImage? = UIImage(resource: .image3)
-    var pfp: UIImage? = UIImage(resource: .image2)
-    @AppStorage("uid") private var userID = ""
+    @Binding var allClasses: [Classroom]
+    @State var classroom: Classroom
+    @State var showUnEnroll: Bool = false
+    
+    var body: some View {
+        Button {
+            settingsManager.tab = 4
+            currentView = .ClassroomView
+            settingsManager.title = title
+            classData.code = classCode
+        } label: {
+            RoundedRectangle(cornerRadius: 15.0)
+                .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                .frame(height: 130)
+                .padding(.horizontal, 10.0)
+                .shadow(radius: 2.0, y: 2.0)
+                .overlay(
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(title)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 30.0)
+                                .shadow(radius: 2.0, y: 2.0)
+                            
+                            Spacer()
+                            
+                            HStack {
+                                Circle()
+                                    .frame(maxWidth: 35.0, maxHeight: 35.0)
+                                    .overlay(
+                                        VStack {
+                                            Image(uiImage: ownerPfp ?? UIImage(resource: .image2))
+                                                .resizable()
+                                                .clipShape(Circle())
+                                        }
+                                    )
+                                
+                                Text(owner)
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
+                            }
+                            .padding(.horizontal, 30.0)
+                        }
+                        .frame(height: 100)
+                        
+                        Spacer()
+                        
+                        VStack() {
+                            Button {
+                                showUnEnroll.toggle()
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .font(.system(size: 20.0, weight: .bold))
+                                    .imageScale(.large)
+                                    .rotationEffect(.degrees(90.0))
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .padding(.horizontal, 20.0)
+                            
+                            Spacer()
+                        }
+                        .frame(height: 70)
+                    }
+                )
+        }
+        .onAppear() {
+            getClassInfo(classCloudCode: classCode) { newClass in
+                let list = newClass?.managerList
+                
+                if let list = list {
+                    getData(uid: list.first!) { newUser in
+                        owner = (newUser?.displayName)!
+                    }
+                }
+            }
+            getColorScheme(classCode: classCode) { scheme in
+                if scheme.isEmpty {
+                    colors.append(.green2)
+                    colors.append(.green4)
+                } else {
+                    colors = scheme
+                }
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+        .sheet(isPresented: $showUnEnroll) {
+            unEnrollPopUp(classCode: classCode, showUnEnroll: $showUnEnroll, allClasses: $allClasses, classroom: classroom)
+                .presentationDetents([.height(50.0)])
+        }
+        .animation(.easeIn, value: showUnEnroll)
+    }
+}
+
+private struct unEnrollPopUp: View {
+    
+    @AppStorage("uid") var userID = ""
+    var classCode: String
+    @Binding var showUnEnroll: Bool
     @Binding var allClasses: [Classroom]
     @State var classroom: Classroom
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 30)
-                .frame(width: 375, height: 120)
-                .foregroundColor(.green5)
-                .overlay(
-            VStack(alignment: .center) {
-                Spacer()
-                HStack{
-                    Spacer()
-                    ZStack(alignment: .bottomTrailing){
-                        
-                        if let banner = banner{
-                            Image(uiImage: banner)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 375, height: 50)
-                                .cornerRadius(30, corners: [.bottomRight, .bottomLeft])
-                                .opacity(0.8)
-                        }
-                        HStack(alignment: .bottom) {
-
-                            VStack(alignment: .trailing) {
-                                Spacer()
-                                if let pfp = pfp {
-                                    Image(uiImage: pfp)
-                                        .resizable()
-                                        .clipShape(Circle())
-                                        .frame(width: 30, height: 30)
-                                }
-                            }.padding(4)
-                        }.padding(4)
-                        
+        VStack {
+            Button {
+                getCodes(uid: userID) { codesList in
+                    if let codesList = codesList {
+                        unenrollClass(uid: userID, codes: codesList, code: classCode)
+                        allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
+                        removePersonFromClass(person: userID, classCode: classCode)
                     }
-                    .padding(.trailing, 8)
-                }.padding(0)
-            })
-            VStack {
-                Spacer()
-                HStack {
-                    Button {
-                        settingsManager.tab = 4
-                        print("tap")
-                        currentView = .ClassroomView
-                        settingsManager.title = name
-                        classData.code = classCode
-                        
-                    } label: {
-                        Text(name)
-                        .font(.title)
-                        .fontWeight(.black)
-                        .frame(width: 315, alignment: .leading)
-                    }
-                    
-                    Menu {
-                        Button {
-                            getCodes(uid: userID) { codesList in
-                                if let codesList = codesList {
-                                    unenrollClass(uid: userID, code: classCode)
-                                    allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
-                                    removePersonFromClass(person: userID, classCode: classCode)
-                                }
-                            }
-                        } label: {
-                            Text("Unenroll Class")
-                        }
-                    } label: {
-                        Image(systemName: "line.3.horizontal").fontWeight(.black)
-                    }.frame(alignment: .trailing)
-
-                    
-                }.shadow(radius: 10)
-                    
-                .foregroundStyle((settingsManager.isDarkModeEnabled) ? .white : .green1)
-                    
-                
-                
-                Spacer()
-           
-                
-                Spacer()
+                }
+                showUnEnroll = false
+            } label: {
+                Text("Unenroll")
             }
-            .frame(height: 90)
-            
+            .foregroundStyle(isDarkModeEnabled() ? .white : .black)
         }
     }
 }
 
-
-
-struct RoundedCorner: Shape {
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
+private func isDarkModeEnabled() -> Bool {
+    if UITraitCollection.current.userInterfaceStyle == .dark {
+        return true
+    } else {
+        return false
     }
 }

@@ -45,7 +45,7 @@ struct User: Codable {
         self.email = "notloggedin@gmail.com"
     }
     
-    func getGuts()->String{
+    func getGuts() -> String {
         return  "email : \(email) \n uid: \(uid) \n displayName : \(String(describing: displayName)) \n classes : \(String(describing: classes)) \n hours : \(String(describing: hours)) \n"
     }
 }
@@ -256,7 +256,7 @@ func sendPasswordResetEmail(email: String) -> String {
 }
 
 
-func getAuthIDForEmail(email: String) -> String{
+func getAuthIDForEmail(email: String) -> String {
     var output = ""
     Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
         if let error = error {
@@ -267,11 +267,9 @@ func getAuthIDForEmail(email: String) -> String{
                     print("No user found with the provided email address.")
                 } else {
                     // User found, retrieve UID or perform other actions
-                    if let uid = Auth.auth().currentUser?.uid{
+                    if let uid = Auth.auth().currentUser?.uid {
                         output = uid
                     }
-                    
-                   
                 }
             }
         }

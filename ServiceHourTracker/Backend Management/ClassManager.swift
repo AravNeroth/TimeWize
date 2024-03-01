@@ -10,7 +10,7 @@ import Firebase
 import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
-
+import SwiftUI
 
 class ClassData: ObservableObject {
     @Published var code: String
@@ -33,6 +33,7 @@ struct Classroom: Codable, Hashable, Identifiable {
     let managerList: [String]
     let minServiceHours: Int
     let minSpecificHours: Int
+    let colors: [String]
     var id: String {
         return code
     }
@@ -387,7 +388,7 @@ func removePersonFromClass(person: String, classCode: String) {
         }
     }
 }
-                
+
 func getPeopleList(classCode: String, completion: @escaping([String]) -> Void) {
     let docRef = db.collection("classes").document(classCode)
     
@@ -443,21 +444,32 @@ func removeManagerFromClass(person: String, classCode: String) {
     }
 }
 
-func getManagersList(classCode:String, completion: @escaping ([String])->Void){
-    
+func getColorScheme(classCode: String, completion: @escaping([Color]) -> Void) {
     let docRef = db.collection("classes").document(classCode)
     
     docRef.getDocument { document, error in
         if let error = error as NSError? {
             print("Error getting document: \(error.localizedDescription)")
-            completion([])
         } else {
             if let document = document {
-                let map = document.data()
-                var managers = map?["managerList"] as? [String] ?? []
-                completion(managers)
+                let colorsStringList = document.data()?["colors"] as? [String] ?? [""]
+                var colors: [Color] = []
+                for colorStr in colorsStringList {
+                    let red = colorStr.prefix(2)
+                    let redNum = Double(Int(red, radix: 16)!) / 255
+                    let green = colorStr.prefix(4).suffix(2)
+                    let greenNum = Double(Int(green, radix: 16)!) / 255
+                    let blue = colorStr.suffix(2)
+                    let blueNum = Double(Int(blue, radix: 16)!) / 255
+                    
+                    colors.append(Color(red: redNum, green: greenNum, blue: blueNum))
+                }
+                completion(colors)
             }
         }
     }
-    
+}
+
+func setColorScheme(classCode: String, colors: [String]) {
+    db.collection("classes").document(classCode).updateData(["colors":colors])
 }

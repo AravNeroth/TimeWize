@@ -22,7 +22,7 @@ struct SignUp: View {
     @State private var agreeToTerms = false
     @State private var goToTerms = false
     @State private var goToPrivacy = false
-   @State private var shouldContinue = false
+    @State private var shouldContinue = false
     @State private var showDoNotMatch = false
     @State private var selectedIndex = 0
     @AppStorage("uid") var userID: String = ""
@@ -191,7 +191,7 @@ struct SignUp: View {
                         
                  
                         if shouldContinue{
-                            if confirm == password{
+                            if confirm == password {
                                 authUID = authResult.uid
                                                         print(authResult.uid)
                                 let newUser = User(uid: authResult.email ?? "", email: authResult.email ?? "")

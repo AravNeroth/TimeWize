@@ -25,7 +25,7 @@ struct StudentClassesView: View {
     var body: some View {
         if !done {
             LoadingScreen()
-                .animation(.easeInOut)
+                .animation(.easeInOut, value: done)
                 .onAppear() {
                     getCodes(uid: userID) { codes in
                         if var codes = codes {
@@ -41,15 +41,7 @@ struct StudentClassesView: View {
                         
                         loadClassInfo(images: classInfoManager.classImages) { completed in
                             if completed {
-                                if settingsManager.studentFresh {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5 ){
-                                        done = true
-                                        settingsManager.studentFresh = false
-                                    }
-                                }else{
-                                    done = true
-                                  
-                                }
+                                done = true
                             }
                         }
                     }
@@ -63,12 +55,9 @@ struct StudentClassesView: View {
                             Text("No Classes")
                         } else {
                             ForEach(allClasses, id: \.self) { classroom in
-                                ClassTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.classImages[classroom.title], pfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
-//                                    .animation(.spring(duration: 1))
+//                                OldClassTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.classImages[classroom.title], pfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
                                 
-                                
-                                NewClassTabView(title: classroom.title, classCode: classroom.code, ownerPfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
-                                                           
+                                ClassTabView(title: classroom.title, classCode: classroom.code, ownerPfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
                             }
                         }
                     }
@@ -90,10 +79,7 @@ struct StudentClassesView: View {
                                 addPersonToClass(person: userID, classCode: enteredCode)
                                 loadClassInfo(images: classInfoManager.classImages) { completed in
                                     if completed {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1 ){
-                                            done = false
-                                        }
-                                        
+                                        done = false
                                     }
                                 }
                             } else {
@@ -113,7 +99,9 @@ struct StudentClassesView: View {
                         Image(systemName: "plus").foregroundStyle(.green5)
                     }
                 }
-                
+                ToolbarItem(placement: .bottomBar) {
+                    bottomPicks(selection: $settingsManager.tab)
+                }
             }
             .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
         }
