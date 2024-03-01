@@ -30,44 +30,32 @@ struct StudentView: View {
             
             switch currentView {
             case .ClassesView:
-                StudentClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title)
-            case .SettingsView:
-                SettingsView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).toolbar {
-                    
-                    
-                    ToolbarItem(placement: .bottomBar) {
-                        
-                        bottomPicks(selection: $settingsManager.tab)
-                        
-                    }
+                VStack{
+                    StudentClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title)
+                    bottomPicks(selection: $settingsManager.tab)
                 }
+            case .SettingsView:
+                
+                VStack{
+                    SettingsView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title)
+                    bottomPicks(selection: $settingsManager.tab)
+                }
+                
             case .HourBoardView:
-                HourBoardView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).toolbar {
+                VStack{
+                    HourBoardView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title)
                     
-                    
-                    ToolbarItem(placement: .bottomBar) {
-                        
-                        bottomPicks(selection: $settingsManager.tab)
-                        
-                    }
+                    bottomPicks(selection: $settingsManager.tab)
                 }
             case .ClassroomView:
+                VStack{
+                    StudentClassroomView().navigationBarTitleDisplayMode(.inline)
+                        .navigationTitle(settingsManager.title)
+                    
+                    
+                }
                 
-                StudentClassroomView().navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle(settingsManager.title)
-                //                    .toolbar {
-                //                        ToolbarItem(placement: .topBarLeading) {
-                //                            Button{
-                //                                settingsManager.tab = 2
-                //                            } label: {
-                //                                Image(systemName: "chevron.left").foregroundStyle(.blue)
-                //                            }
-                //                        }
-                //                    }
-                
-                
-                //            case .ManagerClass:
-                //                ManagerClass(loaded: .constant(true))
+               
             }
                    
                 

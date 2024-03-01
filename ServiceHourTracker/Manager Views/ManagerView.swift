@@ -28,28 +28,26 @@ struct ManagerView: View {
         NavigationView{
             switch currManagerView {
             case .SettingsView:
-                SettingsView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
-                    ToolbarItem(placement: .bottomBar) {
-                        ManagerBottomBar(selection: $tabSelection)
-                    }
+                VStack{
+                    
+                    SettingsView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
+                    ManagerBottomBar(selection: $tabSelection)
+                    
                 }
-//            case .ManagerClass:
-//                ManagerClass(loaded: .constant(true)).navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
-//                    ToolbarItem(placement: .bottomBar) {
-//                        ManagerBottomBar(selection: $tabSelection)
-//                    }
-//                }
+
             case .ManagerHome:
-                ManagerClassesView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
-                    ToolbarItem(placement: .bottomBar) {
-                        ManagerBottomBar(selection: $tabSelection)
-                    }
-                } //change the view
+                VStack{
+                ManagerClassesView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
+                ManagerBottomBar(selection: $tabSelection)
+                    
+                }
             case .RequestsView:
-                ManagerReqListView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
-                    ToolbarItem(placement: .bottomBar) {
-                        ManagerBottomBar(selection: $tabSelection)
-                    }
+                VStack{
+                    ManagerReqListView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
+                        
+                    ManagerBottomBar(selection: $tabSelection)
+                        
+                    
                 }
             }
         }.navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)

@@ -56,7 +56,7 @@ struct TaskView: View {
                         
                 HStack {
                     Spacer()
-                            
+                       /*
                     if totalPpl == currPpl {
                         Button(action: {
                             showingAlert = true
@@ -72,9 +72,14 @@ struct TaskView: View {
                             Button("OK", role: .cancel) {}
                         }
                     } else {
+                        */
                         Button(action: {
-                            if !dateInvalid{
+                            if !dateInvalid && currPpl<totalPpl{
                                 isSignedUp.toggle()
+                            }
+                            if (currPpl==totalPpl) && isSignedUp{
+                                isSignedUp = false
+                              
                             }
                             if dateInvalid{
                                 dateInvalidAlert = true
@@ -88,9 +93,12 @@ struct TaskView: View {
                                 }
                                 
                             }else {
-                                participants.remove(at: participants.firstIndex(of: userID)!)
-                                updateTaskParticipants(classCode: classCode, title: title, listOfPeople: participants)
-                                currPpl -= 1
+                                if participants.contains(userID){
+                                    participants.remove(at: participants.firstIndex(of: userID)!)
+                                    
+                                    updateTaskParticipants(classCode: classCode, title: title, listOfPeople: participants)
+                                    currPpl -= 1
+                                }
                             }
                                     
                         }) {
@@ -100,10 +108,27 @@ struct TaskView: View {
                                      RoundedRectangle(cornerRadius: 7.5)
                                          .foregroundStyle(.gray)
                                          .frame(width: 100, height: 25)
-                                     Text("pending")
+                                     Text("Pending")
                                          .foregroundStyle(.black)
                                  }
-                                }else if isSignedUp {
+                                 
+                             }else if (currPpl == totalPpl && !isSignedUp){
+                                 ZStack {
+                                     RoundedRectangle(cornerRadius: 7.5)
+                                         .foregroundStyle(.gray)
+                                         .frame(width: 100, height: 25)
+                                     Text("Full")
+                                         .foregroundStyle(.black)
+                                 }
+                             }else if (currPpl==totalPpl) && isSignedUp{
+                                 ZStack {
+                                     RoundedRectangle(cornerRadius: 7.5)
+                                         .foregroundStyle(.red)
+                                         .frame(width: 100, height: 25)
+                                     Text("Quit")
+                                         .foregroundStyle(.black)
+                                 }
+                             }else if isSignedUp {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 7.5)
                                             .foregroundStyle(.red)
@@ -121,7 +146,7 @@ struct TaskView: View {
                                     }
                                 }
                         }
-                    }
+//                    }
                             
                     Spacer()
                             

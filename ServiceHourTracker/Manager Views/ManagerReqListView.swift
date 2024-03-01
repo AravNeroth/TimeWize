@@ -26,6 +26,8 @@ struct ManagerReqListView: View {
                 }
             }
         }
+        
+        
         .onAppear() {
             getClasses(uid: userID) { currClasses in
                 if let currClasses = currClasses {

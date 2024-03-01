@@ -21,7 +21,7 @@ struct ManagerBottomBar: View {
             }label: {
                 VStack{
 
-                    Image(systemName: "list.clipboard.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    Image(systemName: "list.clipboard.fill").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
                     Text("Requests").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
             }
@@ -34,7 +34,7 @@ struct ManagerBottomBar: View {
             }label: {
                 VStack{
 
-                    Image(systemName: "house.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    Image(systemName: "house.fill").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
                     Text("Classes").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
             }
@@ -45,11 +45,11 @@ struct ManagerBottomBar: View {
             }label: {
                 VStack{
 
-                    Image(systemName: "gearshape.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    Image(systemName: "gearshape.fill").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
                     Text("Settings").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
             }
             Spacer()
-        }.padding(.top)
+        }.padding(.top).background(.clear).background(.ultraThinMaterial).ignoresSafeArea(edges:[.bottom, .horizontal]).frame(height: 55)
     }
 }

@@ -41,7 +41,15 @@ struct StudentClassesView: View {
                         
                         loadClassInfo(images: classInfoManager.classImages) { completed in
                             if completed {
-                                done = true
+                                if settingsManager.studentFresh {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5 ){
+                                        done = true
+                                        settingsManager.studentFresh = false
+                                    }
+                                }else{
+                                    done = true
+                                  
+                                }
                             }
                         }
                     }
@@ -56,7 +64,11 @@ struct StudentClassesView: View {
                         } else {
                             ForEach(allClasses, id: \.self) { classroom in
                                 ClassTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.classImages[classroom.title], pfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
-                                    .animation(.spring(duration: 1))
+//                                    .animation(.spring(duration: 1))
+                                
+                                
+                                NewClassTabView(title: classroom.title, classCode: classroom.code, ownerPfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
+                                                           
                             }
                         }
                     }
@@ -78,7 +90,10 @@ struct StudentClassesView: View {
                                 addPersonToClass(person: userID, classCode: enteredCode)
                                 loadClassInfo(images: classInfoManager.classImages) { completed in
                                     if completed {
-                                        done = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1 ){
+                                            done = false
+                                        }
+                                        
                                     }
                                 }
                             } else {
@@ -98,9 +113,7 @@ struct StudentClassesView: View {
                         Image(systemName: "plus").foregroundStyle(.green5)
                     }
                 }
-                ToolbarItem(placement: .bottomBar) {
-                    bottomPicks(selection: $settingsManager.tab)
-                }
+                
             }
             .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
         }
