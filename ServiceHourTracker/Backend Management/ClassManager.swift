@@ -33,6 +33,7 @@ struct Classroom: Codable, Hashable, Identifiable {
     let managerList: [String]
     let minServiceHours: Int
     let minSpecificHours: Int
+    let colors: [String]
     var id: String {
         return code
     }
@@ -438,6 +439,34 @@ func removeManagerFromClass(person: String, classCode: String) {
                 }
                 
                 db.collection("classes").document(classCode).updateData(["managerList":managers])
+            }
+        }
+    }
+}
+
+func getColorScheme(classCode: String, completion: @escaping([String]) -> Void) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+        } else {
+            if let document = document {
+                completion(document.data()?["colors"] as? [String] ?? [""])
+            }
+        }
+    }
+}
+
+func setColorScheme(classCode: String, colors: [String]) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+        } else {
+            if let document = document {
+                db.collection("classes").document(classCode).updateData(["colors":colors])
             }
         }
     }

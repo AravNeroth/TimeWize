@@ -31,9 +31,10 @@
 		06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3C2B77E77D00FD6069 /* AppObjects.swift */; };
 		06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* StudentClassroomView.swift */; };
 		CFE866F02B7E9C4300CFA6FB /* ManagerClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */; };
+		EB01F7392B9240AB00FBDBE6 /* StudentRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB01F7382B9240AB00FBDBE6 /* StudentRoomView.swift */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
-		EB74A7002B8FC608001B0E96 /* NewClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74A6FF2B8FC608001B0E96 /* NewClassTabView.swift */; };
+		EB74A7002B8FC608001B0E96 /* ClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74A6FF2B8FC608001B0E96 /* ClassTabView.swift */; };
 		EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB75C7992B7C0F9B00DC615D /* TaskView.swift */; };
 		EB78CFE72B23A8D4007E0C20 /* OldClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78CFE62B23A8D4007E0C20 /* OldClassTabView.swift */; };
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
@@ -89,9 +90,10 @@
 		06F54A3C2B77E77D00FD6069 /* AppObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppObjects.swift; sourceTree = "<group>"; };
 		06FD082E2B6996D400484FEE /* StudentClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassroomView.swift; sourceTree = "<group>"; };
 		CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerClassroomView.swift; sourceTree = "<group>"; };
+		EB01F7382B9240AB00FBDBE6 /* StudentRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRoomView.swift; sourceTree = "<group>"; };
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		EB74A6FF2B8FC608001B0E96 /* NewClassTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClassTabView.swift; sourceTree = "<group>"; };
+		EB74A6FF2B8FC608001B0E96 /* ClassTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTabView.swift; sourceTree = "<group>"; };
 		EB75C7992B7C0F9B00DC615D /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		EB78CFE62B23A8D4007E0C20 /* OldClassTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldClassTabView.swift; sourceTree = "<group>"; };
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
@@ -160,7 +162,7 @@
 				06F54A322B72808900FD6069 /* LoadingScreen.swift */,
 				EB75C7992B7C0F9B00DC615D /* TaskView.swift */,
 				EBAECDD72B818AAE00614CCE /* RequestView.swift */,
-				EB74A6FF2B8FC608001B0E96 /* NewClassTabView.swift */,
+				EB74A6FF2B8FC608001B0E96 /* ClassTabView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -178,6 +180,7 @@
 				EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */,
 				06E576AA2B5A2DF200A7A36D /* AuthView.swift */,
 				EB048C752B2696E0003719A0 /* StudentView.swift */,
+				EB01F7382B9240AB00FBDBE6 /* StudentRoomView.swift */,
 			);
 			path = BasicViews;
 			sourceTree = "<group>";
@@ -410,7 +413,7 @@
 			files = (
 				06E576AB2B5A2DF200A7A36D /* AuthView.swift in Sources */,
 				EEF83F2F2B1FCDD90098D3A2 /* StudentClassesView.swift in Sources */,
-				EB74A7002B8FC608001B0E96 /* NewClassTabView.swift in Sources */,
+				EB74A7002B8FC608001B0E96 /* ClassTabView.swift in Sources */,
 				06E576B62B5B47EA00A7A36D /* UserManager.swift in Sources */,
 				06E576B82B5F082D00A7A36D /* ClassManager.swift in Sources */,
 				EB78CFE72B23A8D4007E0C20 /* OldClassTabView.swift in Sources */,
@@ -436,6 +439,7 @@
 				06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */,
 				06A935062B81694600BD163F /* ManagerTabView.swift in Sources */,
 				EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */,
+				EB01F7392B9240AB00FBDBE6 /* StudentRoomView.swift in Sources */,
 				06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */,
 				06E576A42B59C86000A7A36D /* SignUp.swift in Sources */,
 				06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */,

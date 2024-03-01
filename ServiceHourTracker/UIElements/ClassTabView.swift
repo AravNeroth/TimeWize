@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct NewClassTabView: View {
+struct ClassTabView: View {
     
     @AppStorage("uid") var userID = ""
     var title: String = "Title"
     var classCode: String
-    @State var colors: [Color] = [.green2, .green4]
+    @State var colors: [Color] = []
     @State var owner: String = ""
     var ownerPfp: UIImage? = UIImage(resource: .image2)
     @EnvironmentObject var settingsManager: SettingsManager
@@ -30,13 +30,7 @@ struct NewClassTabView: View {
             classData.code = classCode
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
-                .fill(
-                    LinearGradient(
-                        gradient: Gradient(colors: colors),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+                .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
                 .frame(height: 130)
                 .padding(.horizontal, 10.0)
                 .shadow(radius: 2.0, y: 2.0)
@@ -100,17 +94,19 @@ struct NewClassTabView: View {
                     }
                 }
             }
-            // change this to not make it random
-            switch (Int(arc4random_uniform(3)) + 1) {
-            case 1:
-                colors = [.green2, .green4]
-                break
-            case 2:
-                colors = [.blue2, .blue4]
-                break
-            default:
-                colors = [.purple2, .purple4]
-                break
+            getColorScheme(classCode: classCode) { scheme in
+                if scheme.isEmpty {
+                    colors.append(.green2)
+                    colors.append(.green4)
+                } else {
+                    for colorStr in scheme {
+                        let red = colorStr.prefix(2)
+                        let green = colorStr.prefix(4).suffix(2)
+                        let blue = colorStr.suffix(2)
+                        
+                        colors.append(Color(red: Double(Int(red, radix: 16)!), green: Double(Int(green, radix: 16)!), blue: Double(Int(blue, radix: 16)!)))
+                    }
+                }
             }
         }
         .buttonStyle(PlainButtonStyle())
@@ -142,7 +138,7 @@ private struct unEnrollPopUp: View {
                 }
                 showUnEnroll = false
             } label: {
-                Text("UNENROLL")
+                Text("Unenroll")
             }
             .foregroundStyle(isDarkModeEnabled() ? .white : .black)
         }

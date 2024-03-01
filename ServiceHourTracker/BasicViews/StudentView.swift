@@ -53,7 +53,10 @@ struct StudentView: View {
                 }
             case .ClassroomView:
                 
-                StudentClassroomView().navigationBarTitleDisplayMode(.inline)
+//                StudentClassroomView().navigationBarTitleDisplayMode(.inline)
+//                    .navigationTitle(settingsManager.title)
+                StudentRoomView()
+                    .navigationBarTitleDisplayMode(.inline)
                     .navigationTitle(settingsManager.title)
                 //                    .toolbar {
                 //                        ToolbarItem(placement: .topBarLeading) {
