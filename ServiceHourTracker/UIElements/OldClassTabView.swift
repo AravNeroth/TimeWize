@@ -76,7 +76,7 @@ struct OldClassTabView: View {
                         Button {
                             getCodes(uid: userID) { codesList in
                                 if let codesList = codesList {
-                                    unenrollClass(uid: userID, codes: codesList, code: classCode)
+                                    unenrollClass(uid: userID, code: classCode)
                                     allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
                                     removePersonFromClass(person: userID, classCode: classCode)
                                 }
@@ -103,21 +103,5 @@ struct OldClassTabView: View {
             .frame(height: 90)
             
         }
-    }
-}
-
-
-
-struct RoundedCorner: Shape {
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
     }
 }

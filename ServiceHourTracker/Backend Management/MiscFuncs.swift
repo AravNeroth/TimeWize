@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 import FirebaseAuth
-func getEmail() -> String{
+
+func getEmail() -> String {
     var out = ""
     if let email = Auth.auth().currentUser?.email{
         out = email
@@ -45,4 +46,3 @@ func hasDatePassed(date: String)->Bool{
     return true
     //something wrong with passed in date
 }
-
