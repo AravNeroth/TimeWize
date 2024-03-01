@@ -30,7 +30,7 @@ struct OldClassTabView: View {
                     Spacer()
                     ZStack(alignment: .bottomTrailing){
                         
-                        if let banner = banner{
+                        if let banner = banner {
                             Image(uiImage: banner)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)

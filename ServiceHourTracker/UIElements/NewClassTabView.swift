@@ -47,6 +47,7 @@ struct NewClassTabView: View {
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .padding(.horizontal, 30.0)
+                                .shadow(radius: 2.0, y: 2.0)
                             
                             Spacer()
                             
