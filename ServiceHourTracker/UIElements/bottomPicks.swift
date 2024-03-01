@@ -18,7 +18,7 @@ struct bottomPicks: View {
                 settingsManager.tab = 0
             } label: {
                 VStack{
-                    Image(systemName: "clock.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    Image(systemName: "clock.fill").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
                     Text("Hours Log").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
             }
@@ -28,7 +28,7 @@ struct bottomPicks: View {
                 settingsManager.tab = 2
             } label: {
                 VStack{
-                    Image(systemName: "house.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    Image(systemName: "house.fill").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).scaledToFill().frame(width: 25, height:25)
                     Text("Classes").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
             }
@@ -39,11 +39,11 @@ struct bottomPicks: View {
             }label: {
                 VStack{
 
-                    Image(systemName: "gearshape.fill").tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    Image(systemName: "gearshape.fill").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
                     Text("Settings").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                 }
             }
             Spacer()
-        }.padding(.top)
+        }.padding(.top).background(.clear).background(.ultraThinMaterial).ignoresSafeArea(edges:[.bottom, .horizontal]).frame(height: 55)
     }
 }
