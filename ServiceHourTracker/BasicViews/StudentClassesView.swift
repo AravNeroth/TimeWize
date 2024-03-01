@@ -99,9 +99,9 @@ struct StudentClassesView: View {
                         Image(systemName: "plus").foregroundStyle(.green5)
                     }
                 }
-                ToolbarItem(placement: .bottomBar) {
-                    bottomPicks(selection: $settingsManager.tab)
-                }
+//                ToolbarItem(placement: .bottomBar) {
+//                    bottomPicks(selection: $settingsManager.tab)
+//                }
             }
             .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
         }

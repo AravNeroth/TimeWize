@@ -49,7 +49,7 @@ struct StudentView: View {
                 }
             case .ClassroomView:
                 VStack{
-                    StudentClassroomView().navigationBarTitleDisplayMode(.inline)
+                    StudentRoomView().navigationBarTitleDisplayMode(.inline)
                         .navigationTitle(settingsManager.title)
                     
                     
