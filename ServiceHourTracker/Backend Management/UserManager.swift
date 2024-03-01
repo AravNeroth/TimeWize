@@ -185,7 +185,7 @@ func updateHours(uid: String, newHourCount: Float) {
 
     
 }
-func unenrollClass(uid: String, codes: [String], code: String){
+func unenrollClass(uid: String, code: String) {
     
     getData(uid: uid) { currUser in
         let userRef = db.collection("userInfo").document(uid)

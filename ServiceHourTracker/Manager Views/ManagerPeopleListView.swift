@@ -35,6 +35,7 @@ struct ManagerPeopleListView: View {
                             .bold()
                         Spacer()
                         Button(action: {
+                            unenrollClass(uid: person, code: code)
                             removePersonFromClass(person: person, classCode: code)
                             withAnimation {
                                 peopleList.removeAll(where: { $0 == person })
