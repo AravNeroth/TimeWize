@@ -10,7 +10,7 @@ import Firebase
 import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
-
+import SwiftUI
 
 class ClassData: ObservableObject {
     @Published var code: String
@@ -444,7 +444,7 @@ func removeManagerFromClass(person: String, classCode: String) {
     }
 }
 
-func getColorScheme(classCode: String, completion: @escaping([String]) -> Void) {
+func getColorScheme(classCode: String, completion: @escaping([Color]) -> Void) {
     let docRef = db.collection("classes").document(classCode)
     
     docRef.getDocument { document, error in
@@ -452,7 +452,19 @@ func getColorScheme(classCode: String, completion: @escaping([String]) -> Void) 
             print("Error getting document: \(error.localizedDescription)")
         } else {
             if let document = document {
-                completion(document.data()?["colors"] as? [String] ?? [""])
+                let colorsStringList = document.data()?["colors"] as? [String] ?? [""]
+                var colors: [Color] = []
+                for colorStr in colorsStringList {
+                    let red = colorStr.prefix(2)
+                    let redNum = Double(Int(red, radix: 16)!) / 255
+                    let green = colorStr.prefix(4).suffix(2)
+                    let greenNum = Double(Int(green, radix: 16)!) / 255
+                    let blue = colorStr.suffix(2)
+                    let blueNum = Double(Int(blue, radix: 16)!) / 255
+                    
+                    colors.append(Color(red: redNum, green: greenNum, blue: blueNum))
+                }
+                completion(colors)
             }
         }
     }

@@ -99,16 +99,7 @@ struct ClassTabView: View {
                     colors.append(.green2)
                     colors.append(.green4)
                 } else {
-                    for colorStr in scheme {
-                        let red = colorStr.prefix(2)
-                        let redNum = Double(Int(red, radix: 16)!) / 255
-                        let green = colorStr.prefix(4).suffix(2)
-                        let greenNum = Double(Int(green, radix: 16)!) / 255
-                        let blue = colorStr.suffix(2)
-                        let blueNum = Double(Int(blue, radix: 16)!) / 255
-                        
-                        colors.append(Color(red: redNum, green: greenNum, blue: blueNum))
-                    }
+                    colors = scheme
                 }
             }
         }
