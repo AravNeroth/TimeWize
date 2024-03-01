@@ -13,8 +13,9 @@ import SwiftUI
 struct ColorPalette: View {
     @Binding var showPop: Bool
     
-    @State private var color1 = Color.white
-    @State private var color2 = Color.white
+    @State private var colors: [Color] = [.white]
+
+    
     @State private var currPick = 0
     @EnvironmentObject private var classData:ClassData
     @AppStorage("uid") private var userID = ""
@@ -35,7 +36,7 @@ struct ColorPalette: View {
                 VStack{
                     HStack(){
                         Image(systemName: "star").frame(width: 20, height: 10).fontWeight(.semibold).padding(.trailing, 5)
-                        Text("Popular").font(.title3).fontWeight(.semibold).frame(height: 10)
+                        Text("Featured").font(.title3).fontWeight(.semibold).frame(height: 10)
                         Spacer()
                     }.padding(10)
                     HStack(spacing: 5){

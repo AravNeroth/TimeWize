@@ -142,7 +142,7 @@ private struct unEnrollPopUp: View {
                 }
                 showUnEnroll = false
             } label: {
-                Text("UNENROLL")
+                Text("Unenroll")
             }
             .foregroundStyle(isDarkModeEnabled() ? .white : .black)
         }
