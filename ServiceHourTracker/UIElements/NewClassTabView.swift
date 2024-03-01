@@ -135,7 +135,7 @@ private struct unEnrollPopUp: View {
             Button {
                 getCodes(uid: userID) { codesList in
                     if let codesList = codesList {
-                        unenrollClass(uid: userID, codes: codesList, code: classCode)
+                        unenrollClass(uid: userID, code: classCode)
                         allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
                         removePersonFromClass(person: userID, classCode: classCode)
                     }
