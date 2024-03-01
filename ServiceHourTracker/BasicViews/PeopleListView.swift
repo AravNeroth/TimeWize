@@ -28,8 +28,10 @@ struct PeopleListView: View {
                 .frame(width: 350)
             
             ForEach(peopleList, id: \.self) { person in
-                Text("\(person)")
-                    .bold()
+                HStack {
+                    Text("\(person)")
+                        .bold()
+                }
             }
         }
         .onAppear() {
@@ -39,3 +41,5 @@ struct PeopleListView: View {
         }
     }
 }
+
+

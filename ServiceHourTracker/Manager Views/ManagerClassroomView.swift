@@ -54,7 +54,7 @@ struct ManagerClassroomView: View {
             
         }
         .sheet(isPresented: $showPpl) {
-            PeopleListView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPpl)
+            ManagerPeopleListView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPpl)
         }
         .fullScreenCover(isPresented: $imageSelection) {
             ImagePicker(image: $newBanner)

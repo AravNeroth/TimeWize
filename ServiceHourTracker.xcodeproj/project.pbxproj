@@ -40,6 +40,7 @@
 		EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */; };
 		EBD0F2F02B8822F20047C5FF /* PeopleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0F2EF2B8822F20047C5FF /* PeopleListView.swift */; };
 		EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */; };
+		EE091C772B922C860087FB9B /* ManagerPeopleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE091C762B922C860087FB9B /* ManagerPeopleListView.swift */; };
 		EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */; };
 		EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */; };
 		EEF83F2F2B1FCDD90098D3A2 /* StudentClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2E2B1FCDD90098D3A2 /* StudentClassesView.swift */; };
@@ -97,6 +98,7 @@
 		EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerReqListView.swift; sourceTree = "<group>"; };
 		EBD0F2EF2B8822F20047C5FF /* PeopleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleListView.swift; sourceTree = "<group>"; };
 		EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		EE091C762B922C860087FB9B /* ManagerPeopleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerPeopleListView.swift; sourceTree = "<group>"; };
 		EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
 		EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceHourTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHourTrackerApp.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */,
 				CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */,
 				EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */,
+				EE091C762B922C860087FB9B /* ManagerPeopleListView.swift */,
 			);
 			path = "Manager Views";
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */,
 				EBD0F2F02B8822F20047C5FF /* PeopleListView.swift in Sources */,
 				06F54A392B773CCB00FD6069 /* MiscFuncs.swift in Sources */,
+				EE091C772B922C860087FB9B /* ManagerPeopleListView.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
 				06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */,
 				06E576A92B5A29E100A7A36D /* String.swift in Sources */,
@@ -629,7 +633,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = PG2B993Z5Q;
+				DEVELOPMENT_TEAM = 94NLQFUSSS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -643,7 +647,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracked;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

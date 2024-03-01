@@ -383,11 +383,27 @@ func removePersonFromClass(person: String, classCode: String) {
                 }
                 
                 db.collection("classes").document(classCode).updateData(["peopleList":people])
-            }
-        }
-    }
-}
-
+                
+                // remove it from the user info otherwise they're gone from the people list but not actual class
+                let userRef = db.collection("userInfo").document(person)
+                        userRef.getDocument { userDocument, userError in
+                            if let userDocument = userDocument, userDocument.exists {
+                                var userInfo = userDocument.data() ?? [:]
+                                var userCodes = userInfo["codes"] as? [String] ?? []
+                                
+                                if let classIndex = userCodes.firstIndex(of: classCode) {
+                                    userCodes.remove(at: classIndex)
+                                    userRef.updateData(["codes": userCodes])
+                                        }
+                                    } else {
+                                        print("User document does not exist or an error occurred: \(userError?.localizedDescription ?? "Unknown error")")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                
 func getPeopleList(classCode: String, completion: @escaping([String]) -> Void) {
     let docRef = db.collection("classes").document(classCode)
     
@@ -461,4 +477,3 @@ func getManagersList(classCode:String, completion: @escaping ([String])->Void){
     }
     
 }
-
