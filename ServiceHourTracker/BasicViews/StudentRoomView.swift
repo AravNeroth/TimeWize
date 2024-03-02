@@ -160,6 +160,7 @@ private struct menuPopUp: View {
                 ZStack {
                     Rectangle()
                         .opacity(0.0)
+                        .contentShape(Rectangle())
                     
                     Text("People")
                 }
@@ -174,6 +175,7 @@ private struct menuPopUp: View {
                 ZStack {
                     Rectangle()
                         .opacity(0.0)
+                        .contentShape(Rectangle())
                         .ignoresSafeArea()
                     
                     Text("Request Hours")
