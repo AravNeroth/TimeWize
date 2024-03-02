@@ -32,17 +32,16 @@ struct ManagerClassesView: View {
             LoadingScreen()
                 .animation(.easeInOut, value: refreshed)
                 .onAppear() {
-                    getClasses(uid: userID) { list in
-                        settingsMan.classes = list ?? [] // list of codes
-                    }
+                    classesToSM()
                     
                     for code in settingsMan.classes {
+                        print("for code in \n \(settingsMan.classes)")
                         getClassInfo(classCloudCode: code) { classroom in
                             if let classroom = classroom {
-                                if !settingsMan.managerClassObjects.contains(classroom) {
+                                if !settingsMan.managerClassObjects.contains(where: {$0.code == classroom.code}) {
                                     
                                     settingsMan.managerClassObjects.append(classroom)
-                                    
+                                    print("\n appending \n")
                                     downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
                                         classInfoManager.managerClassImages[classroom.title] = image
                                     }
@@ -57,10 +56,25 @@ struct ManagerClassesView: View {
                                     }
                                 }
                             }
+                            
                         }
                     }
-                    settingsMan.managerClassObjects.sort{ $0.title < $1.title }
-                    refreshed = true
+                   
+                    if(settingsMan.fresh){
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3 ){
+                            settingsMan.managerClassObjects.sort { $0.title < $1.title }
+                            
+                            refreshed = true
+                            settingsMan.fresh = false
+                            settingsMan.updateUserDefaults()
+                        }
+                        
+                    }else{
+                        settingsMan.managerClassObjects.sort { $0.title < $1.title }
+                        
+                        refreshed = true
+                    }
+                    
                 }
         } else {
             VStack {
@@ -102,7 +116,10 @@ struct ManagerClassesView: View {
                     settingsMan.classes.append(newClass.code)
                     storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
                     
-                    refreshed = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1 ){
+                        refreshed = false
+                    }
+                  
                 }
                 .alert("Join Class", isPresented: $managerCodeAlert) {
                     TextField("Enter Manager Code", text: $joinCode)
@@ -149,6 +166,26 @@ struct ManagerClassesView: View {
         }
     }
     
+    
+     func classesToSM(){
+        getClasses(uid: userID) { list in
+            print("list in \n \(settingsMan.classes)")
+            if var list = list{
+                for index in 0..<list.count {
+                    if list.firstIndex(of: list[index]) != index{
+                        list.remove(at: index)
+                    }
+                    if index == list.count-1 {
+                        settingsMan.classes = list // list of codes
+                        print("list out in \n \(settingsMan.classes)")
+                    }
+                }
+            
+            }else{
+                settingsMan.classes = []
+            }
+        }
+    }
     private func fetchClassDetailsForManagerCode(manCode: String) {
            let db = Firestore.firestore()
            db.collection("classes").whereField("managerCode", isEqualTo: manCode).getDocuments { snapshot, error in

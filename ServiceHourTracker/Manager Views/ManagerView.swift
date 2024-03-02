@@ -21,7 +21,7 @@ struct ManagerView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @State var tabSelection = 0
     @State var title = ""
-    
+    @State var classes = ManagerClassesView()
     
     var body: some View{
         
@@ -37,7 +37,7 @@ struct ManagerView: View {
 
             case .ManagerHome:
                 VStack{
-                ManagerClassesView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
+                classes.navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
                 ManagerBottomBar(selection: $tabSelection)
                     
                 }
@@ -55,8 +55,8 @@ struct ManagerView: View {
         
             .onChange(of: settingsManager.manTab, { old, new in
                 switch settingsManager.manTab{
-                case 0: settingsManager.title = "Classes"; currManagerView = .ManagerHome
-                case 1: settingsManager.title = "Settings"; currManagerView = .SettingsView
+                case 0: settingsManager.title = "Classes"; currManagerView = .ManagerHome; 
+                case 1: settingsManager.title = "Settings"; currManagerView = .SettingsView;
 //                case 2: currManagerView = .ManagerClass
                 case 2: settingsManager.title = "Requests"; currManagerView = .RequestsView
                 default:

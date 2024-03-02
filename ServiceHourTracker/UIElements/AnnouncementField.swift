@@ -9,21 +9,46 @@ import SwiftUI
 
 struct AnnouncementField: View {
     @State private var currMessage = ""
+    @State private var time = Date()
+    @State private var messages: [String] = []
+    
     var body: some View {
-        HStack{
-            RoundedRectangle(cornerRadius: 20, style: .circular).frame(width:250, height: 30).padding().background(.blue).cornerRadius(20, corners: .allCorners)
-                .overlay {
-                    TextField(text: $currMessage) {
-                        Text("Announce a message to class").background(.white)
+       
+        ScrollView{
+            Spacer()
+            HStack{
+                
+                TextField("Announce a message to class", text: $currMessage).textFieldStyle(RoundedBorderTextFieldStyle())
+                Button{
+                    if currMessage != "" {
+                        messages.append(currMessage)
+                        currMessage = ""
                     }
-            }
-            
-           Image(systemName: "square.and.arrow.up")
+                }label: {
+                    
+                    Image(systemName: "square.and.arrow.up")
+                }
                 .padding()
-        }
+                
+            }
+            Spacer()
+            ForEach(messages, id: \.self){ message in
+                Text(message).frame(minWidth: 350).padding().overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.gray.opacity(0.5), lineWidth: 2)
+                )
+            }
+        }.padding()
     }
-}
+            
+            
+            
+    
+    }
+
 
 #Preview {
-    AnnouncementField()
+    VStack{
+        AnnouncementField().padding()
+    }
 }
