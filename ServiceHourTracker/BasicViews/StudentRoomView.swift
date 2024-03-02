@@ -20,7 +20,7 @@ struct StudentRoomView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
-    
+    @State private var lastColor:Color = .green6
     var body: some View {
         if loading {
             LoadingScreen()
@@ -105,19 +105,24 @@ struct StudentRoomView: View {
                     } label: {
                         HStack(spacing: 2.5) {
                             Image(systemName: "chevron.left")
-                                .foregroundStyle(colors.last ?? .green6)
+                                .foregroundStyle((lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6)
                             
                             Text("Back")
-                                .foregroundStyle(colors.last ?? .green6)
+                                .foregroundStyle((lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6)
                         }
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showMenu.toggle()
+                        print("\(colors.last! == Color.white)")
+                        print("\(Color.white)")
+                        print("\(colors.last! as Color)")
+                        print(colorToHex(color: .white))
+                        print("\(hexToColor(hex: "\(colors.last! as Color)"))")
                     } label: {
                         Image(systemName: "line.3.horizontal")
-                            .foregroundStyle(colors.last ?? .green6)
+                            .foregroundStyle((lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6)
                     }
                 }
             }
@@ -129,6 +134,9 @@ struct StudentRoomView: View {
                 PeopleListView(code: classData.code, classTitle: title, isShowing: $showPplList)
             }
             .animation(.easeIn, value: loading)
+            .onAppear(){
+               lastColor = hexToColor(hex: "\(colors.last! as Color)")
+            }
         }
     }
 }

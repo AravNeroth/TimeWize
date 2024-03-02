@@ -455,14 +455,7 @@ func getColorScheme(classCode: String, completion: @escaping([Color]) -> Void) {
                 let colorsStringList = document.data()?["colors"] as? [String] ?? [""]
                 var colors: [Color] = []
                 for colorStr in colorsStringList {
-                    let red = colorStr.prefix(2)
-                    let redNum = Double(Int(red, radix: 16)!) / 255
-                    let green = colorStr.prefix(4).suffix(2)
-                    let greenNum = Double(Int(green, radix: 16)!) / 255
-                    let blue = colorStr.suffix(2)
-                    let blueNum = Double(Int(blue, radix: 16)!) / 255
-                    
-                    colors.append(Color(red: redNum, green: greenNum, blue: blueNum))
+                    colors.append(hexToColor(hex: colorStr))
                 }
                 completion(colors)
             }
@@ -470,25 +463,15 @@ func getColorScheme(classCode: String, completion: @escaping([Color]) -> Void) {
     }
 }
 
+
+
 func setColorScheme(classCode: String, colors: [Color]) {
     var colorStrings: [String] = []
     for color in colors {
-        let uiColor = UIColor(color)
-        
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-                    
-        uiColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        
-        let redInt = Int(red * 255)
-        let greenInt = Int(green * 255)
-        let blueInt = Int(blue * 255)
-        
-        let hexString = String(format: "%02X%02X%02X", redInt, greenInt, blueInt)
-        
-        colorStrings.append(hexString)
+       
+        colorStrings.append(colorToHex(color: color))
     }
     db.collection("classes").document(classCode).updateData(["colors":colorStrings])
 }
+
+
