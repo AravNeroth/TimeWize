@@ -362,9 +362,12 @@ struct SettingsView:View {
             Text("Change your name?")
         }
         .fullScreenCover(isPresented: $changePfp){
-            ImagePicker(image: $newPfp)
-
-                .ignoresSafeArea(edges: .bottom)
+            
+                ImagePicker(image: $newPfp)
+                
+            
+            
+                .ignoresSafeArea(edges: .all)
 
         }
         .onChange(of: newPfp, { oldValue, newValue in
