@@ -34,24 +34,26 @@ struct StudentRoomView: View {
                             classImage = image
                         }
                         
-                        getTasks(classCode: classData.code) { newTasks in
-                            tasks = newTasks
-                            
-                            getColorScheme(classCode: classData.code) { scheme in
-                                if scheme.count != 0 {
-                                    if scheme.last!.luminance > 0.8 {
-                                        useDefaults = true
-                                    }
-                                    
-                                    colors = scheme
+                        getColorScheme(classCode: classData.code) { scheme in
+                            if scheme.count != 0 {
+                                if scheme.last!.luminance > 0.8 {
+                                    useDefaults = true
                                 }
                                 
-                                getClassInfo(classCloudCode: classData.code) { classroom in
-                                    if let classroom = classroom {
-                                        title = classroom.title
-                                    }
+                                colors = scheme
+                            }
+                            
+                            getClassInfo(classCloudCode: classData.code) { classroom in
+                                if let classroom = classroom {
+                                    title = classroom.title
+                                }
+                                
+                                getTasks(classCode: classData.code) { newTasks in
+                                    tasks = newTasks
                                     
-                                    loading = false
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        loading = false
+                                    }
                                 }
                             }
                         }

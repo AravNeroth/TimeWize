@@ -12,7 +12,7 @@ struct NewClassTabView: View {
     @AppStorage("uid") var userID = ""
     var title: String = "Title"
     var classCode: String
-    @State var colors: [Color] = [.green4, .green6] //green6 as last is important because its a default
+    @State var colors: [Color] = [.green4, .green6] // green6 as last is important because its a default
     @State var owner: String = ""
     var ownerPfp: UIImage? = UIImage(resource: .image2)
     @EnvironmentObject var settingsManager: SettingsManager
@@ -21,7 +21,6 @@ struct NewClassTabView: View {
     @Binding var allClasses: [Classroom]
     @State var classroom: Classroom
     @State var showUnEnroll: Bool = false
-
     
     var body: some View {
         Button {
@@ -31,13 +30,7 @@ struct NewClassTabView: View {
             classData.code = classCode
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
-                .fill(
-                    LinearGradient(
-                        gradient: Gradient(colors: colors),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+                .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
                 .frame(height: 130)
                 .padding(.horizontal, 10.0)
                 .shadow(radius: 2.0, y: 2.0)
@@ -131,7 +124,7 @@ private struct unEnrollPopUp: View {
         VStack {
             Button {
                 getCodes(uid: userID) { codesList in
-                    if let codesList = codesList {
+                    if codesList != nil {
                         unenrollClass(uid: userID, code: classCode)
                         allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
                         removePersonFromClass(person: userID, classCode: classCode)

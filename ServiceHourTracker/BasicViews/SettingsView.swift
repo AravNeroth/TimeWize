@@ -285,9 +285,9 @@ struct SettingsView:View {
                     
                     Button(action: {
 //                        setColorScheme(classCode: "5788MR", colors: ["FFFFFF", "777777"])
-                        setColorScheme(classCode: "5788MR", colors: [.white, .gray])
+                        setUserColors(email: userID, colors: [.purple4, .purple6])
                     }) {
-                        Text("change color to white/gray")
+                        Text("change my color to purple")
                     }
                     
                 }header:{
