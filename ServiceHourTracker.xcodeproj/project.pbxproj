@@ -25,6 +25,7 @@
 		06F111022B928CA200EB4F01 /* ManagerPeopleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F111012B928CA200EB4F01 /* ManagerPeopleListView.swift */; };
 		06F111042B9290BD00EB4F01 /* StudentRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F111032B9290BD00EB4F01 /* StudentRoomView.swift */; };
 		06F111062B92927700EB4F01 /* OldClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F111052B92927700EB4F01 /* OldClassTabView.swift */; };
+		06F111082B92A81D00EB4F01 /* AnnouncementField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F111072B92A81D00EB4F01 /* AnnouncementField.swift */; };
 		06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A102B702A7B00FD6069 /* ImagePicker.swift */; };
 		06F54A132B7031BB00FD6069 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 06F54A122B7031BB00FD6069 /* FirebaseStorage */; };
 		06F54A152B7031E700FD6069 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 06F54A142B7031E700FD6069 /* FirebaseStorageCombine-Community */; };
@@ -89,6 +90,7 @@
 		06F111012B928CA200EB4F01 /* ManagerPeopleListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerPeopleListView.swift; sourceTree = "<group>"; };
 		06F111032B9290BD00EB4F01 /* StudentRoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentRoomView.swift; sourceTree = "<group>"; };
 		06F111052B92927700EB4F01 /* OldClassTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldClassTabView.swift; sourceTree = "<group>"; };
+		06F111072B92A81D00EB4F01 /* AnnouncementField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementField.swift; sourceTree = "<group>"; };
 		06F54A102B702A7B00FD6069 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		06F54A302B727F0500FD6069 /* bottomPicks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bottomPicks.swift; sourceTree = "<group>"; };
 		06F54A322B72808900FD6069 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				06F54A302B727F0500FD6069 /* bottomPicks.swift */,
+				06F111072B92A81D00EB4F01 /* AnnouncementField.swift */,
 				06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */,
 				06F54A322B72808900FD6069 /* LoadingScreen.swift */,
 				06C520212B806323008E6286 /* ManagerBottomBar.swift */,
@@ -429,6 +432,7 @@
 				06F111022B928CA200EB4F01 /* ManagerPeopleListView.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
 				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,
+				06F111082B92A81D00EB4F01 /* AnnouncementField.swift in Sources */,
 				EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */,
 				EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */,
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,

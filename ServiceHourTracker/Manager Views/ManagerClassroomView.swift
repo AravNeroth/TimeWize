@@ -20,19 +20,15 @@ struct ManagerClassroomView: View {
     @EnvironmentObject var classData: ClassData
     @EnvironmentObject private var classInfoManager: ClassInfoManager
     @EnvironmentObject private var settingsManager: SettingsManager
-   
+
     @State private var showTaskPopup = false
     var body: some View{
         NavigationStack{
             VStack{
+                AnnouncementField().padding()
+                Spacer()
                 Text("manager class: \(classData.code)")
-//                if showTaskPopup {
-//                    taskPopup(showPop: $showTaskPopup)
-//                        .frame(width: 375, height: 500, alignment: .center).offset(y: -130)
-//                }
-//                if showPalette {
-//                    ColorPalette(showPop: $showPalette).frame(width: 375, height: 500, alignment: .center).offset(y: -130)
-//                }
+                Spacer()
             }
             
             
@@ -47,33 +43,7 @@ struct ManagerClassroomView: View {
                         Image(systemName: "gearshape").tint((showPpl || homeImageSelection || showPalette || showTaskPopup) ? .gray : .blue)
                     }
                     Spacer()
-//                    Button{
-//                        showPpl = true
-//                    }label: {
-//                        Image(systemName: "person.3")
-//                    }
-                    
-//                    Menu{
-//                        Button("Banner"){
-//                            imageSelection = true
-//                        }
-//                        Button("Home"){
-//                           homeImageSelection = true
-//                        }
-//                    }label: {
-//                        Image(systemName: "photo.fill")
-//                    }
-                    
-//                    Button{
-//                        showPalette = true
-//                    }label: {
-//                        Image(systemName: "paintpalette.fill")
-//                    }
-//                    Button{
-//                        showTaskPopup = true
-//                    }label: {
-//                        Image(systemName: "plus")
-//                    }
+
                 }
             }
             
