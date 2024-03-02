@@ -288,7 +288,7 @@ struct SettingsView:View {
                         Text("change color to white/gray")
                     }
                     
-                }header:{
+                } header:{
                     Text("Dev controls")
                 }
                 
@@ -359,7 +359,7 @@ struct SettingsView:View {
         } message: {
             Text("Change your name?")
         }
-        .fullScreenCover(isPresented: $changePfp){
+        .fullScreenCover(isPresented: $changePfp) {
             ImagePicker(image: $newPfp)
 
                 .ignoresSafeArea(edges: .bottom)

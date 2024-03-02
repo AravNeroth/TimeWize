@@ -53,6 +53,10 @@ struct StudentView: View {
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationTitle(settingsManager.title)
                     
+//                    StudentClassroomView()
+//                        .navigationBarTitleDisplayMode(.inline)
+//                        .navigationTitle(settingsManager.title)
+                    
                     
                 }
                 

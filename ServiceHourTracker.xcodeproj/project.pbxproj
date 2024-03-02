@@ -37,6 +37,7 @@
 		06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3C2B77E77D00FD6069 /* AppObjects.swift */; };
 		06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* StudentClassroomView.swift */; };
 		CFE866F02B7E9C4300CFA6FB /* ManagerClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */; };
+		EB01F73D2B92B1BE00FBDBE6 /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB01F73C2B92B1BE00FBDBE6 /* MiniProfileView.swift */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
 		EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB75C7992B7C0F9B00DC615D /* TaskView.swift */; };
@@ -99,6 +100,7 @@
 		06F54A3C2B77E77D00FD6069 /* AppObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppObjects.swift; sourceTree = "<group>"; };
 		06FD082E2B6996D400484FEE /* StudentClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassroomView.swift; sourceTree = "<group>"; };
 		CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerClassroomView.swift; sourceTree = "<group>"; };
+		EB01F73C2B92B1BE00FBDBE6 /* MiniProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EB75C7992B7C0F9B00DC615D /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				EBAECDD72B818AAE00614CCE /* RequestView.swift */,
 				06F110FD2B91969300EB4F01 /* taskPopup.swift */,
 				EB75C7992B7C0F9B00DC615D /* TaskView.swift */,
+				EB01F73C2B92B1BE00FBDBE6 /* MiniProfileView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */,
 				06A935062B81694600BD163F /* ManagerTabView.swift in Sources */,
 				EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */,
+				EB01F73D2B92B1BE00FBDBE6 /* MiniProfileView.swift in Sources */,
 				06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */,
 				06F111042B9290BD00EB4F01 /* StudentRoomView.swift in Sources */,
 				06E576A42B59C86000A7A36D /* SignUp.swift in Sources */,

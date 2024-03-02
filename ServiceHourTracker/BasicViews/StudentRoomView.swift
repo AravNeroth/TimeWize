@@ -16,6 +16,7 @@ struct StudentRoomView: View {
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var loading = true
     @State var showMenu = false
+    @State var showPplList = false
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
@@ -96,7 +97,6 @@ struct StudentRoomView: View {
                     }
                 }
             }
-            .animation(.easeIn, value: loading)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -114,7 +114,6 @@ struct StudentRoomView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        // replace with showMenu func after making it
                         showMenu.toggle()
                     } label: {
                         Image(systemName: "line.3.horizontal")
@@ -122,10 +121,65 @@ struct StudentRoomView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showMenu) {
+                menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList)
+                    .presentationDetents([.height(125.0)])
+            }
+            .sheet(isPresented: $showPplList) {
+                PeopleListView(code: classData.code, classTitle: title, isShowing: $showPplList)
+            }
+            .animation(.easeIn, value: loading)
         }
     }
 }
 
-private struct menuPopUp {
+private struct menuPopUp: View {
     
+    var classCode: String
+    @Binding var showMenu: Bool
+    @Binding var showPplList: Bool
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            Button {
+                showMenu = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showPplList = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .foregroundStyle(isDarkModeEnabled() ? .black : .white)
+                    
+                    Text("People")
+                }
+            }
+            .foregroundStyle(isDarkModeEnabled() ? .white : .black)
+            
+            Divider()
+            
+            Button {
+                showMenu = false
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .foregroundStyle(isDarkModeEnabled() ? .black : .white)
+                        .ignoresSafeArea()
+                    
+                    Text("Request Hours")
+                }
+            }
+            .foregroundStyle(isDarkModeEnabled() ? .white : .black)
+        }
+    }
+}
+
+
+
+private func isDarkModeEnabled() -> Bool {
+    if UITraitCollection.current.userInterfaceStyle == .dark {
+        return true
+    } else {
+        return false
+    }
 }
