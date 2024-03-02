@@ -40,20 +40,20 @@ struct SettingsView:View {
                 Section{
                     HStack{
                         
-                        VStack{
+                    
                             
-                            Text("\(name)").font(.title).padding(.leading).bold()
-                            Button{
-                                
-                            }label:{
-                                Image(systemName: "bell.fill")
-                            }.padding(.leading)
-                            Spacer()
-                        }.padding(.top)
+                        Text("\(name)").font(.title).padding(.leading).bold()
+                        Button{
+                            
+                        }label:{
+                            Image(systemName: "bell.fill")
+                        }.padding(.leading,2)
+            
+                    
                         
                         Spacer()
                         
-                        Image(uiImage: settingsManager.pfp).resizable().aspectRatio(contentMode: .fill).frame(width:50, height:50).clipShape(Circle()).padding()
+                        Image(uiImage: settingsManager.pfp).resizable().aspectRatio(contentMode: .fill).frame(width:50, height:50).clipShape(Circle())
                             
                         Button{
                             changePfp = true
