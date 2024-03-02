@@ -133,3 +133,11 @@ func darkestColor(in colors: [Color]) -> Color? {
 
     return darkestColor
 }
+
+func isDarkModeEnabled() -> Bool {
+    if UITraitCollection.current.userInterfaceStyle == .dark {
+        return true
+    } else {
+        return false
+    }
+}

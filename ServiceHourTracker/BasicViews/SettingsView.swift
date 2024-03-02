@@ -283,6 +283,8 @@ struct SettingsView:View {
                         Text("change color to purple")
                     }
                     
+                    
+                    
                     Button(action: {
 //                        setColorScheme(classCode: "5788MR", colors: ["FFFFFF", "777777"])
                         setColorScheme(classCode: "5788MR", colors: [.white, .gray])

@@ -50,7 +50,7 @@ struct ColorPalette: View {
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
-                            ).stroke(.blueLogin, lineWidth: (currPick==0) ? 4:0)
+                            ).stroke(.blueLogin, lineWidth: (currPick == 0) ? 4:0)
                                 .shadow(radius: 2.0, y: 2.0)
                         }
                         
@@ -64,7 +64,7 @@ struct ColorPalette: View {
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
-                            ).stroke(.blueLogin, lineWidth: (currPick==1) ? 4:0)
+                            ).stroke(.blueLogin, lineWidth: (currPick == 1) ? 4:0)
                                 .shadow(radius: 2.0, y: 2.0)
                         }
                         
@@ -78,7 +78,7 @@ struct ColorPalette: View {
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
-                            ).stroke(.blueLogin, lineWidth: (currPick==2) ? 4:0)
+                            ).stroke(.blueLogin, lineWidth: (currPick == 2) ? 4:0)
                                 .shadow(radius: 2.0, y: 2.0)
                         }
                         
@@ -176,17 +176,17 @@ struct ColorPalette: View {
        
            
     private func colorsForIndex(_ index: Int) -> [Color] {
-            switch index {
-            case 3: return [.red, .gray]
-            case 4: return [.black, .gray]
-            case 5: return [.green, .white]
-            case 6: return [.red, .orange]
-            case 7: return [.blue, .yellow, .white]
-            case 8: return [.yellow, .blueLogin]
-            case 9: return [.green1, .green5]
-                
-            default: return []
+                switch index {
+                case 3: return [hexToColor(hex: "2E3192"), hexToColor(hex: "1FACAC")] // Ocean Blue
+                case 4: return [hexToColor(hex: "614385"), hexToColor(hex: "516395")] // Kashmir
+                case 5: return [hexToColor(hex: "02AABD"), hexToColor(hex: "00CDAC")] // Green Beach
+                case 6: return [.red, .orange]
+                case 7: return [.blue, .yellow]
+                case 8: return [hexToColor(hex: "11998E"), hexToColor(hex: "38EF7D")] // Quepal
+                case 9: return [hexToColor(hex: "FF61D2"), hexToColor(hex: "FE9090")] // Exotic
+                    
+                default: return []
+                }
             }
+                
         }
-            
-    }

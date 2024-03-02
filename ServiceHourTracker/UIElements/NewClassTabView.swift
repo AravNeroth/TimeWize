@@ -12,7 +12,7 @@ struct NewClassTabView: View {
     @AppStorage("uid") var userID = ""
     var title: String = "Title"
     var classCode: String
-    @State var colors: [Color] = [.green4, .green6] //green6 as last is important because its a default
+    @State var colors: [Color] = [.green4, .green6] // green6 as last is important because its a default
     @State var owner: String = ""
     var ownerPfp: UIImage? = UIImage(resource: .image2)
     @EnvironmentObject var settingsManager: SettingsManager
@@ -21,7 +21,6 @@ struct NewClassTabView: View {
     @Binding var allClasses: [Classroom]
     @State var classroom: Classroom
     @State var showUnEnroll: Bool = false
-
     
     var body: some View {
         Button {
@@ -31,13 +30,7 @@ struct NewClassTabView: View {
             classData.code = classCode
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
-                .fill(
-                    LinearGradient(
-                        gradient: Gradient(colors: colors),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+                .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
                 .frame(height: 130)
                 .padding(.horizontal, 10.0)
                 .shadow(radius: 2.0, y: 2.0)
@@ -113,7 +106,7 @@ struct NewClassTabView: View {
         .buttonStyle(PlainButtonStyle())
         .sheet(isPresented: $showUnEnroll) {
             unEnrollPopUp(classCode: classCode, showUnEnroll: $showUnEnroll, allClasses: $allClasses, classroom: classroom)
-                .presentationDetents([.height(50.0)])
+                .presentationDetents([.height(60.0)])
         }
         .animation(.easeIn, value: showUnEnroll)
     }
@@ -131,7 +124,7 @@ private struct unEnrollPopUp: View {
         VStack {
             Button {
                 getCodes(uid: userID) { codesList in
-                    if let codesList = codesList {
+                    if codesList != nil {
                         unenrollClass(uid: userID, code: classCode)
                         allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
                         removePersonFromClass(person: userID, classCode: classCode)
@@ -141,21 +134,13 @@ private struct unEnrollPopUp: View {
             } label: {
                 ZStack {
                     Rectangle()
-                        .foregroundStyle(isDarkModeEnabled() ? .black : .white)
+                        .opacity(0.0)
                         .ignoresSafeArea()
 
                     Text("Unenroll")
                 }
             }
-            .foregroundStyle(isDarkModeEnabled() ? .white : .black)
+            .buttonStyle(PlainButtonStyle())
         }
-    }
-}
-
-private func isDarkModeEnabled() -> Bool {
-    if UITraitCollection.current.userInterfaceStyle == .dark {
-        return true
-    } else {
-        return false
     }
 }

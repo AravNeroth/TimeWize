@@ -29,8 +29,8 @@ struct User: Codable {
     var hours: Float? = 0
     var codes: [String]? = [] // a list of classes participating in
     var classHours: [String:Int]? = [:]
-    
-    init(uid: String, email: String, displayName: String? = nil, classes: [String]? = [], hours: Float? = 0, codes: [String]? = [""], classHours: [String:Int]? = [:]) {
+    var userColors: [String]? = []
+    init(uid: String, email: String, displayName: String? = nil, classes: [String]? = [], hours: Float? = 0, codes: [String]? = [""], classHours: [String:Int]? = [:], userColors: [String] = []) {
         self.uid = uid
         self.email = email
         self.displayName = displayName
@@ -38,6 +38,7 @@ struct User: Codable {
         self.hours = hours
         self.codes = codes
         self.classHours = classHours
+        self.userColors = userColors
     }
     
     init() {
@@ -331,4 +332,32 @@ func setClassHours(email:String, type: String, hours: Int){
     let docRef = db.collection("userInfo").document(email)
     
     docRef.updateData(["classHours" : [type:hours]])
+}
+
+
+func setUserColors(email: String, colors: [Color]) {
+    var colorStrings: [String] = []
+    for color in colors {
+        colorStrings.append(colorToHex(color: color))
+    }
+    db.collection("userInfo").document(email).updateData(["userColors":colorStrings])
+}
+
+func getUserColors(email: String, completion: @escaping ([Color]) -> Void) {
+    let docRef = db.collection("userInfo").document(email)
+
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+        } else {
+            if let document = document {
+                let colorsStringList = document.data()?["userColors"] as? [String] ?? [""]
+                var colors: [Color] = []
+                for colorStr in colorsStringList {
+                    colors.append(hexToColor(hex: colorStr))
+                }
+                completion(colors)
+            }
+        }
+    }
 }
