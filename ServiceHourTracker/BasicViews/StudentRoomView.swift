@@ -57,17 +57,17 @@ struct StudentRoomView: View {
                         .shadow(radius: 2.0, y: 2.0)
                         .overlay(
                             ZStack {
-                                if classImage != UIImage(resource: .image1) {
-                                    if let classImage = classImage {
-                                        Image(uiImage: classImage)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(height: 170)
-                                            .clipShape(RoundedRectangle(cornerRadius: 15.0))
-                                            .padding(.horizontal, 10.0)
-                                            .opacity(0.5)
-                                    }
+                                
+                                if let classImage = classImage {
+                                    Image(uiImage: classImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(height: 170)
+                                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                                        .padding(.horizontal, 10.0)
+                                        .opacity(0.5)
                                 }
+                                
                                 
                                 HStack {
                                     VStack(alignment: .leading) {
