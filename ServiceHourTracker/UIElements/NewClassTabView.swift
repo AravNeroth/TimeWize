@@ -12,7 +12,7 @@ struct NewClassTabView: View {
     @AppStorage("uid") var userID = ""
     var title: String = "Title"
     var classCode: String
-    @State var colors: [Color] = [.green2, .green4]
+    @State var colors: [Color] = [.green4, .green6]
     @State var owner: String = ""
     var ownerPfp: UIImage? = UIImage(resource: .image2)
     @EnvironmentObject var settingsManager: SettingsManager
@@ -30,13 +30,7 @@ struct NewClassTabView: View {
             classData.code = classCode
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
-                .fill(
-                    LinearGradient(
-                        gradient: Gradient(colors: colors),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+                .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
                 .frame(height: 130)
                 .padding(.horizontal, 10.0)
                 .shadow(radius: 2.0, y: 2.0)
@@ -47,6 +41,7 @@ struct NewClassTabView: View {
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .padding(.horizontal, 30.0)
+                                .foregroundStyle(.white)
                                 .shadow(radius: 2.0, y: 2.0)
                             
                             Spacer()
@@ -65,6 +60,7 @@ struct NewClassTabView: View {
                                 Text(owner)
                                     .font(.title3)
                                     .fontWeight(.semibold)
+                                    .foregroundStyle(.white)
                             }
                             .padding(.horizontal, 30.0)
                         }
@@ -80,6 +76,7 @@ struct NewClassTabView: View {
                                     .font(.system(size: 20.0, weight: .bold))
                                     .imageScale(.large)
                                     .rotationEffect(.degrees(90.0))
+                                    .foregroundStyle(.white)
                             }
                             .buttonStyle(PlainButtonStyle())
                             .padding(.horizontal, 20.0)
