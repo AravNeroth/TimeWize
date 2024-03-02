@@ -40,3 +40,17 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
+
+extension Color {
+    func isBright() -> Bool {
+        guard let components = cgColor?.components else { return false }
+
+        let red = components[0]
+        let green = components[1]
+        let blue = components[2]
+
+        let luminance = 0.299 * red + 0.587 * green + 0.114 * blue
+
+        return luminance > 0.5
+    }
+}

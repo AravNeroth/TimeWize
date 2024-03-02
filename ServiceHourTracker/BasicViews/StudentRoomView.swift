@@ -21,6 +21,7 @@ struct StudentRoomView: View {
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
     @State private var lastColor:Color = .green6
+    @State private var tintColor:Color = .green6
     var body: some View {
         if loading {
             LoadingScreen()
@@ -105,24 +106,24 @@ struct StudentRoomView: View {
                     } label: {
                         HStack(spacing: 2.5) {
                             Image(systemName: "chevron.left")
-                                .foregroundStyle((lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6)
+                                .foregroundStyle(tintColor)
                             
                             Text("Back")
-                                .foregroundStyle((lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6)
+                                .foregroundStyle(tintColor)
                         }
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showMenu.toggle()
-                        print("\(colors.last! == Color.white)")
-                        print("\(Color.white)")
-                        print("\(colors.last! as Color)")
-                        print(colorToHex(color: .white))
-                        print("\(hexToColor(hex: "\(colors.last! as Color)"))")
+//                        print("\(colors.last! == Color.white)")
+//                        print("\(Color.white)")
+//                        print("\(colors.last! as Color)")
+//                        print(colorToHex(color: .white))
+//                        print("\(hexToColor(hex: "\(colors.last! as Color)"))")
                     } label: {
                         Image(systemName: "line.3.horizontal")
-                            .foregroundStyle((lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6)
+                            .foregroundStyle(tintColor)
                     }
                 }
             }
@@ -136,6 +137,10 @@ struct StudentRoomView: View {
             .animation(.easeIn, value: loading)
             .onAppear(){
                lastColor = hexToColor(hex: "\(colors.last! as Color)")
+                tintColor = ((lastColor == .green6) ||
+                ((lastColor == .white) != (colors.first == .white)) ? //had to use != instead of ^ because of errors
+                colors[(colors.count)/2] :
+                (lastColor == .white) ? colors.last ?? .green6 : .green6)
             }
         }
     }

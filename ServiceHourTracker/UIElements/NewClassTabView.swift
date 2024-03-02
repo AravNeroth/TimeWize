@@ -12,7 +12,7 @@ struct NewClassTabView: View {
     @AppStorage("uid") var userID = ""
     var title: String = "Title"
     var classCode: String
-    @State var colors: [Color] = [.green2, .green4]
+    @State var colors: [Color] = [.green4, .green6] //green6 as last is important because its a default
     @State var owner: String = ""
     var ownerPfp: UIImage? = UIImage(resource: .image2)
     @EnvironmentObject var settingsManager: SettingsManager
@@ -21,6 +21,7 @@ struct NewClassTabView: View {
     @Binding var allClasses: [Classroom]
     @State var classroom: Classroom
     @State var showUnEnroll: Bool = false
+
     
     var body: some View {
         Button {
@@ -48,6 +49,7 @@ struct NewClassTabView: View {
                                 .fontWeight(.bold)
                                 .padding(.horizontal, 30.0)
                                 .shadow(radius: 2.0, y: 2.0)
+                                .foregroundStyle(colors.first!.isBright() ? .black : .white)
                             
                             Spacer()
                             
@@ -65,6 +67,7 @@ struct NewClassTabView: View {
                                 Text(owner)
                                     .font(.title3)
                                     .fontWeight(.semibold)
+                                    .foregroundStyle(colors.first!.isBright() ? .black : .white)
                             }
                             .padding(.horizontal, 30.0)
                         }
@@ -80,6 +83,7 @@ struct NewClassTabView: View {
                                     .font(.system(size: 20.0, weight: .bold))
                                     .imageScale(.large)
                                     .rotationEffect(.degrees(90.0))
+                                    .foregroundStyle(colors.first!.isBright() ? .black : .white)
                             }
                             .buttonStyle(PlainButtonStyle())
                             .padding(.horizontal, 20.0)
@@ -91,6 +95,7 @@ struct NewClassTabView: View {
                 )
         }
         .onAppear() {
+            
             getClassInfo(classCloudCode: classCode) { newClass in
                 let list = newClass?.managerList
                 
@@ -103,6 +108,7 @@ struct NewClassTabView: View {
             getColorScheme(classCode: classCode) { scheme in
                 colors = scheme
             }
+
         }
         .buttonStyle(PlainButtonStyle())
         .sheet(isPresented: $showUnEnroll) {
