@@ -53,4 +53,13 @@ extension Color {
 
         return luminance > 0.5
     }
+    
+    var luminance: Double {
+            guard let components = cgColor?.components, components.count >= 3 else { return 0.0 }
+            return 0.299 * Double(components[0]) + 0.587 * Double(components[1]) + 0.114 * Double(components[2])
+    }
+    
+    var bright: Bool {
+        return luminance > 0.5
+    }
 }

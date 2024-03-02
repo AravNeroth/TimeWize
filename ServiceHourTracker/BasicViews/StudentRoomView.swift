@@ -11,7 +11,7 @@ struct StudentRoomView: View {
     
     @AppStorage("uid") var userID = ""
     @State var title: String = "Title"
-    @State var colors: [Color] = [.green4, .green6]
+    @State var colors: [Color] = [.green4, .green6] //keep last as green6 for default purpouses 
     @State var tasks: [[String: String]] = []
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var loading = true
@@ -21,7 +21,7 @@ struct StudentRoomView: View {
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
     @State private var lastColor:Color = .green6
-    @State private var tintColor:Color = .green6
+    @State private var testColor:Color = .green6
     var body: some View {
         if loading {
             LoadingScreen()
@@ -44,8 +44,19 @@ struct StudentRoomView: View {
                                 title = classroom.title
                             }
                         }
-                        loading = false
+                        
                     }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ){
+                        lastColor = colors.last!
+                        if !colors.allSatisfy({$0 == .white}){
+                            testColor =  (lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6
+                        }
+                        
+                        loading = false
+                        
+                    }
+                    
+                    
                     
                 }
         } else {
@@ -106,10 +117,10 @@ struct StudentRoomView: View {
                     } label: {
                         HStack(spacing: 2.5) {
                             Image(systemName: "chevron.left")
-                                .foregroundStyle(tintColor)
+                                .foregroundStyle(testColor)
                             
                             Text("Back")
-                                .foregroundStyle(tintColor)
+                                .foregroundStyle(testColor)
                         }
                     }
                 }
@@ -123,7 +134,7 @@ struct StudentRoomView: View {
 //                        print("\(hexToColor(hex: "\(colors.last! as Color)"))")
                     } label: {
                         Image(systemName: "line.3.horizontal")
-                            .foregroundStyle(tintColor)
+                            .foregroundStyle(testColor)
                     }
                 }
             }
@@ -135,13 +146,7 @@ struct StudentRoomView: View {
                 PeopleListView(code: classData.code, classTitle: title, isShowing: $showPplList)
             }
             .animation(.easeIn, value: loading)
-            .onAppear(){
-               lastColor = hexToColor(hex: "\(colors.last! as Color)")
-                tintColor = ((lastColor == .green6) ||
-                ((lastColor == .white) != (colors.first == .white)) ? //had to use != instead of ^ because of errors
-                colors[(colors.count)/2] :
-                (lastColor == .white) ? colors.last ?? .green6 : .green6)
-            }
+            
         }
     }
 }

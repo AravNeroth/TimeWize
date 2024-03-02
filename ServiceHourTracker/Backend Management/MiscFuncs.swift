@@ -89,3 +89,47 @@ func hexToColor(hex: String) -> Color{
     return Color(red: redNum, green: greenNum, blue: blueNum)
 
 }
+
+
+//Example:
+//if colors.contains(where: {$0 != .white}) {
+//dominantColor = mostDominantColor(in: colors) ?? .blue
+//
+//}else if colors.allSatisfy({$0 == .white}){
+//dominantColor = .blue
+//}
+func mostDominantColor(in colors: [Color]) -> Color? {
+    guard !colors.isEmpty else { return nil }
+
+    // Use a dictionary to store color frequencies
+    var colorFrequencies: [Color: Int] = [:]
+
+    // Count the occurrences of each color
+    for color in colors {
+        colorFrequencies[color, default: 0] += 1
+    }
+
+    // Find the color with the maximum frequency
+    if let (dominantColor, _) = colorFrequencies.max(by: { $0.value < $1.value }) {
+        return dominantColor
+    }
+
+    return nil
+}
+
+func darkestColor(in colors: [Color]) -> Color? {
+    guard let firstColor = colors.first else { return nil }
+
+    var darkestColor = firstColor
+    var darkestLuminance = firstColor.luminance
+
+    for color in colors {
+        let luminance = color.luminance
+        if luminance < darkestLuminance {
+            darkestColor = color
+            darkestLuminance = luminance
+        }
+    }
+
+    return darkestColor
+}
