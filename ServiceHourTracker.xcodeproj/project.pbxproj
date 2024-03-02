@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		06A935062B81694600BD163F /* ManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A935052B81694500BD163F /* ManagerTabView.swift */; };
+		06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3932B92D0B40023646B /* MiniProfileView.swift */; };
 		06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C520212B806323008E6286 /* ManagerBottomBar.swift */; };
 		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
 		06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A52B59C92300A7A36D /* TermsAndServices.swift */; };
@@ -75,6 +76,7 @@
 
 /* Begin PBXFileReference section */
 		06A935052B81694500BD163F /* ManagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerTabView.swift; sourceTree = "<group>"; };
+		06AEC3932B92D0B40023646B /* MiniProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		06C520212B806323008E6286 /* ManagerBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerBottomBar.swift; sourceTree = "<group>"; };
 		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		06E576A52B59C92300A7A36D /* TermsAndServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServices.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		EBFB3FA82B2749EB0087ABA3 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				06AEC3932B92D0B40023646B /* MiniProfileView.swift */,
 				06F54A302B727F0500FD6069 /* bottomPicks.swift */,
 				06F111072B92A81D00EB4F01 /* AnnouncementField.swift */,
 				06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */,
@@ -440,6 +443,7 @@
 				EBD0F2F02B8822F20047C5FF /* PeopleListView.swift in Sources */,
 				06F54A392B773CCB00FD6069 /* MiscFuncs.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
+				06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */,
 				06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */,
 				06E576A92B5A29E100A7A36D /* String.swift in Sources */,
 				06F111002B9196EC00EB4F01 /* ColorPalette.swift in Sources */,

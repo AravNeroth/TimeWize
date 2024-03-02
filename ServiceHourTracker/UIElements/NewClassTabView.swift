@@ -133,7 +133,13 @@ private struct unEnrollPopUp: View {
                 }
                 showUnEnroll = false
             } label: {
-                Text("Unenroll")
+                ZStack {
+                    Rectangle()
+                        .foregroundStyle(isDarkModeEnabled() ? .black : .white)
+                        .ignoresSafeArea()
+
+                    Text("Unenroll")
+                }
             }
             .foregroundStyle(isDarkModeEnabled() ? .white : .black)
         }

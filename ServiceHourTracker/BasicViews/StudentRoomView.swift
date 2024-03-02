@@ -10,12 +10,13 @@ import SwiftUI
 struct StudentRoomView: View {
     
     @AppStorage("uid") var userID = ""
-    var title: String = "Title"
-    var classCode: String = ""
-    @State var colors: [Color] = [.green2, .green4]
+    @State var title: String = "Title"
+    @State var colors: [Color] = [.green4, .green6]
     @State var tasks: [[String: String]] = []
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var loading = true
+    @State var showMenu = false
+    @State var showPplList = false
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
@@ -31,9 +32,20 @@ struct StudentRoomView: View {
                         if let image = image {
                             classImage = image
                         }
+                        getTasks(classCode: classData.code) { newTasks in
+                            tasks = newTasks
+                        }
+                        getColorScheme(classCode: classData.code) { scheme in
+                            colors = scheme
+                        }
+                        getClassInfo(classCloudCode: classData.code) { classroom in
+                            if let classroom = classroom {
+                                title = classroom.title
+                            }
+                        }
                         loading = false
-                        
                     }
+                    
                 }
         } else {
             ScrollView {
@@ -45,14 +57,16 @@ struct StudentRoomView: View {
                         .shadow(radius: 2.0, y: 2.0)
                         .overlay(
                             ZStack {
-                                if let classImage = classImage {
-                                    Image(uiImage: classImage)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(height: 170)
-                                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
-                                        .padding(.horizontal, 10.0)
-                                        .opacity(0.5)
+                                if classImage != UIImage(resource: .image1) {
+                                    if let classImage = classImage {
+                                        Image(uiImage: classImage)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(height: 170)
+                                            .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                                            .padding(.horizontal, 10.0)
+                                            .opacity(0.5)
+                                    }
                                 }
                                 
                                 HStack {
@@ -64,6 +78,7 @@ struct StudentRoomView: View {
                                             .fontWeight(.bold)
                                             .padding(.horizontal, 30.0)
                                             .padding(.vertical, 15.0)
+                                            .foregroundStyle(.white)
                                             .shadow(radius: 2.0, y: 2.0)
                                     }
                                     
@@ -78,26 +93,93 @@ struct StudentRoomView: View {
                         }
                     } else {
                         Text("No Tasks")
+                            .padding(.vertical, 10.0)
                     }
                 }
             }
-            .animation(.easeIn, value: loading)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         settingsManager.tab = 2
                         settingsManager.title = "Classes"
                     } label: {
-                        Image(systemName: "chevron.left")
-                            .foregroundStyle(colors.last ?? .green4)
+                        HStack(spacing: 2.5) {
+                            Image(systemName: "chevron.left")
+                                .foregroundStyle(colors.last ?? .green6)
+                            
+                            Text("Back")
+                                .foregroundStyle(colors.last ?? .green6)
+                        }
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showMenu.toggle()
+                    } label: {
+                        Image(systemName: "line.3.horizontal")
+                            .foregroundStyle(colors.last ?? .green6)
                     }
                 }
             }
-            .onAppear() {
-                getTasks(classCode: classData.code) { newTasks in
-                    tasks = newTasks
+            .sheet(isPresented: $showMenu) {
+                menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList)
+                    .presentationDetents([.height(125.0)])
+            }
+            .sheet(isPresented: $showPplList) {
+                PeopleListView(code: classData.code, classTitle: title, isShowing: $showPplList)
+            }
+            .animation(.easeIn, value: loading)
+        }
+    }
+}
+
+private struct menuPopUp: View {
+    
+    var classCode: String
+    @Binding var showMenu: Bool
+    @Binding var showPplList: Bool
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            Button {
+                showMenu = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showPplList = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .foregroundStyle(isDarkModeEnabled() ? .black : .white)
+                    
+                    Text("People")
                 }
             }
+            .foregroundStyle(isDarkModeEnabled() ? .white : .black)
+            
+            Divider()
+            
+            Button {
+                showMenu = false
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .foregroundStyle(isDarkModeEnabled() ? .black : .white)
+                        .ignoresSafeArea()
+                    
+                    Text("Request Hours")
+                }
+            }
+            .foregroundStyle(isDarkModeEnabled() ? .white : .black)
         }
+    }
+}
+
+
+
+private func isDarkModeEnabled() -> Bool {
+    if UITraitCollection.current.userInterfaceStyle == .dark {
+        return true
+    } else {
+        return false
     }
 }
