@@ -28,7 +28,7 @@ struct StudentRoomView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(ignoresSafeAreaEdges: .all)
                 .onAppear() {
-                    downloadImageFromClassroomStorage(code: "\(classData.code)", file: "\(settingsManager.title).jpg", done: $loading) { image in
+                    downloadImageFromClassroomStorage(code: "\(classData.code)", file: "Home\(settingsManager.title).jpg", done: $loading) { image in
                         if let image = image {
                             classImage = image
                         }
