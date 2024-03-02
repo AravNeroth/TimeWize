@@ -22,7 +22,7 @@ struct ColorPalette: View {
 
 
     var body: some View {
-        ScrollView() {
+        VStack() {
             
             HStack{
                 Image(systemName: "swatchpalette.fill").tint(.black).padding()
@@ -42,6 +42,7 @@ struct ColorPalette: View {
                     HStack(spacing: 5){
                         Button{
                             currPick = 0
+                            colorsSelected = featuredColors[0]
                         }label: {
                             Circle().fill(
                                 LinearGradient(
@@ -55,6 +56,7 @@ struct ColorPalette: View {
                         
                         Button{
                             currPick = 1
+                            colorsSelected = featuredColors[1]
                         }label: {
                             Circle().fill(
                                 LinearGradient(
@@ -68,6 +70,7 @@ struct ColorPalette: View {
                         
                         Button{
                             currPick = 2
+                            colorsSelected = featuredColors[2]
                         }label: {
                             Circle().fill(
                                 LinearGradient(
@@ -86,7 +89,7 @@ struct ColorPalette: View {
                 VStack{
                     HStack(){
                         Image(systemName: "swatchpalette")
-                        Text("other").font(.subheadline).fontWeight(.regular)
+                        Text("others").font(.subheadline).fontWeight(.regular)
                         Spacer()
                     }.padding(10)
                     
@@ -167,7 +170,9 @@ struct ColorPalette: View {
                                                 withAnimation {
                                                     currPick = index
                                                     scrollView.scrollTo(index, anchor: .center)
+                                                    colorsSelected = colorsForIndex(index)
                                                 }
+                                                
                                             } label: {
                                                 Circle().fill(
                                                     LinearGradient(
@@ -205,6 +210,10 @@ struct ColorPalette: View {
                 Spacer()
                 RoundedRectangle(cornerRadius: 30).fill(.blueLogin).frame(width: 100, height:50).overlay(
                 Button("Select"){
+                    
+//                    setColorScheme(classCode: classData.code, colors: colorsSelected)
+                    
+                    
                     showPop = false
                 }.tint(.white)
                     )
@@ -219,7 +228,7 @@ struct ColorPalette: View {
 //                Spacer()
                 
                 
-            }
+            }.padding(.bottom, 10)
             
             
         }

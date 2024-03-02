@@ -63,6 +63,7 @@ struct ManagerPeopleListView: View {
         .onAppear() {
             getPeopleList(classCode: code) { people in
                 peopleList = people
+                
             }
         }
     }
