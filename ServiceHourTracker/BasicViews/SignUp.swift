@@ -150,15 +150,15 @@ struct SignUp: View {
                 NavigationLink(destination: TermsAndServices(), isActive: $goToTerms){}
             }.padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
             
-            Picker(selection: $selectedIndex, label: Text("Account Type")) {
-                
-                Text("Student").tag(0)
-                Text("Manager").tag(1)
-                   
-                
-            }.frame(width:300)
-            .pickerStyle(SegmentedPickerStyle())
-            .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+//            Picker(selection: $selectedIndex, label: Text("Account Type")) {
+//                
+//                Text("Student").tag(0)
+//                Text("Manager").tag(1)
+//                   
+//                
+//            }.frame(width:300)
+//            .pickerStyle(SegmentedPickerStyle())
+//            .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
             
             Picker(selection: $darkIndex, label: Text("Dark mode")) {
                 
