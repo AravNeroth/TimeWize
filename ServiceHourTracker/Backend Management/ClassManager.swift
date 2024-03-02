@@ -468,10 +468,7 @@ func getColorScheme(classCode: String, completion: @escaping([Color]) -> Void) {
 func setColorScheme(classCode: String, colors: [Color]) {
     var colorStrings: [String] = []
     for color in colors {
-       
         colorStrings.append(colorToHex(color: color))
     }
     db.collection("classes").document(classCode).updateData(["colors":colorStrings])
 }
-
-

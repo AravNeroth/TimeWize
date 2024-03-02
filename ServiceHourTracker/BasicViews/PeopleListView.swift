@@ -14,12 +14,13 @@ struct PeopleListView: View {
     @State var classTitle: String = ""
     @State var peopleList: [String] = []
     @Binding var isShowing: Bool
-    @State private var peopleToPfp:[String:UIImage] = [:]
+    @State private var peopleToPfp: [String:UIImage] = [:]
     @State private var loaded = false
+    
     var body: some View {
         if loaded {
             VStack {
-                Text("List of People in \(classTitle)")
+                Text("People in \(classTitle)")
                     .multilineTextAlignment(.center)
                     .font(.largeTitle)
                     .bold()
@@ -28,6 +29,7 @@ struct PeopleListView: View {
                 Divider()
                     .padding(30)
                     .frame(width: 350)
+                
                 ScrollView{
                     ForEach(peopleList, id: \.self) { person in
                         HStack {

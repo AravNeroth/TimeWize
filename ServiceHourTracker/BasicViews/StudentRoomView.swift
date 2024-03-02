@@ -11,17 +11,17 @@ struct StudentRoomView: View {
     
     @AppStorage("uid") var userID = ""
     @State var title: String = "Title"
-    @State var colors: [Color] = [.green4, .green6] //keep last as green6 for default purpouses 
+    @State var colors: [Color] = [.green4, .green6]
     @State var tasks: [[String: String]] = []
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var loading = true
+    @State var useDefaults = false
     @State var showMenu = false
     @State var showPplList = false
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
-    @State private var lastColor:Color = .green6
-    @State private var testColor:Color = .green6
+    
     var body: some View {
         if loading {
             LoadingScreen()
@@ -33,31 +33,29 @@ struct StudentRoomView: View {
                         if let image = image {
                             classImage = image
                         }
+                        
                         getTasks(classCode: classData.code) { newTasks in
                             tasks = newTasks
-                        }
-                        getColorScheme(classCode: classData.code) { scheme in
-                            colors = scheme
-                        }
-                        getClassInfo(classCloudCode: classData.code) { classroom in
-                            if let classroom = classroom {
-                                title = classroom.title
+                            
+                            getColorScheme(classCode: classData.code) { scheme in
+                                if scheme.count != 0 {
+                                    if scheme.last!.luminance > 0.8 {
+                                        useDefaults = true
+                                    }
+                                    
+                                    colors = scheme
+                                }
+                                
+                                getClassInfo(classCloudCode: classData.code) { classroom in
+                                    if let classroom = classroom {
+                                        title = classroom.title
+                                    }
+                                    
+                                    loading = false
+                                }
                             }
                         }
-                        
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ){
-                        lastColor = colors.last!
-                        if !colors.allSatisfy({$0 == .white}){
-                            testColor =  (lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6
-                        }
-                        
-                        loading = false
-                        
-                    }
-                    
-                    
-                    
                 }
         } else {
             ScrollView {
@@ -79,7 +77,6 @@ struct StudentRoomView: View {
                                         .padding(.horizontal, 10.0)
                                         .opacity(0.5)
                                 }
-                                
                                 
                                 HStack {
                                     VStack(alignment: .leading) {
@@ -117,36 +114,29 @@ struct StudentRoomView: View {
                     } label: {
                         HStack(spacing: 2.5) {
                             Image(systemName: "chevron.left")
-                                .foregroundStyle(testColor)
                             
                             Text("Back")
-                                .foregroundStyle(testColor)
                         }
                     }
+                    .foregroundStyle(useDefaults ? .green6 : colors.last!)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showMenu.toggle()
-//                        print("\(colors.last! == Color.white)")
-//                        print("\(Color.white)")
-//                        print("\(colors.last! as Color)")
-//                        print(colorToHex(color: .white))
-//                        print("\(hexToColor(hex: "\(colors.last! as Color)"))")
                     } label: {
                         Image(systemName: "line.3.horizontal")
-                            .foregroundStyle(testColor)
                     }
+                    .foregroundStyle(useDefaults ? .green6 : colors.last!)
                 }
             }
             .sheet(isPresented: $showMenu) {
                 menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList)
-                    .presentationDetents([.height(125.0)])
+                    .presentationDetents([.height(120.0)])
             }
             .sheet(isPresented: $showPplList) {
                 PeopleListView(code: classData.code, classTitle: title, isShowing: $showPplList)
             }
             .animation(.easeIn, value: loading)
-            
         }
     }
 }
@@ -167,12 +157,12 @@ private struct menuPopUp: View {
             } label: {
                 ZStack {
                     Rectangle()
-                        .foregroundStyle(isDarkModeEnabled() ? .black : .white)
+                        .opacity(0.0)
                     
                     Text("People")
                 }
             }
-            .foregroundStyle(isDarkModeEnabled() ? .white : .black)
+            .buttonStyle(PlainButtonStyle())
             
             Divider()
             
@@ -181,23 +171,13 @@ private struct menuPopUp: View {
             } label: {
                 ZStack {
                     Rectangle()
-                        .foregroundStyle(isDarkModeEnabled() ? .black : .white)
+                        .opacity(0.0)
                         .ignoresSafeArea()
                     
                     Text("Request Hours")
                 }
             }
-            .foregroundStyle(isDarkModeEnabled() ? .white : .black)
+            .buttonStyle(PlainButtonStyle())
         }
-    }
-}
-
-
-
-private func isDarkModeEnabled() -> Bool {
-    if UITraitCollection.current.userInterfaceStyle == .dark {
-        return true
-    } else {
-        return false
     }
 }

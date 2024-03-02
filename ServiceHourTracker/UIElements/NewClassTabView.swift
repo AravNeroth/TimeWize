@@ -113,7 +113,7 @@ struct NewClassTabView: View {
         .buttonStyle(PlainButtonStyle())
         .sheet(isPresented: $showUnEnroll) {
             unEnrollPopUp(classCode: classCode, showUnEnroll: $showUnEnroll, allClasses: $allClasses, classroom: classroom)
-                .presentationDetents([.height(50.0)])
+                .presentationDetents([.height(60.0)])
         }
         .animation(.easeIn, value: showUnEnroll)
     }
@@ -141,21 +141,13 @@ private struct unEnrollPopUp: View {
             } label: {
                 ZStack {
                     Rectangle()
-                        .foregroundStyle(isDarkModeEnabled() ? .black : .white)
+                        .opacity(0.0)
                         .ignoresSafeArea()
 
                     Text("Unenroll")
                 }
             }
-            .foregroundStyle(isDarkModeEnabled() ? .white : .black)
+            .buttonStyle(PlainButtonStyle())
         }
-    }
-}
-
-private func isDarkModeEnabled() -> Bool {
-    if UITraitCollection.current.userInterfaceStyle == .dark {
-        return true
-    } else {
-        return false
     }
 }
