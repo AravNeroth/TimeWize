@@ -307,7 +307,7 @@ struct SettingsView:View {
                         if let currentUser = currUser{
                             name = currentUser.displayName ?? "Name"
                         }else{
-                            name = userData.currentUser.displayName!
+                            name = userData.currentUser.displayName ?? "Name"
                         }
                         
                     }

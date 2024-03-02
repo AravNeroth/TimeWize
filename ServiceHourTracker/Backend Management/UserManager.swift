@@ -103,7 +103,7 @@ func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
 func storeUserInfoInFirestore(user: User) {
 
     do {
-        try db.collection("userInfo").document(user.uid).setData(from: user)
+        try db.collection("userInfo").document(user.email).setData(from: user)
         
         
     } catch {
@@ -255,7 +255,7 @@ func sendPasswordResetEmail(email: String) -> String {
     return alertMessage
 }
 
-
+//only works if youre signed in
 func getAuthIDForEmail(email: String) -> String {
     var output = ""
     Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in

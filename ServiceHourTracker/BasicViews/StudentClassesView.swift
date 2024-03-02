@@ -69,7 +69,7 @@ struct StudentClassesView: View {
                             }
                         }
                     }
-                    .padding(.bottom, 7).padding(.top, 7)
+                    .padding(.top, 7)//.padding(.bottom, 7)
                     .alert("Class Code", isPresented: $showJoinMessage) {
                         TextField("code", text: $alertField).foregroundColor(.black)
                         Button("OK") {

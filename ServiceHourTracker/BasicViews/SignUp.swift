@@ -174,7 +174,7 @@ struct SignUp: View {
                 
                 
                 Auth.auth().createUser(withEmail: userName, password: password) { authResult, error in
-                
+                    
                     if let error = error {
                         print(error)
                         if password.count < 6 {
@@ -194,7 +194,7 @@ struct SignUp: View {
                             if confirm == password {
                                 authUID = authResult.uid
                                                         print(authResult.uid)
-                                let newUser = User(uid: authResult.email ?? "", email: authResult.email ?? "")
+                                let newUser = User(uid: authUID, email: authResult.email ?? "")
 //                                let newUser = User(uid: authResult.uid, email: authResult.email ?? "")
                                 
                                 withAnimation {

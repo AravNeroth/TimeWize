@@ -77,14 +77,14 @@ struct ManagerClassesView: View {
                     
                 }
         } else {
-            VStack {
+            
                 ScrollView {
                     ForEach(settingsMan.managerClassObjects, id: \.self) { classroom in
                         ManagerTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.managerClassImages[classroom.title], pfp: classInfoManager.managerClassPfp[classroom.title])
                             .padding(.bottom, 10)
                             .animation(.spring(duration: 1), value: refreshed)
                     }
-                }
+                
                 .alert("Create A Class", isPresented: $classCreationAlert) {
                     TextField("Enter Name", text: $classNameField)
                     TextField("Minimum Service Hours", text: $classServiceField)
