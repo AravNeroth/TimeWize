@@ -470,6 +470,25 @@ func getColorScheme(classCode: String, completion: @escaping([Color]) -> Void) {
     }
 }
 
-func setColorScheme(classCode: String, colors: [String]) {
-    db.collection("classes").document(classCode).updateData(["colors":colors])
+func setColorScheme(classCode: String, colors: [Color]) {
+    var colorStrings: [String] = []
+    for color in colors {
+        let uiColor = UIColor(color)
+        
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+                    
+        uiColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        let redInt = Int(red * 255)
+        let greenInt = Int(green * 255)
+        let blueInt = Int(blue * 255)
+        
+        let hexString = String(format: "%02X%02X%02X", redInt, greenInt, blueInt)
+        
+        colorStrings.append(hexString)
+    }
+    db.collection("classes").document(classCode).updateData(["colors":colorStrings])
 }

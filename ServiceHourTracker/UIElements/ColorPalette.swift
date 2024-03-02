@@ -93,74 +93,7 @@ struct ColorPalette: View {
                         Spacer()
                     }.padding(10)
                     
-                    /*
-                    ScrollView(.horizontal){
-                        ScrollViewReader { scrollView in
-                            HStack{
-                                
-                                Button{
-                                    withAnimation {
-                                       currPick = 3
-                                       scrollView.scrollTo(0, anchor: .center)
-                                   }
-                                }label: {
-                                    Circle().fill(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [.red,.gray]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    ).stroke(.blueLogin, lineWidth: (currPick==3) ? 4:0).frame(width:75, height: 75)
-                                }
-                                
-                                Button{
-                                    currPick = 4
-                                }label: {
-                                    Circle().fill(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [.black,.gray]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    ).stroke(.blueLogin, lineWidth: (currPick==4) ? 4:0).frame(width:75, height: 75)
-                                }
-                                
-                                Button{
-                                    currPick = 5
-                                }label: {
-                                    Circle().fill(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [.green,.white]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    ).stroke(.blueLogin, lineWidth: (currPick==5) ? 4:0).frame(width:75, height: 75)
-                                }
-                                
-                                Button{
-                                    withAnimation {
-                                       currPick = 6
-                                       scrollView.scrollTo(6, anchor: .center)
-                                   }
-                                }label: {
-                                    Circle().fill(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [.blue,.yellow,.white]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    ).stroke(.blueLogin, lineWidth: (currPick==6) ? 4:0)
-                                        .frame(width:75, height: 75)
-                                }
-                                
-                                
-                            }.padding().onAppear {
-                                // Scroll to the middle circle initially
-                                scrollView.scrollTo(5, anchor: .center)
-                            }
-                        }
-                    }
-                    */
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                                 ScrollViewReader { scrollView in
                                     HStack {
@@ -211,7 +144,7 @@ struct ColorPalette: View {
                 RoundedRectangle(cornerRadius: 30).fill(.blueLogin).frame(width: 100, height:50).overlay(
                 Button("Select"){
                     
-//                    setColorScheme(classCode: classData.code, colors: colorsSelected)
+                    setColorScheme(classCode: classData.code, colors: colorsSelected)
                     
                     
                     showPop = false

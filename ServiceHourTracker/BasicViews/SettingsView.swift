@@ -277,13 +277,15 @@ struct SettingsView:View {
                     }
                     
                     Button(action: {
-                        setColorScheme(classCode: "5788MR", colors: ["C77DFF", "7B2CBF"])
+//                        setColorScheme(classCode: "5788MR", colors: ["C77DFF", "7B2CBF"])
+                        setColorScheme(classCode: "5788MR", colors: [.purple, .white])
                     }) {
                         Text("change color to purple")
                     }
                     
                     Button(action: {
-                        setColorScheme(classCode: "5788MR", colors: ["FFFFFF", "777777"])
+//                        setColorScheme(classCode: "5788MR", colors: ["FFFFFF", "777777"])
+                        setColorScheme(classCode: "5788MR", colors: [.white, .gray])
                     }) {
                         Text("change color to white/gray")
                     }
