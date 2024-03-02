@@ -32,7 +32,7 @@ struct AnnouncementField: View {
                 
             }
             Spacer()
-            ForEach(messages, id: \.self){ message in
+            ForEach(messages.reversed(), id: \.self){ message in
                 Text(message).frame(minWidth: 350).padding().overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.gray.opacity(0.5), lineWidth: 2)

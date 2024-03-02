@@ -20,12 +20,12 @@ struct ManagerClassroomView: View {
     @EnvironmentObject var classData: ClassData
     @EnvironmentObject private var classInfoManager: ClassInfoManager
     @EnvironmentObject private var settingsManager: SettingsManager
-
+    @State private var loaded = false
     @State private var showTaskPopup = false
     var body: some View{
         NavigationStack{
             VStack{
-                AnnouncementField().padding()
+                AnnouncementField().animation(.easeInOut(duration: 0.6), value: loaded).padding()
                 Spacer()
                 Text("manager class: \(classData.code)")
                 Spacer()
@@ -48,6 +48,9 @@ struct ManagerClassroomView: View {
             }
             
         }
+        .onAppear(){
+            loaded = true
+        }
         .sheet(isPresented: $showManOptions) {
             
                 VStack{
@@ -55,8 +58,11 @@ struct ManagerClassroomView: View {
                     Spacer()
                     Button{
                         withAnimation(.bouncy){
-                            showPpl = true
                             showManOptions = false
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+                                showPpl = true
+                            }
                         }
                     }label: {
                         HStack{
@@ -66,9 +72,12 @@ struct ManagerClassroomView: View {
                     }.padding()
                     Divider().padding()
                     Button{
-                        withAnimation(.smooth){
-                            homeImageSelection = true
+                        withAnimation(.easeInOut(duration: 1.5)){
                             showManOptions = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+                                homeImageSelection = true
+                            }
+                       
                         }
                         //                    imageSelection = true -> banner   (not in use anymore)
                     }label: {
@@ -79,8 +88,11 @@ struct ManagerClassroomView: View {
                     }.padding()
                     Divider().padding()
                     Button{
-                        showPalette = true
                         showManOptions = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+                            showPalette = true
+                        }
+                        
                         
                     }label: {
                         HStack{
@@ -90,8 +102,12 @@ struct ManagerClassroomView: View {
                     }.padding()
                     Divider().padding()
                     Button{
-                        showTaskPopup = true
+                        
                         showManOptions = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+                            showTaskPopup = true
+                        }
+                     
                         
                     }label: {
                         HStack{
@@ -134,12 +150,13 @@ struct ManagerClassroomView: View {
             .ignoresSafeArea(edges: .bottom)
         })
         .sheet(isPresented: $showPalette, content: {
-            ColorPalette(showPop: $showPalette)
+            ColorPalette(showPop: $showPalette).animation(.easeInOut, value: showPalette)
                 .presentationDetents([.height(600)])
                 .onDisappear(){
                     showPalette = false
                 }
-        })
+        }).animation(.easeInOut, value: settingsManager.title)
+        
         .sheet(isPresented: $showTaskPopup, content: {
             taskPopup(showPop: $showTaskPopup)
                 .frame(width: 375, height: 600)
