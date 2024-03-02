@@ -25,17 +25,22 @@ struct PeopleListView: View {
                     .multilineTextAlignment(.center)
                     .font(.largeTitle)
                     .bold()
-                    .frame(width: 350, alignment: .center).padding(.top, 40)
+                    .frame(width: 250, alignment: .center)
+                    .padding(.top, 40)
                 
-                Divider()
-                    .padding(30)
-                    .frame(width: 350)
-                
-                ScrollView {
-                    ForEach(peopleList, id: \.self) { person in
-                        MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6])
+                ZStack(alignment: .top) {
+                    Divider()
+                        .frame(height: 1)
+                    
+                    ScrollView {
+                        Text("")
+                        
+                        ForEach(peopleList, id: \.self) { person in
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6])
+                        }
                     }
                 }
+                .padding(.top, 30)
             }
         } else {
             LoadingScreen()
