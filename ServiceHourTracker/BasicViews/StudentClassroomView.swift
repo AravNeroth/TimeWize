@@ -123,7 +123,7 @@ struct StudentClassroomView: View {
             }
             .ignoresSafeArea(.keyboard, edges: .bottom)
             .sheet(isPresented: $showPplList) {
-                PeopleListView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPplList)
+                StudentPeopleView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPplList)
             }
         }
     }
@@ -149,7 +149,7 @@ struct Popup: View {
     @State private var hourCount: Double = 0
     @State private var options = ["Attendance", "Service", "Club Specific"]
     @State private var selectedOption = "Attendance Hour"
-    @EnvironmentObject private var classData:ClassData
+    @EnvironmentObject private var classData: ClassData
     @AppStorage("uid") private var userID = ""
     
 

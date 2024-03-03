@@ -23,7 +23,7 @@
 		06F110FC2B9194F600EB4F01 /* NewClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F110FB2B9194F600EB4F01 /* NewClassTabView.swift */; };
 		06F110FE2B91969300EB4F01 /* taskPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F110FD2B91969300EB4F01 /* taskPopup.swift */; };
 		06F111002B9196EC00EB4F01 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */; };
-		06F111022B928CA200EB4F01 /* ManagerPeopleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F111012B928CA200EB4F01 /* ManagerPeopleListView.swift */; };
+		06F111022B928CA200EB4F01 /* ManagerPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F111012B928CA200EB4F01 /* ManagerPeopleView.swift */; };
 		06F111042B9290BD00EB4F01 /* StudentRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F111032B9290BD00EB4F01 /* StudentRoomView.swift */; };
 		06F111062B92927700EB4F01 /* OldClassTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F111052B92927700EB4F01 /* OldClassTabView.swift */; };
 		06F111082B92A81D00EB4F01 /* AnnouncementField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F111072B92A81D00EB4F01 /* AnnouncementField.swift */; };
@@ -45,7 +45,7 @@
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
 		EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD72B818AAE00614CCE /* RequestView.swift */; };
 		EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */; };
-		EBD0F2F02B8822F20047C5FF /* PeopleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0F2EF2B8822F20047C5FF /* PeopleListView.swift */; };
+		EBD0F2F02B8822F20047C5FF /* StudentPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0F2EF2B8822F20047C5FF /* StudentPeopleView.swift */; };
 		EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */; };
 		EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */; };
 		EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */; };
@@ -89,7 +89,7 @@
 		06F110FB2B9194F600EB4F01 /* NewClassTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClassTabView.swift; sourceTree = "<group>"; };
 		06F110FD2B91969300EB4F01 /* taskPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskPopup.swift; sourceTree = "<group>"; };
 		06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
-		06F111012B928CA200EB4F01 /* ManagerPeopleListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerPeopleListView.swift; sourceTree = "<group>"; };
+		06F111012B928CA200EB4F01 /* ManagerPeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerPeopleView.swift; sourceTree = "<group>"; };
 		06F111032B9290BD00EB4F01 /* StudentRoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentRoomView.swift; sourceTree = "<group>"; };
 		06F111052B92927700EB4F01 /* OldClassTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldClassTabView.swift; sourceTree = "<group>"; };
 		06F111072B92A81D00EB4F01 /* AnnouncementField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementField.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
 		EBAECDD72B818AAE00614CCE /* RequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
 		EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerReqListView.swift; sourceTree = "<group>"; };
-		EBD0F2EF2B8822F20047C5FF /* PeopleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleListView.swift; sourceTree = "<group>"; };
+		EBD0F2EF2B8822F20047C5FF /* StudentPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentPeopleView.swift; sourceTree = "<group>"; };
 		EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
 		EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceHourTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,7 +187,7 @@
 				06E576AA2B5A2DF200A7A36D /* AuthView.swift */,
 				EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */,
 				EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */,
-				EBD0F2EF2B8822F20047C5FF /* PeopleListView.swift */,
+				EBD0F2EF2B8822F20047C5FF /* StudentPeopleView.swift */,
 				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
 				06E576A32B59C86000A7A36D /* SignUp.swift */,
 				EEF83F2E2B1FCDD90098D3A2 /* StudentClassesView.swift */,
@@ -204,7 +204,7 @@
 			children = (
 				06E576B92B5F0B1C00A7A36D /* ManagerClassesView.swift */,
 				CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */,
-				06F111012B928CA200EB4F01 /* ManagerPeopleListView.swift */,
+				06F111012B928CA200EB4F01 /* ManagerPeopleView.swift */,
 				EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */,
 				EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */,
 			);
@@ -432,7 +432,7 @@
 				06E576B62B5B47EA00A7A36D /* UserManager.swift in Sources */,
 				06E576B82B5F082D00A7A36D /* ClassManager.swift in Sources */,
 				06F111062B92927700EB4F01 /* OldClassTabView.swift in Sources */,
-				06F111022B928CA200EB4F01 /* ManagerPeopleListView.swift in Sources */,
+				06F111022B928CA200EB4F01 /* ManagerPeopleView.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
 				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,
 				06F111082B92A81D00EB4F01 /* AnnouncementField.swift in Sources */,
@@ -440,7 +440,7 @@
 				EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */,
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
 				EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */,
-				EBD0F2F02B8822F20047C5FF /* PeopleListView.swift in Sources */,
+				EBD0F2F02B8822F20047C5FF /* StudentPeopleView.swift in Sources */,
 				06F54A392B773CCB00FD6069 /* MiscFuncs.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
 				06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */,

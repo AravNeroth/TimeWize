@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PeopleListView: View {
+struct StudentPeopleView: View {
     
     @State var code: String
     @State var classTitle: String = ""

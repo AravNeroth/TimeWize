@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ManagerPeopleListView: View {
+struct ManagerPeopleView: View {
     
     @AppStorage("uid") var userID = ""
     @State var code: String

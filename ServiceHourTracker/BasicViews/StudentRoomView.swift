@@ -17,6 +17,7 @@ struct StudentRoomView: View {
     @State var loading = true
     @State var showMenu = false
     @State var showPplList = false
+    @State var showRequest = false
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
@@ -59,21 +60,7 @@ struct StudentRoomView: View {
                             }
                         }
                     }
-                        
-                    }
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ){
-//                        lastColor = colors.last!
-//                        if !colors.allSatisfy({$0 == .white}){
-//                            testColor =  (lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6
-//                        }
-//                        
-//                        loading = false
-//                        
-//                    }
-                    
-                    
-                    
-                
+                }
         } else {
             ScrollView {
                 VStack {
@@ -151,14 +138,16 @@ struct StudentRoomView: View {
                 }
             }
             .sheet(isPresented: $showMenu) {
-                menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList)
+                menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList, showRequest: $showRequest)
                     .presentationDetents([.height(120.0)])
             }
             .sheet(isPresented: $showPplList) {
-                PeopleListView(code: classData.code, classTitle: title, isShowing: $showPplList)
+                StudentPeopleView(code: classData.code, classTitle: title, isShowing: $showPplList)
+            }
+            .sheet(isPresented: $showRequest) {
+                requestPopUp(colors: colors, isShowing: $showRequest)
             }
             .animation(.easeIn, value: loading)
-            
         }
     }
 }
@@ -168,6 +157,7 @@ private struct menuPopUp: View {
     var classCode: String
     @Binding var showMenu: Bool
     @Binding var showPplList: Bool
+    @Binding var showRequest: Bool
     
     var body: some View {
         VStack(spacing: 0) {
@@ -190,6 +180,9 @@ private struct menuPopUp: View {
             
             Button {
                 showMenu = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showRequest = true
+                }
             } label: {
                 ZStack {
                     Rectangle()
@@ -207,6 +200,86 @@ private struct menuPopUp: View {
     }
 }
 
-
-
-
+private struct requestPopUp: View {
+    
+    @AppStorage("uid") var userID = ""
+    @State var description = ""
+    @State var hourCount: Double = 0
+    @State var selected = "Attendance"
+    var colors: [Color]
+    var options = ["Attendance", "Service", "Club Specific"]
+    @EnvironmentObject private var classData: ClassData
+    @Binding var isShowing: Bool
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("New Request")
+                .font(.largeTitle)
+                .bold()
+                .padding(30.0)
+            
+            Divider()
+                .padding(.horizontal, 30.0)
+                .padding(.bottom, 30.0)
+            
+            Text("Description")
+                .font(.title2)
+                .bold()
+                .padding(.horizontal, 30.0)
+            
+            TextField("Enter Description", text: $description)
+                .padding()
+                .background(.black.opacity(0.1))
+                .cornerRadius(15.0)
+                .shadow(radius: 2.0, y: 2.0)
+                .padding(.horizontal, 30.0)
+            
+            Text("")
+                .padding(.vertical, 5.0)
+            
+            Text("Type of Hour")
+                .font(.title2)
+                .bold()
+                .padding(.horizontal, 30.0)
+            
+            Picker("Select Hour Type", selection: $selected) {
+                ForEach(options, id: \.self) {
+                    Text($0)
+                }
+            }
+            .pickerStyle(.segmented)
+            .padding(.horizontal, 30.0)
+            
+            Text("")
+                .padding(.vertical, 5.0)
+            
+            Text("Requested Hours: \(Int(hourCount))")
+                .font(.title2)
+                .bold()
+                .padding(.horizontal, 30.0)
+            
+            Slider(value: $hourCount, in: 0...10, step: 1)
+                .padding(.horizontal, 30.0)
+                .tint(colors.last!)
+        }
+        
+        Spacer()
+        
+        Button {
+            addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selected, description: description)
+            isShowing = false
+        } label: {
+            RoundedRectangle(cornerRadius: 15.0)
+                .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                .frame(height: 60)
+                .padding(.horizontal, 30.0)
+                .overlay(
+                    Text("Send Request")
+                        .foregroundStyle((colors.first!.luminance > 0.8) ? .black : .white)
+                )
+        }
+        .buttonStyle(PlainButtonStyle())
+        
+        Spacer()
+    }
+}

@@ -121,7 +121,7 @@ struct ManagerClassroomView: View {
         }
         
         .sheet(isPresented: $showPpl) {
-            ManagerPeopleListView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPpl)
+            ManagerPeopleView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPpl)
                 .onDisappear(){
                     showPpl = false
             
