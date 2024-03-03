@@ -42,6 +42,7 @@
 		06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* StudentClassroomView.swift */; };
 		CFE866F02B7E9C4300CFA6FB /* ManagerClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
+		EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB354F192B94E6C40061F90F /* ClassComponentView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
 		EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB75C7992B7C0F9B00DC615D /* TaskView.swift */; };
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
@@ -108,6 +109,7 @@
 		06FD082E2B6996D400484FEE /* StudentClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassroomView.swift; sourceTree = "<group>"; };
 		CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerClassroomView.swift; sourceTree = "<group>"; };
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
+		EB354F192B94E6C40061F90F /* ClassComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassComponentView.swift; sourceTree = "<group>"; };
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EB75C7992B7C0F9B00DC615D /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				EBAECDD72B818AAE00614CCE /* RequestView.swift */,
 				06F110FD2B91969300EB4F01 /* taskPopup.swift */,
 				EB75C7992B7C0F9B00DC615D /* TaskView.swift */,
+				EB354F192B94E6C40061F90F /* ClassComponentView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				06E576B82B5F082D00A7A36D /* ClassManager.swift in Sources */,
 				06F111062B92927700EB4F01 /* OldClassTabView.swift in Sources */,
 				06F111022B928CA200EB4F01 /* ManagerPeopleView.swift in Sources */,
+				EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
 				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,
 				06F111082B92A81D00EB4F01 /* AnnouncementField.swift in Sources */,
@@ -635,7 +639,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = G85D3VS6S4;
+				DEVELOPMENT_TEAM = PG2B993Z5Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -649,7 +653,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHour;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHouring;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -665,7 +669,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = G85D3VS6S4;
+				DEVELOPMENT_TEAM = PG2B993Z5Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -679,7 +683,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHour;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHouring;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
