@@ -131,7 +131,7 @@ struct ManagerTabView: View {
             }
             .frame(height: 90)
             NavigationLink(
-                destination: ManagerClassroomView(),
+                destination: ManagerRoomView(),
                             isActive: $navToClass,
                             label: {
                                 EmptyView()

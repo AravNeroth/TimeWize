@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		06A935062B81694600BD163F /* ManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A935052B81694500BD163F /* ManagerTabView.swift */; };
 		06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3932B92D0B40023646B /* MiniProfileView.swift */; };
+		06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3952B942E810023646B /* ManagerRoomView.swift */; };
+		06AEC3982B94464C0023646B /* ManagerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3972B94464C0023646B /* ManagerPopup.swift */; };
 		06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C520212B806323008E6286 /* ManagerBottomBar.swift */; };
 		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
 		06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A52B59C92300A7A36D /* TermsAndServices.swift */; };
@@ -77,6 +79,8 @@
 /* Begin PBXFileReference section */
 		06A935052B81694500BD163F /* ManagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerTabView.swift; sourceTree = "<group>"; };
 		06AEC3932B92D0B40023646B /* MiniProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
+		06AEC3952B942E810023646B /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
+		06AEC3972B94464C0023646B /* ManagerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerPopup.swift; sourceTree = "<group>"; };
 		06C520212B806323008E6286 /* ManagerBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerBottomBar.swift; sourceTree = "<group>"; };
 		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		06E576A52B59C92300A7A36D /* TermsAndServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServices.swift; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				06AEC3932B92D0B40023646B /* MiniProfileView.swift */,
+				06AEC3972B94464C0023646B /* ManagerPopup.swift */,
 				06F54A302B727F0500FD6069 /* bottomPicks.swift */,
 				06F111072B92A81D00EB4F01 /* AnnouncementField.swift */,
 				06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */,
@@ -203,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				06E576B92B5F0B1C00A7A36D /* ManagerClassesView.swift */,
+				06AEC3952B942E810023646B /* ManagerRoomView.swift */,
 				CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */,
 				06F111012B928CA200EB4F01 /* ManagerPeopleView.swift */,
 				EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */,
@@ -442,6 +448,7 @@
 				EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */,
 				EBD0F2F02B8822F20047C5FF /* StudentPeopleView.swift in Sources */,
 				06F54A392B773CCB00FD6069 /* MiscFuncs.swift in Sources */,
+				06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
 				06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */,
 				06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */,
@@ -461,6 +468,7 @@
 				06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */,
 				06F111042B9290BD00EB4F01 /* StudentRoomView.swift in Sources */,
 				06E576A42B59C86000A7A36D /* SignUp.swift in Sources */,
+				06AEC3982B94464C0023646B /* ManagerPopup.swift in Sources */,
 				06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */,
 				06F54A372B773BFE00FD6069 /* StorageManager.swift in Sources */,
 				06F110FE2B91969300EB4F01 /* taskPopup.swift in Sources */,
