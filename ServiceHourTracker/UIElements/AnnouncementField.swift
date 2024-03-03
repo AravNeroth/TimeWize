@@ -10,8 +10,8 @@ import SwiftUI
 struct AnnouncementField: View {
     @State private var currMessage = ""
     @State private var time = Date()
-    @State private var messages: [String] = []
-    
+    @State private var announcements: [Announcement] = []
+    @EnvironmentObject private var classData: ClassData
     var body: some View {
        
         ScrollView{
@@ -21,8 +21,11 @@ struct AnnouncementField: View {
                 TextField("Announce a message to class", text: $currMessage).textFieldStyle(RoundedBorderTextFieldStyle())
                 Button{
                     if currMessage != "" {
-                        messages.append(currMessage)
+                        
+                        postAnnouncement(message: currMessage, classCode: classData.code) {}
+                        
                         currMessage = ""
+                        
                     }
                 }label: {
                     
@@ -32,12 +35,12 @@ struct AnnouncementField: View {
                 
             }
             Spacer()
-            ForEach(messages.reversed(), id: \.self){ message in
-                Text(message).frame(minWidth: 350).padding().overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.gray.opacity(0.5), lineWidth: 2)
-                )
-            }
+//            ForEach(messages.reversed(), id: \.self){ message in
+//                Text(message).frame(minWidth: 350).padding().overlay(
+//                    RoundedRectangle(cornerRadius: 5)
+//                        .stroke(Color.gray.opacity(0.5), lineWidth: 2)
+//                )
+//            }
         }.padding()
     }
             

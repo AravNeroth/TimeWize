@@ -292,6 +292,10 @@ struct SettingsView:View {
                         Text("change color to white/gray")
                     }
                     
+                    NavigationLink(destination: ManagerRoomView()) {
+                        Text("new manager room")
+                    }
+                    
                 }header:{
                     Text("Dev controls")
                 }

@@ -474,4 +474,95 @@ func setColorScheme(classCode: String, colors: [Color]) {
     db.collection("classes").document(classCode).updateData(["colors":colorStrings])
 }
 
+struct Announcement: Codable, Hashable, Identifiable{
+    var id: String{
+        return "\(UUID())"
+    }
+    var date: Date
+    var message: String
+    
+    init(date: Date = Date(), message: String = "") {
+        
+        self.date = date
+        self.message = message
+        
+    }
+    
+    init() {
+        
+        self.date = Date()
+        self.message = ""
+        
+    }
+}
+func postAnnouncement(message:String, time: Date = Date(), classCode: String, completion: @escaping () -> Void){
+    
+    let collection = db.collection("classes").document(classCode).collection("announcements")
+    let message = Announcement(date: time ,message: message)
+    
+    do{
+        try collection.addDocument(from: message)
+    }catch{
+        print(error.localizedDescription)
+    }
+    
+}
 
+func getAnnouncements(classCode: String, completion: @escaping ([Announcement]) -> Void){
+    db.collection("classes").document(classCode).collection("announcements").getDocuments { query, error in
+        
+        if let error = error{
+            print(error.localizedDescription)
+        }else{
+            
+            var announcements: [Announcement] = []
+            let dispatchGroup = DispatchGroup()
+            if let docs = query{
+                for doc in docs.documents {
+                    dispatchGroup.enter()
+                    do {
+                        let announcement = try doc.data(as: Announcement.self)
+                        if !announcements.contains(announcement){
+                            announcements.append(announcement)
+                        }
+                    } catch {
+                        print(error.localizedDescription)
+
+                    }
+                    dispatchGroup.leave()
+                }
+                dispatchGroup.notify(queue: .main){
+                    completion(announcements)
+                }
+            }
+            
+        }
+    }
+}
+
+func deleteAnnouncement(classCode: String, time: Date, message: String){
+    
+    
+    db.collection("classes").document(classCode).collection("announcements").whereField("time", isEqualTo: time).getDocuments { query, error in
+        if let error = error{
+            print(error.localizedDescription)
+        }else{
+            
+            
+            if let docs = query?.documents {
+                
+                for doc in docs {
+                    if let docMessage = doc["message"] as? String, docMessage == message {
+                        
+                        db.collection("classes").document(classCode).collection("announcements").document(doc.documentID).delete()
+                        
+                    }
+                }
+                
+                
+                
+            }
+        }
+    }
+    
+}

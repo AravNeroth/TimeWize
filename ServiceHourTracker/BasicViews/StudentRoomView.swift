@@ -30,7 +30,7 @@ struct StudentRoomView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(ignoresSafeAreaEdges: .all)
                 .onAppear() {
-                    downloadImageFromClassroomStorage(code: "\(classData.code)", file: "Home\(settingsManager.title).jpg", done: $loading) { image in
+                    downloadImageFromClassroomStorage(code: "\(classData.code)", file: "Home\(settingsManager.title).jpg") { image in
                         if let image = image {
                             classImage = image
                         }
@@ -61,15 +61,7 @@ struct StudentRoomView: View {
                     }
                         
                     }
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ){
-//                        lastColor = colors.last!
-//                        if !colors.allSatisfy({$0 == .white}){
-//                            testColor =  (lastColor == .white) || (lastColor == .green6) ? colors[(colors.count)/2] : colors.last ?? .green6
-//                        }
-//                        
-//                        loading = false
-//                        
-//                    }
+                    
                     
                     
                     
