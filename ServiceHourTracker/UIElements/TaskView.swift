@@ -18,8 +18,8 @@ struct TaskView: View {
     @State var showingAlert: Bool = false
     @State var participants: [String] = []
     @State var numHours: Int = 0
-    @State private var dateInvalid:Bool = false
-    @State private var dateInvalidAlert:Bool = false
+    @State private var dateInvalid: Bool = false
+    @State private var dateInvalidAlert: Bool = false
     @AppStorage("uid") var userID: String = ""
     
     var body: some View {

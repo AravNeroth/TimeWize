@@ -13,7 +13,7 @@ struct StudentClassroomView: View {
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
     @State var showReqHours = false
-    @State var tasks: [[String: String]] = []
+    @State var tasks: [ClassTask] = []
     @State private var showIMGPicker = false
     @State private var selectedImage: UIImage?
     @State private var classImage: UIImage?
@@ -71,13 +71,13 @@ struct StudentClassroomView: View {
                         
                         Spacer()
                         
-                        if tasks.count != 0 {
-                            ForEach(tasks, id:\.self) { task in
-                                TaskView(classCode: classData.code, title: "\(task["title"] ?? "No Title")", date: "\(task["date"] ?? "0/0/0000")", totalPpl: Int(task["size"] ?? "0")!, numHours: Int(task["hours"] ?? "0")!)
-                            }
-                        } else {
-                            Text("No Tasks")
-                        }
+//                        if tasks.count != 0 {
+//                            ForEach(tasks, id:\.self) { task in
+//                                TaskView(classCode: classData.code, title: "\(task["title"] ?? "No Title")", date: "\(task["date"] ?? "0/0/0000")", totalPpl: Int(task["size"] ?? "0")!, numHours: Int(task["hours"] ?? "0")!)
+//                            }
+//                        } else {
+//                            Text("No Tasks")
+//                        }
                     }
                 }
                 .animation(.easeInOut)

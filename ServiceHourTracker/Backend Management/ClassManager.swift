@@ -228,86 +228,100 @@ func getRequests(classCode: String, completion: @escaping ([[String:String]]) ->
     
 }
 
-
-func addTask(classCode: String, title: String, date: Date, maxSize: Int, numHours: Int, listOfPeople: [String]? = []) {
-   
-    let dateFormated = date.formatted(date: .numeric, time: .omitted) //the date is numeric but it omits the time stamp ex: 2/15/2024
-    db.collection("classes").document(classCode).collection("tasks").document(classCode + title)
-        .setData(
-            ["title" : title, "date" : dateFormated, "size" : maxSize, "hours": numHours, "people": listOfPeople ?? []]
-        )
-    print("Hours: \(numHours) in addTask")
-}
-
-func getTasks(classCode: String, completion: @escaping ([[String:String]]) -> Void) {
-    
-    db.collection("classes").document(classCode).collection("tasks").getDocuments { docs, error in
-        if let error = error {
-            print(error.localizedDescription)
-            completion([])
-        } else {
-            var com:[[String:String]] = [] //completion output
-            var output: [String:String] = [:] //temp for each document
-            if let docs = docs{
-                for document in docs.documents {
-                    
-                    let data = document.data()
-                    output["title"] = data["title"] as? String ?? ""
-                    output["date"] = data["date"] as? String ?? ""
-                    
-                    if let peopleList = data["people"] as? [String]{
-                        output["people"] = "\(peopleList.count)"
-                    }
-                    output["size"] = "\(data["size"] ?? 0)"
-                    output["hours"] = "\(data["hours"] ?? 0)"
-                    output["ID"] = document.documentID
-                   
-                
-                    com.append(output)
-                    output = [:]
-                }
-                completion(com)
-            } else {
-                completion([])
-            }
-        }
-        
+struct ClassTask: Codable, Hashable, Identifiable {
+    var id: String {
+        return "\(UUID())"
     }
     
+    var creator: String
+    var title: String
+    var date: Date
+    var maxSize: Int
+    var numHours: Int
+    var listOfPeople: [String]?
     
+    init(creator: String = "", title: String = "", date: Date = Date(), maxSize: Int = 0, numHours: Int = 0, listOfPeople: [String]? = []) {
+        self.creator = creator
+        self.title = title
+        self.date = date
+        self.maxSize = maxSize
+        self.numHours = numHours
+        self.listOfPeople = listOfPeople
+    }
+    
+    init() {
+        self.creator = ""
+        self.title = ""
+        self.date = Date()
+        self.maxSize = 0
+        self.numHours = 0
+        self.listOfPeople = []
+    }
+}
+
+func addTask(classCode: String, creator: String, title: String, time: Date, maxSize: Int, numHours: Int, listOfPeople: [String]? = []) {
+    
+    let collection = db.collection("classes").document(classCode).collection("tasks")
+    let task = ClassTask(creator: creator, title: title, date: time, maxSize: maxSize, numHours: numHours, listOfPeople: listOfPeople)
+    
+    do {
+        try collection.addDocument(from: task)
+    } catch {
+        print(error.localizedDescription)
+    }
+}
+
+func getTasks(classCode: String, completion: @escaping ([ClassTask]) -> Void) {
+    db.collection("classes").document(classCode).collection("tasks").getDocuments { querySnapshot, error in
+        if let error = error {
+            print("Error fetching tasks: \(error.localizedDescription)")
+            completion([])
+            return
+        }
+        
+        var classTasks: [ClassTask] = []
+        for document in querySnapshot!.documents {
+            let taskData = document.data()
+            let newClassTask = ClassTask(creator: taskData["creator"] as? String ?? "", title: taskData["title"] as? String ?? "", date: taskData["date"] as? Date ?? Date(), maxSize: taskData["maxSize"] as? Int ?? 0, numHours: taskData["numHours"] as? Int ?? 0, listOfPeople: taskData["listOfPeople"] as? [String] ?? [])
+            classTasks.append(newClassTask)
+        }
+        
+        completion(classTasks)
+    }
 }
 
 //to cancel signup/unregister from task:
 //simply get the people from getTaskParticipants
 //and find the index of your email,
 //update using this function and listOfPeople is the new list with you removed
-func updateTaskParticipants(classCode:String, title: String, listOfPeople: [String]){
-    db.collection("classes").document(classCode).collection("tasks").document(classCode + title).getDocument { doc, error in
-        if let error = error{
+func updateTaskParticipants(classCode: String, title: String, listOfPeople: [String]) {
+    db.collection("classes").document(classCode).collection("tasks").whereField("title", isEqualTo: title).getDocuments { query, error in
+        if let error = error {
             print(error.localizedDescription)
-        }else{
-            if let doc = doc{
-                if listOfPeople.count <= (doc["size"] as? Int) ?? 0 {
-                    db.collection("classes").document(classCode).collection("tasks").document(classCode + title).updateData(["people" : listOfPeople])
-                    
-                } else {
-                    print("too many people added")
-                }
-            }
+        } else {
+            let docRef = query!.documents.first
+            db.collection("classes").document(classCode).collection("tasks").document(docRef!.documentID).updateData(["listOfPeople":listOfPeople])
         }
     }
-    
 }
 
-func getTaskParticipants(classCode:String, title:String, completion: @escaping([String]) -> Void) {
-    db.collection("classes").document(classCode).collection("tasks").document(classCode + title).getDocument { doc, error in
-        if let error = error{
-            print(error.localizedDescription)
-        }else{
-            if let doc = doc{
-                completion(doc["people"] as? [String] ?? [])
+func getTaskParticipants(classCode: String, title: String, completion: @escaping([String]) -> Void) {
+    db.collection("classes").document(classCode).collection("tasks").whereField("title", isEqualTo: title).getDocuments { query, error1 in
+        if let error1 = error1 {
+            print(error1.localizedDescription)
+            completion([])
+        } else {
+            let docRef = query!.documents.first
+            db.collection("classes").document(classCode).collection("tasks").document(docRef!.documentID).getDocument { doc, error2 in
+                if let error2 = error2 {
+                    print(error2.localizedDescription)
+                    completion([])
+                } else {
+                    if let doc = doc {
+                        completion(doc["listOfPeople"] as? [String] ?? [])
+                    }
+                }
             }
-     
         }
     }
 }
@@ -474,15 +488,18 @@ func setColorScheme(classCode: String, colors: [Color]) {
     db.collection("classes").document(classCode).updateData(["colors":colorStrings])
 }
 
-struct Announcement: Codable, Hashable, Identifiable{
-    var id: String{
+struct Announcement: Codable, Hashable, Identifiable {
+    var id: String {
         return "\(UUID())"
     }
+    
+    var creator: String
     var date: Date
     var message: String
     
-    init(date: Date = Date(), message: String = "") {
+    init(creator: String = "", date: Date = Date(), message: String = "") {
         
+        self.creator = creator
         self.date = date
         self.message = message
         
@@ -490,39 +507,41 @@ struct Announcement: Codable, Hashable, Identifiable{
     
     init() {
         
+        self.creator = ""
         self.date = Date()
         self.message = ""
         
     }
 }
-func postAnnouncement(message:String, time: Date = Date(), classCode: String, completion: @escaping () -> Void){
+
+func postAnnouncement(maker: String, message: String, time: Date = Date(), classCode: String, completion: @escaping () -> Void){
     
     let collection = db.collection("classes").document(classCode).collection("announcements")
-    let message = Announcement(date: time ,message: message)
+    let message = Announcement(creator: maker, date: time, message: message)
     
-    do{
+    do {
         try collection.addDocument(from: message)
-    }catch{
+    } catch {
         print(error.localizedDescription)
     }
     
 }
 
-func getAnnouncements(classCode: String, completion: @escaping ([Announcement]) -> Void){
+func getAnnouncements(classCode: String, completion: @escaping ([Announcement]) -> Void) {
     db.collection("classes").document(classCode).collection("announcements").getDocuments { query, error in
         
         if let error = error{
             print(error.localizedDescription)
-        }else{
+        } else {
             
             var announcements: [Announcement] = []
             let dispatchGroup = DispatchGroup()
-            if let docs = query{
+            if let docs = query {
                 for doc in docs.documents {
                     dispatchGroup.enter()
                     do {
                         let announcement = try doc.data(as: Announcement.self)
-                        if !announcements.contains(announcement){
+                        if !announcements.contains(announcement) {
                             announcements.append(announcement)
                         }
                     } catch {
@@ -531,7 +550,7 @@ func getAnnouncements(classCode: String, completion: @escaping ([Announcement]) 
                     }
                     dispatchGroup.leave()
                 }
-                dispatchGroup.notify(queue: .main){
+                dispatchGroup.notify(queue: .main) {
                     completion(announcements)
                 }
             }

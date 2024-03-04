@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AnnouncementField: View {
+    @AppStorage("uid") var userID = ""
     @State private var currMessage = ""
     @State private var time = Date()
     @State private var announcements: [Announcement] = []
@@ -22,7 +23,7 @@ struct AnnouncementField: View {
                 Button{
                     if currMessage != "" {
                         
-                        postAnnouncement(message: currMessage, classCode: classData.code) {}
+                        postAnnouncement(maker: userID, message: currMessage, classCode: classData.code) {}
                         
                         currMessage = ""
                         

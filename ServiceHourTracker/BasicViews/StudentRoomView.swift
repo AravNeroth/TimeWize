@@ -11,8 +11,10 @@ struct StudentRoomView: View {
     
     @AppStorage("uid") var userID = ""
     @State var title: String = "Title"
-    @State var colors: [Color] = [.green4, .green6] //keep last as green6 for default purpouses 
-    @State var tasks: [[String: String]] = []
+    @State var colors: [Color] = [.green4, .green6] // keep last as green6 for default purpouses
+    @State var tasks: [ClassTask] = []
+    @State var announcements: [Announcement] = []
+    @State var allComponents: [ClassComponent] = []
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var loading = true
     @State var showMenu = false
@@ -21,9 +23,8 @@ struct StudentRoomView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
-    @State private var lastColor:Color = .green6
-    @State private var testColor:Color = .green6
     @State var useDefaults = false
+    
     var body: some View {
         if loading {
             LoadingScreen()
@@ -35,30 +36,43 @@ struct StudentRoomView: View {
                         if let image = image {
                             classImage = image
                         }
-                        
-                        getColorScheme(classCode: classData.code) { scheme in
-                            if scheme.count != 0 {
-                                if scheme.last!.luminance > 0.8 {
-                                    useDefaults = true
-                                }
-                                
-                                colors = scheme
+                    }
+                    
+                    getColorScheme(classCode: classData.code) { scheme in
+                        if scheme.count != 0 {
+                            if scheme.last!.luminance > 0.8 {
+                                useDefaults = true
                             }
                             
-                            getClassInfo(classCloudCode: classData.code) { classroom in
-                                if let classroom = classroom {
-                                    title = classroom.title
-                                }
-                                
-                                getTasks(classCode: classData.code) { newTasks in
-                                    tasks = newTasks
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        loading = false
-                                    }
-                                }
-                            }
+                            colors = scheme
                         }
+                    }
+                    
+                    getClassInfo(classCloudCode: classData.code) { classroom in
+                        if let classroom = classroom {
+                            title = classroom.title
+                        }
+                    }
+                    
+                    getTasks(classCode: classData.code) { newTasks in
+                        tasks = newTasks
+                        
+                        for classTask in newTasks {
+                            allComponents.append(ClassComponent.classTask(classTask))
+                        }
+                    }
+                    
+                    getAnnouncements(classCode: classData.code) { newAnnouncements in
+                        announcements = newAnnouncements
+                        
+                        for announcement in newAnnouncements {
+                            allComponents.append(ClassComponent.announcement(announcement))
+                        }
+                    }
+                                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        allComponents.sort { $0.date < $1.date }
+                        loading = false
                     }
                 }
         } else {
@@ -101,12 +115,12 @@ struct StudentRoomView: View {
                             }
                         )
                     
-                    if tasks.count != 0 {
-                        ForEach(tasks, id:\.self) { task in
-                            TaskView(classCode: classData.code, title: "\(task["title"] ?? "No Title")", date: "\(task["date"] ?? "0/0/0000")", totalPpl: Int(task["size"] ?? "0")!, numHours: Int(task["hours"] ?? "0")!)
+                    if !allComponents.isEmpty {
+                        ForEach(allComponents, id: \.self) { component in
+                            ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, title: component.title, message: component.message, date: component.date, timeMade: component.date, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask)
                         }
                     } else {
-                        Text("No Tasks")
+                        Text("Nothing to Display")
                             .padding(.vertical, 10.0)
                     }
                 }
@@ -146,6 +160,7 @@ struct StudentRoomView: View {
             }
             .sheet(isPresented: $showRequest) {
                 requestPopUp(colors: colors, isShowing: $showRequest)
+                    .ignoresSafeArea(.keyboard)
             }
             .animation(.easeIn, value: loading)
         }
@@ -281,5 +296,82 @@ private struct requestPopUp: View {
         .buttonStyle(PlainButtonStyle())
         
         Spacer()
+    }
+}
+
+enum ClassComponent: Hashable {
+    case classTask(ClassTask)
+    case announcement(Announcement)
+    
+    var creator: String {
+        switch self {
+            case .classTask(let classTask):
+                return classTask.creator
+            case .announcement(let announcement):
+                return announcement.creator
+        }
+    }
+    
+    var title: String {
+        switch self {
+            case .classTask(let classTask):
+                return classTask.title
+            case .announcement(_):
+                return ""
+        }
+    }
+    
+    var date: Date {
+        switch self {
+            case .classTask(let classTask):
+                return classTask.date
+            case .announcement(let announcement):
+                return announcement.date
+        }
+    }
+    
+    var message: String {
+        switch self {
+            case .classTask(_):
+                return ""
+            case .announcement(let announcement):
+                return announcement.message
+        }
+    }
+    
+    var listOfPeople: [String] {
+        switch self {
+            case .classTask(let classTask):
+                return classTask.listOfPeople ?? []
+            case .announcement(_):
+                return []
+        }
+    }
+    
+    var maxSize: Int {
+        switch self {
+            case .classTask(let classTask):
+                return classTask.maxSize
+            case .announcement(_):
+                return 0
+        }
+    }
+    
+    var numHours: Int {
+        switch self {
+            case .classTask(let classTask):
+                return classTask.numHours
+            case .announcement(_):
+                return 0
+        }
+    }
+    
+    var isTask: Bool {
+        switch self {
+            case .classTask(_):
+                return true
+            case .announcement(_):
+                return false
+        }
     }
 }

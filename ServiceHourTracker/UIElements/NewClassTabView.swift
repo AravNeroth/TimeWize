@@ -89,6 +89,8 @@ struct NewClassTabView: View {
         }
         .onAppear() {
             
+            // move this into StudentClassesView to prevent default green from showing up
+            
             getClassInfo(classCloudCode: classCode) { newClass in
                 let list = newClass?.managerList
                 

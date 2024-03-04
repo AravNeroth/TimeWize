@@ -23,7 +23,7 @@ struct ManagerRoomView: View {
     @State private var showTaskPopup = false
     @State private var announcements: [Announcement] = []
     @State var colors: [Color] = [.green4, .green6] //keep last as green6 for default purpouses
-    @State var tasks: [[String: String]] = []
+    @State var tasks: [ClassTask] = []
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var useDefaults = false
     @State var showDate = false
@@ -129,11 +129,11 @@ struct ManagerRoomView: View {
                       
                         }
                     }
-                    if tasks.count != 0 {
-                        ForEach(tasks, id:\.self) { task in
-                            TaskView(classCode: classData.code, title: "\(task["title"] ?? "No Title")", date: "\(task["date"] ?? "0/0/0000")", totalPpl: Int(task["size"] ?? "0")!, numHours: Int(task["hours"] ?? "0")!)
-                        }
-                    }
+//                    if tasks.count != 0 {
+//                        ForEach(tasks, id:\.self) { task in
+//                            TaskView(classCode: classData.code, title: "\(task["title"] ?? "No Title")", date: "\(task["date"] ?? "0/0/0000")", totalPpl: Int(task["size"] ?? "0")!, numHours: Int(task["hours"] ?? "0")!)
+//                        }
+//                    }
                     
                     Text("manager class: \(classData.code)")
                     Spacer()
@@ -229,10 +229,9 @@ struct ManagerRoomView: View {
             }
             
             .sheet(isPresented: $showPpl) {
-                ManagerPeopleListView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPpl)
+                ManagerPeopleView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPpl)
                     .onDisappear(){
                         showPpl = false
-                        
                     }
             }
             .fullScreenCover(isPresented: $imageSelection) {
