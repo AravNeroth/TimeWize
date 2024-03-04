@@ -141,3 +141,25 @@ func isDarkModeEnabled() -> Bool {
         return false
     }
 }
+
+func formatDate(_ date: Date) -> String {
+    let calendar = Calendar.current
+    let today = calendar.startOfDay(for: Date())
+    let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
+    let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+    let endOfWeek = calendar.date(byAdding: .day, value: 6, to: today)!
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "EEEE\n MMMM d"
+    
+    if calendar.isDate(date, inSameDayAs: yesterday) {
+        dateFormatter.dateFormat = "'Yesterday'"
+    } else if calendar.isDate(date, inSameDayAs: today) {
+        dateFormatter.dateFormat = "h:mm a"
+    } else if calendar.isDate(date, inSameDayAs: tomorrow) {
+        dateFormatter.dateFormat = "'Tomorrow'"
+    } else if calendar.isDate(date, inSameDayAs: today) || calendar.isDate(date, inSameDayAs: endOfWeek) || (date > today && date < endOfWeek) {
+        dateFormatter.dateFormat = "EEEE"
+    }
+    return dateFormatter.string(from: date)
+}

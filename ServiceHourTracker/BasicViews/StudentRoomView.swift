@@ -15,6 +15,7 @@ struct StudentRoomView: View {
     @State var tasks: [ClassTask] = []
     @State var announcements: [Announcement] = []
     @State var allComponents: [ClassComponent] = []
+    @State var managerNames: [String:String] = [:]
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var loading = true
     @State var showMenu = false
@@ -69,9 +70,18 @@ struct StudentRoomView: View {
                             allComponents.append(ClassComponent.announcement(announcement))
                         }
                     }
-                                    
+                    
+                    getManagerList(classCode: classData.code) { managers in
+                        for email in managers {
+                            getData(uid: email) { manager in
+                                managerNames[email] = manager!.displayName!
+                            }
+                        }
+                    }
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        allComponents.sort { $0.date < $1.date }
+                        allComponents.sort { $0.dateCreated > $1.dateCreated }
+                        print(allComponents)
                         loading = false
                     }
                 }
@@ -85,7 +95,6 @@ struct StudentRoomView: View {
                         .shadow(radius: 2.0, y: 2.0)
                         .overlay(
                             ZStack {
-                                
                                 if let classImage = classImage {
                                     Image(uiImage: classImage)
                                         .resizable()
@@ -95,7 +104,6 @@ struct StudentRoomView: View {
                                         .padding(.horizontal, 10.0)
                                         .opacity(0.5)
                                 }
-                                
                                 
                                 HStack {
                                     VStack(alignment: .leading) {
@@ -117,7 +125,7 @@ struct StudentRoomView: View {
                     
                     if !allComponents.isEmpty {
                         ForEach(allComponents, id: \.self) { component in
-                            ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, title: component.title, message: component.message, date: component.date, timeMade: component.date, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask)
+                            ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator]!, title: component.title, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask)
                         }
                     } else {
                         Text("Nothing to Display")
@@ -321,12 +329,21 @@ enum ClassComponent: Hashable {
         }
     }
     
-    var date: Date {
+    var dateCreated: Date {
+        switch self {
+            case .classTask(let classTask):
+                return classTask.timeCreated
+            case .announcement(let announcement):
+                return announcement.date
+        }
+    }
+    
+    var dueDate: Date {
         switch self {
             case .classTask(let classTask):
                 return classTask.date
-            case .announcement(let announcement):
-                return announcement.date
+            case .announcement(_):
+                return Date()
         }
     }
     

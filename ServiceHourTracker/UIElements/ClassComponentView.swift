@@ -12,6 +12,7 @@ struct ClassComponentView: View {
     @State var classCode: String = ""
     @State var colors: [Color] = [.green4, .green6]
     @State var creator: String = "Creator"
+    @State var creatorName: String = "Name"
     @State var title: String = "Test Title"
     @State var message: String = "No Announcement to Display"
     @State var date: Date
@@ -56,11 +57,18 @@ struct ClassComponentView: View {
                                     .bold()
                                 
                                 Spacer()
-                                
-                                Text("\(date.formatted())")
-                                    .multilineTextAlignment(.trailing)
-                                    .bold()
-                                    .padding(.horizontal, 30.0)
+                                VStack {
+                                    Text("Sign Up Ends:")
+                                        .font(.caption)
+                                        .bold()
+                                        .multilineTextAlignment(.center)
+                                        .padding(.horizontal, 30.0)
+                                    
+                                    Text("\(formatDate(date))")
+                                        .font(.caption)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.horizontal, 30.0)
+                                }
                             }
                         }
                     )
@@ -69,7 +77,7 @@ struct ClassComponentView: View {
         } else {
             VStack {
                 HStack {
-                    Text("\(creator):")
+                    Text("\(creatorName):")
                         .font(.title2)
                         .bold()
                         .padding(.horizontal, 30.0)

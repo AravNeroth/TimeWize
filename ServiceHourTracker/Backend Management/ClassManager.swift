@@ -236,14 +236,16 @@ struct ClassTask: Codable, Hashable, Identifiable {
     var creator: String
     var title: String
     var date: Date
+    var timeCreated: Date
     var maxSize: Int
     var numHours: Int
     var listOfPeople: [String]?
     
-    init(creator: String = "", title: String = "", date: Date = Date(), maxSize: Int = 0, numHours: Int = 0, listOfPeople: [String]? = []) {
+    init(creator: String = "", title: String = "", date: Date = Date(), timeCreated: Date = Date(), maxSize: Int = 0, numHours: Int = 0, listOfPeople: [String]? = []) {
         self.creator = creator
         self.title = title
         self.date = date
+        self.timeCreated = timeCreated
         self.maxSize = maxSize
         self.numHours = numHours
         self.listOfPeople = listOfPeople
@@ -253,16 +255,17 @@ struct ClassTask: Codable, Hashable, Identifiable {
         self.creator = ""
         self.title = ""
         self.date = Date()
+        self.timeCreated = Date()
         self.maxSize = 0
         self.numHours = 0
         self.listOfPeople = []
     }
 }
 
-func addTask(classCode: String, creator: String, title: String, time: Date, maxSize: Int, numHours: Int, listOfPeople: [String]? = []) {
+func addTask(classCode: String, creator: String, title: String, date: Date, timeCreated: Date, maxSize: Int, numHours: Int, listOfPeople: [String]? = []) {
     
     let collection = db.collection("classes").document(classCode).collection("tasks")
-    let task = ClassTask(creator: creator, title: title, date: time, maxSize: maxSize, numHours: numHours, listOfPeople: listOfPeople)
+    let task = ClassTask(creator: creator, title: title, date: date, timeCreated: timeCreated, maxSize: maxSize, numHours: numHours, listOfPeople: listOfPeople)
     
     do {
         try collection.addDocument(from: task)
@@ -282,7 +285,21 @@ func getTasks(classCode: String, completion: @escaping ([ClassTask]) -> Void) {
         var classTasks: [ClassTask] = []
         for document in querySnapshot!.documents {
             let taskData = document.data()
-            let newClassTask = ClassTask(creator: taskData["creator"] as? String ?? "", title: taskData["title"] as? String ?? "", date: taskData["date"] as? Date ?? Date(), maxSize: taskData["maxSize"] as? Int ?? 0, numHours: taskData["numHours"] as? Int ?? 0, listOfPeople: taskData["listOfPeople"] as? [String] ?? [])
+            
+            let dateTimestamp = taskData["date"] as? Timestamp
+            let date = dateTimestamp?.dateValue() ?? Date()
+            
+            let timeTimestamp = taskData["timeCreated"] as? Timestamp
+            let timeCreated = timeTimestamp?.dateValue() ?? Date()
+            
+            let newClassTask = ClassTask(
+                creator: taskData["creator"] as? String ?? "",
+                title: taskData["title"] as? String ?? "",
+                date: date,
+                timeCreated: timeCreated,
+                maxSize: taskData["maxSize"] as? Int ?? 0,
+                numHours: taskData["numHours"] as? Int ?? 0,
+                listOfPeople: taskData["listOfPeople"] as? [String] ?? [])
             classTasks.append(newClassTask)
         }
         
@@ -453,6 +470,21 @@ func removeManagerFromClass(person: String, classCode: String) {
                 }
                 
                 db.collection("classes").document(classCode).updateData(["managerList":managers])
+            }
+        }
+    }
+}
+
+func getManagerList(classCode: String, completion: @escaping([String]) -> Void) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document \(error.localizedDescription)")
+            completion([])
+        } else {
+            if let document = document {
+                completion(document["managerList"] as? [String] ?? [])
             }
         }
     }

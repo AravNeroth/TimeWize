@@ -34,7 +34,7 @@ struct taskPopup: View {
                     .foregroundColor(showStroke ? .red : .black)
                 )
             
-            DatePicker("", selection: $date, displayedComponents: .date).padding().datePickerStyle(GraphicalDatePickerStyle()).tint(datePassed ? .red : .blue)
+            DatePicker("", selection: $date).padding().datePickerStyle(GraphicalDatePickerStyle()).tint(datePassed ? .red : .blue)
             
             Slider(value: $taskHours, in: 0...10, step: 1)
                 .padding().tint(Color.blue)
@@ -55,7 +55,7 @@ struct taskPopup: View {
                         if !passed {
                             datePassed = false
                             showPop = false
-                            addTask(classCode: classData.code, creator: userID, title: taskName, time: date, maxSize: Int(maxPeople), numHours: Int(taskHours))
+                            addTask(classCode: classData.code, creator: userID, title: taskName, date: date, timeCreated: Date(), maxSize: Int(maxPeople), numHours: Int(taskHours))
                             print("Hours: \(taskHours) in Button")
                         }else{
                             datePassed = true
