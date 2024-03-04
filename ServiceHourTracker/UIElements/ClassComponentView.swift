@@ -66,6 +66,9 @@ struct ClassComponentView: View {
                     )
             }
             .buttonStyle(PlainButtonStyle())
+            .sheet(isPresented: $showTaskPopUp) {
+                taskPopUp(title: title, creator: creator, signedUp: signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp)
+            }
         } else {
             VStack {
                 HStack {
@@ -94,10 +97,9 @@ struct ClassComponentView: View {
                     .padding(.horizontal, 10.0)
                     .shadow(radius: 2.0, y: 2.0)
             )
-            .sheet(isPresented: $showTaskPopUp) {
-                taskPopUp(title: title, creator: creator, signedUp: signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp)
-            }
+            
         }
+            
     }
 }
 
@@ -135,6 +137,7 @@ private struct taskPopUp: View {
                 }
         } else {
             Text("Jus For Testin")
+//            taskPopup(showPop: $isShowing).padding(.top)
         }
     }
 }

@@ -34,7 +34,7 @@ struct taskPopup: View {
                     .foregroundColor(showStroke ? .red : .black)
                 )
             
-            DatePicker("", selection: $date, displayedComponents: .date).padding().datePickerStyle(GraphicalDatePickerStyle()).tint(datePassed ? .red : .blue)
+            DatePicker("", selection: $date, displayedComponents: [.date, .hourAndMinute]).padding().datePickerStyle(GraphicalDatePickerStyle()).tint(datePassed ? .red : .blue)
             
             Slider(value: $taskHours, in: 0...10, step: 1)
                 .padding().tint(Color.blue)
