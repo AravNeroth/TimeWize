@@ -42,13 +42,12 @@ struct StudentClassesView: View {
                         loadClassInfo(images: classInfoManager.classImages) { completed in
                             if completed {
                                 if settingsManager.studentFresh {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5 ){
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                         done = true
                                         settingsManager.studentFresh = false
                                     }
-                                }else{
+                                } else {
                                     done = true
-                                  
                                 }
                             }
                         }
@@ -92,7 +91,7 @@ struct StudentClassesView: View {
                                                 done = true
                                                 settingsManager.studentFresh = false
                                             }
-                                        }else{
+                                        } else {
                                             done = true
                                           
                                         }

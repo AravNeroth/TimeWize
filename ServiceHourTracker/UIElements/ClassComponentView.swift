@@ -113,15 +113,19 @@ struct ClassComponentView: View {
 
 private struct taskPopUp: View {
     
+    @AppStorage("uid") var userID = ""
     @State var title = ""
     @State var creator: String = ""
     @State var signedUp: [String] = []
     @State var signedUpNames: [String:String] = [:]
     @State var signedUpColors: [String:[Color]] = [:]
+    @State var signedUpPfps: [String:UIImage] = [:]
     @State var size = 0
     @State var numHours = 0
     @State var date: Date
     @State var loading = true
+    @State var showFullAlert = false
+    @EnvironmentObject var classData: ClassData
     @Binding var isShowing: Bool
     
     var body: some View {
@@ -138,14 +142,172 @@ private struct taskPopUp: View {
                         getData(uid: userEmail) { user in
                             if let user = user {
                                 signedUpNames[userEmail] = user.displayName
+                                
+                                downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                    if let pfp = pfp {
+                                        signedUpPfps[userEmail] = pfp
+                                    }
+                                }
                             }
                         }
+                        
                     }
-                    loading = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        loading = false
+                    }
                 }
         } else {
-            Text("Jus For Testin")
-//            taskPopup(showPop: $isShowing).padding(.top)
+            VStack(alignment: .leading) {
+                Text("\(title)")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(30.0)
+                
+                Divider()
+                    .padding(.horizontal, 30.0)
+                    .padding(.bottom, 20.0)
+                
+                VStack {
+                    Text("Details:")
+                        .font(.title3)
+                        .bold()
+                    
+                    Divider()
+                        .frame(height: 1)
+                        .padding(.horizontal, 30.0)
+                        .padding(.bottom, 10.0)
+                    
+                    GeometryReader { geometry in
+                        HStack(alignment: .top, spacing: 0) {
+                            VStack {
+                                Text("Hours:")
+                                    .shadow(radius: 1.0, y: 1.0)
+                                    .font(.headline)
+                                    .multilineTextAlignment(.center)
+                                    .bold()
+                                
+                                Text("\(numHours)")
+                                    .font(.headline)
+                                    .multilineTextAlignment(.center)
+                                    .fontWeight(.regular)
+                            }
+                            .frame(width: geometry.size.width / 3)
+                            
+                            VStack {
+                                Text("Max People:")
+                                    .shadow(radius: 1.0, y: 1.0)
+                                    .font(.headline)
+                                    .multilineTextAlignment(.center)
+                                    .bold()
+                                
+                                Text("\(size)")
+                                    .font(.headline)
+                                    .multilineTextAlignment(.center)
+                                    .fontWeight(.regular)
+                            }
+                            .frame(width: geometry.size.width / 3)
+                            
+                            VStack {
+                                Text("End Date:")
+                                    .shadow(radius: 1.0, y: 1.0)
+                                    .font(.headline)
+                                    .multilineTextAlignment(.center)
+                                    .bold()
+                                
+                                Text("\(formatDate(date))")
+                                    .font(.headline)
+                                    .multilineTextAlignment(.center)
+                                    .fontWeight(.regular)
+                            }
+                            .frame(width: geometry.size.width / 3)
+                        }
+                    }
+                    .frame(height: 80)
+                }
+                
+                Divider()
+                    .frame(height: 1)
+                    .padding(.horizontal, 30.0)
+                    .padding(.bottom, 20.0)
+                
+                VStack {
+                    Text("Signed Up:")
+                        .font(.title3)
+                        .bold()
+                    
+                    ZStack(alignment: .top) {
+                        Divider()
+                            .frame(height: 1)
+                            .padding(.horizontal, 30.0)
+                        
+                        ScrollView {
+                            Text("")
+                            
+                            ForEach(signedUp, id: \.self) { person in
+                                MiniProfileView(userEmail: person, userPfp: signedUpPfps[person], username: signedUpNames[person] ?? "", personCols: signedUpColors[person] ?? [.green4, .green6])
+                            }
+                        }
+                        .frame(height: 200)
+                    }
+                }
+                
+                Spacer()
+                
+                if signedUp.contains(userID) {
+                    Button {
+                        signedUp.remove(at: signedUp.firstIndex(of: userID)!)
+                        updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
+                        loading = true
+                    } label: {
+                        RoundedRectangle(cornerRadius: 15.0)
+                            .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "FF4D4D"), hexToColor(hex: "FF0000")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .frame(height: 60)
+                            .padding(.horizontal, 30.0)
+                            .overlay(
+                                Text("Cancel")
+                            )
+                            .shadow(radius: 2.0, y: 2.0)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                } else if signedUp.count == size {
+                    Button {
+                        showFullAlert = true
+                    } label: {
+                        RoundedRectangle(cornerRadius: 15.0)
+                            .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "AFAFAF"), hexToColor(hex: "757575")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .frame(height: 60)
+                            .padding(.horizontal, 30.0)
+                            .overlay(
+                                Text("Sign Up")
+                            )
+                            .shadow(radius: 2.0, y: 2.0)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                } else {
+                    Button {
+                        signedUp.append(userID)
+                        updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
+                        loading = true
+                    } label: {
+                        RoundedRectangle(cornerRadius: 15.0)
+                            .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "4CAF50"), hexToColor(hex: "087F23")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .frame(height: 60)
+                            .padding(.horizontal, 30.0)
+                            .overlay(
+                                Text("Sign Up")
+                            )
+                            .shadow(radius: 2.0, y: 2.0)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+                
+                Spacer()
+            }
+            .alert("Class is Full", isPresented: $showFullAlert) {
+                Button("OK") {
+                    showFullAlert = false
+                }
+            }
         }
     }
 }

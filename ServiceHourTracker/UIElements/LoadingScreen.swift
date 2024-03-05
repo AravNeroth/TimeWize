@@ -13,7 +13,6 @@ struct LoadingScreen : View {
         ProgressView().ignoresSafeArea()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(ignoresSafeAreaEdges: .all)
-            .animation(.easeOut(duration: 2))
     }
         
 }

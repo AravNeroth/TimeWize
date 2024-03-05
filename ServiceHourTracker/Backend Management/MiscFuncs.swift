@@ -150,14 +150,14 @@ func formatDate(_ date: Date) -> String {
     let endOfWeek = calendar.date(byAdding: .day, value: 6, to: today)!
     
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "EEEE\n MMMM d"
+    dateFormatter.dateFormat = "EEEE,\n MMMM d"
     
     if calendar.isDate(date, inSameDayAs: yesterday) {
         dateFormatter.dateFormat = "'Yesterday'"
     } else if calendar.isDate(date, inSameDayAs: today) {
         dateFormatter.dateFormat = "h:mm a"
     } else if calendar.isDate(date, inSameDayAs: tomorrow) {
-        dateFormatter.dateFormat = "'Tomorrow'"
+        dateFormatter.dateFormat = "'Tomorrow', h:mm a"
     } else if calendar.isDate(date, inSameDayAs: today) || calendar.isDate(date, inSameDayAs: endOfWeek) || (date > today && date < endOfWeek) {
         dateFormatter.dateFormat = "EEEE"
     }
