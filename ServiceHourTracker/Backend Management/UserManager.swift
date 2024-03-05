@@ -29,7 +29,7 @@ struct User: Codable {
     var hours: Float? = 0
     var codes: [String]? = [] // a list of classes participating in
     var classHours: [String:Int]? = [:]
-    var userColors: [String]? = []
+    var userColors: [String]? = ["74C69D", "2D6A4F"]
     init(uid: String, email: String, displayName: String? = nil, classes: [String]? = [], hours: Float? = 0, codes: [String]? = [""], classHours: [String:Int]? = [:], userColors: [String] = []) {
         self.uid = uid
         self.email = email
