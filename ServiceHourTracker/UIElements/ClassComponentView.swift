@@ -75,7 +75,7 @@ struct ClassComponentView: View {
             }
             .buttonStyle(PlainButtonStyle())
             .sheet(isPresented: $showTaskPopUp) {
-                taskPopUp(title: title, creator: creator, signedUp: signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp)
+                taskPopUp(title: title, creator: creator, signedUp: $signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp)
             }
         } else {
             VStack {
@@ -116,7 +116,7 @@ private struct taskPopUp: View {
     @AppStorage("uid") var userID = ""
     @State var title = ""
     @State var creator: String = ""
-    @State var signedUp: [String] = []
+    @Binding var signedUp: [String]
     @State var signedUpNames: [String:String] = [:]
     @State var signedUpColors: [String:[Color]] = [:]
     @State var signedUpPfps: [String:UIImage] = [:]

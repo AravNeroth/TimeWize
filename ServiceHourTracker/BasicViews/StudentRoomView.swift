@@ -81,7 +81,6 @@ struct StudentRoomView: View {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         allComponents.sort { $0.dateCreated > $1.dateCreated }
-                        print(allComponents)
                         loading = false
                     }
                 }
