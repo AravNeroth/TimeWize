@@ -1,0 +1,110 @@
+//
+//  ClassTabViewV3.swift
+//  ServiceHourTracker
+//
+//  Created by neroth_927927 on 3/5/24.
+
+import SwiftUI
+
+struct ClassTabViewV3: View {
+    
+    var name: String
+    var classCode: String
+    @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var classInfoManager: ClassInfoManager
+    @EnvironmentObject var classData: ClassData
+    var banner: UIImage? = UIImage(resource: .image3)
+    var pfp: UIImage? = UIImage(resource: .image2)
+    @AppStorage("uid") private var userID = ""
+    @Binding var allClasses: [Classroom]
+    @State var classroom: Classroom
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 35)
+                .frame(width: 375, height: 120)
+                .foregroundColor(.green5)
+                .overlay(
+            VStack(alignment: .center) {
+                Spacer()
+                HStack{
+                    Spacer()
+                    ZStack(alignment: .bottomTrailing){
+                        
+                        if let banner = banner {
+                            Image(uiImage: banner)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 375, height: 70)
+                                .cornerRadius(35, corners: [.bottomRight, .bottomLeft])
+                                .opacity(0.8)
+                        }
+                        HStack(alignment: .bottom) {
+
+                            VStack(alignment: .trailing) {
+                                Spacer()
+                                if let pfp = pfp {
+                                    Image(uiImage: pfp)
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .frame(width: 30, height: 30)
+                                        .padding(.leading, 8)
+                                }
+                            }.padding(20)
+                        }.padding(30)
+                        
+                    }
+                    .padding(.top, -20)
+                }.padding(0)
+            })
+            VStack {
+                Spacer()
+                HStack {
+                    Button {
+                        settingsManager.tab = 4
+                        print("tap")
+                        currentView = .ClassroomView
+                        settingsManager.title = name
+                        classData.code = classCode
+                        
+                    } label: {
+                        Text(name)
+                            .font(.title)
+                            .fontWeight(.black)
+                            .frame(width: 315, alignment: .center)
+                            .padding(.top, -35)
+                    }
+                    
+                    Menu {
+                        Button {
+                            getCodes(uid: userID) { codesList in
+                                if let codesList = codesList {
+                                    unenrollClass(uid: userID, code: classCode)
+                                    allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
+                                    removePersonFromClass(person: userID, classCode: classCode)
+                                }
+                            }
+                        } label: {
+                            Text("Unenroll Class")
+                        }
+                        
+                    } label: {
+                        Image(systemName: "line.3.horizontal")
+                            .fontWeight(.black)
+                            .padding(.top, -23.5)
+                    }.frame(alignment: .trailing)
+
+                    
+                }.shadow(radius: 10)
+                    
+                .foregroundStyle((settingsManager.isDarkModeEnabled) ? .white : .green1)
+                
+                Spacer()
+                
+                Spacer()
+            }
+            .frame(height: 90)
+            
+        }
+    }
+}
