@@ -12,6 +12,7 @@ struct StudentPeopleView: View {
     @State var code: String
     @State var classTitle: String = ""
     @State var peopleList: [String] = []
+    @State var managerList: [String] = []
     @State var pfpList: [String:UIImage] = [:]
     @State var usernameList: [String:String] = [:]
     @State var colList: [String:[Color]] = [:]
@@ -28,21 +29,55 @@ struct StudentPeopleView: View {
                     .frame(width: 250, alignment: .center)
                     .padding(.top, 40)
                 
+                Divider()
+                    .padding(20)
+                
+                ScrollView {
+                    Text("Managers")
+                        .multilineTextAlignment(.center)
+                        .font(.headline)
+                        .bold()
+                    
+                    Divider()
+                        .padding(5)
+                    
+                    
+                        ForEach(managerList, id: \.self) { person in
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6])
+                        }
+                    
+                    
+                }
+                
+                
+                ZStack(alignment: .top) {
+                    
+                   
+                        
+                Text("Students")
+                    .multilineTextAlignment(.center)
+                    .font(.headline)
+                    .bold()
+
+                        
                 ZStack(alignment: .top) {
                     Divider()
                         .frame(height: 1)
-                    
-                    ScrollView {
-                        Text("")
                         
-                        ForEach(peopleList, id: \.self) { person in
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6])
+                        ScrollView {
+                            Text("")
+                                
+                                ForEach(peopleList, id: \.self) { person in
+                                    MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6])
+                                }
+                            }
                         }
+                        .padding(.top, 30)
                     }
                 }
-                .padding(.top, 30)
             }
-        } else {
+        
+    else {
             LoadingScreen()
                 .ignoresSafeArea(.all)
                 .onAppear() {
@@ -68,6 +103,9 @@ struct StudentPeopleView: View {
                                                 loaded = true
                                             }
                                         }
+                                        getManagerList(classCode: code) { managers in
+                                                managerList = managers
+                                            }
                                     }
                                 }
                             }
