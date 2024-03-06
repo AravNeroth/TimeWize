@@ -61,12 +61,16 @@ struct ManagerPeopleView: View {
             
             .padding(.top, 20)
 
-        
-                VStack {
-                    Text("Managers")
-                        .multilineTextAlignment(.center)
-                        .font(.headline)
-                        .bold()
+            Spacer()
+            Divider()
+            .padding(.top, 20)
+
+            VStack{
+                Text("Managers")
+                    .multilineTextAlignment(.center)
+                    .font(.headline)
+                    .bold()
+            }
                     
                     List{
                         ForEach(managerList, id: \.self) { person in
@@ -86,20 +90,20 @@ struct ManagerPeopleView: View {
                             }
 
                         }
-                    }
-                }
-            
-                .padding(.top, 10)
                     
+                }
                     
 
 
                 
                     // students displayed
+
                     Text("Students")
                         .multilineTextAlignment(.center)
                         .font(.headline)
                         .bold()
+                        .frame(width: 250, alignment: .center)
+                        .padding(.top, 18)
                     
                     VStack{
                         HStack{
@@ -107,7 +111,7 @@ struct ManagerPeopleView: View {
                             Button{
                                 editing.toggle()
                             }label: {
-                                Image(systemName: editing ? "checkmark.rectangle.stack" : "square.and.pencil").resizable().frame(width: 20,height: 20).padding(.trailing, 20).padding(.bottom, 10).animation(.smooth(duration: 0.65), value: editing)
+                                Image(systemName: editing ? "checkmark.rectangle.stack" : "square.and.pencil").resizable().frame(width: 20,height: 20).padding(.trailing, 13).padding(.bottom, 2).animation(.smooth(duration: 0.65), value: editing)
                             }
                         }
                         List {
