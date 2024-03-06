@@ -40,10 +40,10 @@ struct ClassComponentView: View {
                             HStack {
                                 Circle()
                                     .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
-                                    .frame(width: 70, height: 70)
+                                    .frame(width: 40, height: 40)
                                     .overlay(
                                         Image(systemName: "list.clipboard.fill")
-                                            .font(.system(size: 25.0, weight: .bold))
+                                            .font(.system(size: 15.0, weight: .bold))
                                             .imageScale(.large)
                                             .foregroundStyle((colors.last!.luminance > 0.8) ? .black : .white)
                                             .padding(.bottom, 5.0)
@@ -53,7 +53,7 @@ struct ClassComponentView: View {
                                 VStack(alignment: .leading) {
                                     Text("\(title)")
                                         .multilineTextAlignment(.leading)
-                                        .font(.title2)
+                                        .font(.title3)
                                         .bold()
                                     
                                     Text("\(formatDate(timeMade))")

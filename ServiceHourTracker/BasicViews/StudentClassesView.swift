@@ -47,7 +47,7 @@ struct StudentClassesView: View {
                             }
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         for classCode in classCodes {
                             getClassInfo(classCloudCode: classCode) { newClass in
                                 let list = newClass?.managerList
@@ -64,7 +64,7 @@ struct StudentClassesView: View {
                             }
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) {
                         done = true
                     }
                 }
