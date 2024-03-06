@@ -72,26 +72,56 @@ struct ManagerPeopleView: View {
                     .bold()
             }
                     
-                    List{
-                        ForEach(managerList, id: \.self) { person in
-                            
-                            HStack {
-                                Text("\(person)")
-                                    .bold()
-                                Spacer()
-                                
-                                if let pfp = peopleToPfp[person]{
-                                    Image(uiImage: pfp).resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
-                                }else{
-                                    Image(systemName: "person").resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
-                                    
-                                    
+            List {
+                if editing{
+                    ForEach(managerList, id: \.self) { person in
+                        
+                        HStack {
+                            Text("\(person)")
+                                .bold()
+                            Spacer()
+                            Button(action: {
+                                unenrollClass(uid: person, code: code)
+                                demoteManager(person: person, classCode: code)
+                                withAnimation {
+                                    managerList.removeAll(where: { $0 == person })
                                 }
+                            }) {
+                                Image(systemName: "arrow.down.circle.fill")
+                                    .foregroundColor(.blue)
                             }
-
                         }
-                    
+                    }.onDelete { indexSet in
+                        
+                        indexSet.forEach { index in
+                            let person = peopleList[index]
+                            demoteManager(person: person, classCode: code)
+                        }
+                        
+                        withAnimation {
+                            managerList.remove(atOffsets: indexSet)
+                        }
+                    }
+                }else{
+                    ForEach(managerList, id: \.self) { person in
+                        
+                        
+                        HStack {
+                            Text("\(person)")
+                                .bold()
+                            Spacer()
+                            
+                            if let pfp = peopleToPfp[person]{
+                                Image(uiImage: pfp).resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
+                            }else{
+                                Image(systemName: "person").resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
+                            
+                            
+                        }
+                    }
                 }
+            }
+        }
                     
 
 

@@ -454,6 +454,7 @@ func addManagerToClass(person: String, classCode: String) {
 }
 
 func removeManagerFromClass(person: String, classCode: String) {
+
     let docRef = db.collection("classes").document(classCode)
     
     docRef.getDocument { document, error in
@@ -470,6 +471,28 @@ func removeManagerFromClass(person: String, classCode: String) {
                 }
                 
                 db.collection("classes").document(classCode).updateData(["managerList":managers])
+            }
+        }
+    }
+}
+
+func demoteManager(person: String, classCode: String) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+        } else {
+            if let document = document {
+                let map = document.data()
+                var peopleList = map?["peopleList"] as? [String] ?? []
+                
+                if peopleList.contains(person) {
+                    removeManagerFromClass(person: person, classCode: classCode)
+                } else {
+                    removeManagerFromClass(person: person, classCode: classCode)
+                    addPersonToClass(person: person, classCode: classCode)
+                }
             }
         }
     }
