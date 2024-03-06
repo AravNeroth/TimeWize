@@ -135,12 +135,10 @@ private struct taskPopUp: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(ignoresSafeAreaEdges: .all)
                 .onAppear() {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        getTaskParticipants(classCode: classData.code, title: title) { list in
-                            signedUp = list
-                        }
+                    getTaskParticipants(classCode: classData.code, title: title) { list in
+                        signedUp = list
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         for userEmail in signedUp {
                             getUserColors(email: userEmail) { colors in
                                 signedUpColors[userEmail] = colors
@@ -264,7 +262,7 @@ private struct taskPopUp: View {
                         getTaskParticipants(classCode: classData.code, title: title) { list in
                             signedUp = list
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             signedUp.remove(at: signedUp.firstIndex(of: userID)!)
                             updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
                             loading = true
@@ -299,7 +297,7 @@ private struct taskPopUp: View {
                         getTaskParticipants(classCode: classData.code, title: title) { list in
                             signedUp = list
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             if signedUp.count != size {
                                 signedUp.append(userID)
                                 updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
