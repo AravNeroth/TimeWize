@@ -50,19 +50,33 @@ struct ClassComponentView: View {
                                     )
                                     .padding(.leading, 20.0)
                                     
-                                
-                                Text("\(title)")
-                                    .multilineTextAlignment(.leading)
-                                    .font(.title2)
-                                    .bold()
+                                VStack(alignment: .leading) {
+                                    Text("\(title)")
+                                        .multilineTextAlignment(.leading)
+                                        .font(.title2)
+                                        .bold()
+                                    
+                                    Text("\(formatDate(timeMade))")
+                                        .multilineTextAlignment(.leading)
+                                        .font(.caption)
+                                }
                                 
                                 Spacer()
+                                
                                 VStack {
-                                    Text("Sign Up Ends:")
-                                        .font(.caption)
-                                        .bold()
-                                        .multilineTextAlignment(.center)
-                                        .padding(.horizontal, 30.0)
+                                    if Date() > date {
+                                        Text("Sign Up Ended:")
+                                            .font(.caption)
+                                            .bold()
+                                            .multilineTextAlignment(.center)
+                                            .padding(.horizontal, 30.0)
+                                    } else {
+                                        Text("Sign Up Ends:")
+                                            .font(.caption)
+                                            .bold()
+                                            .multilineTextAlignment(.center)
+                                            .padding(.horizontal, 30.0)
+                                    }
                                     
                                     Text("\(formatDate(date))")
                                         .font(.caption)
@@ -84,7 +98,16 @@ struct ClassComponentView: View {
                         .font(.title2)
                         .bold()
                         .padding(.horizontal, 30.0)
-                        .padding(.vertical, 15.0)
+                        .padding(.top, 15.0)
+                    
+                    Spacer()
+                }
+                
+                HStack {
+                    Text("\(formatDate(timeMade))")
+                        .font(.caption)
+                        .padding(.horizontal, 30.0)
+                        .padding(.bottom, 15.0)
                     
                     Spacer()
                 }
