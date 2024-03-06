@@ -18,12 +18,18 @@ struct ManagerPeopleView: View {
     @Binding var isShowing: Bool
     @State private var editing: Bool = false
     @State private var loaded: Bool = false
+    @State private var isOwner: Bool = false
     @State private var peopleToPfp:[String:UIImage] = [:]
+    
     var body: some View {
         
         if loaded == false{
             LoadingScreen().ignoresSafeArea(.all)
                 .onAppear() {
+                    isClassOwner(classCode: code, uid: userID) { result in
+                            self.isOwner = result
+                            }
+                    
                     getPeopleList(classCode: code) { people in
                         peopleList = people
                         for personEmail in people {
@@ -49,6 +55,8 @@ struct ManagerPeopleView: View {
                     }
                 }
         }else{
+            
+
             VStack {
                 Text("People in \(classTitle)")
                     .multilineTextAlignment(.center)
@@ -73,38 +81,46 @@ struct ManagerPeopleView: View {
             }
                     
             List {
-                if editing{
+                if editing {
                     ForEach(managerList, id: \.self) { person in
-                        
                         HStack {
                             Text("\(person)")
                                 .bold()
                             Spacer()
-                            Button(action: {
-                                unenrollClass(uid: person, code: code)
-                                demoteManager(person: person, classCode: code)
-                                withAnimation {
-                                    managerList.removeAll(where: { $0 == person })
-                                }
-                            }) {
-                                Image(systemName: "arrow.down.circle.fill")
-                                    .foregroundColor(.blue)
+                            
+                            if(person == userID){
+                                
+                                Image(systemName: "crown.fill")
+                                    .foregroundColor(.yellow)
                             }
+                            // if you are not the owner, or if u have a diff username to owner,
+                            // you can demote students
+                            // if you ARE the owner, you can demote and remove, but not remove or demote urself
+                            if !isOwner || (isOwner && person != userID) {
+                                Button(action: {
+                                    unenrollClass(uid: person, code: code)
+                                    demoteManager(person: person, classCode: code)
+                                    withAnimation {
+                                        managerList.removeAll(where: { $0 == person })
+                                    }
+                                }) {
+                                    Image(systemName: "arrow.down.circle.fill")
+                                        .foregroundColor(.blue)
+                                }
+                            }
+                            
                         }
                     }.onDelete { indexSet in
-                        
                         indexSet.forEach { index in
                             let person = peopleList[index]
                             demoteManager(person: person, classCode: code)
                         }
-                        
                         withAnimation {
                             managerList.remove(atOffsets: indexSet)
                         }
                     }
                 }else{
                     ForEach(managerList, id: \.self) { person in
-                        
                         
                         HStack {
                             Text("\(person)")
@@ -187,9 +203,8 @@ struct ManagerPeopleView: View {
                                             Image(uiImage: pfp).resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
                                         }else{
                                             Image(systemName: "person").resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
-                                        
-                                        
-                                    }
+                                            }
+
                                 }
                             }
                         }
