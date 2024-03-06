@@ -91,18 +91,18 @@ struct NewClassTabView: View {
             
             // move this into StudentClassesView to prevent default green from showing up
             
-            getClassInfo(classCloudCode: classCode) { newClass in
-                let list = newClass?.managerList
-                
-                if let list = list {
-                    getData(uid: list.first!) { newUser in
-                        owner = (newUser?.displayName)!
-                    }
-                }
-            }
-            getColorScheme(classCode: classCode) { scheme in
-                colors = scheme
-            }
+//            getClassInfo(classCloudCode: classCode) { newClass in
+//                let list = newClass?.managerList
+//                
+//                if let list = list {
+//                    getData(uid: list.first!) { newUser in
+//                        owner = (newUser?.displayName)!
+//                    }
+//                }
+//            }
+//            getColorScheme(classCode: classCode) { scheme in
+//                colors = scheme
+//            }
 
         }
         .buttonStyle(PlainButtonStyle())

@@ -17,6 +17,8 @@ struct StudentClassesView: View {
     @AppStorage("uid") var userID = ""
     @State var alertMessage = ""
     @State var allClasses: [Classroom] = []
+    @State var classColors: [Classroom:[Color]] = [:]
+    @State var classOwners: [Classroom:String] = [:]
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @State var classCodes: [String] = [""]
     @State var done: Bool = false
@@ -25,7 +27,7 @@ struct StudentClassesView: View {
     var body: some View {
         if !done {
             LoadingScreen()
-                .animation(.easeInOut, value: done)
+                .ignoresSafeArea(.all)
                 .onAppear() {
                     getCodes(uid: userID) { codes in
                         if var codes = codes {
@@ -41,16 +43,29 @@ struct StudentClassesView: View {
                         
                         loadClassInfo(images: classInfoManager.classImages) { completed in
                             if completed {
-                                if settingsManager.studentFresh {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                        done = true
-                                        settingsManager.studentFresh = false
+                                settingsManager.studentFresh = false
+                            }
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        for classCode in classCodes {
+                            getClassInfo(classCloudCode: classCode) { newClass in
+                                let list = newClass?.managerList
+                                
+                                if let list = list {
+                                    getData(uid: list.first!) { newUser in
+                                        classOwners[newClass!] = (newUser?.displayName)!
                                     }
-                                } else {
-                                    done = true
+                                }
+                                
+                                getColorScheme(classCode: classCode) { scheme in
+                                    classColors[newClass!] = scheme
                                 }
                             }
                         }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        done = true
                     }
                 }
                 .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
@@ -64,7 +79,7 @@ struct StudentClassesView: View {
                             ForEach(allClasses, id: \.self) { classroom in
 //                                OldClassTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.classImages[classroom.title], pfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
                                 
-                                NewClassTabView(title: classroom.title, classCode: classroom.code, ownerPfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
+                                NewClassTabView(title: classroom.title, classCode: classroom.code, colors: classColors[classroom] ?? [.green4, .green6], owner: classOwners[classroom] ?? "", ownerPfp: classInfoManager.classPfp[classroom.title], allClasses: $allClasses, classroom: classroom)
                             }
                         }
                     }
