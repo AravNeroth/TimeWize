@@ -135,22 +135,28 @@ private struct taskPopUp: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(ignoresSafeAreaEdges: .all)
                 .onAppear() {
-                    for userEmail in signedUp {
-                        getUserColors(email: userEmail) { colors in
-                            signedUpColors[userEmail] = colors
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        getTaskParticipants(classCode: classData.code, title: title) { list in
+                            signedUp = list
                         }
-                        getData(uid: userEmail) { user in
-                            if let user = user {
-                                signedUpNames[userEmail] = user.displayName
-                                
-                                downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
-                                    if let pfp = pfp {
-                                        signedUpPfps[userEmail] = pfp
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        for userEmail in signedUp {
+                            getUserColors(email: userEmail) { colors in
+                                signedUpColors[userEmail] = colors
+                            }
+                            getData(uid: userEmail) { user in
+                                if let user = user {
+                                    signedUpNames[userEmail] = user.displayName
+                                    
+                                    downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                        if let pfp = pfp {
+                                            signedUpPfps[userEmail] = pfp
+                                        }
                                     }
                                 }
                             }
                         }
-                        
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         loading = false
@@ -255,9 +261,14 @@ private struct taskPopUp: View {
                 
                 if signedUp.contains(userID) {
                     Button {
-                        signedUp.remove(at: signedUp.firstIndex(of: userID)!)
-                        updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
-                        loading = true
+                        getTaskParticipants(classCode: classData.code, title: title) { list in
+                            signedUp = list
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            signedUp.remove(at: signedUp.firstIndex(of: userID)!)
+                            updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
+                            loading = true
+                        }
                     } label: {
                         RoundedRectangle(cornerRadius: 15.0)
                             .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "FF4D4D"), hexToColor(hex: "FF0000")]), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -285,9 +296,18 @@ private struct taskPopUp: View {
                     .buttonStyle(PlainButtonStyle())
                 } else {
                     Button {
-                        signedUp.append(userID)
-                        updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
-                        loading = true
+                        getTaskParticipants(classCode: classData.code, title: title) { list in
+                            signedUp = list
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if signedUp.count != size {
+                                signedUp.append(userID)
+                                updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
+                                loading = true
+                            } else {
+                                showFullAlert = true
+                            }
+                        }
                     } label: {
                         RoundedRectangle(cornerRadius: 15.0)
                             .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "4CAF50"), hexToColor(hex: "087F23")]), startPoint: .topLeading, endPoint: .bottomTrailing))
