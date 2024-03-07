@@ -45,6 +45,7 @@
 		EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB354F192B94E6C40061F90F /* ClassComponentView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
 		EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB75C7992B7C0F9B00DC615D /* TaskView.swift */; };
+		EB84AA2E2B99170800D6FCDE /* NewManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84AA2D2B99170800D6FCDE /* NewManagerTabView.swift */; };
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
 		EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD72B818AAE00614CCE /* RequestView.swift */; };
 		EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */; };
@@ -112,6 +113,7 @@
 		EB354F192B94E6C40061F90F /* ClassComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassComponentView.swift; sourceTree = "<group>"; };
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EB75C7992B7C0F9B00DC615D /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		EB84AA2D2B99170800D6FCDE /* NewManagerTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewManagerTabView.swift; sourceTree = "<group>"; };
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
 		EBAECDD72B818AAE00614CCE /* RequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
 		EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerReqListView.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				06F110FD2B91969300EB4F01 /* taskPopup.swift */,
 				EB75C7992B7C0F9B00DC615D /* TaskView.swift */,
 				EB354F192B94E6C40061F90F /* ClassComponentView.swift */,
+				EB84AA2D2B99170800D6FCDE /* NewManagerTabView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				06F111082B92A81D00EB4F01 /* AnnouncementField.swift in Sources */,
 				EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */,
 				EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */,
+				EB84AA2E2B99170800D6FCDE /* NewManagerTabView.swift in Sources */,
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
 				EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */,
 				EBD0F2F02B8822F20047C5FF /* StudentPeopleView.swift in Sources */,

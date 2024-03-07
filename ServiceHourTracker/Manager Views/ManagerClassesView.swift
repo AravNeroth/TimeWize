@@ -80,9 +80,9 @@ struct ManagerClassesView: View {
             
                 ScrollView {
                     ForEach(settingsMan.managerClassObjects, id: \.self) { classroom in
-                        ManagerTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.managerClassImages[classroom.title], pfp: classInfoManager.managerClassPfp[classroom.title])
-                            .padding(.bottom, 10)
-                            .animation(.spring(duration: 1), value: refreshed)
+//                        ManagerTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.managerClassImages[classroom.title], pfp: classInfoManager.managerClassPfp[classroom.title])
+                        
+//                        NewManagerTabView(title: classroom.title, classCode: classroom.code, ownerPfp: classInfoManager.managerClassPfp[classroom.title])
                     }
                 
                 .alert("Create A Class", isPresented: $classCreationAlert) {
@@ -181,7 +181,7 @@ struct ManagerClassesView: View {
                     }
                 }
             
-            }else{
+            } else {
                 settingsMan.classes = []
             }
         }

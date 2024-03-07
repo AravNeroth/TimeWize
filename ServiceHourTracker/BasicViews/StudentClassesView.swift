@@ -83,7 +83,7 @@ struct StudentClassesView: View {
                             }
                         }
                     }
-                    .padding(.top, 7)//.padding(.bottom, 7)
+                    .padding(.top, 7)
                     .alert("Class Code", isPresented: $showJoinMessage) {
                         TextField("code", text: $alertField).foregroundColor(.black)
                         Button("OK") {
@@ -126,12 +126,10 @@ struct StudentClassesView: View {
                         showJoinMessage = true
                         alertMessage = "Enter a class code"
                     } label: {
-                        Image(systemName: "plus").foregroundStyle(.green5)
+                        Image(systemName: "plus")
+                            .foregroundStyle(.green6)
                     }
                 }
-//                ToolbarItem(placement: .bottomBar) {
-//                    bottomPicks(selection: $settingsManager.tab)
-//                }
             }
             .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
         }

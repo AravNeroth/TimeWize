@@ -1,15 +1,15 @@
 //
-//  NewClassTabView.swift
+//  NewManagerTabView.swift
 //  ServiceHourTracker
 //
-//  Created by huang_931310 on 2/28/24.
+//  Created by huang_931310 on 3/6/24.
 //
 
 import SwiftUI
 
-struct NewClassTabView: View {
+struct NewManagerTabView: View {
     
-    @AppStorage("uid") var userID = ""
+    @AppStorage("uid") private var userID = ""
     var title: String = "Title"
     var classCode: String
     @State var colors: [Color] = [.green4, .green6] // green6 as last is important because its a default
@@ -20,14 +20,14 @@ struct NewClassTabView: View {
     @EnvironmentObject var classData: ClassData
     @Binding var allClasses: [Classroom]
     @State var classroom: Classroom
-    @State var showUnEnroll: Bool = false
+    @State var showMenu: Bool = false
     
     var body: some View {
         Button {
-            settingsManager.tab = 4
-            currentView = .ClassroomView
-            settingsManager.title = title
             classData.code = classCode
+            settingsManager.title = title
+            currentView = .ManagerRoomView
+            settingsManager.tab = 5
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
                 .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -70,12 +70,11 @@ struct NewClassTabView: View {
                         
                         VStack() {
                             Button {
-                                showUnEnroll.toggle()
+                                showMenu.toggle()
                             } label: {
-                                Image(systemName: "ellipsis")
+                                Image(systemName: "gearshape.fill")
                                     .font(.system(size: 20.0, weight: .bold))
                                     .imageScale(.large)
-                                    .rotationEffect(.degrees(90.0))
                                     .foregroundStyle(colors.first!.isBright() ? .black : .white)
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -88,19 +87,19 @@ struct NewClassTabView: View {
                 )
         }
         .buttonStyle(PlainButtonStyle())
-        .sheet(isPresented: $showUnEnroll) {
-            unEnrollPopUp(classCode: classCode, showUnEnroll: $showUnEnroll, allClasses: $allClasses, classroom: classroom)
+        .sheet(isPresented: $showMenu) {
+            menuPopUp(classCode: classCode, showMenu: $showMenu, allClasses: $allClasses, classroom: classroom)
                 .presentationDetents([.height(60.0)])
         }
-        .animation(.easeIn, value: showUnEnroll)
+        .animation(.easeIn, value: showMenu)
     }
 }
 
-private struct unEnrollPopUp: View {
+private struct menuPopUp: View {
     
     @AppStorage("uid") var userID = ""
     var classCode: String
-    @Binding var showUnEnroll: Bool
+    @Binding var showMenu: Bool
     @Binding var allClasses: [Classroom]
     @State var classroom: Classroom
     
@@ -111,10 +110,10 @@ private struct unEnrollPopUp: View {
                     if codesList != nil {
                         unenrollClass(uid: userID, code: classCode)
                         allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
-                        removePersonFromClass(person: userID, classCode: classCode)
+                        removeManagerFromClass(person: userID, classCode: classCode)
                     }
                 }
-                showUnEnroll = false
+                showMenu = false
             } label: {
                 ZStack {
                     Rectangle()
