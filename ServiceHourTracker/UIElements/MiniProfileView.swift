@@ -13,7 +13,9 @@ struct MiniProfileView: View {
     @State var userPfp: UIImage? = UIImage(resource: .image2)
     @State var username = ""
     @State var personCols: [Color] = [.green4, .green6]
-    
+    @State var currentUser: String = ""
+    @State var classOwner: String = ""
+
     var body: some View {
         RoundedRectangle(cornerRadius: 50.0)
             .fill(LinearGradient(gradient: Gradient(colors: personCols), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -44,6 +46,12 @@ struct MiniProfileView: View {
                         .font(.headline)
                         .bold()
                         .foregroundStyle(personCols.first!.isBright() ? .black : .white)
+                    
+                    if(currentUser == classOwner){
+                        
+                        Image(systemName: "crown.fill")
+                            .foregroundColor(.yellow)
+                    }
                     
                     Spacer()
                     

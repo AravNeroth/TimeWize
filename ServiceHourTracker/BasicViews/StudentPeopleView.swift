@@ -34,24 +34,35 @@ struct StudentPeopleView: View {
                 Divider()
                     .padding(20)
                 
+                Text("Managers")
+                    .multilineTextAlignment(.center)
+                    .font(.headline)
+                    .bold()
+                
                 ScrollView {
-                    Text("Managers")
-                        .multilineTextAlignment(.center)
-                        .font(.headline)
-                        .bold()
                     
                     Divider()
                         .padding(5)
                     
                     
                         ForEach(managerList, id: \.self) { person in
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6])
                             
-                            if(person == classOwner){
+
+                            HStack{
+//                                if(person == classOwner){
+//                                    Image(systemName: "crown.fill")
+//                                        .foregroundColor(.yellow)
+//                                }
+                               
+                                MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                            
+                                    
+                                   
                                 
-                                Image(systemName: "crown.fill")
-                                    .foregroundColor(.yellow)
+
+
                             }
+
                         }
                     
                     
@@ -76,7 +87,7 @@ struct StudentPeopleView: View {
                             Text("")
                                 
                                 ForEach(peopleList, id: \.self) { person in
-                                    MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6])
+                                    MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
                                 }
                             }
                         }
@@ -91,6 +102,11 @@ struct StudentPeopleView: View {
                 .onAppear() {
                     getPeopleList(classCode: code) { newList in
                         peopleList = newList
+                       
+                        getManagerList(classCode: code) { managers in
+                                managerList = managers
+                                classOwner = managerList[0]
+                            }
                         
                         for personEmail in newList {
                             getData(uid: personEmail) { user in
@@ -111,10 +127,7 @@ struct StudentPeopleView: View {
                                                 loaded = true
                                             }
                                         }
-                                        getManagerList(classCode: code) { managers in
-                                                managerList = managers
-                                                classOwner = managerList[0]
-                                            }
+                                        
                                     }
                                 }
                             }

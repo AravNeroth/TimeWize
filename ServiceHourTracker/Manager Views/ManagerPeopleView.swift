@@ -16,6 +16,9 @@ struct ManagerPeopleView: View {
     @State var classTitle: String = ""
     @State var peopleList: [String] = []
     @State var managerList: [String] = []
+    @State var pfpList: [String:UIImage] = [:]
+    @State var usernameList: [String:String] = [:]
+    @State var colList: [String:[Color]] = [:]
     @Binding var isShowing: Bool
     @State private var editing: Bool = false
     @State private var loaded: Bool = false
@@ -27,36 +30,47 @@ struct ManagerPeopleView: View {
         if loaded == false{
             LoadingScreen().ignoresSafeArea(.all)
                 .onAppear() {
+                    
                     isClassOwner(classCode: code, uid: userID) { result in
                             self.isOwner = result
                             }
-                
                     
-                    getPeopleList(classCode: code) { people in
-                        peopleList = people
-                        for personEmail in people {
-                            getData(uid: personEmail) { User in
-                                if let User = User{
-                                    downloadImageFromUserStorage(id: User.uid, file: "Pfp\(User.uid).jpg") { pfp in
-                                        if let pfp = pfp{
-                                            peopleToPfp[personEmail] = pfp
+                    getPeopleList(classCode: code) { newList in
+                        peopleList = newList
+                        
+                        
+                        for personEmail in newList {
+                            getData(uid: personEmail) { user in
+                                if let user = user {
+                                    getUserColors(email: personEmail) { colors in
+                                        if !colors.isEmpty {
+                                            colList[personEmail] = colors
                                         }
+                                        
+                                        usernameList[personEmail] = user.displayName ?? "No Name"
+                                        
+                                        downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                            if let pfp = pfp {
+                                                pfpList[personEmail] = pfp
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                                loaded = true
+                                            }
+                                        }
+                                        
                                     }
                                 }
                             }
-                            
-                            
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8){
-                            loaded = true
-                        }
+                        
                     }
                     
                     getManagerList(classCode: code) { managers in
                         managerList = managers
                         classOwner = managerList[0]
-
                     }
+                    
                     
 
                 }
@@ -71,15 +85,9 @@ struct ManagerPeopleView: View {
                     .frame(width: 250, alignment: .center)
                     .padding(.top, 40)
                 
-                }
-            
-            .padding(.top, 20)
+                
+                        Divider()
 
-            Spacer()
-            Divider()
-            .padding(.top, 20)
-
-            VStack{
                 Text("Managers")
                     .multilineTextAlignment(.center)
                     .font(.headline)
@@ -92,20 +100,15 @@ struct ManagerPeopleView: View {
                 if editing {
                     ForEach(managerList, id: \.self) { person in
                         HStack {
-                            Text("\(person)")
-                                .bold()
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
                             Spacer()
                             
                             
-                            if(person == classOwner){
-                                
-                                Image(systemName: "crown.fill")
-                                    .foregroundColor(.yellow)
-                            }
-                            // if you are not the owner, or if u have a diff username to owner,
+                            
+                            // if you are not the owner, or if u are the owner but u have a diff username to owner,
                             // you can demote students
                             // if you ARE the owner, you can demote and remove, but not remove or demote urself
-                            if !isOwner || (isOwner && person != userID) {
+                            if (!isOwner || (isOwner && person != userID)) {
                                 Button(action: {
                                     unenrollClass(uid: person, code: code)
                                     demoteManager(person: person, classCode: code)
@@ -132,23 +135,8 @@ struct ManagerPeopleView: View {
                     ForEach(managerList, id: \.self) { person in
                         
                         HStack {
-                            Text("\(person)")
-                                .bold()
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
                             Spacer()
-                            
-                            if(person == classOwner ){
-                                
-                                Image(systemName: "crown.fill")
-                                    .foregroundColor(.yellow)
-                            }
-                            
-                            if let pfp = peopleToPfp[person]{
-                                Image(uiImage: pfp).resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
-                            }else{
-                                Image(systemName: "person").resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
-                            
-                            
-                        }
                     }
                 }
             }
@@ -158,13 +146,15 @@ struct ManagerPeopleView: View {
 
                 
                     // students displayed
-
-                    Text("Students")
-                        .multilineTextAlignment(.center)
-                        .font(.headline)
-                        .bold()
-                        .frame(width: 250, alignment: .center)
-                        .padding(.top, 18)
+            VStack{
+                
+                Text("Students")
+                    .multilineTextAlignment(.center)
+                    .font(.headline)
+                    .bold()
+                    .frame(width: 250, alignment: .center)
+                    .padding(.top, 18)
+            }
                     
                     VStack{
                         HStack{
@@ -180,8 +170,8 @@ struct ManagerPeopleView: View {
                                 ForEach(peopleList, id: \.self) { person in
                                     
                                     HStack {
-                                        Text("\(person)")
-                                            .bold()
+                                        MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                                        
                                         Spacer()
                                         Button(action: {
                                             unenrollClass(uid: person, code: code)
@@ -210,16 +200,8 @@ struct ManagerPeopleView: View {
                                     
                                     
                                     HStack {
-                                        Text("\(person)")
-                                            .bold()
+                                        MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
                                         Spacer()
-                                        
-                                        if let pfp = peopleToPfp[person]{
-                                            Image(uiImage: pfp).resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
-                                        }else{
-                                            Image(systemName: "person").resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)
-                                            }
-
                                 }
                             }
                         }
