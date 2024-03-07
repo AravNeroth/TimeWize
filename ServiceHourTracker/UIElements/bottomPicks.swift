@@ -17,31 +17,42 @@ struct bottomPicks: View {
             Button {
                 settingsManager.tab = 0
             } label: {
-                VStack{
-                    Image(systemName: (settingsManager.tab == 0) ? "clock.fill" : "clock").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 18, height:27)
-                    Text("Hours Log").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
-                }
+                
+                
+                LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                    VStack{
+                        Image(systemName: (settingsManager.tab == 0) ? "clock.fill" : "clock").resizable().scaledToFit().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
+                        Text("Hours Log").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    }
+                ).frame(width: 65, height: 50)
             }
             Spacer()
             Button{
 
                 settingsManager.tab = 2
             } label: {
-                VStack{
-                    Image(systemName: (settingsManager.tab == 2) ? "house.fill" : "house").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).scaledToFill().frame(width: 25, height:25)
-                    Text("Classes").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
-                }
+                                
+                LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                    VStack{
+                        Image(systemName: (settingsManager.tab == 2) ? "house.fill" : "house").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).scaledToFill().frame(width: 25, height:25)
+                        Text("Classes").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    }
+
+                ).frame(width: 65, height: 50)
             }
             Spacer()
             Button{
 
                 settingsManager.tab = 3
             }label: {
-                VStack{
+                
+                LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                    VStack{
 
-                    Image(systemName: (settingsManager.tab == 3) ? "gearshape.fill" : "gearshape").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
-                    Text("Settings").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
-                }
+                        Image(systemName: (settingsManager.tab == 3) ? "gearshape.fill" : "gearshape").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
+                        Text("Settings").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                    }
+                ).frame(width: 65, height: 50)
             }
             Spacer()
         }.padding(.top).background(.clear).background(.ultraThinMaterial).ignoresSafeArea(edges:[.bottom, .horizontal]).frame(height: 55)

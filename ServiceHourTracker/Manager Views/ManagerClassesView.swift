@@ -81,8 +81,8 @@ struct ManagerClassesView: View {
                 ScrollView {
                     ForEach(settingsMan.managerClassObjects, id: \.self) { classroom in
 //                        ManagerTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.managerClassImages[classroom.title], pfp: classInfoManager.managerClassPfp[classroom.title])
-                        
-//                        NewManagerTabView(title: classroom.title, classCode: classroom.code, ownerPfp: classInfoManager.managerClassPfp[classroom.title])
+//                        
+                        NewManagerTabView(title: classroom.title, classCode: classroom.code, ownerPfp: classInfoManager.managerClassPfp[classroom.title], allClasses: $settingsMan.managerClassObjects, classroom: classroom)
                     }
                 
                 .alert("Create A Class", isPresented: $classCreationAlert) {

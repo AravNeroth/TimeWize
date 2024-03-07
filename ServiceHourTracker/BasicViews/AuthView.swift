@@ -139,6 +139,10 @@ struct AuthView: View {
                     settingsManager.pfp = image
                 }
             })
+        
+        getUserColors(email: userID) { colors in
+            settingsManager.userColors = colors
+        }
         if let completion = completion{
             completion(.success(()))
         }

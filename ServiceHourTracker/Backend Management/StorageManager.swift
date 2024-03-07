@@ -89,7 +89,7 @@ func uploadImageToClassroomStorage(code: String, image: UIImage, file: String? =
 //AUTHID, FileName with .jpg!!!
 func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>? = nil, completion: @escaping (UIImage?) -> Void) {
     guard !id.isEmpty else {
-        print("folder is empty")
+        print("downloadImageFromUserStorage \n folder is empty")
         completion(nil)
         return
     }
@@ -120,8 +120,9 @@ func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>?
     }
 }
 func downloadImageFromClassroomStorage(code: String, file: String, done: Binding<Bool>? = nil, completion: @escaping (UIImage?) -> Void) {
+    
     guard !code.isEmpty else {
-        print("folder is empty")
+        print("downloadImageFromClassroomStorage \n folder is empty")
         completion(nil)
         return
     }
