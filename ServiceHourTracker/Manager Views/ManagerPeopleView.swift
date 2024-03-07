@@ -11,7 +11,8 @@ import SwiftUI
 struct ManagerPeopleView: View {
     
     @AppStorage("uid") var userID = ""
-    @State var code: String
+    @State var code: String = ""
+    @State var classOwner: String = ""
     @State var classTitle: String = ""
     @State var peopleList: [String] = []
     @State var managerList: [String] = []
@@ -29,6 +30,7 @@ struct ManagerPeopleView: View {
                     isClassOwner(classCode: code, uid: userID) { result in
                             self.isOwner = result
                             }
+                
                     
                     getPeopleList(classCode: code) { people in
                         peopleList = people
@@ -52,7 +54,11 @@ struct ManagerPeopleView: View {
                     
                     getManagerList(classCode: code) { managers in
                         managerList = managers
+                        classOwner = managerList[0]
+
                     }
+                    
+
                 }
         }else{
             
@@ -81,6 +87,8 @@ struct ManagerPeopleView: View {
             }
                     
             List {
+                
+                
                 if editing {
                     ForEach(managerList, id: \.self) { person in
                         HStack {
@@ -88,7 +96,8 @@ struct ManagerPeopleView: View {
                                 .bold()
                             Spacer()
                             
-                            if(person == userID){
+                            
+                            if(person == classOwner){
                                 
                                 Image(systemName: "crown.fill")
                                     .foregroundColor(.yellow)
@@ -126,6 +135,12 @@ struct ManagerPeopleView: View {
                             Text("\(person)")
                                 .bold()
                             Spacer()
+                            
+                            if(person == classOwner ){
+                                
+                                Image(systemName: "crown.fill")
+                                    .foregroundColor(.yellow)
+                            }
                             
                             if let pfp = peopleToPfp[person]{
                                 Image(uiImage: pfp).resizable().clipShape(Circle()).frame(width: 30, height: 30).padding(.trailing).shadow(radius: 2.0,y:2.0)

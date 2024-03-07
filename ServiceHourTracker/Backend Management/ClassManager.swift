@@ -488,7 +488,7 @@ func isClassOwner(classCode: String, uid: String, completion: @escaping (Bool) -
             completion(false)
             
         } else {
-            // store the auth id into var ownerID
+            // store the auth id winto var ownerID
 
             if let classDocument = classDocument, let ownerId = classDocument.data()?["owner"] as? String {
 
@@ -501,7 +501,7 @@ func isClassOwner(classCode: String, uid: String, completion: @escaping (Bool) -
                         
                     } else {
                         
-                        // store the uid into var userID
+                        // store the uid into var userID thingy
                         if let userDocument = userDocument, let userId = userDocument.data()?["uid"] as? String {
 
                             completion(userId == ownerId)

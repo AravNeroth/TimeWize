@@ -9,7 +9,9 @@ import SwiftUI
 
 struct StudentPeopleView: View {
     
+    @AppStorage("uid") var userID = ""
     @State var code: String
+    @State var classOwner: String = ""
     @State var classTitle: String = ""
     @State var peopleList: [String] = []
     @State var managerList: [String] = []
@@ -44,6 +46,12 @@ struct StudentPeopleView: View {
                     
                         ForEach(managerList, id: \.self) { person in
                             MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6])
+                            
+                            if(person == classOwner){
+                                
+                                Image(systemName: "crown.fill")
+                                    .foregroundColor(.yellow)
+                            }
                         }
                     
                     
@@ -105,6 +113,7 @@ struct StudentPeopleView: View {
                                         }
                                         getManagerList(classCode: code) { managers in
                                                 managerList = managers
+                                                classOwner = managerList[0]
                                             }
                                     }
                                 }
