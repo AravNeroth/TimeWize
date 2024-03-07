@@ -106,9 +106,9 @@ private struct menuPopUp: View {
     var body: some View {
         VStack {
             Button {
-                getCodes(uid: userID) { codesList in
-                    if codesList != nil {
-                        unenrollClass(uid: userID, code: classCode)
+                getClasses(uid: userID) { classesList in
+                    if classesList != nil {
+                        leaveAsManager(uid: userID, code: classCode)
                         allClasses.remove(at: allClasses.firstIndex(of: classroom)!)
                         removeManagerFromClass(person: userID, classCode: classCode)
                     }
@@ -121,7 +121,7 @@ private struct menuPopUp: View {
                         .contentShape(Rectangle())
                         .ignoresSafeArea()
 
-                    Text("Unenroll")
+                    Text("Leave As Manager")
                 }
             }
             .buttonStyle(PlainButtonStyle())

@@ -220,6 +220,36 @@ func unenrollClass(uid: String, code: String) {
     }
     
 }
+
+func leaveAsManager(uid: String, code: String) {
+    getData(uid: uid) { currUser in
+        let userRef = db.collection("userInfo").document(uid)
+        
+        if let currUser = currUser {
+            
+            if var userClasses = currUser.classes {
+                let index = userClasses.firstIndex(of: code)
+                if let index = index {
+                    userClasses.remove(at: index)
+                    userRef.updateData(["classes": userClasses]) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        } else {
+                            print("succesfully unenrolled")
+                        }
+                    }
+                } else {
+                    print("code does not exist")
+                }
+            } else {
+                print("no codes found")
+            }
+        } else {
+            print("no user found")
+        }
+    }
+}
+
 //append a class Code
 func updateCodes(uid: String, newCode: String) {
 
