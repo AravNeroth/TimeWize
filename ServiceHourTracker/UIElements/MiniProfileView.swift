@@ -19,7 +19,7 @@ struct MiniProfileView: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 50.0)
             .fill(LinearGradient(gradient: Gradient(colors: personCols), startPoint: .topLeading, endPoint: .bottomTrailing))
-            .frame(height: 50)
+            .frame(height: 40)
             .padding(.horizontal, 20.0)
             .overlay(
                 HStack {
@@ -47,8 +47,7 @@ struct MiniProfileView: View {
                         .bold()
                         .foregroundStyle(personCols.first!.isBright() ? .black : .white)
                     
-                    if(currentUser == classOwner){
-                        
+                    if(currentUser == classOwner) {
                         Image(systemName: "crown.fill")
                             .foregroundColor(.yellow)
                     }

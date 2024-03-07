@@ -28,7 +28,8 @@ struct ManagerPeopleView: View {
     var body: some View {
         
         if loaded == false{
-            LoadingScreen().ignoresSafeArea(.all)
+            LoadingScreen()
+                .ignoresSafeArea(.all)
                 .onAppear() {
                     
                     isClassOwner(classCode: code, uid: userID) { result in
@@ -68,7 +69,32 @@ struct ManagerPeopleView: View {
                     
                     getManagerList(classCode: code) { managers in
                         managerList = managers
+                        for manager in managers {
+                            getData(uid: manager) { user in
+                                if let user = user {
+                                    getUserColors(email: manager) { colors in
+                                        if !colors.isEmpty {
+                                            colList[manager] = colors
+                                        }
+                                        
+                                        usernameList[manager] = user.displayName ?? "No Name"
+                                        
+                                        downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                            if let pfp = pfp {
+                                                pfpList[manager] = pfp
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                                loaded = true
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                        }
                         classOwner = managerList[0]
+                        print("Managers:   \(managers)")
                     }
                     
                     
@@ -76,7 +102,7 @@ struct ManagerPeopleView: View {
                 }
         }else{
             
-
+            
             VStack {
                 Text("People in \(classTitle)")
                     .multilineTextAlignment(.center)
@@ -86,15 +112,15 @@ struct ManagerPeopleView: View {
                     .padding(.top, 40)
                 
                 
-                        Divider()
-
+                Divider()
+                
                 Text("Managers")
                     .multilineTextAlignment(.center)
                     .font(.headline)
                     .bold()
             }
-                    
-            List {
+            
+            ScrollView {
                 
                 
                 if editing {
@@ -131,21 +157,21 @@ struct ManagerPeopleView: View {
                             managerList.remove(atOffsets: indexSet)
                         }
                     }
-                }else{
+                } else {
                     ForEach(managerList, id: \.self) { person in
                         
                         HStack {
                             MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
                             Spacer()
+                        }
                     }
                 }
-            }
-        }
-                    
-
-
-                
-                    // students displayed
+            
+            
+            
+            
+            
+            // students displayed
             VStack{
                 
                 Text("Students")
@@ -155,58 +181,58 @@ struct ManagerPeopleView: View {
                     .frame(width: 250, alignment: .center)
                     .padding(.top, 18)
             }
-                    
-                    VStack{
-                        HStack{
+            
+            VStack{
+                HStack{
+                    Spacer()
+                    Button{
+                        editing.toggle()
+                    }label: {
+                        Image(systemName: editing ? "checkmark.rectangle.stack" : "square.and.pencil").resizable().frame(width: 20,height: 20).padding(.trailing, 13).padding(.bottom, 2).animation(.smooth(duration: 0.65), value: editing)
+                    }
+                }
+                
+                if editing{
+                    ForEach(peopleList, id: \.self) { person in
+                        
+                        HStack {
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                            
                             Spacer()
-                            Button{
-                                editing.toggle()
-                            }label: {
-                                Image(systemName: editing ? "checkmark.rectangle.stack" : "square.and.pencil").resizable().frame(width: 20,height: 20).padding(.trailing, 13).padding(.bottom, 2).animation(.smooth(duration: 0.65), value: editing)
+                            Button(action: {
+                                unenrollClass(uid: person, code: code)
+                                removePersonFromClass(person: person, classCode: code)
+                                withAnimation {
+                                    peopleList.removeAll(where: { $0 == person })
+                                }
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.red)
                             }
                         }
-                        List {
-                            if editing{
-                                ForEach(peopleList, id: \.self) { person in
-                                    
-                                    HStack {
-                                        MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
-                                        
-                                        Spacer()
-                                        Button(action: {
-                                            unenrollClass(uid: person, code: code)
-                                            removePersonFromClass(person: person, classCode: code)
-                                            withAnimation {
-                                                peopleList.removeAll(where: { $0 == person })
-                                            }
-                                        }) {
-                                            Image(systemName: "xmark.circle.fill")
-                                                .foregroundColor(.red)
-                                        }
-                                    }
-                                }.onDelete { indexSet in
-                                    
-                                    indexSet.forEach { index in
-                                        let person = peopleList[index]
-                                        removePersonFromClass(person: person, classCode: code)
-                                    }
-                                    
-                                    withAnimation {
-                                        peopleList.remove(atOffsets: indexSet)
-                                    }
-                                }
-                            }else{
-                                ForEach(peopleList, id: \.self) { person in
-                                    
-                                    
-                                    HStack {
-                                        MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
-                                        Spacer()
-                                }
-                            }
+                    }.onDelete { indexSet in
+                        
+                        indexSet.forEach { index in
+                            let person = peopleList[index]
+                            removePersonFromClass(person: person, classCode: code)
+                        }
+                        
+                        withAnimation {
+                            peopleList.remove(atOffsets: indexSet)
+                        }
+                    }
+                }else{
+                    ForEach(peopleList, id: \.self) { person in
+                        
+                        
+                        HStack {
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                            Spacer()
                         }
                     }
                 }
+            }
+        }
             // end of V stack below "Students" text
                 .padding(.top, 10)
                 
