@@ -454,6 +454,7 @@ func addManagerToClass(person: String, classCode: String) {
 }
 
 func removeManagerFromClass(person: String, classCode: String) {
+
     let docRef = db.collection("classes").document(classCode)
     
     docRef.getDocument { document, error in
@@ -470,6 +471,73 @@ func removeManagerFromClass(person: String, classCode: String) {
                 }
                 
                 db.collection("classes").document(classCode).updateData(["managerList":managers])
+            }
+        }
+    }
+}
+
+func isClassOwner(classCode: String, uid: String, completion: @escaping (Bool) -> Void) {
+    
+    // call tshis func that will return if the user is the owner of class or not
+    
+    let classRef = db.collection("classes").document(classCode)
+    
+    classRef.getDocument { (classDocument, classError) in
+        if let classError = classError {
+            print("Error getting class document: \(classError.localizedDescription)")
+            completion(false)
+            
+        } else {
+            // store the auth id winto var ownerID
+
+            if let classDocument = classDocument, let ownerId = classDocument.data()?["owner"] as? String {
+
+                let userInfoRef = db.collection("userInfo").document(uid)
+                userInfoRef.getDocument { (userDocument, userError) in
+                    
+                    if let userError = userError {
+                        print("Error getting user document: \(userError.localizedDescription)")
+                        completion(false)
+                        
+                    } else {
+                        
+                        // store the uid into var userID thingy
+                        if let userDocument = userDocument, let userId = userDocument.data()?["uid"] as? String {
+
+                            completion(userId == ownerId)
+                            
+                        } else {
+                            print("User document does not exist or does not contain uid field")
+                            completion(false)
+                        }
+                    }
+                }
+            } else {
+                print("Class document does not exist or does not contain owner field")
+                completion(false)
+            }
+        }
+    }
+}
+
+
+func demoteManager(person: String, classCode: String) {
+    let docRef = db.collection("classes").document(classCode)
+    
+    docRef.getDocument { document, error in
+        if let error = error as NSError? {
+            print("Error getting document: \(error.localizedDescription)")
+        } else {
+            if let document = document {
+                let map = document.data()
+                var peopleList = map?["peopleList"] as? [String] ?? []
+                
+                if peopleList.contains(person) {
+                    removeManagerFromClass(person: person, classCode: classCode)
+                } else {
+                    removeManagerFromClass(person: person, classCode: classCode)
+                    addPersonToClass(person: person, classCode: classCode)
+                }
             }
         }
     }

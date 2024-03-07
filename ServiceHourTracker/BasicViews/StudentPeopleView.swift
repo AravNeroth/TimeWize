@@ -9,9 +9,12 @@ import SwiftUI
 
 struct StudentPeopleView: View {
     
+    @AppStorage("uid") var userID = ""
     @State var code: String
+    @State var classOwner: String = ""
     @State var classTitle: String = ""
     @State var peopleList: [String] = []
+    @State var managerList: [String] = []
     @State var pfpList: [String:UIImage] = [:]
     @State var usernameList: [String:String] = [:]
     @State var colList: [String:[Color]] = [:]
@@ -28,26 +31,82 @@ struct StudentPeopleView: View {
                     .frame(width: 250, alignment: .center)
                     .padding(.top, 40)
                 
+                Divider()
+                    .padding(20)
+                
+                Text("Managers")
+                    .multilineTextAlignment(.center)
+                    .font(.headline)
+                    .bold()
+                
+                ScrollView {
+                    
+                    Divider()
+                        .padding(5)
+                    
+                    
+                        ForEach(managerList, id: \.self) { person in
+                            
+
+                            HStack{
+//                                if(person == classOwner){
+//                                    Image(systemName: "crown.fill")
+//                                        .foregroundColor(.yellow)
+//                                }
+                               
+                                MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                            
+                                    
+                                   
+                                
+
+
+                            }
+
+                        }
+                    
+                    
+                }
+                
+                
+                ZStack(alignment: .top) {
+                    
+                   
+                        
+                Text("Students")
+                    .multilineTextAlignment(.center)
+                    .font(.headline)
+                    .bold()
+
+                        
                 ZStack(alignment: .top) {
                     Divider()
                         .frame(height: 1)
-                    
-                    ScrollView {
-                        Text("")
                         
-                        ForEach(peopleList, id: \.self) { person in
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6])
+                        ScrollView {
+                            Text("")
+                                
+                                ForEach(peopleList, id: \.self) { person in
+                                    MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                                }
+                            }
                         }
+                        .padding(.top, 30)
                     }
                 }
-                .padding(.top, 30)
             }
-        } else {
+        
+    else {
             LoadingScreen()
                 .ignoresSafeArea(.all)
                 .onAppear() {
                     getPeopleList(classCode: code) { newList in
                         peopleList = newList
+                       
+                        getManagerList(classCode: code) { managers in
+                                managerList = managers
+                                classOwner = managerList[0]
+                            }
                         
                         for personEmail in newList {
                             getData(uid: personEmail) { user in
@@ -68,6 +127,7 @@ struct StudentPeopleView: View {
                                                 loaded = true
                                             }
                                         }
+                                        
                                     }
                                 }
                             }
