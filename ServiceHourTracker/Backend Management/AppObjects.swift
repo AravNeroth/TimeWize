@@ -27,7 +27,7 @@ class SettingsManager: ObservableObject {
     @Published var inClass = false
     @Published var tab: Int = 2
     @Published var manTab: Int = 1
-    
+    @Published var userColors: [Color] = []
     
      func updateUserDefaults() {
            UserDefaults.standard.set(classes, forKey: "classes")
