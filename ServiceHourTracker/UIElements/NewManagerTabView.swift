@@ -26,8 +26,8 @@ struct NewManagerTabView: View {
         Button {
             classData.code = classCode
             settingsManager.title = title
-            currentView = .ManagerRoomView
-            settingsManager.tab = 5
+            currManagerView = .ManagerRoomView
+            settingsManager.manTab = 3
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
                 .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))

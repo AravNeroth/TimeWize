@@ -12,7 +12,6 @@ enum currStudentView{
     case SettingsView
     case ClassesView
     case ClassroomView
-    case ManagerRoomView
 }
 
 var currentView: currStudentView = .ClassesView
@@ -58,12 +57,6 @@ struct StudentView: View {
                     
                     
                 }
-                
-            case .ManagerRoomView:
-                VStack {
-                    ManagerRoomView().navigationBarTitleDisplayMode(.inline)
-                        .navigationTitle(settingsManager.title)
-                }
             }
                    
                 
@@ -75,7 +68,6 @@ struct StudentView: View {
             case 2: settingsManager.title = "Classes"; currentView = .ClassesView; break;
             case 3: settingsManager.title = "Settings"; currentView = .SettingsView; break;
             case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .ClassroomView; break;
-            case 5: settingsManager.title = "\(settingsManager.title)"; currentView = .ManagerRoomView; break;
             default:
                 settingsManager.title = ""
             }

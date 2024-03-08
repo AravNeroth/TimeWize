@@ -167,10 +167,7 @@ struct ColorPalette: View {
         }
        
             .background(.white)
-            .cornerRadius(10) // was green3
-            .background(RoundedRectangle(cornerRadius: 10)
-            .stroke(.black, lineWidth: 1)) // was green6
-            .frame(width: 350, height: 500)
+            .padding(.horizontal, 30.0)
     }
            
        

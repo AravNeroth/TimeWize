@@ -154,6 +154,7 @@ struct ManagerRoomView: View {
                         
                     }
                 }
+                //ToolbarItem(placement: .topB)
                 
             }
             

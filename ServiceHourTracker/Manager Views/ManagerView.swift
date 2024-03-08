@@ -14,6 +14,7 @@ enum ManagerViews{
     case ManagerHome
     //case historyLog
     case RequestsView
+    case ManagerRoomView
 }
 
 var currManagerView: ManagerViews = .ManagerHome
@@ -49,6 +50,10 @@ struct ManagerView: View {
                         
                     
                 }
+            case .ManagerRoomView:
+                VStack {
+                    NewManagerRoomView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
+                }
             }
         }.navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
         
@@ -58,7 +63,8 @@ struct ManagerView: View {
                 case 0: settingsManager.title = "Classes"; currManagerView = .ManagerHome; 
                 case 1: settingsManager.title = "Settings"; currManagerView = .SettingsView;
 //                case 2: currManagerView = .ManagerClass
-                case 2: settingsManager.title = "Requests"; currManagerView = .RequestsView
+                case 2: settingsManager.title = "Requests"; currManagerView = .RequestsView;
+                case 3: currManagerView = .ManagerRoomView;
                 default:
                     settingsManager.title = ""
                 }

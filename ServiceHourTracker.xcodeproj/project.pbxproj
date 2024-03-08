@@ -46,6 +46,7 @@
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
 		EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB75C7992B7C0F9B00DC615D /* TaskView.swift */; };
 		EB84AA2E2B99170800D6FCDE /* NewManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84AA2D2B99170800D6FCDE /* NewManagerTabView.swift */; };
+		EB84AA302B9ACC9F00D6FCDE /* NewManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84AA2F2B9ACC9F00D6FCDE /* NewManagerRoomView.swift */; };
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
 		EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD72B818AAE00614CCE /* RequestView.swift */; };
 		EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */; };
@@ -114,6 +115,7 @@
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EB75C7992B7C0F9B00DC615D /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		EB84AA2D2B99170800D6FCDE /* NewManagerTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewManagerTabView.swift; sourceTree = "<group>"; };
+		EB84AA2F2B9ACC9F00D6FCDE /* NewManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewManagerRoomView.swift; sourceTree = "<group>"; };
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
 		EBAECDD72B818AAE00614CCE /* RequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
 		EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerReqListView.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				06F111012B928CA200EB4F01 /* ManagerPeopleView.swift */,
 				EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */,
 				EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */,
+				EB84AA2F2B9ACC9F00D6FCDE /* NewManagerRoomView.swift */,
 			);
 			path = "Manager Views";
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */,
 				EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */,
 				06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */,
+				EB84AA302B9ACC9F00D6FCDE /* NewManagerRoomView.swift in Sources */,
 				06E576BA2B5F0B1C00A7A36D /* ManagerClassesView.swift in Sources */,
 				EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */,
 				06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */,

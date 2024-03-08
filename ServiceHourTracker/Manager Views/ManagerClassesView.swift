@@ -21,6 +21,9 @@ struct ManagerClassesView: View {
     @State var classNameField: String = ""
     @State var classServiceField: String = ""
     @State var classSpecificField: String = ""
+    @State var allClasses: [Classroom] = []
+    @State var ownerPfps: [Classroom:UIImage] = [:]
+    @State var classColors: [Classroom:[Color]] = [:]
     @ObservedObject private var settingsMan = SettingsManager.shared
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @AppStorage("uid") var userID: String = ""
@@ -38,51 +41,65 @@ struct ManagerClassesView: View {
                         print("for code in \n \(settingsMan.classes)")
                         getClassInfo(classCloudCode: code) { classroom in
                             if let classroom = classroom {
-                                if !settingsMan.managerClassObjects.contains(where: {$0.code == classroom.code}) {
-                                    
-                                    settingsMan.managerClassObjects.append(classroom)
-                                    print("\n appending \n")
-                                    downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
-                                        classInfoManager.managerClassImages[classroom.title] = image
+                                allClasses.append(classroom)
+                                
+                                downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
+                                    if let image = image {
+                                        ownerPfps[classroom] = image
                                     }
-                                    
-                                    downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
-                                        if let image = image {
-                                            print("found \(code)")
-                                            classInfoManager.managerClassPfp[classroom.title] = image
-                                        } else {
-                                            print("no pfp for class with code \(code) and name \(classroom.title)")
-                                        }
+                                }
+                                
+                                getColorScheme(classCode: classroom.code) { colors in
+                                    if !colors.isEmpty {
+                                        classColors[classroom] = colors
                                     }
                                 }
                             }
                             
+//                            if let classroom = classroom {
+//                                
+//                                if !settingsMan.managerClassObjects.contains(where: {$0.code == classroom.code}) {
+//                                    
+//                                    settingsMan.managerClassObjects.append(classroom)
+//                                    print("\n appending \n")
+//                                    downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
+//                                        classInfoManager.managerClassImages[classroom.title] = image
+//                                    }
+//                                    
+//                                    downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
+//                                        if let image = image {
+//                                            print("found \(code)")
+//                                            classInfoManager.managerClassPfp[classroom.title] = image
+//                                        } else {
+//                                            print("no pfp for class with code \(code) and name \(classroom.title)")
+//                                        }
+//                                    }
+//                                }
+//                            }
+                            
                         }
                     }
-                   
-                    if(settingsMan.fresh){
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3 ){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        if(settingsMan.fresh) {
                             settingsMan.managerClassObjects.sort { $0.title < $1.title }
-                            
+                            allClasses.sort { $0.title < $1.title }
                             refreshed = true
                             settingsMan.fresh = false
                             settingsMan.updateUserDefaults()
+                        } else {
+                            settingsMan.managerClassObjects.sort { $0.title < $1.title }
+                            allClasses.sort { $0.title < $1.title }
+                            refreshed = true
                         }
-                        
-                    }else{
-                        settingsMan.managerClassObjects.sort { $0.title < $1.title }
-                        
-                        refreshed = true
                     }
-                    
                 }
         } else {
             
                 ScrollView {
-                    ForEach(settingsMan.managerClassObjects, id: \.self) { classroom in
+                    ForEach(allClasses, id: \.self) { classroom in
 //                        ManagerTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.managerClassImages[classroom.title], pfp: classInfoManager.managerClassPfp[classroom.title])
                         
-//                        NewManagerTabView(title: classroom.title, classCode: classroom.code, ownerPfp: classInfoManager.managerClassPfp[classroom.title])
+                        NewManagerTabView(title: classroom.title, classCode: classroom.code, colors: classColors[classroom] ?? [.green4, .green6], ownerPfp: ownerPfps[classroom], allClasses: $allClasses, classroom: classroom)
                     }
                 
                 .alert("Create A Class", isPresented: $classCreationAlert) {
@@ -167,25 +184,26 @@ struct ManagerClassesView: View {
     }
     
     
-     func classesToSM(){
+     func classesToSM() {
         getClasses(uid: userID) { list in
             print("list in \n \(settingsMan.classes)")
-            if var list = list{
-                for index in 0..<list.count {
-                    if list.firstIndex(of: list[index]) != index{
-                        list.remove(at: index)
-                    }
-                    if index == list.count-1 {
-                        settingsMan.classes = list // list of codes
-                        print("list out in \n \(settingsMan.classes)")
-                    }
-                }
-            
+            if let list = list {
+                settingsMan.classes = list // list of codes
+//                for index in 0..<list.count {
+//                    if list.firstIndex(of: list[index]) != index{
+//                        list.remove(at: index)
+//                    }
+//                    if index == list.count-1 {
+//                        settingsMan.classes = list // list of codes
+//                        print("list out in \n \(settingsMan.classes)")
+//                    }
+//                }
             } else {
                 settingsMan.classes = []
             }
         }
     }
+    
     private func fetchClassDetailsForManagerCode(manCode: String) {
            let db = Firestore.firestore()
            db.collection("classes").whereField("managerCode", isEqualTo: manCode).getDocuments { snapshot, error in
@@ -211,7 +229,6 @@ struct ManagerClassesView: View {
                }
            }
        }
-
        
        private func checkIfManagerCodeExists(manCode: String, completion: @escaping (Bool) -> Void) {
            let db = Firestore.firestore()
@@ -230,29 +247,5 @@ struct ManagerClassesView: View {
                }
            }
        }
-
-       
-       private func loadManagerClassInfo(managerCodes: [String], completion: @escaping (Bool) -> Void) {
-           for managerCode in managerCodes {
-               getClassInfo(classCloudCode: managerCode) { classroom in
-                   if let classroom = classroom {
-                       if !settingsMan.managerClassObjects.contains(classroom) {
-                           settingsMan.managerClassObjects.append(classroom)
-                           downloadImageFromClassroomStorage(code: classroom.code, file: "\(classroom.title).jpg") { image in
-                               classInfoManager.managerClassImages[classroom.title] = image
-                           }
-                           downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
-                               if let image = image {
-                                   classInfoManager.managerClassPfp[classroom.title] = image
-                               }
-                           }
-                       }
-                   }
-                   settingsMan.managerClassObjects.sort { $0.title < $1.title }
-               }
-           }
-           completion(true)
-       }
-
 }
 
