@@ -140,7 +140,24 @@ struct ManagerRoomView: View {
                 }
                 
                 
-            }.navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
+            }.navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
+                ToolbarItem(placement: .topBarLeading){
+                    Button{
+//                        settingsManager.manTab = 1
+                        settingsManager.manTab = 0
+                        
+                    }label:{
+                        HStack{
+                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                Image(systemName: "chevron.left")
+                            ).frame(width: 25, height: 25)
+                            
+//                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+//                                Text("Back")
+//                            ).frame(width: 25, height: 25)
+                        }
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack{
                         Button{
@@ -148,7 +165,13 @@ struct ManagerRoomView: View {
                                 showManOptions = true
                             }
                         }label: {
-                            Image(systemName: "gearshape").tint((showPpl || homeImageSelection || showPalette || showTaskPopup) ? .gray : .blue)
+                            if !(showPpl || homeImageSelection || showPalette || showTaskPopup){
+                                LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                    Image(systemName: "gearshape")
+                                ).frame(width: 25, height: 25)
+                            }else{
+                                Image(systemName: "gearshape").tint(.gray)
+                            }
                         }
                         Spacer()
                         

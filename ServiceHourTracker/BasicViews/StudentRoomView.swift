@@ -140,7 +140,9 @@ struct StudentRoomView: View {
                         settingsManager.tab = 2
                         settingsManager.title = "Classes"
                     } label: {
+                        
                         HStack(spacing: 2.5) {
+                            
                             Image(systemName: "chevron.left")
                                
                             

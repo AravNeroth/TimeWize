@@ -22,6 +22,7 @@ struct ManagerClassesView: View {
     @State var classServiceField: String = ""
     @State var classSpecificField: String = ""
     @ObservedObject private var settingsMan = SettingsManager.shared
+    @EnvironmentObject private var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @AppStorage("uid") var userID: String = ""
     @State var refreshed = false
@@ -142,27 +143,36 @@ struct ManagerClassesView: View {
                 }
                 
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack {
-                        Button {
-                            alertMessage = "Manager Code"
-                            managerCodeAlert = true
-                        } label: {
-                            Image(systemName: "plus.magnifyingglass")
-                        }
-                        .padding(2)
-                        Button {
-                            withAnimation{
-                                classCreationAlert = true
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        HStack {
+                            Button(action: {
+                                alertMessage = "Manager Code"
+                                managerCodeAlert.toggle()
+                            }) {
+                                
+                                LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                    Image(systemName: "plus.magnifyingglass")
+                                ).frame(width: 25, height: 25)
                             }
-                        } label: {
-                            Image(systemName: "plus")
+                            .padding(2)
+                           
+                            
+                            Button(action: {
+                                withAnimation {
+                                    classCreationAlert.toggle()
+                                }
+                               
+                            }) {
+                                LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                    Image(systemName: "plus")
+                                ).frame(width: 25, height: 25)
+                            }
+                            .padding()
+
                         }
-                        .padding()
                     }
                 }
-            }
         }
     }
     

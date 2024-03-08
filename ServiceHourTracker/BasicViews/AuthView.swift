@@ -41,7 +41,11 @@ struct AuthView: View {
                             bottomPicks(selection: $tabSelection)
                         }
                         ToolbarItem(placement: .topBarLeading) {
-                            Image(systemName: "plus")
+                            
+                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                Image(systemName: "plus")
+                            ).frame(width: 25, height: 25)
+                            
                         }
                     }
                 case .ManagerView:

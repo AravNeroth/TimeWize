@@ -678,8 +678,8 @@
             filePath = "ServiceHourTracker/BasicViews/AuthView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -1442,8 +1442,8 @@
             filePath = "ServiceHourTracker/BasicViews/AuthView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "clearAppStorageAndObjects()"
             landmarkType = "7">
             <Locations>
@@ -1535,8 +1535,8 @@
             filePath = "ServiceHourTracker/BasicViews/AuthView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "clearAppStorageAndObjects()"
             landmarkType = "7">
             <Locations>
@@ -1676,8 +1676,8 @@
             filePath = "ServiceHourTracker/Manager Views/ManagerView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1692,8 +1692,8 @@
             filePath = "ServiceHourTracker/Manager Views/ManagerView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -1740,8 +1740,8 @@
             filePath = "ServiceHourTracker/Manager Views/ManagerView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -2047,63 +2047,16 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "6AAC3A90-7AE2-4387-94B5-78E331200F2A"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/Manager Views/ManagerClassesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "fetchClassDetailsForManagerCode(manCode:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6AAC3A90-7AE2-4387-94B5-78E331200F2A - 9dc4037ce29103ed"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in ServiceHourTracker.ManagerClassesView.fetchClassDetailsForManagerCode(manCode: Swift.String) -&gt; ()"
-                  moduleName = "ServiceHourTracker"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Manager%20Views/ManagerClassesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "195"
-                  endingLineNumber = "195"
-                  offsetFromSymbolStart = "1116">
-               </Location>
-               <Location
-                  uuid = "6AAC3A90-7AE2-4387-94B5-78E331200F2A - 9dc4037ce29103ed"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in ServiceHourTracker.ManagerClassesView.fetchClassDetailsForManagerCode(manCode: Swift.String) -&gt; ()"
-                  moduleName = "ServiceHourTracker"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Manager%20Views/ManagerClassesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "195"
-                  endingLineNumber = "195"
-                  offsetFromSymbolStart = "1040">
-               </Location>
-               <Location
-                  uuid = "6AAC3A90-7AE2-4387-94B5-78E331200F2A - 9dc4037ce2913c0c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in ServiceHourTracker.ManagerClassesView.fetchClassDetailsForManagerCode(manCode: Swift.String) -&gt; ()"
-                  moduleName = "ServiceHourTracker"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Manager%20Views/ManagerClassesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "196"
-                  endingLineNumber = "196"
-                  offsetFromSymbolStart = "1040">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2116,8 +2069,8 @@
             filePath = "ServiceHourTracker/BasicViews/StudentClassroomView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "getHomeImage()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2196,8 +2149,8 @@
             filePath = "ServiceHourTracker/Manager Views/ManagerClassesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -2212,8 +2165,8 @@
             filePath = "ServiceHourTracker/Manager Views/ManagerClassesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "classesToSM()"
             landmarkType = "7">
             <Locations>
@@ -2466,8 +2419,8 @@
             filePath = "ServiceHourTracker/BasicViews/StudentClassesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "loadClassInfo(images:completion:)"
             landmarkType = "7">
             <Locations>
@@ -2514,8 +2467,8 @@
             filePath = "ServiceHourTracker/BasicViews/StudentClassesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "loadClassInfo(images:completion:)"
             landmarkType = "7">
             <Locations>
@@ -2881,8 +2834,8 @@
             filePath = "ServiceHourTracker/UIElements/NewManagerTabView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "NewManagerTabView"
             landmarkType = "14">
          </BreakpointContent>

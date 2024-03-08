@@ -61,8 +61,10 @@ struct StudentView: View {
                 
             case .ManagerRoomView:
                 VStack {
-                    ManagerRoomView().navigationBarTitleDisplayMode(.inline)
+                    ManagerRoomView()
+                        .navigationBarTitleDisplayMode(.inline)
                         .navigationTitle(settingsManager.title)
+                        .navigationBarBackButtonHidden(true)
                 }
             }
                    

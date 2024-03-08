@@ -10,7 +10,7 @@ import SwiftUI
 
 enum ManagerViews{
     case SettingsView
-//    case ManagerClass
+    case ManagerClass
     case ManagerHome
     //case historyLog
     case RequestsView
@@ -19,6 +19,7 @@ enum ManagerViews{
 var currManagerView: ManagerViews = .ManagerHome
 struct ManagerView: View {
     @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var classData: ClassData
     @State var tabSelection = 0
     @State var title = ""
     @State var classes = ManagerClassesView()
@@ -49,24 +50,31 @@ struct ManagerView: View {
                         
                     
                 }
+            case .ManagerClass:
+                ManagerRoomView()
+                    .navigationBarBackButtonHidden(true)
+                    .navigationTitle(settingsManager.title)
+                    .navigationBarTitleDisplayMode(.inline)
             }
+            
         }.navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
-        
+            .onAppear(){
+                settingsManager.manTab = 0
+            }
         
             .onChange(of: settingsManager.manTab, { old, new in
                 switch settingsManager.manTab{
-                case 0: settingsManager.title = "Classes"; currManagerView = .ManagerHome; 
-                case 1: settingsManager.title = "Settings"; currManagerView = .SettingsView;
+                case 0: settingsManager.title = "Classes"; currManagerView = .ManagerHome
+                case 1: settingsManager.title = "Settings"; currManagerView = .SettingsView
 //                case 2: currManagerView = .ManagerClass
                 case 2: settingsManager.title = "Requests"; currManagerView = .RequestsView
+                case 3: currManagerView = .ManagerClass; print("changing into class")
                 default:
                     settingsManager.title = ""
                 }
             })
         
-            .onAppear(){
-                settingsManager.manTab = 0
-            }
+            
     }
     
     

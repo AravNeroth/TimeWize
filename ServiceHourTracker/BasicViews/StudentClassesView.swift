@@ -126,8 +126,11 @@ struct StudentClassesView: View {
                         showJoinMessage = true
                         alertMessage = "Enter a class code"
                     } label: {
-                        Image(systemName: "plus")
-                            .foregroundStyle(.green6)
+                        LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                            Image(systemName: "plus")
+                        ).frame(width: 25, height: 25)
+//                        Image(systemName: "plus")
+//                            .foregroundStyle(.green6)
                     }
                 }
             }

@@ -95,21 +95,32 @@ struct StudentClassroomView: View {
                             settingsManager.tab = 2
                             settingsManager.title = "Classes"
                         } label: {
-                            Image(systemName: "chevron.left").foregroundStyle(.blue)
+                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                        
+                                Image(systemName: "chevron.left")
+                                
+                            ).frame(width: 65, height: 50)
+                            
                         }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             showPplList = true
                         } label: {
-                            Image(systemName: "person.3")
+                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                Image(systemName: "person.3")
+                            ).frame(width: 65, height: 50)
+                           
                         }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button{
                             showReqHours = true
                         } label: {
-                            Image(systemName: "plus")
+                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                Image(systemName: "plus")
+                            ).frame(width: 65, height: 50)
+                            
                         }
                     }
                 }

@@ -24,10 +24,13 @@ struct NewManagerTabView: View {
     @State var navToClass = false
     var body: some View {
         Button {
+            print("tapped \n \(settingsManager.manTab)")
             classData.code = classCode
             settingsManager.title = title
-            navToClass = true
-            //            currManagerView = .ManagerHome
+//            navToClass = true
+            settingsManager.manTab = 3
+            
+//                        currManagerView = .ManagerHome
             //            settingsManager.tab = 5
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
