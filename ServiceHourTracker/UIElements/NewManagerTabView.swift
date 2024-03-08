@@ -21,13 +21,14 @@ struct NewManagerTabView: View {
     @Binding var allClasses: [Classroom]
     @State var classroom: Classroom
     @State var showMenu: Bool = false
-    
+    @State var navToClass = false
     var body: some View {
         Button {
             classData.code = classCode
             settingsManager.title = title
-            currentView = .ManagerRoomView
-            settingsManager.tab = 5
+            navToClass = true
+            //            currManagerView = .ManagerHome
+            //            settingsManager.tab = 5
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
                 .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -92,7 +93,15 @@ struct NewManagerTabView: View {
                 .presentationDetents([.height(60.0)])
         }
         .animation(.easeIn, value: showMenu)
+        
+        NavigationLink(
+            destination: ManagerRoomView(),
+            isActive: $navToClass,
+            label: {
+                EmptyView()
+            })
     }
+        
 }
 
 private struct menuPopUp: View {

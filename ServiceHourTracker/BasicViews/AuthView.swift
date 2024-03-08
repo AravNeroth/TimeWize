@@ -46,9 +46,9 @@ struct AuthView: View {
                     }
                 case .ManagerView:
                     ManagerView()
-                        
-//                case .ManagerClass:
-//                    ManagerClass(loaded: .constant(true))
+                    
+                    //                case .ManagerClass:
+                    //                    ManagerClass(loaded: .constant(true))
                 }
             }
             .onAppear {
@@ -91,21 +91,27 @@ struct AuthView: View {
                 }
             }
         }else{
-            LoadingScreen()
-                .onAppear(){
-                    loadData { result in
-                        switch result{
-                        case .success(): 
-                            isLoaded = true
-                        case.failure(let error):
-                            print("failed to load \(error.localizedDescription)")
+            if isLoggedIn(){
+                LoadingScreen()
+                    .onAppear(){
+                        loadData { result in
+                            switch result{
+                            case .success():
+                                isLoaded = true
+                            case.failure(let error):
+                                print("failed to load \(error.localizedDescription)")
+                            }
                         }
                     }
+            }else{
+                LoadingScreen().onAppear(){
+                    isLoaded = true
+                    currentView = .LoginView
                 }
+            }
+            
         }
-        
     }
-    
     private func clearAppStorageAndObjects(){
         //not including the darkmode
         SettingsManager.shared = SettingsManager()

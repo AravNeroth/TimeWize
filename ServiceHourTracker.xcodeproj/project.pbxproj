@@ -12,6 +12,7 @@
 		06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3952B942E810023646B /* ManagerRoomView.swift */; };
 		06AEC3982B94464C0023646B /* ManagerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3972B94464C0023646B /* ManagerPopup.swift */; };
 		06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C520212B806323008E6286 /* ManagerBottomBar.swift */; };
+		06CEF8F72B9A993A00DFC973 /* ThreeColumnSampleCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF8F62B9A993A00DFC973 /* ThreeColumnSampleCode.swift */; };
 		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
 		06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A52B59C92300A7A36D /* TermsAndServices.swift */; };
 		06E576A92B5A29E100A7A36D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A82B5A29E100A7A36D /* String.swift */; };
@@ -84,6 +85,7 @@
 		06AEC3952B942E810023646B /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
 		06AEC3972B94464C0023646B /* ManagerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerPopup.swift; sourceTree = "<group>"; };
 		06C520212B806323008E6286 /* ManagerBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerBottomBar.swift; sourceTree = "<group>"; };
+		06CEF8F62B9A993A00DFC973 /* ThreeColumnSampleCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeColumnSampleCode.swift; sourceTree = "<group>"; };
 		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		06E576A52B59C92300A7A36D /* TermsAndServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServices.swift; sourceTree = "<group>"; };
 		06E576A82B5A29E100A7A36D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				06E576B32B5A3AAF00A7A36D /* GoogleService-Info.plist */,
 				EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */,
 				EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */,
+				06CEF8F62B9A993A00DFC973 /* ThreeColumnSampleCode.swift */,
 				EE0B76052B7182C900933552 /* Backend Management */,
 				EBFB3FA92B274A3E0087ABA3 /* BasicViews */,
 				06E576A72B5A29CC00A7A36D /* Extensions */,
@@ -442,6 +445,7 @@
 				EEF83F2F2B1FCDD90098D3A2 /* StudentClassesView.swift in Sources */,
 				06F110FC2B9194F600EB4F01 /* NewClassTabView.swift in Sources */,
 				06E576B62B5B47EA00A7A36D /* UserManager.swift in Sources */,
+				06CEF8F72B9A993A00DFC973 /* ThreeColumnSampleCode.swift in Sources */,
 				06E576B82B5F082D00A7A36D /* ClassManager.swift in Sources */,
 				06F111062B92927700EB4F01 /* OldClassTabView.swift in Sources */,
 				06F111022B928CA200EB4F01 /* ManagerPeopleView.swift in Sources */,
@@ -643,7 +647,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = PG2B993Z5Q;
+				DEVELOPMENT_TEAM = G85D3VS6S4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -657,7 +661,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTractor;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTractoring;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -673,7 +677,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = PG2B993Z5Q;
+				DEVELOPMENT_TEAM = G85D3VS6S4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -687,7 +691,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTractor;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTractoring;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
