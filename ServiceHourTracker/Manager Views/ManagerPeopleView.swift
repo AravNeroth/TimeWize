@@ -130,13 +130,11 @@ struct ManagerPeopleView: View {
                             Spacer()
                             
                             
-                            
-                            // if you are not the owner, or if u are the owner but u have a diff username to owner,
+
                             // you can demote students
                             // if you ARE the owner, you can demote and remove, but not remove or demote urself
-                            if (!isOwner || (isOwner && person != userID)) {
+                            if (isOwner) {
                                 Button(action: {
-                                    unenrollClass(uid: person, code: code)
                                     demoteManager(person: person, classCode: code)
                                     withAnimation {
                                         managerList.removeAll(where: { $0 == person })

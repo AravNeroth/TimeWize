@@ -534,9 +534,12 @@ func demoteManager(person: String, classCode: String) {
                 
                 if peopleList.contains(person) {
                     removeManagerFromClass(person: person, classCode: classCode)
+                    leaveAsManager(uid: person, code: classCode)
                 } else {
                     removeManagerFromClass(person: person, classCode: classCode)
+                    leaveAsManager(uid: person, code: classCode)
                     addPersonToClass(person: person, classCode: classCode)
+                    updateCodes(uid: person, newCode: classCode)
                 }
             }
         }
