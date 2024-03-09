@@ -52,7 +52,7 @@ struct ManagerView: View {
                 }
             case .ManagerRoomView:
                 VStack {
-                    NewManagerRoomView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
+                    ManagerRoomView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
                 }
             }
         }.navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)

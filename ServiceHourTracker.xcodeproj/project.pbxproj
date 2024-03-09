@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		06A935062B81694600BD163F /* ManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A935052B81694500BD163F /* ManagerTabView.swift */; };
 		06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3932B92D0B40023646B /* MiniProfileView.swift */; };
-		06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3952B942E810023646B /* ManagerRoomView.swift */; };
 		06AEC3982B94464C0023646B /* ManagerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3972B94464C0023646B /* ManagerPopup.swift */; };
 		06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C520212B806323008E6286 /* ManagerBottomBar.swift */; };
 		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
@@ -40,13 +39,12 @@
 		06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */; };
 		06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3C2B77E77D00FD6069 /* AppObjects.swift */; };
 		06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* StudentClassroomView.swift */; };
-		CFE866F02B7E9C4300CFA6FB /* ManagerClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB354F192B94E6C40061F90F /* ClassComponentView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
 		EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB75C7992B7C0F9B00DC615D /* TaskView.swift */; };
 		EB84AA2E2B99170800D6FCDE /* NewManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84AA2D2B99170800D6FCDE /* NewManagerTabView.swift */; };
-		EB84AA302B9ACC9F00D6FCDE /* NewManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84AA2F2B9ACC9F00D6FCDE /* NewManagerRoomView.swift */; };
+		EB84AA302B9ACC9F00D6FCDE /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB84AA2F2B9ACC9F00D6FCDE /* ManagerRoomView.swift */; };
 		EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */; };
 		EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD72B818AAE00614CCE /* RequestView.swift */; };
 		EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */; };
@@ -82,7 +80,6 @@
 /* Begin PBXFileReference section */
 		06A935052B81694500BD163F /* ManagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerTabView.swift; sourceTree = "<group>"; };
 		06AEC3932B92D0B40023646B /* MiniProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
-		06AEC3952B942E810023646B /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
 		06AEC3972B94464C0023646B /* ManagerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerPopup.swift; sourceTree = "<group>"; };
 		06C520212B806323008E6286 /* ManagerBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerBottomBar.swift; sourceTree = "<group>"; };
 		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
@@ -109,13 +106,12 @@
 		06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		06F54A3C2B77E77D00FD6069 /* AppObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppObjects.swift; sourceTree = "<group>"; };
 		06FD082E2B6996D400484FEE /* StudentClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassroomView.swift; sourceTree = "<group>"; };
-		CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerClassroomView.swift; sourceTree = "<group>"; };
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB354F192B94E6C40061F90F /* ClassComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassComponentView.swift; sourceTree = "<group>"; };
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EB75C7992B7C0F9B00DC615D /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		EB84AA2D2B99170800D6FCDE /* NewManagerTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewManagerTabView.swift; sourceTree = "<group>"; };
-		EB84AA2F2B9ACC9F00D6FCDE /* NewManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewManagerRoomView.swift; sourceTree = "<group>"; };
+		EB84AA2F2B9ACC9F00D6FCDE /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
 		EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourBoardView.swift; sourceTree = "<group>"; };
 		EBAECDD72B818AAE00614CCE /* RequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
 		EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerReqListView.swift; sourceTree = "<group>"; };
@@ -216,12 +212,10 @@
 			isa = PBXGroup;
 			children = (
 				06E576B92B5F0B1C00A7A36D /* ManagerClassesView.swift */,
-				06AEC3952B942E810023646B /* ManagerRoomView.swift */,
-				CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */,
 				06F111012B928CA200EB4F01 /* ManagerPeopleView.swift */,
 				EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */,
 				EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */,
-				EB84AA2F2B9ACC9F00D6FCDE /* NewManagerRoomView.swift */,
+				EB84AA2F2B9ACC9F00D6FCDE /* ManagerRoomView.swift */,
 			);
 			path = "Manager Views";
 			sourceTree = "<group>";
@@ -459,19 +453,17 @@
 				EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */,
 				EBD0F2F02B8822F20047C5FF /* StudentPeopleView.swift in Sources */,
 				06F54A392B773CCB00FD6069 /* MiscFuncs.swift in Sources */,
-				06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
 				06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */,
 				06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */,
 				06E576A92B5A29E100A7A36D /* String.swift in Sources */,
 				06F111002B9196EC00EB4F01 /* ColorPalette.swift in Sources */,
 				06F54A352B773A7300FD6069 /* allExtensions.swift in Sources */,
-				CFE866F02B7E9C4300CFA6FB /* ManagerClassroomView.swift in Sources */,
 				EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */,
 				06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */,
 				EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */,
 				06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */,
-				EB84AA302B9ACC9F00D6FCDE /* NewManagerRoomView.swift in Sources */,
+				EB84AA302B9ACC9F00D6FCDE /* ManagerRoomView.swift in Sources */,
 				06E576BA2B5F0B1C00A7A36D /* ManagerClassesView.swift in Sources */,
 				EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */,
 				06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */,

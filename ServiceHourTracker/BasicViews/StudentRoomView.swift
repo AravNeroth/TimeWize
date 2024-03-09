@@ -143,7 +143,6 @@ struct StudentRoomView: View {
                         HStack(spacing: 2.5) {
                             Image(systemName: "chevron.left")
                                
-                            
                             Text("Back")
                      
                         }
@@ -152,7 +151,7 @@ struct StudentRoomView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        showMenu.toggle()
+                        showMenu = true
 
                     } label: {
                         Image(systemName: "line.3.horizontal")
@@ -166,10 +165,16 @@ struct StudentRoomView: View {
             }
             .sheet(isPresented: $showPplList) {
                 StudentPeopleView(code: classData.code, classTitle: title, isShowing: $showPplList)
+                    .onDisappear() {
+                        showPplList = false
+                    }
             }
             .sheet(isPresented: $showRequest) {
                 requestPopUp(colors: colors, isShowing: $showRequest)
                     .ignoresSafeArea(.keyboard)
+                    .onDisappear() {
+                        showRequest = false
+                    }
             }
             .animation(.easeIn, value: loading)
         }

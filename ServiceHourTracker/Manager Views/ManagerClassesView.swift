@@ -79,7 +79,7 @@ struct ManagerClassesView: View {
                             
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         if(settingsMan.fresh) {
                             settingsMan.managerClassObjects.sort { $0.title < $1.title }
                             allClasses.sort { $0.title < $1.title }
