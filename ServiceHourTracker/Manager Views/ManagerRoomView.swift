@@ -136,7 +136,7 @@ struct ManagerRoomView: View {
                             ForEach(allComponents, id: \.self) { component in
                                 Text("")
                                 
-                                ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator]!, title: component.title, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask)
+                                ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator]!, title: component.title, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask, fromManagerSide: true)
                             }
                         } else {
                             Text("Nothing to Display")
@@ -189,7 +189,7 @@ struct ManagerRoomView: View {
                         .ignoresSafeArea(edges: .bottom)
                 }
                 .sheet(isPresented: $showTask) {
-                    taskPopUp(showTask: $showTask)
+                    taskPopUp(classCode: classData.code, colors: colors, reloadPage: $loading, showTask: $showTask)
                 }
                 .sheet(isPresented: $showColorPalette) {
                     ColorPalette(showPop: $showColorPalette)
@@ -299,12 +299,103 @@ private struct menuPopUp: View {
 
 private struct taskPopUp: View {
     
-    
+    @State var classCode = ""
+    @State var description = ""
+    @State var dueDate: Date = Date()
+    @State var size: Double = 0
+    @State var hourCount: Double = 0
+    @State var colors: [Color]
+    @Binding var reloadPage: Bool
     @Binding var showTask: Bool
+    @AppStorage("uid") var userID = ""
     
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text("New Request")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(30.0)
+                
+                Divider()
+                    .padding(.horizontal, 30.0)
+                    .padding(.bottom, 30.0)
+                
+                Text("Title")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                TextField("Enter Title", text: $description)
+                    .padding()
+                    .background(.black.opacity(0.1))
+                    .cornerRadius(15.0)
+                    .shadow(radius: 2.0, y: 2.0)
+                    .padding(.horizontal, 30.0)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                Text("Due Date")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                DatePicker("Due Date:", selection: $dueDate, in: Date()...Calendar.current.date(byAdding: .year, value: 1000, to: Date())!, displayedComponents: [.date, .hourAndMinute])
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .labelsHidden()
+                    .scaleEffect(0.9)
+                    .padding(.horizontal, 30.0)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                Text("Number of Hours: \(Int(hourCount))")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                Slider(value: $hourCount, in: 0...10, step: 1)
+                    .padding(.horizontal, 30.0)
+                    .tint(colors.last!)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                Text("Max Size: \(Int(size))")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                Slider(value: $size, in: 0...20, step: 1)
+                    .padding(.horizontal, 30.0)
+                    .tint(colors.last!)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+            }
             
+            Spacer()
+            
+            Button {
+                if description != "" && size != 0 && hourCount != 0 {
+                    addTask(classCode: classCode, creator: userID, title: description, date: dueDate, timeCreated: Date(), maxSize: Int(size), numHours: Int(hourCount))
+                    reloadPage = true
+                    showTask = false
+                }
+            } label: {
+                RoundedRectangle(cornerRadius: 15.0)
+                    .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .frame(height: 60)
+                    .padding(.horizontal, 30.0)
+                    .overlay(
+                        Text("Create Task")
+                            .foregroundStyle((colors.first!.luminance > 0.8) ? .black : .white)
+                    )
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Spacer()
         }
     }
 }
