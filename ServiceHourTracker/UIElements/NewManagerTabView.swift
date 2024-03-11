@@ -79,10 +79,10 @@ struct NewManagerTabView: View {
                             }
                             .buttonStyle(PlainButtonStyle())
                             .padding(.horizontal, 20.0)
+                            .padding(.vertical, 15.0)
                             
                             Spacer()
                         }
-                        .frame(height: 70)
                     }
                 )
         }

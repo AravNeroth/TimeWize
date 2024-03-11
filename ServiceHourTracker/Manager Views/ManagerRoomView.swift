@@ -153,9 +153,7 @@ struct ManagerRoomView: View {
                             HStack(spacing: 2.5) {
                                 Image(systemName: "chevron.left")
                                 
-                                
                                 Text("Back")
-                                
                             }
                             .foregroundStyle(useDefaults ? .green6 : colors.last!)
                         }
@@ -192,7 +190,7 @@ struct ManagerRoomView: View {
                     taskPopUp(classCode: classData.code, colors: colors, reloadPage: $loading, showTask: $showTask)
                 }
                 .sheet(isPresented: $showColorPalette) {
-                    ColorPalette(showPop: $showColorPalette)
+                    ColorPalette(showPop: $showColorPalette, refresh: $loading, colorsSelected: colors)
                         .animation(.easeInOut, value: showColorPalette)
                         .onDisappear() {
                             showColorPalette = false
