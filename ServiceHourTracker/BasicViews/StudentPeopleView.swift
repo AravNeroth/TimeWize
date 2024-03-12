@@ -24,7 +24,7 @@ struct StudentPeopleView: View {
     var body: some View {
         if loaded {
             VStack {
-                Text("People in \(classTitle)")
+                Text("\(classTitle)")
                     .multilineTextAlignment(.center)
                     .font(.largeTitle)
                     .bold()
@@ -32,71 +32,50 @@ struct StudentPeopleView: View {
                     .padding(.top, 40)
                 
                 Divider()
-                    .padding(20)
+                    .padding(.vertical, 5.0)
                 
                 Text("Managers")
                     .multilineTextAlignment(.center)
                     .font(.headline)
                     .bold()
                 
-                ScrollView {
-                    
-                    Divider()
-                        .padding(5)
-                    
-                    
-                        ForEach(managerList, id: \.self) { person in
-                            
-
-                            HStack{
-//                                if(person == classOwner){
-//                                    Image(systemName: "crown.fill")
-//                                        .foregroundColor(.yellow)
-//                                }
-                               
-                                MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
-                            
-                                    
-                                   
-                                
-
-
-                            }
-
-                        }
-                    
-                    
-                }
-                
-                
                 ZStack(alignment: .top) {
+                    Divider()
+                        .frame(height: 1)
                     
-                   
+                    ScrollView {
+                        Text("")
                         
+                        ForEach(managerList, id: \.self) { person in
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, wantedPerson: managerList[0])
+                        }
+                    }
+                }
+                .frame(height: 150)
+                
+                Divider()
+                    .padding(.vertical, 5.0)
+                
                 Text("Students")
                     .multilineTextAlignment(.center)
                     .font(.headline)
                     .bold()
-
-                        
+                
+                
                 ZStack(alignment: .top) {
                     Divider()
                         .frame(height: 1)
+                    
+                    ScrollView {
+                        Text("")
                         
-                        ScrollView {
-                            Text("")
-                                
-                                ForEach(peopleList, id: \.self) { person in
-                                    MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
-                                }
-                            }
+                        ForEach(peopleList, id: \.self) { person in
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person)
                         }
-                        .padding(.top, 30)
                     }
                 }
             }
-        
-    else {
+    } else {
             LoadingScreen()
                 .ignoresSafeArea(.all)
                 .onAppear() {
@@ -137,6 +116,7 @@ struct StudentPeopleView: View {
         }
     }
 }
+
 //MARK: OLD Version Without Mini Profile
 /*
 

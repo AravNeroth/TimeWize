@@ -14,7 +14,7 @@ struct MiniProfileView: View {
     @State var username = ""
     @State var personCols: [Color] = [.green4, .green6]
     @State var currentUser: String = ""
-    @State var classOwner: String = ""
+    @State var wantedPerson: String = ""
 
     var body: some View {
         RoundedRectangle(cornerRadius: 50.0)
@@ -47,9 +47,10 @@ struct MiniProfileView: View {
                         .bold()
                         .foregroundStyle(personCols.first!.isBright() ? .black : .white)
                     
-                    if(currentUser == classOwner) {
+                    if(currentUser == wantedPerson) {
                         Image(systemName: "crown.fill")
                             .foregroundColor(.yellow)
+                            .padding(.horizontal, 2.5)
                     }
                     
                     Spacer()
