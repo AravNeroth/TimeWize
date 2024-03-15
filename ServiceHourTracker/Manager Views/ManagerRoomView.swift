@@ -173,7 +173,7 @@ struct ManagerRoomView: View {
                         .presentationDetents([.height(240.0)])
                 }
                 .sheet(isPresented: $showPplList) {
-                    StudentPeopleView(code: classData.code, classTitle: title, isShowing: $showPplList)
+                    NewManagerPeopleView(code: classData.code, classTitle: title, isShowing: $showPplList)
                         .onDisappear() {
                             showPplList = false
                         }

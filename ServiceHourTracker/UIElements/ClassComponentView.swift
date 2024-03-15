@@ -273,7 +273,7 @@ private struct taskPopUp: View {
                             Text("")
                             
                             ForEach(signedUp, id: \.self) { person in
-                                MiniProfileView(userEmail: person, userPfp: signedUpPfps[person], username: signedUpNames[person] ?? "", personCols: signedUpColors[person] ?? [.green4, .green6])
+                                MiniProfileView(userEmail: person, userPfp: signedUpPfps[person], username: signedUpNames[person] ?? "", personCols: signedUpColors[person] ?? [.green4, .green6], loaded: $loading)
                             }
                         }
                         .frame(height: 200)
