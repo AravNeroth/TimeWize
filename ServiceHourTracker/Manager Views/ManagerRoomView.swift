@@ -310,7 +310,7 @@ private struct taskPopUp: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text("New Request")
+                Text("New Task")
                     .font(.largeTitle)
                     .bold()
                     .padding(30.0)

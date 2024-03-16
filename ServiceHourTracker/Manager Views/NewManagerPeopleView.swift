@@ -95,15 +95,34 @@ struct NewManagerPeopleView: View {
                                             if let pfp = pfp {
                                                 pfpList[personEmail] = pfp
                                             }
-                                            
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                                loaded = true
-                                            }
                                         }
-                                        
                                     }
                                 }
                             }
+                        }
+                        
+                        for manEmail in managerList {
+                            getData(uid: manEmail) { user in
+                                if let user = user {
+                                    getUserColors(email: manEmail) { colors in
+                                        if !colors.isEmpty {
+                                            colList[manEmail] = colors
+                                        }
+                                        
+                                        usernameList[manEmail] = user.displayName ?? "No Name"
+                                        
+                                        downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                            if let pfp = pfp {
+                                                pfpList[manEmail] = pfp
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                            loaded = true
                         }
                     }
                 }
