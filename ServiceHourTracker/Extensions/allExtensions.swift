@@ -19,6 +19,14 @@ extension String {
         let regex = try! NSRegularExpression(pattern: emailRegEx, options: .caseInsensitive)
         return regex.firstMatch(in: self, range: NSRange(location: 0, length: count)) != nil
     }
+
+    func isOnlyWhitespace() -> Bool {
+        
+        let trimmed = self.trimmingCharacters(in: .whitespacesAndNewlines)
+        // If the trimmed string is empty, it means the original string contained only whitespace characters
+        return trimmed.isEmpty
+    }
+    
 }
 
 extension View {

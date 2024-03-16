@@ -287,8 +287,11 @@ func sendPasswordResetEmail(email: String) -> String {
 }
 
 //only works if youre signed in
-func getAuthIDForEmail(email: String) -> String {
-    var output = ""
+func getAuthIDForEmail(email: String, completion: @escaping (String) -> Void) {
+    
+    
+    /*
+     var output = ""
     Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
         if let error = error {
             print("Error fetching sign-in methods: \(error.localizedDescription)")
@@ -305,7 +308,18 @@ func getAuthIDForEmail(email: String) -> String {
             }
         }
     }
-    return output
+     */
+    var output = ""
+    db.collection("userInfo").document(email).getDocument { docSnap, error in
+        if let error = error{
+            print(error.localizedDescription)
+            completion("")
+        }else if let doc = docSnap, let dat = doc.data() {
+            let output = dat["uid"] as? String ?? ""
+            completion(output)
+        }
+    }
+    
 }
 
 //returns the dictionary of classType:Hour pair
@@ -390,4 +404,17 @@ func getUserColors(email: String, completion: @escaping ([Color]) -> Void) {
             }
         }
     }
+}
+func getName(email: String, completion: @escaping (String)-> Void ){
+var output = ""
+db.collection("userInfo").document(email).getDocument { docSnap, error in
+    if let error = error{
+        print(error.localizedDescription)
+        completion("")
+    }else if let doc = docSnap, let dat = doc.data() {
+        let output = dat["displayName"] as? String ?? ""
+        completion(output)
+    }
+}
+
 }

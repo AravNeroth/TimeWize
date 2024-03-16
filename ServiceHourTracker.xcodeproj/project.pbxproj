@@ -13,6 +13,14 @@
 		06AEC3982B94464C0023646B /* ManagerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3972B94464C0023646B /* ManagerPopup.swift */; };
 		06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C520212B806323008E6286 /* ManagerBottomBar.swift */; };
 		06CEF8F72B9A993A00DFC973 /* ThreeColumnSampleCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF8F62B9A993A00DFC973 /* ThreeColumnSampleCode.swift */; };
+		06CEF8F92B9AF36700DFC973 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 06CEF8F82B9AF36700DFC973 /* FirebaseAnalytics */; };
+		06CEF8FB2B9AF36700DFC973 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 06CEF8FA2B9AF36700DFC973 /* FirebaseMessaging */; };
+		06CEF8FD2B9FFE0B00DFC973 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF8FC2B9FFE0B00DFC973 /* PushNotificationsManager.swift */; };
+		06CEF8FF2BA0059A00DFC973 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF8FE2BA0059A00DFC973 /* MessageManager.swift */; };
+		06CEF9012BA157EA00DFC973 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9002BA157EA00DFC973 /* MessagingView.swift */; };
+		06CEF9032BA4C5E400DFC973 /* MessageLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9022BA4C5E400DFC973 /* MessageLogView.swift */; };
+		06CEF9052BA4C97C00DFC973 /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9042BA4C97C00DFC973 /* MessageBubble.swift */; };
+		06CEF9072BA4CDE800DFC973 /* MessageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9062BA4CDE800DFC973 /* MessageField.swift */; };
 		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
 		06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A52B59C92300A7A36D /* TermsAndServices.swift */; };
 		06E576A92B5A29E100A7A36D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A82B5A29E100A7A36D /* String.swift */; };
@@ -86,6 +94,12 @@
 		06AEC3972B94464C0023646B /* ManagerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerPopup.swift; sourceTree = "<group>"; };
 		06C520212B806323008E6286 /* ManagerBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerBottomBar.swift; sourceTree = "<group>"; };
 		06CEF8F62B9A993A00DFC973 /* ThreeColumnSampleCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeColumnSampleCode.swift; sourceTree = "<group>"; };
+		06CEF8FC2B9FFE0B00DFC973 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
+		06CEF8FE2BA0059A00DFC973 /* MessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
+		06CEF9002BA157EA00DFC973 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
+		06CEF9022BA4C5E400DFC973 /* MessageLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLogView.swift; sourceTree = "<group>"; };
+		06CEF9042BA4C97C00DFC973 /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
+		06CEF9062BA4CDE800DFC973 /* MessageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageField.swift; sourceTree = "<group>"; };
 		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		06E576A52B59C92300A7A36D /* TermsAndServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServices.swift; sourceTree = "<group>"; };
 		06E576A82B5A29E100A7A36D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -139,9 +153,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06CEF8FB2B9AF36700DFC973 /* FirebaseMessaging in Frameworks */,
 				06E576B02B5A361C00A7A36D /* FirebaseAuth in Frameworks */,
 				06E576B22B5A361C00A7A36D /* FirebaseFirestore in Frameworks */,
 				06F54A152B7031E700FD6069 /* FirebaseStorageCombine-Community in Frameworks */,
+				06CEF8F92B9AF36700DFC973 /* FirebaseAnalytics in Frameworks */,
 				06F54A132B7031BB00FD6069 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,8 +195,10 @@
 				06AEC3972B94464C0023646B /* ManagerPopup.swift */,
 				06F54A302B727F0500FD6069 /* bottomPicks.swift */,
 				06F111072B92A81D00EB4F01 /* AnnouncementField.swift */,
+				06CEF9062BA4CDE800DFC973 /* MessageField.swift */,
 				06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */,
 				06F54A322B72808900FD6069 /* LoadingScreen.swift */,
+				06CEF9042BA4C97C00DFC973 /* MessageBubble.swift */,
 				06C520212B806323008E6286 /* ManagerBottomBar.swift */,
 				06A935052B81694500BD163F /* ManagerTabView.swift */,
 				06F110FB2B9194F600EB4F01 /* NewClassTabView.swift */,
@@ -200,7 +218,9 @@
 				06E576AA2B5A2DF200A7A36D /* AuthView.swift */,
 				EBA75DA02B23ECAD0062BF81 /* HourBoardView.swift */,
 				EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */,
+				06CEF9002BA157EA00DFC973 /* MessagingView.swift */,
 				EBD0F2EF2B8822F20047C5FF /* StudentPeopleView.swift */,
+				06CEF9022BA4C5E400DFC973 /* MessageLogView.swift */,
 				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
 				06E576A32B59C86000A7A36D /* SignUp.swift */,
 				EEF83F2E2B1FCDD90098D3A2 /* StudentClassesView.swift */,
@@ -231,7 +251,9 @@
 				06F54A3C2B77E77D00FD6069 /* AppObjects.swift */,
 				06E576B72B5F082D00A7A36D /* ClassManager.swift */,
 				06F54A102B702A7B00FD6069 /* ImagePicker.swift */,
+				06CEF8FC2B9FFE0B00DFC973 /* PushNotificationsManager.swift */,
 				06F54A382B773CCB00FD6069 /* MiscFuncs.swift */,
+				06CEF8FE2BA0059A00DFC973 /* MessageManager.swift */,
 				06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */,
 				06F54A362B773BFE00FD6069 /* StorageManager.swift */,
 				06E576B52B5B47EA00A7A36D /* UserManager.swift */,
@@ -322,6 +344,8 @@
 				06E576B12B5A361C00A7A36D /* FirebaseFirestore */,
 				06F54A122B7031BB00FD6069 /* FirebaseStorage */,
 				06F54A142B7031E700FD6069 /* FirebaseStorageCombine-Community */,
+				06CEF8F82B9AF36700DFC973 /* FirebaseAnalytics */,
+				06CEF8FA2B9AF36700DFC973 /* FirebaseMessaging */,
 			);
 			productName = ServiceHourTracker;
 			productReference = EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */;
@@ -448,6 +472,7 @@
 				06CEF8F72B9A993A00DFC973 /* ThreeColumnSampleCode.swift in Sources */,
 				06E576B82B5F082D00A7A36D /* ClassManager.swift in Sources */,
 				06F111062B92927700EB4F01 /* OldClassTabView.swift in Sources */,
+				06CEF9012BA157EA00DFC973 /* MessagingView.swift in Sources */,
 				06F111022B928CA200EB4F01 /* ManagerPeopleView.swift in Sources */,
 				EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
@@ -459,15 +484,20 @@
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
 				EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */,
 				EBD0F2F02B8822F20047C5FF /* StudentPeopleView.swift in Sources */,
+				06CEF8FD2B9FFE0B00DFC973 /* PushNotificationsManager.swift in Sources */,
 				06F54A392B773CCB00FD6069 /* MiscFuncs.swift in Sources */,
 				06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
 				06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */,
+				06CEF9032BA4C5E400DFC973 /* MessageLogView.swift in Sources */,
 				06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */,
 				06E576A92B5A29E100A7A36D /* String.swift in Sources */,
 				06F111002B9196EC00EB4F01 /* ColorPalette.swift in Sources */,
 				06F54A352B773A7300FD6069 /* allExtensions.swift in Sources */,
+				06CEF8FF2BA0059A00DFC973 /* MessageManager.swift in Sources */,
 				CFE866F02B7E9C4300CFA6FB /* ManagerClassroomView.swift in Sources */,
+				06CEF9072BA4CDE800DFC973 /* MessageField.swift in Sources */,
+				06CEF9052BA4C97C00DFC973 /* MessageBubble.swift in Sources */,
 				EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */,
 				06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */,
 				EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */,
@@ -661,7 +691,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTractoring;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -691,7 +721,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTractoring;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -828,6 +858,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		06CEF8F82B9AF36700DFC973 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		06CEF8FA2B9AF36700DFC973 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		06E576AF2B5A361C00A7A36D /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
