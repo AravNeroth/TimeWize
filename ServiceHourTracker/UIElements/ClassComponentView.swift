@@ -21,6 +21,7 @@ struct ClassComponentView: View {
     @State var signedUp: [String] = []
     @State var numHours = 0
     @State var isTask = true
+    @State var fromManagerSide = false
     @State var showTaskPopUp = false
     @AppStorage("uid") var userID: String = ""
     
@@ -89,7 +90,7 @@ struct ClassComponentView: View {
             }
             .buttonStyle(PlainButtonStyle())
             .sheet(isPresented: $showTaskPopUp) {
-                taskPopUp(title: title, creator: creator, signedUp: $signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp)
+                taskPopUp(title: title, creator: creator, signedUp: $signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp, fromManagerSide: $fromManagerSide)
             }
         } else {
             VStack {
@@ -146,13 +147,14 @@ private struct taskPopUp: View {
     @State var size = 0
     @State var numHours = 0
     @State var date: Date
-    @State var loading = true
+    @State var loaded = true
     @State var showFullAlert = false
     @EnvironmentObject var classData: ClassData
     @Binding var isShowing: Bool
+    @Binding var fromManagerSide: Bool
     
     var body: some View {
-        if loading {
+        if !loaded {
             LoadingScreen()
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -180,7 +182,7 @@ private struct taskPopUp: View {
                         }
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        loading = false
+                        loaded = true
                     }
                 }
         } else {
@@ -271,7 +273,7 @@ private struct taskPopUp: View {
                             Text("")
                             
                             ForEach(signedUp, id: \.self) { person in
-                                MiniProfileView(userEmail: person, userPfp: signedUpPfps[person], username: signedUpNames[person] ?? "", personCols: signedUpColors[person] ?? [.green4, .green6])
+                                MiniProfileView(userEmail: person, userPfp: signedUpPfps[person], username: signedUpNames[person] ?? "", personCols: signedUpColors[person] ?? [.green4, .green6], loaded: $loaded)
                             }
                         }
                         .frame(height: 200)
@@ -279,67 +281,68 @@ private struct taskPopUp: View {
                 }
                 
                 Spacer()
-                
-                if signedUp.contains(userID) {
-                    Button {
-                        getTaskParticipants(classCode: classData.code, title: title) { list in
-                            signedUp = list
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            signedUp.remove(at: signedUp.firstIndex(of: userID)!)
-                            updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
-                            loading = true
-                        }
-                    } label: {
-                        RoundedRectangle(cornerRadius: 15.0)
-                            .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "FF4D4D"), hexToColor(hex: "FF0000")]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                            .frame(height: 60)
-                            .padding(.horizontal, 30.0)
-                            .overlay(
-                                Text("Cancel")
-                            )
-                            .shadow(radius: 2.0, y: 2.0)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                } else if signedUp.count == size {
-                    Button {
-                        showFullAlert = true
-                    } label: {
-                        RoundedRectangle(cornerRadius: 15.0)
-                            .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "AFAFAF"), hexToColor(hex: "757575")]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                            .frame(height: 60)
-                            .padding(.horizontal, 30.0)
-                            .overlay(
-                                Text("Sign Up")
-                            )
-                            .shadow(radius: 2.0, y: 2.0)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                } else {
-                    Button {
-                        getTaskParticipants(classCode: classData.code, title: title) { list in
-                            signedUp = list
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            if signedUp.count != size {
-                                signedUp.append(userID)
-                                updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
-                                loading = true
-                            } else {
-                                showFullAlert = true
+                if !fromManagerSide {
+                    if signedUp.contains(userID) {
+                        Button {
+                            getTaskParticipants(classCode: classData.code, title: title) { list in
+                                signedUp = list
                             }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                signedUp.remove(at: signedUp.firstIndex(of: userID)!)
+                                updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
+                                loaded = false
+                            }
+                        } label: {
+                            RoundedRectangle(cornerRadius: 15.0)
+                                .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "FF4D4D"), hexToColor(hex: "FF0000")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .frame(height: 60)
+                                .padding(.horizontal, 30.0)
+                                .overlay(
+                                    Text("Cancel")
+                                )
+                                .shadow(radius: 2.0, y: 2.0)
                         }
-                    } label: {
-                        RoundedRectangle(cornerRadius: 15.0)
-                            .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "4CAF50"), hexToColor(hex: "087F23")]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                            .frame(height: 60)
-                            .padding(.horizontal, 30.0)
-                            .overlay(
-                                Text("Sign Up")
-                            )
-                            .shadow(radius: 2.0, y: 2.0)
+                        .buttonStyle(PlainButtonStyle())
+                    } else if signedUp.count == size {
+                        Button {
+                            showFullAlert = true
+                        } label: {
+                            RoundedRectangle(cornerRadius: 15.0)
+                                .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "AFAFAF"), hexToColor(hex: "757575")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .frame(height: 60)
+                                .padding(.horizontal, 30.0)
+                                .overlay(
+                                    Text("Sign Up")
+                                )
+                                .shadow(radius: 2.0, y: 2.0)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    } else {
+                        Button {
+                            getTaskParticipants(classCode: classData.code, title: title) { list in
+                                signedUp = list
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                if signedUp.count != size {
+                                    signedUp.append(userID)
+                                    updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
+                                    loaded = false
+                                } else {
+                                    showFullAlert = true
+                                }
+                            }
+                        } label: {
+                            RoundedRectangle(cornerRadius: 15.0)
+                                .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "4CAF50"), hexToColor(hex: "087F23")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .frame(height: 60)
+                                .padding(.horizontal, 30.0)
+                                .overlay(
+                                    Text("Sign Up")
+                                )
+                                .shadow(radius: 2.0, y: 2.0)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
                 
                 Spacer()

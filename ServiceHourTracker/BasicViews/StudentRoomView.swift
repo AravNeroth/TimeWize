@@ -145,7 +145,6 @@ struct StudentRoomView: View {
                             
                             Image(systemName: "chevron.left")
                                
-                            
                             Text("Back")
                      
                         }
@@ -154,7 +153,7 @@ struct StudentRoomView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        showMenu.toggle()
+                        showMenu = true
 
                     } label: {
                         Image(systemName: "line.3.horizontal")
@@ -168,10 +167,16 @@ struct StudentRoomView: View {
             }
             .sheet(isPresented: $showPplList) {
                 StudentPeopleView(code: classData.code, classTitle: title, isShowing: $showPplList)
+                    .onDisappear() {
+                        showPplList = false
+                    }
             }
             .sheet(isPresented: $showRequest) {
                 requestPopUp(colors: colors, isShowing: $showRequest)
                     .ignoresSafeArea(.keyboard)
+                    .onDisappear() {
+                        showRequest = false
+                    }
             }
             .animation(.easeIn, value: loading)
         }
@@ -238,75 +243,79 @@ private struct requestPopUp: View {
     @Binding var isShowing: Bool
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("New Request")
-                .font(.largeTitle)
-                .bold()
-                .padding(30.0)
-            
-            Divider()
-                .padding(.horizontal, 30.0)
-                .padding(.bottom, 30.0)
-            
-            Text("Description")
-                .font(.title2)
-                .bold()
-                .padding(.horizontal, 30.0)
-            
-            TextField("Enter Description", text: $description)
-                .padding()
-                .background(.black.opacity(0.1))
-                .cornerRadius(15.0)
-                .shadow(radius: 2.0, y: 2.0)
-                .padding(.horizontal, 30.0)
-            
-            Text("")
-                .padding(.vertical, 5.0)
-            
-            Text("Type of Hour")
-                .font(.title2)
-                .bold()
-                .padding(.horizontal, 30.0)
-            
-            Picker("Select Hour Type", selection: $selected) {
-                ForEach(options, id: \.self) {
-                    Text($0)
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text("New Request")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(30.0)
+                
+                Divider()
+                    .padding(.horizontal, 30.0)
+                    .padding(.bottom, 30.0)
+                
+                Text("Description")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                TextField("Enter Description", text: $description)
+                    .padding()
+                    .background(.black.opacity(0.1))
+                    .cornerRadius(15.0)
+                    .shadow(radius: 2.0, y: 2.0)
+                    .padding(.horizontal, 30.0)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                Text("Type of Hour")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                Picker("Select Hour Type", selection: $selected) {
+                    ForEach(options, id: \.self) {
+                        Text($0)
+                    }
                 }
+                .pickerStyle(.segmented)
+                .padding(.horizontal, 30.0)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                Text("Requested Hours: \(Int(hourCount))")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                Slider(value: $hourCount, in: 0...10, step: 1)
+                    .padding(.horizontal, 30.0)
+                    .tint(colors.last!)
             }
-            .pickerStyle(.segmented)
-            .padding(.horizontal, 30.0)
             
-            Text("")
-                .padding(.vertical, 5.0)
+            Spacer()
             
-            Text("Requested Hours: \(Int(hourCount))")
-                .font(.title2)
-                .bold()
-                .padding(.horizontal, 30.0)
+            Button {
+                if description != "" && hourCount != 0 {
+                    addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selected, description: description)
+                    isShowing = false
+                }
+            } label: {
+                RoundedRectangle(cornerRadius: 15.0)
+                    .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .frame(height: 60)
+                    .padding(.horizontal, 30.0)
+                    .overlay(
+                        Text("Send Request")
+                            .foregroundStyle((colors.first!.luminance > 0.8) ? .black : .white)
+                    )
+            }
+            .buttonStyle(PlainButtonStyle())
             
-            Slider(value: $hourCount, in: 0...10, step: 1)
-                .padding(.horizontal, 30.0)
-                .tint(colors.last!)
+            Spacer()
         }
-        
-        Spacer()
-        
-        Button {
-            addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selected, description: description)
-            isShowing = false
-        } label: {
-            RoundedRectangle(cornerRadius: 15.0)
-                .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
-                .frame(height: 60)
-                .padding(.horizontal, 30.0)
-                .overlay(
-                    Text("Send Request")
-                        .foregroundStyle((colors.first!.luminance > 0.8) ? .black : .white)
-                )
-        }
-        .buttonStyle(PlainButtonStyle())
-        
-        Spacer()
     }
 }
 

@@ -21,17 +21,13 @@ struct NewManagerTabView: View {
     @Binding var allClasses: [Classroom]
     @State var classroom: Classroom
     @State var showMenu: Bool = false
-    @State var navToClass = false
+    
     var body: some View {
         Button {
-            print("tapped \n \(settingsManager.manTab)")
             classData.code = classCode
             settingsManager.title = title
-//            navToClass = true
+            currManagerView = .ManagerRoomView
             settingsManager.manTab = 3
-            
-//                        currManagerView = .ManagerHome
-            //            settingsManager.tab = 5
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
                 .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -83,10 +79,10 @@ struct NewManagerTabView: View {
                             }
                             .buttonStyle(PlainButtonStyle())
                             .padding(.horizontal, 20.0)
+                            .padding(.vertical, 15.0)
                             
                             Spacer()
                         }
-                        .frame(height: 70)
                     }
                 )
         }
@@ -96,15 +92,7 @@ struct NewManagerTabView: View {
                 .presentationDetents([.height(60.0)])
         }
         .animation(.easeIn, value: showMenu)
-        
-        NavigationLink(
-            destination: ManagerRoomView(),
-            isActive: $navToClass,
-            label: {
-                EmptyView()
-            })
     }
-        
 }
 
 private struct menuPopUp: View {

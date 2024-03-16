@@ -9,63 +9,160 @@ import SwiftUI
 
 struct MiniProfileView: View {
     
+    @State var classCode = ""
     @State var userEmail: String = ""
     @State var userPfp: UIImage? = UIImage(resource: .image2)
     @State var username = ""
     @State var personCols: [Color] = [.green4, .green6]
-    @State var currentUser: String = ""
-    @State var classOwner: String = ""
+    @State var wantedPerson: String = ""
+    @State var fromManView = false
+    @State var isManager = false
+    @State var displayOptions = false
+    @Binding var loaded: Bool
 
     var body: some View {
-        RoundedRectangle(cornerRadius: 50.0)
-            .fill(LinearGradient(gradient: Gradient(colors: personCols), startPoint: .topLeading, endPoint: .bottomTrailing))
-            .frame(height: 40)
-            .padding(.horizontal, 20.0)
-            .overlay(
-                HStack {
-                    ZStack {
-                        if let userPfp = userPfp {
-                            Image(uiImage: userPfp)
-                                .resizable()
-                                .clipShape(Circle())
-                                .frame(width: 30, height: 30)
-                                .shadow(radius: 2.0, y: 2.0)
-                        } else {
-                            Image(systemName: "person")
-                                .resizable()
-                                .clipShape(Circle())
-                                .frame(width: 30, height: 30)
-                                .shadow(radius: 2.0, y: 2.0)
+        if displayOptions {
+            HStack {
+                RoundedRectangle(cornerRadius: 50.0)
+                    .fill(LinearGradient(gradient: Gradient(colors: personCols), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .frame(height: 40)
+                    .padding(.leading, 20.0)
+                    .padding(.trailing, 5.0)
+                    .overlay(
+                        HStack {
+                            ZStack {
+                                if let userPfp = userPfp {
+                                    Image(uiImage: userPfp)
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .frame(width: 30, height: 30)
+                                        .shadow(radius: 2.0, y: 2.0)
+                                } else {
+                                    Image(systemName: "person")
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .frame(width: 30, height: 30)
+                                        .shadow(radius: 2.0, y: 2.0)
+                                        .foregroundStyle(personCols.first!.isBright() ? .black : .white)
+                                }
+                            }
+                            .padding(.leading, 30.0)
+                            .padding(.trailing, 10.0)
+                            
+                            Text("\(username)")
+                                .font(.headline)
+                                .bold()
                                 .foregroundStyle(personCols.first!.isBright() ? .black : .white)
+                            
+                            if(userEmail == wantedPerson) {
+                                Image(systemName: "crown.fill")
+                                    .foregroundColor(.yellow)
+                                    .padding(.horizontal, 2.5)
+                            }
+                            
+                            Spacer()
+                            
+                            Button {
+                                displayOptions.toggle()
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .font(.system(size: 15.0, weight: .bold))
+                                    .imageScale(.large)
+                                    .rotationEffect(.degrees(90.0))
+                                    .foregroundStyle(personCols.first!.isBright() ? .black : .white)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .padding(.horizontal, 25.0)
                         }
-                    }
-                    .padding(.leading, 30.0)
-                    .padding(.trailing, 10.0)
+                    )
+                
+                Button {
                     
-                    Text("\(username)")
-                        .font(.headline)
-                        .bold()
-                        .foregroundStyle(personCols.first!.isBright() ? .black : .white)
-                    
-                    if(currentUser == classOwner) {
-                        Image(systemName: "crown.fill")
-                            .foregroundColor(.yellow)
-                    }
-                    
-                    Spacer()
-                    
+                } label: {
+                    Image(systemName: "message.fill")
+                        .font(.system(size: 15.0, weight: .bold))
+                        .imageScale(.large)
+                        .foregroundStyle(LinearGradient(gradient: Gradient(colors: personCols), startPoint: .topLeading, endPoint: .bottomTrailing))
+                }
+                .frame(height: 40)
+                .padding(.trailing, !(fromManView && !(userEmail == wantedPerson)) ? 20.0 : 5.0)
+                
+                if fromManView && !(userEmail == wantedPerson) {
                     Button {
-                        
+                        if isManager {
+                            leaveAsManager(uid: userEmail, code: classCode)
+                            removeManagerFromClass(person: userEmail, classCode: classCode)
+                            updateCodes(uid: userEmail, newCode: classCode)
+                            addPersonToClass(person: userEmail, classCode: classCode)
+                        } else {
+                            removePersonFromClass(person: userEmail, classCode: classCode)
+                            unenrollClass(uid: userEmail, code: classCode)
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            loaded = false
+                        }
                     } label: {
-                        Image(systemName: "ellipsis")
+                        Image(systemName: "multiply")
                             .font(.system(size: 15.0, weight: .bold))
                             .imageScale(.large)
-                            .rotationEffect(.degrees(90.0))
-                            .foregroundStyle(personCols.first!.isBright() ? .black : .white)
+                            .foregroundStyle(.red)
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    .padding(.horizontal, 40.0)
+                    .frame(height: 40)
+                    .padding(.trailing, 20.0)
                 }
-            )
+            }
+        } else {
+            RoundedRectangle(cornerRadius: 50.0)
+                .fill(LinearGradient(gradient: Gradient(colors: personCols), startPoint: .topLeading, endPoint: .bottomTrailing))
+                .frame(height: 40)
+                .padding(.horizontal, 20.0)
+                .overlay(
+                    HStack {
+                        ZStack {
+                            if let userPfp = userPfp {
+                                Image(uiImage: userPfp)
+                                    .resizable()
+                                    .clipShape(Circle())
+                                    .frame(width: 30, height: 30)
+                                    .shadow(radius: 2.0, y: 2.0)
+                            } else {
+                                Image(systemName: "person")
+                                    .resizable()
+                                    .clipShape(Circle())
+                                    .frame(width: 30, height: 30)
+                                    .shadow(radius: 2.0, y: 2.0)
+                                    .foregroundStyle(personCols.first!.isBright() ? .black : .white)
+                            }
+                        }
+                        .padding(.leading, 30.0)
+                        .padding(.trailing, 10.0)
+                        
+                        Text("\(username)")
+                            .font(.headline)
+                            .bold()
+                            .foregroundStyle(personCols.first!.isBright() ? .black : .white)
+                        
+                        if(userEmail == wantedPerson) {
+                            Image(systemName: "crown.fill")
+                                .foregroundColor(.yellow)
+                                .padding(.horizontal, 2.5)
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            displayOptions.toggle()
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .font(.system(size: 15.0, weight: .bold))
+                                .imageScale(.large)
+                                .rotationEffect(.degrees(90.0))
+                                .foregroundStyle(personCols.first!.isBright() ? .black : .white)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal, 40.0)
+                    }
+                )
+        }
     }
 }

@@ -1,313 +1,399 @@
 //
-//  ManagerTestClass.swift
+//  NewManagerRoomView.swift
 //  ServiceHourTracker
 //
-//  Created by Verlyn Fischer on 2/15/24.
+//  Created by huang_931310 on 3/7/24.
 //
 
-import Foundation
 import SwiftUI
 
 struct ManagerRoomView: View {
-    @State private var showPpl = false
-    @State private var showPalette = false
-    @State private var showManOptions = false
-    @State private var imageSelection = false
-    @State private var homeImageSelection = false
-    @State private var newBanner = UIImage(systemName: "person")
-    @State private var newHome = UIImage(systemName: "person")
-    @EnvironmentObject var classData: ClassData
-    @EnvironmentObject private var classInfoManager: ClassInfoManager
-    @EnvironmentObject private var settingsManager: SettingsManager
-    @State private var loaded = false
-    @State private var showTaskPopup = false
-    @State private var announcements: [Announcement] = []
-    @State var colors: [Color] = [.green4, .green6] //keep last as green6 for default purpouses
+    
+    @AppStorage("uid") var userID = ""
+    @State var title: String = "Title"
+    @State var colors: [Color] = [.green4, .green6] // keep last as green6 for default purpouses
     @State var tasks: [ClassTask] = []
+    @State var announcements: [Announcement] = []
+    @State var allComponents: [ClassComponent] = []
+    @State var managerNames: [String:String] = [:]
     @State var classImage: UIImage? = UIImage(resource: .image1)
+    @State var newHomeImage: UIImage? = UIImage(resource: .image1)
+    @State var loading = true
+    @State var showMenu = false
+    @State var showPplList = false
+    @State var showImageSelection = false
+    @State var showTask = false
+    @State var showColorPalette = false
+    @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var classInfoManager: ClassInfoManager
+    @EnvironmentObject var classData: ClassData
     @State var useDefaults = false
-    @State var showDate = false
-    @State var title = "Title"
-    var body: some View{
-        
-        if !loaded {
-            LoadingScreen()
-                .onAppear(){
-                    downloadImageFromClassroomStorage(code: "\(classData.code)", file: "Home\(settingsManager.title).jpg") { image in
-                        if let image = image {
-                            classImage = image
-                        }
+    
+    var body: some View {
+            if loading {
+                LoadingScreen()
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(ignoresSafeAreaEdges: .all)
+                    .onAppear() {
+                        allComponents = []
                         
-                        getColorScheme(classCode: classData.code) { scheme in
-                            if scheme.count != 0 {
-                                if scheme.last!.luminance > 0.8 {
-                                    useDefaults = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            downloadImageFromClassroomStorage(code: "\(classData.code)", file: "Home\(settingsManager.title).jpg") { image in
+                                if let image = image {
+                                    classImage = image
                                 }
-                                
-                                colors = scheme
+                            }
+                            
+                            getColorScheme(classCode: classData.code) { scheme in
+                                if scheme.count != 0 {
+                                    if scheme.last!.luminance > 0.8 {
+                                        useDefaults = true
+                                    }
+                                    
+                                    colors = scheme
+                                }
                             }
                             
                             getClassInfo(classCloudCode: classData.code) { classroom in
                                 if let classroom = classroom {
                                     title = classroom.title
                                 }
+                            }
+                            
+                            getTasks(classCode: classData.code) { newTasks in
+                                tasks = newTasks
                                 
-                                getTasks(classCode: classData.code) { newTasks in
-                                    tasks = newTasks
+                                for classTask in newTasks {
+                                    allComponents.append(ClassComponent.classTask(classTask))
+                                }
+                            }
+                            
+                            getAnnouncements(classCode: classData.code) { newAnnouncements in
+                                announcements = newAnnouncements
+                                
+                                for announcement in newAnnouncements {
+                                    allComponents.append(ClassComponent.announcement(announcement))
+                                }
+                            }
+                            
+                            getManagerList(classCode: classData.code) { managers in
+                                for email in managers {
+                                    getData(uid: email) { manager in
+                                        managerNames[email] = manager!.displayName!
+                                    }
+                                }
+                            }
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            allComponents.sort { $0.dateCreated > $1.dateCreated }
+                            loading = false
+                        }
+                    }
+            } else {
+                ScrollView {
+                    VStack {
+                        RoundedRectangle(cornerRadius: 15.0)
+                            .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .frame(height: 170)
+                            .padding(.horizontal, 10.0)
+                            .shadow(radius: 2.0, y: 2.0)
+                            .overlay(
+                                ZStack {
+                                    if let classImage = classImage {
+                                        Image(uiImage: classImage)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(height: 170)
+                                            .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                                            .padding(.horizontal, 10.0)
+                                            .opacity(0.5)
+                                    }
                                     
-                                    getAnnouncements(classCode: classData.code) { announcements in
-                                        
-                                        self.announcements = announcements
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            loaded = true
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            Spacer()
+                                            
+                                            Text(title)
+                                                .font(.largeTitle)
+                                                .fontWeight(.bold)
+                                                .padding(.horizontal, 30.0)
+                                                .padding(.vertical, 15.0)
+                                                .foregroundStyle(.white)
+                                                .shadow(radius: 2.0, y: 2.0)
                                         }
-
-                                    }
-                                    
-                                }
-                            }
-                        }
-                    }
-                        
-                    }
-                
-            
-        }else{
-            NavigationStack{
-                ScrollView{
-                    RoundedRectangle(cornerRadius: 15.0)
-                        .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .frame(height: 170)
-                        .padding(.horizontal, 10.0)
-                        .shadow(radius: 2.0, y: 2.0)
-                        .overlay(
-                            ZStack {
-                                
-                                if let classImage = classImage {
-                                    Image(uiImage: classImage)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(height: 170)
-                                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
-                                        .padding(.horizontal, 10.0)
-                                        .opacity(0.5)
-                                }
-                                
-                                
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Spacer()
                                         
-                                        Text(title)
-                                            .font(.largeTitle)
-                                            .fontWeight(.bold)
-                                            .padding(.horizontal, 30.0)
-                                            .padding(.vertical, 15.0)
-                                            .foregroundStyle(.white)
-                                            .shadow(radius: 2.0, y: 2.0)
+                                        Spacer()
                                     }
-                                    
-                                    Spacer()
                                 }
+                            )
+                        
+                        // include way to make announcements
+                        AnnouncementField(colors: colors, refresh: $loading)
+                        
+                        if !allComponents.isEmpty {
+                            ForEach(allComponents, id: \.self) { component in
+                                Text("")
+                                
+                                ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator]!, title: component.title, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask, fromManagerSide: true)
                             }
-                        ).padding(.bottom)
-                    
-                    AnnouncementField().animation(.easeInOut(duration: 0.6), value: loaded)
-                    Spacer()
-                    
-                    
-                    ForEach(announcements, id:\.self) { ancmnt in
-                        HStack{
-//                            Button{
-//                                showDate.toggle()
-//                            }label:{
-//                                Text(ancmnt.message).frame(width: 375, height: 20).stroke(.gray)
-//                            }
-//                            if showDate{
-//                                Text("\(ancmnt.date)").padding(.trailing)
-//                            }
-                      
+                        } else {
+                            Text("Nothing to Display")
+                                .padding(.vertical, 10.0)
                         }
                     }
-//                    if tasks.count != 0 {
-//                        ForEach(tasks, id:\.self) { task in
-//                            TaskView(classCode: classData.code, title: "\(task["title"] ?? "No Title")", date: "\(task["date"] ?? "0/0/0000")", totalPpl: Int(task["size"] ?? "0")!, numHours: Int(task["hours"] ?? "0")!)
-//                        }
-//                    }
-                    
-                    Text("manager class: \(classData.code)")
-                    Spacer()
                 }
-                
-                
-            }.navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline).toolbar{
-                ToolbarItem(placement: .topBarLeading){
-                    Button{
-//                        settingsManager.manTab = 1
-                        settingsManager.manTab = 0
-                        
-                    }label:{
-                        HStack{
-                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            settingsManager.manTab = 0
+                            settingsManager.title = "Classes"
+                        } label: {
+                            HStack(spacing: 2.5) {
                                 Image(systemName: "chevron.left")
-                            ).frame(width: 25, height: 25)
+                                
+                                Text("Back")
+                            }
+                            .foregroundStyle(useDefaults ? .green6 : colors.last!)
+                        }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            showMenu = true
                             
-//                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
-//                                Text("Back")
-//                            ).frame(width: 25, height: 25)
+                        } label: {
+                            Image(systemName: "gearshape")
+                                .foregroundStyle(useDefaults ? .green6 : colors.last!)
                         }
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack{
-                        Button{
-                            if !(showPpl || homeImageSelection || showPalette || showTaskPopup) {
-                                showManOptions = true
-                            }
-                        }label: {
-                            if !(showPpl || homeImageSelection || showPalette || showTaskPopup){
-                                LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
-                                    Image(systemName: "gearshape")
-                                ).frame(width: 25, height: 25)
-                            }else{
-                                Image(systemName: "gearshape").tint(.gray)
-                            }
+                .sheet(isPresented: $showMenu) {
+                    menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList, showImageSelection: $showImageSelection, showTask: $showTask, showColorPalette: $showColorPalette)
+                        .presentationDetents([.height(240.0)])
+                }
+                .sheet(isPresented: $showPplList) {
+                    NewManagerPeopleView(code: classData.code, classTitle: title, isShowing: $showPplList)
+                        .onDisappear() {
+                            showPplList = false
                         }
-                        Spacer()
-                        
+                }
+                .sheet(isPresented: $showImageSelection) {
+                    ImagePicker(image: $newHomeImage)
+                        .onDisappear() {
+                            showImageSelection = false
+                            loading = true
+                        }
+                        .ignoresSafeArea(edges: .bottom)
+                }
+                .sheet(isPresented: $showTask) {
+                    taskPopUp(classCode: classData.code, colors: colors, reloadPage: $loading, showTask: $showTask)
+                }
+                .sheet(isPresented: $showColorPalette) {
+                    ColorPalette(showPop: $showColorPalette, refresh: $loading, colorsSelected: colors)
+                        .animation(.easeInOut, value: showColorPalette)
+                        .onDisappear() {
+                            showColorPalette = false
+                        }
+                }
+                .onChange(of: newHomeImage) {
+                    if let newHomeImage = newHomeImage {
+                        uploadImageToClassroomStorage(code: classData.code, image: newHomeImage, file: "Home\(settingsManager.title)")
                     }
                 }
-                
+                .animation(.easeIn, value: loading)
             }
-            
-            
-            .sheet(isPresented: $showManOptions) {
-                
-//                ManagerPopup(showManOptions: $showManOptions, showPpl: $showPpl, homeImageSelection: $homeImageSelection, showTaskPopup: $showTaskPopup, showPalette: $showPalette)
-                VStack{
-                    //                Divider().padding()
-                    Spacer()
-                    Button{
-                        withAnimation(.bouncy){
-                            showManOptions = false
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
-                                showPpl = true
-                            }
-                        }
-                    }label: {
-                        HStack{
-                            Image(systemName: "person.3")
-                            Text("Class People")
-                        }
-                    }.padding()
-                    Divider().padding()
-                    Button{
-                        withAnimation(.easeInOut(duration: 1.5)){
-                            showManOptions = false
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
-                                homeImageSelection = true
-                            }
-                            
-                        }
-                        
-                    }label: {
-                        HStack{
-                            Image(systemName: "photo.fill")
-                            Text("Edit Class Photo")
-                        }
-                    }.padding()
-                    Divider().padding()
-                    Button{
-                        showManOptions = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
-                            showPalette = true
-                        }
-                        
-                        
-                    }label: {
-                        HStack{
-                            Image(systemName: "paintpalette.fill")
-                            Text("Class Colors")
-                        }
-                    }.padding()
-                    Divider().padding()
-                    Button{
-                        
-                        showManOptions = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
-                            showTaskPopup = true
-                        }
-                        
-                        
-                    }label: {
-                        HStack{
-                            Image(systemName: "plus")
-                            Text("Add Task")
-                        }
-                    }.padding()
-                }
-                .presentationDetents([.fraction(0.5)])
-                
-            }
-            
-            .sheet(isPresented: $showPpl) {
-                ManagerPeopleView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPpl)
-                    .onDisappear(){
-                        showPpl = false
-                    }
-            }
-            .fullScreenCover(isPresented: $imageSelection) {
-                ImagePicker(image: $newBanner)
-                    .onDisappear(){
-                        imageSelection = false
-                        
-                    }
-                    .ignoresSafeArea(edges: .bottom)
-            }
-         
-            .sheet(isPresented: $homeImageSelection, content: {
-                ImagePicker(image: $newHome)
-                    .onDisappear(){
-                        homeImageSelection = false
-                        
-                    }
-                
-                    .ignoresSafeArea(edges: .bottom)
-            })
-            .sheet(isPresented: $showPalette, content: {
-                ColorPalette(showPop: $showPalette).animation(.easeInOut, value: showPalette)
-                    .presentationDetents([.height(600)])
-                    .onDisappear(){
-                        showPalette = false
-                    }
-            }).animation(.easeInOut, value: settingsManager.title)
-            
-                .sheet(isPresented: $showTaskPopup, content: {
-                    taskPopup(showPop: $showTaskPopup)
-                        .frame(width: 375, height: 600)
-                        .onDisappear(){
-                            showTaskPopup = false
-                        }
-                })
-                .onChange(of: newHome, {
-                    if let newHome = newHome{
-                        uploadImageToClassroomStorage(code: classData.code, image: newHome, file: "Home\(settingsManager.title)")
-                        
-                    }
-                })
-                .onChange(of: newBanner) {
-                    if let newBanner = newBanner{
-                        print("code: \(classData.code)")
-                        uploadImageToClassroomStorage(code: classData.code , image: newBanner, file: "\(settingsManager.title)")
-                        classInfoManager.managerClassImages[settingsManager.title] = newBanner
-                    }
-                }
         }
-    }
-    
-    
 }
 
+private struct menuPopUp: View {
+    
+    var classCode: String
+    @Binding var showMenu: Bool
+    @Binding var showPplList: Bool
+    @Binding var showImageSelection: Bool
+    @Binding var showTask: Bool
+    @Binding var showColorPalette: Bool
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            Button {
+                showMenu = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showPplList = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .opacity(0.0)
+                        .contentShape(Rectangle())
+                    Text("People")
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Divider()
+            
+            Button {
+                showMenu = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showTask = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .opacity(0.0)
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                    
+                    Text("Create Task")
+                }
+                
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Divider()
+            
+            Button {
+                showMenu = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showImageSelection = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .opacity(0.0)
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                    
+                    Text("Select Class Image")
+                }
+                
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Divider()
+            
+            Button {
+                showMenu = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showColorPalette = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .opacity(0.0)
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                    
+                    Text("Pick Class Colors")
+                }
+                
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+    }
+}
 
-
+private struct taskPopUp: View {
+    
+    @State var classCode = ""
+    @State var description = ""
+    @State var dueDate: Date = Date()
+    @State var size: Double = 0
+    @State var hourCount: Double = 0
+    @State var colors: [Color]
+    @Binding var reloadPage: Bool
+    @Binding var showTask: Bool
+    @AppStorage("uid") var userID = ""
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text("New Task")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(30.0)
+                
+                Divider()
+                    .padding(.horizontal, 30.0)
+                    .padding(.bottom, 30.0)
+                
+                Text("Title")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                TextField("Enter Title", text: $description)
+                    .padding()
+                    .background(.black.opacity(0.1))
+                    .cornerRadius(15.0)
+                    .shadow(radius: 2.0, y: 2.0)
+                    .padding(.horizontal, 30.0)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                Text("Due Date")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                DatePicker("Due Date:", selection: $dueDate, in: Date()...Calendar.current.date(byAdding: .year, value: 1000, to: Date())!, displayedComponents: [.date, .hourAndMinute])
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .labelsHidden()
+                    .scaleEffect(0.9)
+                    .padding(.horizontal, 30.0)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                Text("Number of Hours: \(Int(hourCount))")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                Slider(value: $hourCount, in: 0...10, step: 1)
+                    .padding(.horizontal, 30.0)
+                    .tint(colors.last!)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                Text("Max Size: \(Int(size))")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                Slider(value: $size, in: 0...20, step: 1)
+                    .padding(.horizontal, 30.0)
+                    .tint(colors.last!)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+            }
+            
+            Spacer()
+            
+            Button {
+                if description != "" && size != 0 && hourCount != 0 {
+                    addTask(classCode: classCode, creator: userID, title: description, date: dueDate, timeCreated: Date(), maxSize: Int(size), numHours: Int(hourCount))
+                    reloadPage = true
+                    showTask = false
+                }
+            } label: {
+                RoundedRectangle(cornerRadius: 15.0)
+                    .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .frame(height: 60)
+                    .padding(.horizontal, 30.0)
+                    .overlay(
+                        Text("Create Task")
+                            .foregroundStyle((colors.first!.luminance > 0.8) ? .black : .white)
+                    )
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Spacer()
+        }
+    }
+}

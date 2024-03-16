@@ -27,7 +27,7 @@ struct ManagerPeopleView: View {
     
     var body: some View {
         
-        if loaded == false{
+        if !loaded {
             LoadingScreen()
                 .ignoresSafeArea(.all)
                 .onAppear() {
@@ -126,7 +126,7 @@ struct ManagerPeopleView: View {
                 if editing {
                     ForEach(managerList, id: \.self) { person in
                         HStack {
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                             Spacer()
                             
                             
@@ -161,7 +161,7 @@ struct ManagerPeopleView: View {
                     ForEach(managerList, id: \.self) { person in
                         
                         HStack {
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                             Spacer()
                         }
                     }
@@ -196,7 +196,7 @@ struct ManagerPeopleView: View {
                     ForEach(peopleList, id: \.self) { person in
                         
                         HStack {
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                             
                             Spacer()
                             Button(action: {
@@ -226,7 +226,7 @@ struct ManagerPeopleView: View {
                         
                         
                         HStack {
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], currentUser: person, classOwner: managerList[0])
+                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                             Spacer()
                         }
                     }
