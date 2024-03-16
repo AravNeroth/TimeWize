@@ -21,6 +21,7 @@
 		06CEF9032BA4C5E400DFC973 /* MessageLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9022BA4C5E400DFC973 /* MessageLogView.swift */; };
 		06CEF9052BA4C97C00DFC973 /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9042BA4C97C00DFC973 /* MessageBubble.swift */; };
 		06CEF9072BA4CDE800DFC973 /* MessageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9062BA4CDE800DFC973 /* MessageField.swift */; };
+		06CEF90B2BA57E0E00DFC973 /* NewManagerPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF90A2BA57E0E00DFC973 /* NewManagerPeopleView.swift */; };
 		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
 		06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A52B59C92300A7A36D /* TermsAndServices.swift */; };
 		06E576A92B5A29E100A7A36D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A82B5A29E100A7A36D /* String.swift */; };
@@ -49,7 +50,6 @@
 		06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */; };
 		06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3C2B77E77D00FD6069 /* AppObjects.swift */; };
 		06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* StudentClassroomView.swift */; };
-		CFE866F02B7E9C4300CFA6FB /* ManagerClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB354F192B94E6C40061F90F /* ClassComponentView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
@@ -100,6 +100,7 @@
 		06CEF9022BA4C5E400DFC973 /* MessageLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLogView.swift; sourceTree = "<group>"; };
 		06CEF9042BA4C97C00DFC973 /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
 		06CEF9062BA4CDE800DFC973 /* MessageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageField.swift; sourceTree = "<group>"; };
+		06CEF90A2BA57E0E00DFC973 /* NewManagerPeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewManagerPeopleView.swift; sourceTree = "<group>"; };
 		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		06E576A52B59C92300A7A36D /* TermsAndServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServices.swift; sourceTree = "<group>"; };
 		06E576A82B5A29E100A7A36D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -124,7 +125,6 @@
 		06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		06F54A3C2B77E77D00FD6069 /* AppObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppObjects.swift; sourceTree = "<group>"; };
 		06FD082E2B6996D400484FEE /* StudentClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassroomView.swift; sourceTree = "<group>"; };
-		CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerClassroomView.swift; sourceTree = "<group>"; };
 		EB048C752B2696E0003719A0 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
 		EB354F192B94E6C40061F90F /* ClassComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassComponentView.swift; sourceTree = "<group>"; };
 		EB70EB022B2542B700D93A40 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -237,10 +237,10 @@
 			children = (
 				06E576B92B5F0B1C00A7A36D /* ManagerClassesView.swift */,
 				06AEC3952B942E810023646B /* ManagerRoomView.swift */,
-				CFE866EF2B7E9C4300CFA6FB /* ManagerClassroomView.swift */,
 				06F111012B928CA200EB4F01 /* ManagerPeopleView.swift */,
 				EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */,
 				EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */,
+				06CEF90A2BA57E0E00DFC973 /* NewManagerPeopleView.swift */,
 			);
 			path = "Manager Views";
 			sourceTree = "<group>";
@@ -467,6 +467,7 @@
 			files = (
 				06E576AB2B5A2DF200A7A36D /* AuthView.swift in Sources */,
 				EEF83F2F2B1FCDD90098D3A2 /* StudentClassesView.swift in Sources */,
+				06CEF90B2BA57E0E00DFC973 /* NewManagerPeopleView.swift in Sources */,
 				06F110FC2B9194F600EB4F01 /* NewClassTabView.swift in Sources */,
 				06E576B62B5B47EA00A7A36D /* UserManager.swift in Sources */,
 				06CEF8F72B9A993A00DFC973 /* ThreeColumnSampleCode.swift in Sources */,
@@ -495,7 +496,6 @@
 				06F111002B9196EC00EB4F01 /* ColorPalette.swift in Sources */,
 				06F54A352B773A7300FD6069 /* allExtensions.swift in Sources */,
 				06CEF8FF2BA0059A00DFC973 /* MessageManager.swift in Sources */,
-				CFE866F02B7E9C4300CFA6FB /* ManagerClassroomView.swift in Sources */,
 				06CEF9072BA4CDE800DFC973 /* MessageField.swift in Sources */,
 				06CEF9052BA4C97C00DFC973 /* MessageBubble.swift in Sources */,
 				EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */,

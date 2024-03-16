@@ -26,7 +26,7 @@ struct NewManagerTabView: View {
         Button {
             classData.code = classCode
             settingsManager.title = title
-            currManagerView = .ManagerRoomView
+            currManagerView = .ManagerClass
             settingsManager.manTab = 3
         } label: {
             RoundedRectangle(cornerRadius: 15.0)
