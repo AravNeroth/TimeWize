@@ -147,14 +147,14 @@ private struct taskPopUp: View {
     @State var size = 0
     @State var numHours = 0
     @State var date: Date
-    @State var loading = true
+    @State var loaded = true
     @State var showFullAlert = false
     @EnvironmentObject var classData: ClassData
     @Binding var isShowing: Bool
     @Binding var fromManagerSide: Bool
     
     var body: some View {
-        if loading {
+        if !loaded {
             LoadingScreen()
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -182,7 +182,7 @@ private struct taskPopUp: View {
                         }
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        loading = false
+                        loaded = true
                     }
                 }
         } else {
@@ -273,7 +273,7 @@ private struct taskPopUp: View {
                             Text("")
                             
                             ForEach(signedUp, id: \.self) { person in
-                                MiniProfileView(userEmail: person, userPfp: signedUpPfps[person], username: signedUpNames[person] ?? "", personCols: signedUpColors[person] ?? [.green4, .green6], loaded: $loading)
+                                MiniProfileView(userEmail: person, userPfp: signedUpPfps[person], username: signedUpNames[person] ?? "", personCols: signedUpColors[person] ?? [.green4, .green6], loaded: $loaded)
                             }
                         }
                         .frame(height: 200)
@@ -290,7 +290,7 @@ private struct taskPopUp: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                                 signedUp.remove(at: signedUp.firstIndex(of: userID)!)
                                 updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
-                                loading = true
+                                loaded = false
                             }
                         } label: {
                             RoundedRectangle(cornerRadius: 15.0)
@@ -326,7 +326,7 @@ private struct taskPopUp: View {
                                 if signedUp.count != size {
                                     signedUp.append(userID)
                                     updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
-                                    loading = true
+                                    loaded = false
                                 } else {
                                     showFullAlert = true
                                 }

@@ -116,13 +116,6 @@ struct ManagerClassesView: View {
                     }
                     Button("Cancel") {}
                 }
-                .alert("Enter Manager Code", isPresented: $managerCodeAlert) {
-                    TextField("Enter Code", text: $managerCodeField)
-                    Button("OK") {
-                        managerCode = managerCodeField
-                    }
-                    Button("Cancel") {}
-                }
                 .onChange(of: className) { oldValue, newValue in
                     
                     let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, peopleList: [], managerList: [userID], minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours, colors: [])
@@ -145,6 +138,9 @@ struct ManagerClassesView: View {
                             if exists {
                                 fetchClassDetailsForManagerCode(manCode: joinCode)
                                 joinCode = ""
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                    refreshed = false
+                                }
                             } else {
                                 alertMessage = "Code Does Not Exist"
                                 joinCode = ""
@@ -221,10 +217,11 @@ struct ManagerClassesView: View {
                           let colors = classData["colors"] as? [String],
                           let owner = classData["owner"] as? String {
                            managerList.append(userID)
+                           addManagerToClass(person: userID, classCode: classCode)
                            let classroom = Classroom(code: classCode, managerCode: manCode, title: className, owner: owner, peopleList: peopleList, managerList: managerList, minServiceHours: minServiceHours, minSpecificHours: minSpecificHours, colors: colors)
                            settingsMan.classes.append(classroom.code)
                            storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
-                          }
+                       }
                    }
                }
            }
