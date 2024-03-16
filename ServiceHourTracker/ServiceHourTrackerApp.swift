@@ -16,7 +16,7 @@ struct ServiceHourTrackerApp: App {
     @StateObject private var settingsManager = SettingsManager()
     @StateObject private var userData = UserData(user:User())
     @StateObject private var classData = ClassData(code: "")
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+//    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     //check PushNotificationsManager
     
     init() {
