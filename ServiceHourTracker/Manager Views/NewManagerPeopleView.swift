@@ -43,7 +43,7 @@ struct NewManagerPeopleView: View {
                     .padding(.vertical, 5.0)
                 
                 ForEach(managerList, id: \.self) { person in
-                    MiniProfileView(classCode: code, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], fromManView: true, isManager: true, loaded: $loaded)
+                    MiniProfileView(classCode: code, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                 }
                 
                 Divider()

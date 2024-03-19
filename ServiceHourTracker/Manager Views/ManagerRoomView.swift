@@ -80,7 +80,7 @@ struct ManagerRoomView: View {
                             getManagerList(classCode: classData.code) { managers in
                                 for email in managers {
                                     getData(uid: email) { manager in
-                                        managerNames[email] = manager!.displayName!
+                                        managerNames[email] = manager!.displayName ?? "No Name"
                                     }
                                 }
                             }
@@ -136,7 +136,7 @@ struct ManagerRoomView: View {
                             ForEach(allComponents, id: \.self) { component in
                                 Text("")
                                 
-                                ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator]!, title: component.title, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask, fromManagerSide: true)
+                                ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator] ?? "Former Manager", title: component.title, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask, fromManagerSide: true)
                             }
                         } else {
                             Text("Nothing to Display")
