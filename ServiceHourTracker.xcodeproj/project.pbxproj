@@ -63,6 +63,7 @@
 		EBEA3A6D2BAA27AD00F7BC1A /* NewRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA3A6C2BAA27AD00F7BC1A /* NewRequestView.swift */; };
 		EBEA3A6F2BB10B4A00F7BC1A /* RequestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA3A6E2BB10B4A00F7BC1A /* RequestListView.swift */; };
 		EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */; };
+		EECB92B12BB1D78800486730 /* PDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECB92B02BB1D78800486730 /* PDFGenerator.swift */; };
 		EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */; };
 		EEF83F2F2B1FCDD90098D3A2 /* StudentClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2E2B1FCDD90098D3A2 /* StudentClassesView.swift */; };
 		EEF83F312B1FCDDB0098D3A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */; };
@@ -140,6 +141,7 @@
 		EBEA3A6C2BAA27AD00F7BC1A /* NewRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRequestView.swift; sourceTree = "<group>"; };
 		EBEA3A6E2BB10B4A00F7BC1A /* RequestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestListView.swift; sourceTree = "<group>"; };
 		EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
+		EECB92B02BB1D78800486730 /* PDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFGenerator.swift; sourceTree = "<group>"; };
 		EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceHourTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHourTrackerApp.swift; sourceTree = "<group>"; };
 		EEF83F2E2B1FCDD90098D3A2 /* StudentClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassesView.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */,
 				06F54A362B773BFE00FD6069 /* StorageManager.swift */,
 				06E576B52B5B47EA00A7A36D /* UserManager.swift */,
+				EECB92B02BB1D78800486730 /* PDFGenerator.swift */,
 			);
 			path = "Backend Management";
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				06F111062B92927700EB4F01 /* OldClassTabView.swift in Sources */,
 				06CEF9012BA157EA00DFC973 /* MessagingView.swift in Sources */,
 				06F111022B928CA200EB4F01 /* ManagerPeopleView.swift in Sources */,
+				EECB92B12BB1D78800486730 /* PDFGenerator.swift in Sources */,
 				EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
 				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,

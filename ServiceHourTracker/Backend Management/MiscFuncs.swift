@@ -163,3 +163,14 @@ func formatDate(_ date: Date) -> String {
     }
     return dateFormatter.string(from: date)
 }
+
+//func callGeneratePDFAction() {
+//    var contentView = ContentView()
+//        contentView.generatePDFAction = {
+//            print("generatePDFAction triggered")
+//
+//            contentView.generatePDFButtonTapped()
+//        }
+//        // Call the generate PDF action from another class
+//        contentView.generatePDFAction?()
+//    }
