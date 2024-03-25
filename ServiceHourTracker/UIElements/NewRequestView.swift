@@ -35,6 +35,8 @@ struct NewRequestView: View {
                                 Text(className)
                                     .font(.title2)
                                     .bold()
+                                    .padding(.top, 2.5)
+                                    .padding(.bottom, 7.5)
                                 
                                 Text(email)
                                     .multilineTextAlignment(.leading)
@@ -79,10 +81,11 @@ struct NewRequestView: View {
                                         done.toggle()
                                     } label: {
                                         RoundedRectangle(cornerRadius: 15.0)
-                                            .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "4CAF50"), hexToColor(hex: "087F23")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                            .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
                                             .frame(width: 50, height: 50)
                                             .overlay(
                                                 Image(systemName: "checkmark")
+                                                    .foregroundStyle(colors.first!.isBright() ? .black : .white)
                                                     .bold()
                                             )
                                     }
@@ -93,10 +96,11 @@ struct NewRequestView: View {
                                         done.toggle()
                                     } label: {
                                         RoundedRectangle(cornerRadius: 15.0)
-                                            .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "FF4D4D"), hexToColor(hex: "FF0000")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                            .fill(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
                                             .frame(width: 50, height: 50)
                                             .overlay(
                                                 Image(systemName: "xmark")
+                                                    .foregroundStyle(colors.first!.isBright() ? .black : .white)
                                                     .bold()
                                             )
                                     }
@@ -126,6 +130,7 @@ struct NewRequestView: View {
                             Spacer()
                         }
                         .padding(.horizontal, 30.0)
+                        .padding(.bottom, 30.0)
                         
                         HStack {
                             VStack(alignment: .leading) {

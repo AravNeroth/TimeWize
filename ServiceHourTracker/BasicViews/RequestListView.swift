@@ -83,6 +83,7 @@ struct RequestListView: View {
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                        requestList.sort { $0.timeCreated < $1.timeCreated }
                         done = true
                     }
                 }
