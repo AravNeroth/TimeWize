@@ -93,12 +93,8 @@ struct Profile: View {
         }.ignoresSafeArea().frame(height: 225).position(x: UIScreen.main.bounds.width / 2, y: 75).frame(height: 190)
         
         
-    ScrollView{
-    
-         
+        ScrollView{
                 HourBoardView()
-            
-        
     }
     
         
