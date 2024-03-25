@@ -43,8 +43,8 @@ struct ManagerView: View {
                     
                 }
             case .RequestsView:
-                VStack{
-                    ManagerReqListView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
+                VStack {
+                    RequestListView(fromManSide: true).navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
                         
                     ManagerBottomBar(selection: $tabSelection)
                         

@@ -291,7 +291,7 @@ private struct requestPopUp: View {
                     .padding(.horizontal, 30.0)
                 
                 Slider(value: $hourCount, in: 0...10, step: 1)
-                    .padding(.horizontal, 30.0)
+                    .padding(30.0)
                     .tint(colors.last!)
             }
             
@@ -313,6 +313,7 @@ private struct requestPopUp: View {
                     )
             }
             .buttonStyle(PlainButtonStyle())
+            .padding(.vertical, 10.0)
             
             Spacer()
         }

@@ -71,7 +71,7 @@ struct RequestView: View {
                         
                         HStack {
                             Button(action: {
-                                acceptRequest(request: request, classCode: classCode)
+                                //acceptRequest(request: request, classCode: classCode)
                                 reqList.remove(at: reqList.firstIndex(of: request)!)
                             }) {
                                 ZStack {
@@ -83,7 +83,7 @@ struct RequestView: View {
                                 }
                             }
                             Button(action: {
-                                declineRequest(request: request, classCode: classCode)
+                                //declineRequest(request: request, classCode: classCode)
                                 reqList.remove(at: reqList.firstIndex(of: request)!)
                             }) {
                                 ZStack {

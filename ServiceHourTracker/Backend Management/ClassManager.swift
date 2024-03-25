@@ -185,60 +185,270 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
     }
 }
 
-//use class to get into class, goes to the requests collection or creates a requests collection and adds a document with our data
-func addRequest(classCode: String, email: String, hours: Int, type: String, description: String) {
-   
-   
-    db.collection("classes").document(classCode).collection("requests").addDocument(data: ["email": email, "hours":hours,"type":type,"description":description])
+/// Request struct
+/// 1 email of User who made Request
+/// 2 classCode associated with Request
+/// 3 description of Request
+/// 4 used for sorting by time
+/// 5 type of hour: either service, attendance, or club-specific
+/// 6 number of hours of hourType
+/// 7 false means the Request is pending, true means the request has gone through
+struct Request: Codable, Hashable, Identifiable {
+    var id: String {
+        return "\(UUID())"
+    }
+    /// 1
+    var creator: String
+    /// 2
+    var classCode: String
+    /// 3
+    var description: String
+    /// 4
+    var timeCreated: Date
+    /// 5
+    var hourType: String
+    /// 6
+    var numHours: Int
+    /// 7
+    var accepted: Bool
     
-    
+    init(creator: String = "", classCode: String = "", description: String = "", timeCreated: Date = Date(), hourType: String = "", numHours: Int = 0, accepted: Bool = false) {
+        self.creator = creator
+        self.classCode = classCode
+        self.description = description
+        self.timeCreated = timeCreated
+        self.hourType = hourType
+        self.numHours = numHours
+        self.accepted = accepted
+    }
 }
 
-//didnt finish thinking through
-func getRequests(classCode: String, completion: @escaping ([[String:String]]) -> Void){
-    
-    db.collection("classes").document(classCode).collection("requests").getDocuments { docs, error in
-        if let error = error{
+/// Adds a request to both the Classroom and User it belongs to with the request information
+/// 1 creates a Request from the given info
+/// 2 adds the Request to the request list in the classes collection
+/// 3 adds the Request to the request list in the userInfo collection
+func addRequest(classCode: String, email: String, hours: Int, type: String, description: String) {
+    /// 1
+    let req = Request(creator: email, classCode: classCode, description: description, hourType: type, numHours: hours)
+    /// 2
+    do {
+        try db.collection("classes").document(classCode).collection("requests").addDocument(from: req)
+    } catch {
+        print(error.localizedDescription)
+    }
+    /// 3
+    do {
+        try db.collection("userInfo").document(email).collection("requests").addDocument(from: req)
+    } catch {
+        print(error.localizedDescription)
+    }
+}
+
+/// Fetches all Requests from a Classroom using a classCode
+/// 1 gets all documents in requests collection
+/// 2 handles error
+/// 3 creates a completion array
+/// 4 appends each request to the completion array
+/// 5 returns the completion array
+func getClassRequests(classCode: String, completion: @escaping ([Request]) -> Void) {
+    /// 1
+    db.collection("classes").document(classCode).collection("requests").getDocuments { querySnapshot, error in
+        /// 2
+        if let error = error {
             print(error.localizedDescription)
             completion([])
-        }else{
-            var com:[[String:String]] = []//completion output
-            var output: [String:String] = [:]//temp for each document
-            if let docs = docs{
-                for document in docs.documents {
-                    
-                    let data = document.data()
-                    output["email"] = data["email"] as? String ?? ""
-                    output["hours"] = "\(data["hours"] ?? 0)"
-                    output["type"] = data["type"] as? String ?? ""
-                    output["description"] = data["description"] as? String ?? ""
-                    output["ID"] = document.documentID
-                    output["classCode"] = classCode
-                    com.append(output)
-                    output = [:]
-                }
-                completion(com)
-            }else{
-                completion([])
+        } else {
+            /// 3
+            var com: [Request] = []
+            /// 4
+            for document in querySnapshot!.documents {
+                let data = document.data()
+                
+                let creator = data["creator"] as? String ?? ""
+                let description = data["description"] as? String ?? ""
+                
+                let timeTimestamp = data["timeCreated"] as? Timestamp
+                let timeCreated = timeTimestamp?.dateValue() ?? Date()
+                
+                let hourType = data["hourType"] as? String ?? ""
+                let numHours = data["numHours"] as? Int ?? 0
+                
+                let currReq = Request(creator: creator, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours)
+                
+                com.append(currReq)
             }
+            
+            /// 5
+            completion(com)
         }
-        
     }
-    
-    
 }
 
+/// Fetches all Requests from a User using an email
+/// 1 gets all documents in requests collection
+/// 2 handles error
+/// 3 creates a completion array
+/// 4 appends each request to the completion array
+/// 5 returns the completion array
+func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
+    /// 1
+    db.collection("classes").document(email).collection("requests").getDocuments { querySnapshot, error in
+        /// 2
+        if let error = error {
+            print(error.localizedDescription)
+            completion([])
+        } else {
+            /// 3
+            var com: [Request] = []
+            /// 4
+            for document in querySnapshot!.documents {
+                let data = document.data()
+                
+                let classCode = data["classCode"] as? String ?? ""
+                let description = data["description"] as? String ?? ""
+                
+                let timeTimestamp = data["timeCreated"] as? Timestamp
+                let timeCreated = timeTimestamp?.dateValue() ?? Date()
+                
+                let hourType = data["hourType"] as? String ?? ""
+                let numHours = data["numHours"] as? Int ?? 0
+                
+                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours)
+                
+                com.append(currReq)
+            }
+            
+            /// 5
+            completion(com)
+        }
+    }
+}
+
+/// Accepts the Request
+/// 1 finds Requests with correct creator and description
+/// 2 handles error if no Request is found
+/// 3 iterates through Requests with correct criteria looking for correct document
+/// 4 deletes correct Request
+/// 5 finds Requests with correct classCode and description
+/// 6 handles error if no Request is found
+/// 7 iterates through Requests with correct criteria looking for correct document
+/// 8 sets accepted value to true for correct Request
+func acceptRequest(request: Request, classCode: String) {
+    /// 1
+    db.collection("classes").document(classCode).collection("requests").whereField("creator", isEqualTo: request.creator).whereField("description", isEqualTo: request.description).getDocuments() { query, error in
+        if let error = error {
+            /// 2
+            print(error.localizedDescription)
+        } else {
+            /// 3
+            var wantedDocRef = query!.documents.first
+            for docRef in query!.documents {
+                db.collection("classes").document(classCode).collection("requests").document(docRef.documentID).getDocument() { doc, error in
+                    let timeTimestamp = doc!["timeCreated"] as? Timestamp
+                    let timeCreated = timeTimestamp?.dateValue() ?? Date()
+                    
+                    if timeCreated == request.timeCreated {
+                        wantedDocRef = docRef
+                    }
+                }
+            }
+            /// 4
+            db.collection("classes").document(classCode).collection("requests").document(wantedDocRef!.documentID).delete()
+        }
+    }
+    /// 5
+    db.collection("userInfo").document(request.creator).collection("requests").whereField("classCode", isEqualTo: request.classCode).whereField("description", isEqualTo: request.description).getDocuments() { query, error in
+        /// 6
+        if let error = error {
+            print(error.localizedDescription)
+        } else {
+            /// 7
+            var wantedDocRef = query!.documents.first
+            for docRef in query!.documents {
+                db.collection("userInfo").document(request.creator).collection("requests").document(docRef.documentID).getDocument() { doc, error in
+                    let timeTimestamp = doc!["timeCreated"] as? Timestamp
+                    let timeCreated = timeTimestamp?.dateValue() ?? Date()
+                    
+                    if timeCreated == request.timeCreated {
+                        wantedDocRef = docRef
+                    }
+                }
+            }
+            /// 8
+            db.collection("userInfo").document(request.creator).collection("requests").document(wantedDocRef!.documentID).updateData(["accepted" : !request.accepted])
+        }
+    }
+}
+
+/// Declines the Request
+/// 1 deletes the Request from Classroom
+/// 2 deletes the Request from User
+func declineRequest(request: Request, classCode: String) {
+    /// 1
+    db.collection("classes").document(classCode).collection("requests").whereField("creator", isEqualTo: request.creator).whereField("description", isEqualTo: request.description).getDocuments() { query, error in
+        if let error = error {
+            print(error.localizedDescription)
+        } else {
+            var wantedDocRef = query!.documents.first
+            for docRef in query!.documents {
+                db.collection("classes").document(classCode).collection("requests").document(docRef.documentID).getDocument() { doc, error in
+                    let timeTimestamp = doc!["timeCreated"] as? Timestamp
+                    let timeCreated = timeTimestamp?.dateValue() ?? Date()
+                    
+                    if timeCreated == request.timeCreated {
+                        wantedDocRef = docRef
+                    }
+                }
+            }
+            db.collection("classes").document(classCode).collection("requests").document(wantedDocRef!.documentID).delete()
+        }
+    }
+    /// 2
+    db.collection("userInfo").document(request.creator).collection("requests").whereField("classCode", isEqualTo: request.classCode).whereField("description", isEqualTo: request.description).getDocuments() { query, error in
+        if let error = error {
+            print(error.localizedDescription)
+        } else {
+            var wantedDocRef = query!.documents.first
+            for docRef in query!.documents {
+                db.collection("userInfo").document(request.creator).collection("requests").document(docRef.documentID).getDocument() { doc, error in
+                    let timeTimestamp = doc!["timeCreated"] as? Timestamp
+                    let timeCreated = timeTimestamp?.dateValue() ?? Date()
+                    
+                    if timeCreated == request.timeCreated {
+                        wantedDocRef = docRef
+                    }
+                }
+            }
+            db.collection("userInfo").document(request.creator).collection("requests").document(wantedDocRef!.documentID).delete()
+        }
+    }
+}
+
+/// ClassTask struct
+/// 1 email of User who made ClassTask
+/// 2 title
+/// 3 due date
+/// 4 used for sorting by time
+/// 5 limit of people allowed to sign up
+/// 6 number of hours the task is worth
+/// 7 list of people signed up
 struct ClassTask: Codable, Hashable, Identifiable {
     var id: String {
         return "\(UUID())"
     }
-    
+    /// 1
     var creator: String
+    /// 2
     var title: String
+    /// 3
     var date: Date
+    /// 4
     var timeCreated: Date
+    /// 5
     var maxSize: Int
+    /// 6
     var numHours: Int
+    /// 7
     var listOfPeople: [String]?
     
     init(creator: String = "", title: String = "", date: Date = Date(), timeCreated: Date = Date(), maxSize: Int = 0, numHours: Int = 0, listOfPeople: [String]? = []) {
@@ -250,25 +460,14 @@ struct ClassTask: Codable, Hashable, Identifiable {
         self.numHours = numHours
         self.listOfPeople = listOfPeople
     }
-    
-    init() {
-        self.creator = ""
-        self.title = ""
-        self.date = Date()
-        self.timeCreated = Date()
-        self.maxSize = 0
-        self.numHours = 0
-        self.listOfPeople = []
-    }
 }
 
 func addTask(classCode: String, creator: String, title: String, date: Date, timeCreated: Date, maxSize: Int, numHours: Int, listOfPeople: [String]? = []) {
     
-    let collection = db.collection("classes").document(classCode).collection("tasks")
     let task = ClassTask(creator: creator, title: title, date: date, timeCreated: timeCreated, maxSize: maxSize, numHours: numHours, listOfPeople: listOfPeople)
     
     do {
-        try collection.addDocument(from: task)
+        try db.collection("classes").document(classCode).collection("tasks").addDocument(from: task)
     } catch {
         print(error.localizedDescription)
     }
@@ -340,43 +539,6 @@ func getTaskParticipants(classCode: String, title: String, completion: @escaping
                 }
             }
         }
-    }
-}
-
-func acceptRequest(request: [String:String], classCode: String) {
-    
-    let email = request["email"]!
-    let hours = Int(request["hours"] ?? "0")!
-    let type = request["type"]!
-    let id = request["ID"] ?? ""
-    getClassHours(email: email, type: type) { classHours in
-        if var classHours = classHours{
-            let currHours: Int = classHours[type] ?? 0
-            
-            classHours[type] = currHours + hours
-            db.collection("userInfo").document(email).updateData(["classHours":classHours])
-            
-        
-            
-            
-        }
-    }
-    
-    getData(uid: email) { user in
-        if let user = user {
-            updateHours(uid: email, newHourCount: (user.hours ?? 0) + Float(hours))
-        }
-    }
-    
-    if id != "" {
-        db.collection("classes").document(classCode).collection("requests").document(id).delete()
-    }
-    
-}
-
-func declineRequest(request: [String:String], classCode: String) {
-    if let requestID = request["ID"] {
-        db.collection("classes").document(classCode).collection("requests").document(requestID).delete()
     }
 }
 

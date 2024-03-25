@@ -33,9 +33,9 @@ struct ManagerReqListView: View {
                 if let currClasses = currClasses {
                     for currClass in currClasses {
                         getClassInfo(classCloudCode: currClass) { classInfo in
-                            getRequests(classCode: currClass) { requestList in
+                            getClassRequests(classCode: currClass) { requestList in
                                 for request in requestList {
-                                    allRequests.append(request)
+                                    //allRequests.append(request)
                                     classNamesAndCodes[currClass] = classInfo!.title
                                     classCodesList.append(currClass)
                                 }
