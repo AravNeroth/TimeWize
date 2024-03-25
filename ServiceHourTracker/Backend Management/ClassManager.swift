@@ -12,6 +12,11 @@ import FirebaseAuth
 import FirebaseFirestore
 import SwiftUI
 
+
+//An app object you can call anywhere and stores a class code locally
+//you are able to get the code of the class that is currently in selection
+
+///in short: used to keep track of what class user is in
 class ClassData: ObservableObject {
     @Published var code: String
     init(code: String) {
@@ -21,7 +26,7 @@ class ClassData: ObservableObject {
 }
 //used to keep track of what class user is in
 
-
+// the structure for a classroom object that is saved in the firebase databasde
 struct Classroom: Codable, Hashable, Identifiable {
 //    var requestInfo: [String] = []
 //    var requests: [String:[String]] = [:]
@@ -39,8 +44,10 @@ struct Classroom: Codable, Hashable, Identifiable {
     }
 }
 
-let db = Firestore.firestore()
+let db = Firestore.firestore()// creating the db variable which is a reference to the current Firestore database
 
+//passes in a classroom object
+//in the database store a class object inside the classes collection as a document named after its code
 func storeClassInfoInFirestore(org: Classroom) {
     do {
         try db.collection("classes").document(org.code).setData(from: org)
@@ -49,7 +56,8 @@ func storeClassInfoInFirestore(org: Classroom) {
     }
 }
 
-
+//passes in the code of a class as a string
+//returns in a completion the classroom object associated with that code
 func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> Void) {
     
     
@@ -87,6 +95,10 @@ func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> 
     }
 }
 
+
+//passes in a class code as a String
+//returns in a compeltion a true or false value if a document already exists
+//used to make sure the code you are creating for a class is not already used
 func checkIfDocumentExists(documentID: String, completion: @escaping (Bool) -> Void) {
     let db = Firestore.firestore()
     let documentReference = db.collection("classes").document(documentID)
@@ -101,7 +113,7 @@ func checkIfDocumentExists(documentID: String, completion: @escaping (Bool) -> V
     }
 }
 
-
+//returns a String of a newly generated class code
 func createClassCode() -> String {
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
        let numbers = "0123456789"
@@ -134,6 +146,8 @@ func createClassCode() -> String {
        return randomString
 }
 
+//creates a classroomCode for managers to use when joining a class's manager list
+//returns a String of the code
 func createManagerCode() -> String {
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     let numbers = "0123456789"
@@ -167,6 +181,10 @@ func createManagerCode() -> String {
     return randomString
 }
 
+
+//passes in a class code as a String
+//passes in the name of the collection in the database
+//returns a true or false if the code is used or not respectively
 func isCodeUsedInCollection(code: String, collectionName: String, completion: @escaping (Bool) -> Void) {
     
 //    let db = Firestore.firestore()
@@ -184,6 +202,8 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
         completion(!snapshot.documents.isEmpty)
     }
 }
+
+
 
 /// Request struct
 /// 1 email of User who made Request
@@ -227,6 +247,7 @@ struct Request: Codable, Hashable, Identifiable {
 /// 1 creates a Request from the given info
 /// 2 adds the Request to the request list in the classes collection
 /// 3 adds the Request to the request list in the userInfo collection
+/// 
 func addRequest(classCode: String, email: String, hours: Int, type: String, description: String) {
     /// 1
     let req = Request(creator: email, classCode: classCode, description: description, hourType: type, numHours: hours)
@@ -581,6 +602,44 @@ func getTaskParticipants(classCode: String, title: String, completion: @escaping
         }
     }
 }
+
+func acceptRequest(request: [String:String], classCode: String) {
+    
+    let email = request["email"]!
+    let hours = Int(request["hours"] ?? "0")!
+    let type = request["type"]!
+    let id = request["ID"] ?? ""
+    getClassHours(email: email, type: type) { classHours in
+        if var classHours = classHours{
+            let currHours: Int = classHours[type] ?? 0
+            
+            classHours[type] = currHours + hours
+            db.collection("userInfo").document(email).updateData(["classHours":classHours])
+            
+        
+            
+            
+        }
+    }
+    
+    getData(uid: email) { user in
+        if let user = user {
+            updateHours(uid: email, newHourCount: (user.hours ?? 0) + Float(hours))
+        }
+    }
+    
+    if id != "" {
+        db.collection("classes").document(classCode).collection("requests").document(id).delete()
+    }
+    
+}
+
+func declineRequest(request: [String:String], classCode: String) {
+    if let requestID = request["ID"] {
+        db.collection("classes").document(classCode).collection("requests").document(requestID).delete()
+    }
+}
+
 
 func addPersonToClass(person: String, classCode: String) {
     let docRef = db.collection("classes").document(classCode)

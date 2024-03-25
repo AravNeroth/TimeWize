@@ -14,15 +14,27 @@ struct bottomPicks: View {
     var body: some View {
         HStack{
             Spacer()
+//            Button {
+//                settingsManager.tab = 0
+//            } label: {
+//                
+//                
+//                LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+//                    VStack{
+//                        Image(systemName: (settingsManager.tab == 0) ? "clock.fill" : "clock").resizable().scaledToFit().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
+//                        Text("Hours Log").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+//                    }
+//                ).frame(width: 65, height: 50)
+//            }
             Button {
-                settingsManager.tab = 0
+                settingsManager.tab = 6
             } label: {
                 
                 
                 LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
                     VStack{
-                        Image(systemName: (settingsManager.tab == 0) ? "clock.fill" : "clock").resizable().scaledToFit().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
-                        Text("Hours Log").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                        Image(systemName: (settingsManager.tab == 6) ? "message.fill" : "message").resizable().scaledToFit().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
+                        Text("Messages").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                     }
                 ).frame(width: 65, height: 50)
             }
@@ -43,14 +55,14 @@ struct bottomPicks: View {
             Spacer()
             Button{
 
-                settingsManager.tab = 3
+                settingsManager.tab = 7
             }label: {
                 
                 LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
                     VStack{
 
-                        Image(systemName: (settingsManager.tab == 3) ? "gearshape.fill" : "gearshape").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
-                        Text("Settings").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                        Image(systemName: (settingsManager.tab == 7) ? "person.fill" : "person").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
+                        Text("Profile").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                     }
                 ).frame(width: 65, height: 50)
             }

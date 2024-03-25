@@ -10,7 +10,7 @@ import SwiftUI
 
 
 
-struct ColorPalette: View {
+struct UserColorPalette: View {
     
     @Binding var showPop: Bool
     @Binding var refresh: Bool
@@ -23,7 +23,7 @@ struct ColorPalette: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Text("Class Colors")
+            Text("App Theme")
                 .font(.largeTitle)
                 .bold()
                 .padding(.top, 20.0)
@@ -83,7 +83,7 @@ struct ColorPalette: View {
                     HStack {
                         Text("")
                         
-                        ForEach(3..<10) { index in
+                        ForEach(3..<12) { index in
                             Button {
                                 currPick = index
                                 scrollView.scrollTo(index, anchor: .center)
@@ -104,7 +104,8 @@ struct ColorPalette: View {
             Spacer()
             
             Button {
-                setColorScheme(classCode: classData.code, colors: colorsSelected)
+                
+                setUserColors(email: userID, colors: colorsSelected)
                 showPop = false
                 refresh = true
             } label: {
@@ -135,6 +136,8 @@ struct ColorPalette: View {
         case 7: return [hexToColor(hex: "3494E6"), hexToColor(hex: "EC6EAD")] // Vice City
         case 8: return [hexToColor(hex: "000428"), hexToColor(hex: "004E92")] // Frost
         case 9: return [hexToColor(hex: "11998E"), hexToColor(hex: "38EF7D")] // Quepal
+        case 10: return [hexToColor(hex: "f7ff00"), hexToColor(hex: "db36a4")] // Alihossein
+        case 11: return [hexToColor(hex: "7b4397"), hexToColor(hex: "dc2430")] // Virgin America
         default: return []
         }
     }

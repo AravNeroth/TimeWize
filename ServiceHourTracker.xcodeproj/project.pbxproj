@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		064EC9B72BACCA6500F0E872 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064EC9B62BACCA6500F0E872 /* Profile.swift */; };
 		06A935062B81694600BD163F /* ManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A935052B81694500BD163F /* ManagerTabView.swift */; };
 		06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3932B92D0B40023646B /* MiniProfileView.swift */; };
 		06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3952B942E810023646B /* ManagerRoomView.swift */; };
@@ -22,6 +23,7 @@
 		06CEF9052BA4C97C00DFC973 /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9042BA4C97C00DFC973 /* MessageBubble.swift */; };
 		06CEF9072BA4CDE800DFC973 /* MessageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9062BA4CDE800DFC973 /* MessageField.swift */; };
 		06CEF90B2BA57E0E00DFC973 /* NewManagerPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF90A2BA57E0E00DFC973 /* NewManagerPeopleView.swift */; };
+		06E1C8D42BB1E2DA004A7F8C /* UserColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E1C8D32BB1E2DA004A7F8C /* UserColorPalette.swift */; };
 		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
 		06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A52B59C92300A7A36D /* TermsAndServices.swift */; };
 		06E576A92B5A29E100A7A36D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A82B5A29E100A7A36D /* String.swift */; };
@@ -90,6 +92,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		064EC9B62BACCA6500F0E872 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		06A935052B81694500BD163F /* ManagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerTabView.swift; sourceTree = "<group>"; };
 		06AEC3932B92D0B40023646B /* MiniProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		06AEC3952B942E810023646B /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
@@ -103,6 +106,7 @@
 		06CEF9042BA4C97C00DFC973 /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
 		06CEF9062BA4CDE800DFC973 /* MessageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageField.swift; sourceTree = "<group>"; };
 		06CEF90A2BA57E0E00DFC973 /* NewManagerPeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewManagerPeopleView.swift; sourceTree = "<group>"; };
+		06E1C8D32BB1E2DA004A7F8C /* UserColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorPalette.swift; sourceTree = "<group>"; };
 		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		06E576A52B59C92300A7A36D /* TermsAndServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServices.swift; sourceTree = "<group>"; };
 		06E576A82B5A29E100A7A36D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 				06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */,
 				06F54A322B72808900FD6069 /* LoadingScreen.swift */,
 				06CEF9042BA4C97C00DFC973 /* MessageBubble.swift */,
+				06E1C8D32BB1E2DA004A7F8C /* UserColorPalette.swift */,
 				06C520212B806323008E6286 /* ManagerBottomBar.swift */,
 				06A935052B81694500BD163F /* ManagerTabView.swift */,
 				06F110FB2B9194F600EB4F01 /* NewClassTabView.swift */,
@@ -226,6 +231,7 @@
 				06CEF9002BA157EA00DFC973 /* MessagingView.swift */,
 				EBD0F2EF2B8822F20047C5FF /* StudentPeopleView.swift */,
 				06CEF9022BA4C5E400DFC973 /* MessageLogView.swift */,
+				064EC9B62BACCA6500F0E872 /* Profile.swift */,
 				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
 				06E576A32B59C86000A7A36D /* SignUp.swift */,
 				EEF83F2E2B1FCDD90098D3A2 /* StudentClassesView.swift */,
@@ -482,6 +488,7 @@
 				06CEF9012BA157EA00DFC973 /* MessagingView.swift in Sources */,
 				06F111022B928CA200EB4F01 /* ManagerPeopleView.swift in Sources */,
 				EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */,
+				06E1C8D42BB1E2DA004A7F8C /* UserColorPalette.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
 				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,
 				06F111082B92A81D00EB4F01 /* AnnouncementField.swift in Sources */,
@@ -514,6 +521,7 @@
 				EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */,
 				06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */,
 				06A935062B81694600BD163F /* ManagerTabView.swift in Sources */,
+				064EC9B72BACCA6500F0E872 /* Profile.swift in Sources */,
 				EBA75DA12B23ECAD0062BF81 /* HourBoardView.swift in Sources */,
 				06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */,
 				06F111042B9290BD00EB4F01 /* StudentRoomView.swift in Sources */,
