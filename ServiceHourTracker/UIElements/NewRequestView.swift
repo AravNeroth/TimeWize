@@ -32,13 +32,13 @@ struct NewRequestView: View {
                     VStack {
                         HStack() {
                             VStack(alignment: .leading) {
-                                Text("Class: \(className)")
+                                Text(className)
                                     .font(.title2)
                                     .bold()
                                 
-                                Text("Student Email: \(email)")
+                                Text(email)
                                     .multilineTextAlignment(.leading)
-                                    .font(.title3)
+                                    .font(.headline)
                                     .bold()
                             }
                             
@@ -52,19 +52,17 @@ struct NewRequestView: View {
                                 
                                 Text("Hour Type: \(hourType)")
                                     .multilineTextAlignment(.leading)
-                                    .font(.title3)
+                                    .font(.headline)
                                     .bold()
                                 
                                 Text("Hours: \(numHours)")
                                     .multilineTextAlignment(.leading)
-                                    .font(.title3)
-                                    .bold()
-                                
-                                Text("Description: \(description)")
-                                    .multilineTextAlignment(.leading)
                                     .font(.headline)
                                     .bold()
-                                    .frame(height: 80)
+                                
+                                Text("\(description)")
+                                    .multilineTextAlignment(.leading)
+                                    .frame(height: 125)
                             }
                             
                             Spacer()
@@ -85,6 +83,7 @@ struct NewRequestView: View {
                                             .frame(width: 50, height: 50)
                                             .overlay(
                                                 Image(systemName: "checkmark")
+                                                    .bold()
                                             )
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -97,7 +96,8 @@ struct NewRequestView: View {
                                             .fill(LinearGradient(gradient: Gradient(colors: [hexToColor(hex: "FF4D4D"), hexToColor(hex: "FF0000")]), startPoint: .topLeading, endPoint: .bottomTrailing))
                                             .frame(width: 50, height: 50)
                                             .overlay(
-                                                Image(systemName: "multiply")
+                                                Image(systemName: "xmark")
+                                                    .bold()
                                             )
                                     }
                                     .buttonStyle(PlainButtonStyle())
