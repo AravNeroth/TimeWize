@@ -13,6 +13,8 @@ enum currStudentView{
     case ClassesView
     case ClassroomView
     case ManagerRoomView
+    case MessagesView
+    case Profile
 }
 
 var currentView: currStudentView = .ClassesView
@@ -66,6 +68,26 @@ struct StudentView: View {
                         .navigationTitle(settingsManager.title)
                         .navigationBarBackButtonHidden(true)
                 }
+            case .MessagesView:
+                VStack{
+                    MessagingView()
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarBackButtonHidden(true)
+                        .navigationTitle(settingsManager.title)
+                    
+                    bottomPicks(selection: $settingsManager.tab)
+                }
+            
+                
+            case .Profile:
+                VStack{
+                    Profile().ignoresSafeArea(.all)
+//                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarBackButtonHidden(true)
+//                        .navigationTitle(settingsManager.title)
+                        
+                    bottomPicks(selection: $settingsManager.tab)
+                }
             }
                    
                 
@@ -78,6 +100,8 @@ struct StudentView: View {
             case 3: settingsManager.title = "Settings"; currentView = .SettingsView; break;
             case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .ClassroomView; break;
             case 5: settingsManager.title = "\(settingsManager.title)"; currentView = .ManagerRoomView; break;
+            case 6: settingsManager.title = "Messages"; currentView = .MessagesView; break;
+            case 7: settingsManager.title = "Profile"; currentView = .Profile; break;
             default:
                 settingsManager.title = ""
             }

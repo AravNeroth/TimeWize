@@ -12,6 +12,10 @@ import FirebaseAuth
 import FirebaseFirestore
 import SwiftUI
 
+//An app object you can call anywhere and stores a class code locally
+//you are able to get the code of the class that is currently in selection
+
+///in short: used to keep track of what class user is in
 class ClassData: ObservableObject {
     @Published var code: String
     init(code: String) {
@@ -19,12 +23,11 @@ class ClassData: ObservableObject {
     }
     
 }
-//used to keep track of what class user is in
 
 
+// the structure for a classroom object that is saved in the firebase databasde
 struct Classroom: Codable, Hashable, Identifiable {
-//    var requestInfo: [String] = []
-//    var requests: [String:[String]] = [:]
+
     let code: String
     let managerCode: String
     let title: String
@@ -39,8 +42,10 @@ struct Classroom: Codable, Hashable, Identifiable {
     }
 }
 
-let db = Firestore.firestore()
+let db = Firestore.firestore() // creating the db variable which is a reference to the current Firestore database
 
+//passes in a classroom object
+//in the database store a class object inside the classes collection as a document named after its code
 func storeClassInfoInFirestore(org: Classroom) {
     do {
         try db.collection("classes").document(org.code).setData(from: org)
@@ -50,6 +55,8 @@ func storeClassInfoInFirestore(org: Classroom) {
 }
 
 
+//passes in the code of a class as a string
+//returns in a completion the classroom object associated with that code
 func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> Void) {
     
     
@@ -87,6 +94,9 @@ func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> 
     }
 }
 
+//passes in a class code as a String
+//returns in a compeltion a true or false value if a document already exists
+//used to make sure the code you are creating for a class is not already used
 func checkIfDocumentExists(documentID: String, completion: @escaping (Bool) -> Void) {
     let db = Firestore.firestore()
     let documentReference = db.collection("classes").document(documentID)
@@ -101,91 +111,125 @@ func checkIfDocumentExists(documentID: String, completion: @escaping (Bool) -> V
     }
 }
 
-
+//returns a String of a newly generated class code
 func createClassCode() -> String {
+    
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-       let numbers = "0123456789"
+    
+    let numbers = "0123456789"
        
-       var randomString = ""
+    var randomString = ""
        
-       for _ in 0..<2 {
-           // Add two random letters
-           let randomIndex = Int.random(in: 0..<letters.count)
-           let randomLetter = letters[letters.index(letters.startIndex, offsetBy: randomIndex)]
-           randomString.append(randomLetter)
-       }
+    for _ in 0..<2 {
        
-       for _ in 0..<4 {
-           // Add four random numbers
-           let randomIndex = Int.random(in: 0..<numbers.count)
-           let randomNumber = numbers[numbers.index(numbers.startIndex, offsetBy: randomIndex)]
-           randomString.append(randomNumber)
-       }
+       let randomIndex = Int.random(in: 0..<letters.count)
+        
+       let randomLetter = letters[letters.index(letters.startIndex, offsetBy: randomIndex)]
+        
+        
+       randomString.append(randomLetter)
+    }
+       
+    for _ in 0..<4 {
+
+       let randomIndex = Int.random(in: 0..<numbers.count)
+        
+       let randomNumber = numbers[numbers.index(numbers.startIndex, offsetBy: randomIndex)]
+        
+       randomString.append(randomNumber)
+    }
        
     
-       // Shuffle the string to randomize the order
-       randomString = String(randomString.shuffled())
+    
+    randomString = String(randomString.shuffled())
        
+   
     isCodeUsedInCollection(code: randomString, collectionName: "classes", completion: { isUsed in
         if isUsed{
             randomString = createClassCode()
         }
     })
-       return randomString
+    
+    
+    
+    return randomString
 }
 
+
+//creates a classroomCode for managers to use when joining a class's manager list
+//returns a String of the code
 func createManagerCode() -> String {
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
     let numbers = "0123456789"
        
     var randomString = ""
        
     for _ in 0..<3 {
-        // Add two random letters
+
         let randomIndex = Int.random(in: 0..<letters.count)
+        
         let randomLetter = letters[letters.index(letters.startIndex, offsetBy: randomIndex)]
+        
         randomString.append(randomLetter)
     }
        
     for _ in 0..<5 {
-        // Add four random numbers
+
         let randomIndex = Int.random(in: 0..<numbers.count)
+        
         let randomNumber = numbers[numbers.index(numbers.startIndex, offsetBy: randomIndex)]
+        
         randomString.append(randomNumber)
     }
        
     
-    // Shuffle the string to randomize the order
+
     randomString = String(randomString.shuffled())
        
     isCodeUsedInCollection(code: randomString, collectionName: "classes", completion: { isUsed in
+        
         if isUsed {
             randomString = createManagerCode()
         }
+        
+        
     })
+    
     
     return randomString
 }
 
+
+//passes in a class code as a String
+//passes in the name of the collection in the database
+//returns a true or false if the code is used or not respectively
 func isCodeUsedInCollection(code: String, collectionName: String, completion: @escaping (Bool) -> Void) {
-    
-//    let db = Firestore.firestore()
+
     
     let collectionRef = db.collection(collectionName)
     
     collectionRef.whereField("code", isEqualTo: code).getDocuments { (snapshot, error) in
+        
         guard error == nil, let snapshot = snapshot else {
-            // Handle the error
+            
             completion(false)
             return
         }
         
-        // If any document has the same code, it's used
+        
         completion(!snapshot.documents.isEmpty)
     }
 }
 
-//use class to get into class, goes to the requests collection or creates a requests collection and adds a document with our data
+
+
+//passes in the code of the class you need to add a request to as a String
+//passes in the email of the requester
+//passes in the amount of hours requested
+//passes in the type of hours
+//passes in the description of the task
+//adds the request to the class requests
 func addRequest(classCode: String, email: String, hours: Int, type: String, description: String) {
    
    
@@ -194,32 +238,47 @@ func addRequest(classCode: String, email: String, hours: Int, type: String, desc
     
 }
 
-//didnt finish thinking through
+
+
+//returns a dictionary of the request fields as Strings being the keys, and the values as Strings being the values
 func getRequests(classCode: String, completion: @escaping ([[String:String]]) -> Void){
     
     db.collection("classes").document(classCode).collection("requests").getDocuments { docs, error in
+        
         if let error = error{
+            
             print(error.localizedDescription)
             completion([])
+            
         }else{
+            
             var com:[[String:String]] = []//completion output
             var output: [String:String] = [:]//temp for each document
+            
             if let docs = docs{
+                
                 for document in docs.documents {
                     
                     let data = document.data()
+                    
                     output["email"] = data["email"] as? String ?? ""
                     output["hours"] = "\(data["hours"] ?? 0)"
                     output["type"] = data["type"] as? String ?? ""
                     output["description"] = data["description"] as? String ?? ""
                     output["ID"] = document.documentID
                     output["classCode"] = classCode
+                    
                     com.append(output)
                     output = [:]
+                    
                 }
+                
                 completion(com)
+                
             }else{
+                
                 completion([])
+                
             }
         }
         
@@ -228,6 +287,8 @@ func getRequests(classCode: String, completion: @escaping ([[String:String]]) ->
     
 }
 
+
+//Structure of a task added to a class
 struct ClassTask: Codable, Hashable, Identifiable {
     var id: String {
         return "\(UUID())"
@@ -261,7 +322,7 @@ struct ClassTask: Codable, Hashable, Identifiable {
         self.listOfPeople = []
     }
 }
-
+//end of Task struct
 func addTask(classCode: String, creator: String, title: String, date: Date, timeCreated: Date, maxSize: Int, numHours: Int, listOfPeople: [String]? = []) {
     
     let collection = db.collection("classes").document(classCode).collection("tasks")

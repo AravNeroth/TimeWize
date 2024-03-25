@@ -8,6 +8,10 @@
 import Foundation
 import SwiftUI
 
+
+
+// Settings, classInfo, and message managers are app objects to access current local variables throughout all files and views
+
 class SettingsManager: ObservableObject {
     static var shared =  SettingsManager()
     @Published var fresh = false
@@ -22,7 +26,7 @@ class SettingsManager: ObservableObject {
             updateUserDefaults()
         }
     }
-    //is UserDefaults creating the bug?
+
     @Published var managerClassObjects: [Classroom] = []
     @Published var inClass = false
     @Published var tab: Int = 2
@@ -36,6 +40,9 @@ class SettingsManager: ObservableObject {
         UserDefaults.standard.set([], forKey: "classes")
     }
 }
+//End of settingsManager
+
+
 
 
 class ClassInfoManager: ObservableObject {
@@ -46,11 +53,19 @@ class ClassInfoManager: ObservableObject {
     @Published var managerClassPfp: [String: UIImage] = [:]
 }
 
+//End of classInfoManager
+
+
+
+
 class MessageManager: ObservableObject{
     
     @Published var messages: [Message] = []
     @Published var loading = true
     
+    
+    //takes in a list of emails a user is chatting with
+    //returns a name as a value for each email key
     func getNames(emails: [String], completion: @escaping ([String:String])-> Void ){
         var names: [String:String] = [:]
         for email in emails{
@@ -62,6 +77,9 @@ class MessageManager: ObservableObject{
             completion(names)
         }
     }
+    //passes in a list of emails the user is chatting with
+    //passes in the email of the current user
+    //returns in a completion a dictionary of emails as keys and Messages (custom struct) as the values
     func getLatestMessage(chats: [String], user: String, completion: @escaping ([String: Message]) -> Void ){
         var message: [String:Message] = [:]
    
@@ -81,6 +99,10 @@ class MessageManager: ObservableObject{
             
         
     }
+    
+    
+    //chats: an array of emails for each email a user is chatting with
+    //Function that returns in a completion a dictionary of emails to their associated profile picture
     func getImagesForChats(chats:[String], completion: @escaping ([String:Image]) -> Void ){
         var images: [String:Image] = [:]
         for chat in chats {
@@ -98,7 +120,9 @@ class MessageManager: ObservableObject{
         
     }
 
-    
+    //passes in the user email of who it is sending it too
+    //passes in the person who its coming from: usually current user's email (whoever sends the message through the app)
+    //updates the messages list of MessageManager
     func getMessagesList(user: String, from: String){
         loading = true
         getMessages(user: user, from: from) { messages in
@@ -123,3 +147,7 @@ class MessageManager: ObservableObject{
     }
     
 }
+
+
+
+//End of MessageManager

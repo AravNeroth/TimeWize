@@ -15,17 +15,32 @@ struct ManagerBottomBar: View {
         HStack{
             Spacer()
             
+//            Button{
+//
+//                settingsManager.manTab = 2
+//            }label: {
+//                
+//                
+//                LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+//                    VStack{
+//
+//                        Image(systemName: (settingsManager.manTab == 2) ? "list.clipboard.fill" : "list.clipboard").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 18, height:27)
+//                        Text("Requests").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+//                    }
+//                ).frame(width: 65, height: 50)
+//
+//            }
             Button{
 
-                settingsManager.manTab = 2
+                settingsManager.manTab = 4
             }label: {
                 
                 
                 LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
                     VStack{
 
-                        Image(systemName: (settingsManager.manTab == 2) ? "list.clipboard.fill" : "list.clipboard").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 18, height:27)
-                        Text("Requests").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                        Image(systemName: (settingsManager.manTab == 6) ? "message.fill" : "message").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
+                        Text("Messages").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                     }
                 ).frame(width: 65, height: 50)
 
