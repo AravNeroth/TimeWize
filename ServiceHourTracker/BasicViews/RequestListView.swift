@@ -18,15 +18,17 @@ struct RequestListView: View {
     
     var body: some View {
         if done {
-            if fromManSide {
-                ScrollView {
+            ScrollView {
+                if !requestList.isEmpty {
                     ForEach(requestList) { request in
                         NewRequestView(className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
                     }
-                }
-            } else {
-                ScrollView {
-                    
+                } else {
+                    if fromManSide {
+                        Text("No Requests")
+                    } else {
+                        Text("No Requests Pending")
+                    }
                 }
             }
         } else {
@@ -39,23 +41,42 @@ struct RequestListView: View {
                     colorsForRequest = [:]
                     classForRequest = [:]
                     
+                    print("fromManSide: \(fromManSide)")
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                        getClasses(uid: userID) { classes in
-                            if let classes = classes {
-                                for classCode in classes {
-                                    getClassRequests(classCode: classCode) { requests in
-                                        for request in requests {
-                                            getColorScheme(classCode: classCode) { colors in
-                                                colorsForRequest[request] = colors
-                                            }
-                                            getClassInfo(classCloudCode: classCode) { classroom in
-                                                if let classroom = classroom {
-                                                    classForRequest[request] = classroom
+                        if fromManSide {
+                            getClasses(uid: userID) { classes in
+                                if let classes = classes {
+                                    for classCode in classes {
+                                        getClassRequests(classCode: classCode) { requests in
+                                            for request in requests {
+                                                getColorScheme(classCode: classCode) { colors in
+                                                    colorsForRequest[request] = colors
                                                 }
+                                                getClassInfo(classCloudCode: classCode) { classroom in
+                                                    if let classroom = classroom {
+                                                        classForRequest[request] = classroom
+                                                    }
+                                                }
+                                                requestList.append(request)
                                             }
-                                            requestList.append(request)
                                         }
                                     }
+                                }
+                            }
+                        } else {
+                            getPendingRequests(email: userID) { requests in
+                                print(requests)
+                                for request in requests {
+                                    getColorScheme(classCode: request.classCode) { colors in
+                                        colorsForRequest[request] = colors
+                                    }
+                                    getClassInfo(classCloudCode: request.classCode) { classroom in
+                                        if let classroom = classroom {
+                                            classForRequest[request] = classroom
+                                        }
+                                    }
+                                    requestList.append(request)
                                 }
                             }
                         }

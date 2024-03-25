@@ -30,7 +30,7 @@ struct NewRequestView: View {
                 .shadow(radius: 2.0, y: 2.0)
                 .overlay(
                     VStack {
-                        HStack() {
+                        HStack {
                             VStack(alignment: .leading) {
                                 Text(className)
                                     .font(.title2)
@@ -108,7 +108,48 @@ struct NewRequestView: View {
                     }
                 )
         } else {
-            
+            RoundedRectangle(cornerRadius: 15.0)
+                .fill(.background)
+                .stroke(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2.0)
+                .frame(height: 150)
+                .padding(.horizontal, 10.0)
+                .shadow(radius: 2.0, y: 2.0)
+                .overlay(
+                    VStack {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(className)
+                                    .font(.title2)
+                                    .bold()
+                            }
+                            
+                            Spacer()
+                        }
+                        .padding(.horizontal, 30.0)
+                        
+                        HStack {
+                            VStack(alignment: .leading) {
+                                
+                                Text("Hour Type: \(hourType)")
+                                    .multilineTextAlignment(.leading)
+                                    .font(.headline)
+                                    .bold()
+                                
+                                Text("Hours: \(numHours)")
+                                    .multilineTextAlignment(.leading)
+                                    .font(.headline)
+                                    .bold()
+                                
+                                Text("\(description)")
+                                    .multilineTextAlignment(.leading)
+                                    .frame(height: 50)
+                            }
+                            .padding(.horizontal, 30.0)
+                            
+                            Spacer()
+                        }
+                    }
+                )
         }
     }
 }
