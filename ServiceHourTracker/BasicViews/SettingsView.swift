@@ -184,6 +184,14 @@ struct SettingsView:View {
                     NavigationLink(destination: MessagingView().toolbarTitleDisplayMode(.inline)){
                         Text("m view")
                     }
+                    
+
+                    NavigationLink(destination: ContentView()) {
+                                Text("Generate Report")
+                            }
+                    
+                                //.navigationBarTitle("Main Menu")
+                                                 
                     /*
                      Button{
                      setClassHours(email: userID, type: "Math", hours: 2)
@@ -412,6 +420,7 @@ struct SettingsView:View {
             }
             
         })
+        
         
 
     }

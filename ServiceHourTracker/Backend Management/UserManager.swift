@@ -286,6 +286,7 @@ func sendPasswordResetEmail(email: String) -> String {
     return alertMessage
 }
 
+
 //only works if youre signed in
 func getAuthIDForEmail(email: String, completion: @escaping (String) -> Void) {
     
