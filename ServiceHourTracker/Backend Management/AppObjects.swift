@@ -128,6 +128,7 @@ class MessageManager: ObservableObject{
     //updates the messages list of MessageManager
     func getMessagesList(user: String, from: String){
         loading = true
+        
         getMessages(user: user, from: from) { messages in
             let chat = db.collection("userInfo").document(user).collection("Messages").document(from).collection("chat")
             
@@ -145,6 +146,32 @@ class MessageManager: ObservableObject{
                 
                 
             }
+            
+        }
+    }
+    
+    func updateData(userID: String){
+        getChatsOf(user: userID) { [self] chats in
+            if chats.isEmpty{
+                print("no CHATS")
+            }
+            self.userChats = chats
+            
+            
+            getNames(emails: chats) { names in
+                
+                self.chatNames = names
+            }
+            getImagesForChats(chats: chats){ images in
+                
+                self.chatImages = images
+            }
+            getLatestMessage(chats: chats, user: userID){ lastChats in
+                
+                self.lastMessages = lastChats
+            }
+            
+
             
         }
     }

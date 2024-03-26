@@ -31,10 +31,13 @@
          contextName = "main:ServiceHourTrackerApp.swift">
       </ContextState>
       <ContextState
-         contextName = "MessagingView.body.getter:MessagingView.swift">
+         contextName = "closure #1 in MessagingView.body.getter:MessagingView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceHourTrackerApp.body.getter:ServiceHourTrackerApp.swift">
          <PersistentStrings>
             <PersistentString
-               value = "messageManager.chatNames">
+               value = "userID">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -58,7 +61,12 @@
          contextName = "closure #1 in MessageManager.getLatestMessage(chats:user:):AppObjects.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in MessagingView.body.getter:MessagingView.swift">
+         contextName = "MessagingView.body.getter:MessagingView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "messageManager.chatNames">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

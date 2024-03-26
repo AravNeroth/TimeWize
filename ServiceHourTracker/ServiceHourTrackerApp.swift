@@ -17,6 +17,8 @@ struct ServiceHourTrackerApp: App {
     @StateObject private var userData = UserData(user:User())
     @StateObject private var classData = ClassData(code: "")
     @StateObject private var messageManager = MessageManager()
+    @AppStorage("uid") var userID = ""
+    let timer = Timer.publish(every: 5, on: .main, in: .common)
 //    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     //check PushNotificationsManager
     
@@ -36,7 +38,14 @@ struct ServiceHourTrackerApp: App {
                     .environmentObject(classData)
                     .environmentObject(classInfoManager)
                     .environmentObject(messageManager)
+            
+                    .onReceive(timer) { _ in
+                        if userID != "" {
+                            messageManager.updateData(userID: userID)
+                        }
+                    }
            
         }
+        
     }
 }

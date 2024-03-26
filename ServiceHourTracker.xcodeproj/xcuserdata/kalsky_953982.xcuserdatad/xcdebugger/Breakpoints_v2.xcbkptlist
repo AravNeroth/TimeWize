@@ -3460,7 +3460,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "12069E18-5263-4984-977B-3A99DEE11D7A"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/BasicViews/MessagingView.swift"
@@ -3500,6 +3500,36 @@
                   startingLineNumber = "97"
                   endingLineNumber = "97"
                   offsetFromSymbolStart = "1224">
+               </Location>
+               <Location
+                  uuid = "12069E18-5263-4984-977B-3A99DEE11D7A - a5615d1e86c8fdf7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Text, Swift.Optional&lt;SwiftUI.Text&gt;, SwiftUI.Spacer)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Text, Swift.Optional&lt;SwiftUI.Text&gt;, SwiftUI.Spacer)&gt;&gt;, SwiftUI.Spacer, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(Swift.Optional&lt;SwiftUI.Text&gt;, SwiftUI.Spacer)&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #2 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt; in closure #1 (Swift.String) -&gt; &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.PrimitiveButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0 in closure #2 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;Swift.String&gt;, Swift.String, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.PrimitiveButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0&gt; in ServiceHourTracker.MessagingView.body.getter : some"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/BasicViews/MessagingView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "1016">
+               </Location>
+               <Location
+                  uuid = "12069E18-5263-4984-977B-3A99DEE11D7A - a5615d1e86c8fdf7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Text, Swift.Optional&lt;SwiftUI.Text&gt;, SwiftUI.Spacer)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Text, Swift.Optional&lt;SwiftUI.Text&gt;, SwiftUI.Spacer)&gt;&gt;, SwiftUI.Spacer, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(Swift.Optional&lt;SwiftUI.Text&gt;, SwiftUI.Spacer)&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #2 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt; in closure #1 (Swift.String) -&gt; &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.PrimitiveButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0 in closure #2 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;Swift.String&gt;, Swift.String, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.PrimitiveButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0&gt; in ServiceHourTracker.MessagingView.body.getter : some"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/BasicViews/MessagingView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "1288">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -3602,7 +3632,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "23719017-A327-4129-B2DB-F3F4534E9BDE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/BasicViews/MessagingView.swift"
@@ -3618,7 +3648,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "70C63800-F700-4853-8DAD-CE7B93AF17D3"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/BasicViews/MessagingView.swift"
@@ -3634,7 +3664,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "768AC2E8-CC73-4B6F-AC45-50BBA98EB62A"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/BasicViews/MessagingView.swift"
@@ -3644,6 +3674,133 @@
             endingLineNumber = "35"
             landmarkName = "body"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D86119DC-C018-4748-B514-CE98262467CA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/ServiceHourTrackerApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB79FE2F-FC77-4D37-89F4-17A12570F4B1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/ServiceHourTrackerApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "CB79FE2F-FC77-4D37-89F4-17A12570F4B1 - 56abd5f8f188894"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onReceive&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Combine.Publisher, &#x3c4;_1_0.Failure == Swift.Never&gt;(_: &#x3c4;_1_0, perform: (&#x3c4;_1_0.Output) -&gt; ()) -&gt; some&gt;&gt;.0 in ServiceHourTracker.ServiceHourTrackerApp.body.getter : some"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/ServiceHourTrackerApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "1896">
+               </Location>
+               <Location
+                  uuid = "CB79FE2F-FC77-4D37-89F4-17A12570F4B1 - 7f00e3a199f917ca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Date) -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onReceive&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Combine.Publisher, &#x3c4;_1_0.Failure == Swift.Never&gt;(_: &#x3c4;_1_0, perform: (&#x3c4;_1_0.Output) -&gt; ()) -&gt; some&gt;&gt;.0 in ServiceHourTracker.ServiceHourTrackerApp.body.getter : some"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/ServiceHourTrackerApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  uuid = "CB79FE2F-FC77-4D37-89F4-17A12570F4B1 - 56abd5f8f188894"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onReceive&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Combine.Publisher, &#x3c4;_1_0.Failure == Swift.Never&gt;(_: &#x3c4;_1_0, perform: (&#x3c4;_1_0.Output) -&gt; ()) -&gt; some&gt;&gt;.0 in ServiceHourTracker.ServiceHourTrackerApp.body.getter : some"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/ServiceHourTrackerApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "2076">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ACC8E112-6888-4C83-A5C9-87FEC1557461"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "updateData(userID:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ACC8E112-6888-4C83-A5C9-87FEC1557461 - 4fc94297cf5dd48f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ServiceHourTracker.MessageManager.updateData() -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "ACC8E112-6888-4C83-A5C9-87FEC1557461 - 87b45f3838ed9d1b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ServiceHourTracker.MessageManager.updateData(userID: Swift.String) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

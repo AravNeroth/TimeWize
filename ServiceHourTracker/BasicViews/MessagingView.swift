@@ -110,75 +110,16 @@ struct MessagingView: View {
                                     
                                     
                                 }.padding(.all, 20)
-                                //                            VStack{
+                          
                                 Divider().padding(.leading, 100)
-                                //                            }
+                   
                                 
                                 
                             }
                             
                             
                         }.buttonStyle(PlainButtonStyle())
-                        /*
-                         NavigationLink {
-                         MessageLogView(recipientEmail: chatWith).navigationBarTitleDisplayMode(.inline)
-                         } label: {
-                         VStack{
-                         Divider()
-                         
-                         RoundedRectangle(cornerRadius: 15.0)
-                         .fill(.background)
-                         .stroke(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2.0)
-                         .frame(height: 100)
-                         .padding(.horizontal, 10.0)
-                         .shadow(radius: 2.0, y: 2.0)
-                         .overlay(
-                         VStack {
-                         HStack {
-                         if let image = images[chatWith]{
-                         Circle()
-                         .fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
-                         .frame(width: 40, height: 40)
-                         .overlay(
-                         image
-                         .resizable()
-                         .clipShape(Circle())
-                         
-                         
-                         )
-                         .padding(.leading, 20.0)
-                         }
-                         VStack(alignment: .leading) {
-                         Text("\(chatWith)")
-                         .multilineTextAlignment(.leading)
-                         .font(.title3)
-                         .bold()
-                         
-                         
-                         if let lastM = lastChats[chatWith] {
-                         Text("\(formatDate(lastM.time))")
-                         .multilineTextAlignment(.leading)
-                         .font(.caption)
-                         
-                         }
-                         
-                         }
-                         
-                         Spacer()
-                         
-                         
-                         }
-                         }
-                         )
-                         
-                         
-                         Text(chatWith).padding([.top,.bottom], 10)
-                         
-                         
-                         Divider()
-                         }.padding()
-                         }.buttonStyle(PlainButtonStyle())
-                         */
+                        
                         
                         
                     }
