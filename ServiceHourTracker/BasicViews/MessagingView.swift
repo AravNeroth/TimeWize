@@ -15,41 +15,49 @@ struct MessagingView: View {
     @State var lastChats: [String:Message] = [:]
     @EnvironmentObject var settingsManager: SettingsManager
     @AppStorage("uid") private var userID = ""
-    @StateObject private var messageManager = MessageManager()
+    @EnvironmentObject var messageManager: MessageManager
     @State var names: [String:String] = [:]
     var body: some View {
         
-        if loading{
+        if messageManager.chatNames.isEmpty || messageManager.chatImages.isEmpty || messageManager.lastMessages.isEmpty{
+            
             LoadingScreen()
                 .onAppear(){
                     getChatsOf(user: userID) { chats in
-                        
-                        
+                        if chats.isEmpty{
+                            print("no CHATS")
+                        }
+                        messageManager.userChats = chats
                         self.chats = chats
                         
                         messageManager.getNames(emails: chats) { names in
                             self.names = names
+                            messageManager.chatNames = names
                         }
                         messageManager.getImagesForChats(chats: chats){ images in
                             self.images = images
+                            messageManager.chatImages = images
                         }
                         messageManager.getLatestMessage(chats: chats, user: userID){ lastChats in
                             self.lastChats = lastChats
+                            messageManager.lastMessages = lastChats
                         }
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-                            loading = false
-                        }
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+//                            loading = false
+//                        }
                         
                     }
                 }
+        } else if messageManager.userChats.isEmpty {
+            Text("No Recent Chats")
         }else{
             
                 ScrollView{
                     
-                    ForEach(chats, id: \.self){ chatWith in
+                    ForEach(messageManager.userChats, id: \.self){ chatWith in
                         NavigationLink {
-                            MessageLogView(lastChats: $lastChats, recipientEmail: chatWith)
+                            MessageLogView(lastChats: $messageManager.lastMessages, recipientEmail: chatWith)
                                 .navigationBarTitleDisplayMode(.inline)
                             
                         }label:{
@@ -58,7 +66,7 @@ struct MessagingView: View {
                             VStack{
                                 HStack{
                                     VStack(alignment: .leading){
-                                        if let image = images[chatWith]{
+                                        if let image = messageManager.chatImages[chatWith]{
                                             Circle()
                                                 .fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
                                                 .frame(width: 40, height: 40)
@@ -85,15 +93,15 @@ struct MessagingView: View {
                                     
                                     
                                     VStack(alignment: .leading){
-                                        Text(names[chatWith] ?? "").bold().font(.title3)
-                                        if let lastMessage = lastChats[chatWith]{
+                                        Text(messageManager.chatNames[chatWith] ?? "").bold().font(.title3)
+                                        if let lastMessage = messageManager.lastMessages[chatWith]{
                                             Text(lastMessage.message).font(.footnote)
                                         }
                                         Spacer()
                                     }
                                     Spacer()
                                     VStack(alignment: .trailing) {
-                                        if let lastMessage = lastChats[chatWith]{
+                                        if let lastMessage = messageManager.lastMessages[chatWith]{
                                             Text("\(formatDate(lastMessage.time))")
                                         }
                                         Spacer()

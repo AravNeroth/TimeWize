@@ -11,19 +11,30 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in MessagingView.body.getter:MessagingView.swift">
+         contextName = "mach_msg2_trap:(null)">
+         <PersistentStrings>
+            <PersistentString
+               value = "messageManager.chatNames">
+            </PersistentString>
+            <PersistentString
+               value = "lastChats">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "main:ServiceHourTrackerApp.swift">
+         contextName = "closure #1 in closure #1 in MessagingView.body.getter:MessagingView.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in closure #1 in MessagingView.body.getter:MessagingView.swift">
       </ContextState>
       <ContextState
-         contextName = "mach_msg2_trap:(null)">
+         contextName = "main:ServiceHourTrackerApp.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MessagingView.body.getter:MessagingView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "lastChats">
+               value = "messageManager.chatNames">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -16,6 +16,7 @@ struct ServiceHourTrackerApp: App {
     @StateObject private var settingsManager = SettingsManager()
     @StateObject private var userData = UserData(user:User())
     @StateObject private var classData = ClassData(code: "")
+    @StateObject private var messageManager = MessageManager()
 //    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     //check PushNotificationsManager
     
@@ -34,6 +35,7 @@ struct ServiceHourTrackerApp: App {
                     .environmentObject(userData)
                     .environmentObject(classData)
                     .environmentObject(classInfoManager)
+                    .environmentObject(messageManager)
            
         }
     }

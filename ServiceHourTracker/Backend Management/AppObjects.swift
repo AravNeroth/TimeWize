@@ -60,9 +60,12 @@ class ClassInfoManager: ObservableObject {
 
 class MessageManager: ObservableObject{
     
-    @Published var messages: [Message] = []
+    @Published var messages: [Message] = [] //a list of the current Messages (based on the chat youre in)
     @Published var loading = true
-    
+    @Published var userChats: [String] = [] // a list of people's emails youre chatting with
+    @Published var chatNames: [String:String] = [:] // a dictionary of email:name
+    @Published var chatImages: [String:Image] = [:] // a dictionary of email:profile picture image
+    @Published var lastMessages: [String:Message] = [:] // a dictionary of email:latest Message in the log
     
     //takes in a list of emails a user is chatting with
     //returns a name as a value for each email key
