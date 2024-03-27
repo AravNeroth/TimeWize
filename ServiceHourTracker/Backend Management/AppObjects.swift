@@ -51,6 +51,93 @@ class ClassInfoManager: ObservableObject {
     @Published var classPfp: [String: UIImage] = [:]
     @Published var managerClassImages: [String: UIImage] = [:]
     @Published var managerClassPfp: [String: UIImage] = [:]
+    
+    @Published var allClasses: [Classroom] = []
+    @Published var classColors: [Classroom:[Color]] = [:]
+    @Published var classOwners: [Classroom:String] = [:]
+    var classCodes: [String] = []
+    
+    func updateData(userID: String, completion: ((Bool) -> Void)? = nil){
+        
+        getCodes(uid: userID) { codes in
+            if var codes = codes {
+                while codes.contains("") {
+                    let remove = codes.firstIndex(of: "")
+                    if let index = remove {
+                        codes.remove(at: index)
+                    }
+                }
+                
+                self.classCodes = codes
+                
+                for classCode in codes {
+                    if classCode == ""{
+                        continue
+                    }
+                    getClassInfo(classCloudCode: classCode) { newClass in
+                        let list = newClass?.managerList
+                        
+                        if let list = list {
+                            getData(uid: list.first!) { newUser in
+                                self.classOwners[newClass!] = (newUser?.displayName)!
+                            }
+                        }
+                        
+                        getColorScheme(classCode: classCode) { scheme in
+                            self.classColors[newClass!] = scheme
+                        }
+                    }
+                }
+            }
+            
+            self.loadClassInfo(){ _ in
+                if let completion{
+                    completion(true)
+                }
+            }
+        }
+        
+        
+        
+    }
+    
+    private func loadClassInfo(completion: ((Bool)->Void)? = nil) {
+        for code in classCodes {
+            getClassInfo(classCloudCode: code) { classroom in
+                if let classroom = classroom {
+                    if !self.classInfo.contains(classroom) {
+                        self.classInfo.append(classroom)
+                        
+                        downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
+                            self.classImages[classroom.title] = image
+                        }
+                    
+                        downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
+                            if let image = image {
+                                self.classPfp[classroom.title] = image
+                            }
+                        }
+                    }
+                    if !self.allClasses.contains(classroom) {
+                        self.allClasses.append(classroom)
+                    }
+                }
+                
+                self.classInfo.sort { $0.title < $1.title }
+                self.allClasses.sort { $0.title < $1.title }
+                
+                if code == self.classCodes.last {
+                    if let completion{
+                        completion(true)
+                    }
+                }
+            }
+        }
+        
+        
+        
+    }
+
 }
 
 //End of classInfoManager
@@ -150,14 +237,12 @@ class MessageManager: ObservableObject{
         }
     }
     
-    func updateData(userID: String){
+    func updateData(userID: String, completion: ((Bool)->Void)? = nil){
         getChatsOf(user: userID) { [self] chats in
-            if chats.isEmpty{
-                print("no CHATS")
-            }
+            
             self.userChats = chats
             
-            
+                
             getNames(emails: chats) { names in
                 
                 self.chatNames = names
@@ -169,6 +254,10 @@ class MessageManager: ObservableObject{
             getLatestMessage(chats: chats, user: userID){ lastChats in
                 
                 self.lastMessages = lastChats
+                
+                if let completion = completion{
+                    completion(true)
+                }
             }
             
 

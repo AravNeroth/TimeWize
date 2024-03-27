@@ -152,7 +152,7 @@ struct SettingsView:View {
                             Spacer()
                             
                             if updated{
-                                Image(systemName: "person.fill.checkmark").foregroundStyle(.green5).padding().animation(.bouncy(duration: 1.0))
+                                Image(systemName: "person.fill.checkmark").foregroundStyle(.green5).padding()
                             }
                             
                             

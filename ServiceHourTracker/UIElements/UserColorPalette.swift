@@ -86,7 +86,7 @@ struct UserColorPalette: View {
                     HStack {
                         Text("")
                         
-                        ForEach(3..<12) { index in
+                        ForEach(3..<13) { index in
                             Button {
                                 currPick = index
                                 scrollView.scrollTo(index, anchor: .center)
@@ -142,6 +142,7 @@ struct UserColorPalette: View {
         case 9: return [hexToColor(hex: "11998E"), hexToColor(hex: "38EF7D")] // Quepal
         case 10: return [hexToColor(hex: "f7ff00"), hexToColor(hex: "db36a4")] // Alihossein
         case 11: return [hexToColor(hex: "7b4397"), hexToColor(hex: "dc2430")] // Virgin America
+        case 12:return [hexToColor(hex: "832388"), hexToColor(hex: "E3436B")]
         default: return []
         }
     }

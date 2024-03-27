@@ -26,6 +26,7 @@ struct AuthView: View {
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @AppStorage("authuid") var authUID = ""
     @State private var isLoaded = false
+    @EnvironmentObject var messageManager: MessageManager
     var body: some View {
         if isLoaded{
             VStack {
@@ -59,8 +60,10 @@ struct AuthView: View {
                 
                 if isLoggedIn() {
                     if(settingsManager.isManagerMode){
+                        
                         currentView = .ManagerView
                     }else{
+                        
                         currentView = .StudentView
                     }
                 } else {
@@ -88,9 +91,11 @@ struct AuthView: View {
             .onChange(of: settingsManager.isManagerMode) { oldValue, newValue in
                 if newValue == false{
                     //student mode
+                    currStudentViewSelected = .SettingsView
                     currentView = .StudentView
                 }else{
                     //manager mode
+                    currManagerView = .SettingsView
                     currentView = .ManagerView
                 }
             }
@@ -101,7 +106,10 @@ struct AuthView: View {
                         loadData { result in
                             switch result{
                             case .success():
+                                currStudentViewSelected = .ClassesView
+                                currManagerView = .ManagerHome
                                 isLoaded = true
+                                
                             case.failure(let error):
                                 print("failed to load \(error.localizedDescription)")
                             }
@@ -141,6 +149,12 @@ struct AuthView: View {
         settingsManager.zeroUserDefaults()
         settingsManager.fresh = true
         settingsManager.studentFresh = true
+        messageManager.chatImages = [:]
+        messageManager.chatNames = [:]
+        messageManager.lastMessages = [:]
+        messageManager.userChats = []
+        messageManager.messages = []
+        
     }
     private func loadData(completion: ((Result<Void, Error>)-> Void)? = nil){
         

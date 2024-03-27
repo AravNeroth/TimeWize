@@ -61,7 +61,7 @@ struct OldClassTabView: View {
                     Button {
                         settingsManager.tab = 4
                         print("tap")
-                        currentView = .ClassroomView
+                        currStudentViewSelected = .ClassroomView
                         settingsManager.title = name
                         classData.code = classCode
                         

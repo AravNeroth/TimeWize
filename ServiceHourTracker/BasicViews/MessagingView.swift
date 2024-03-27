@@ -9,48 +9,40 @@ import SwiftUI
 
 
 struct MessagingView: View {
-    @State var chats: [String] = []
-    @State var loading = true
-    @State var images: [String:Image] = [:]
-    @State var lastChats: [String:Message] = [:]
+
     @EnvironmentObject var settingsManager: SettingsManager
     @AppStorage("uid") private var userID = ""
     @EnvironmentObject var messageManager: MessageManager
-    @State var names: [String:String] = [:]
+    @State var refresh = false
     var body: some View {
         
-        if messageManager.chatNames.isEmpty || messageManager.chatImages.isEmpty || messageManager.lastMessages.isEmpty{
+        if  messageManager.chatNames.count != messageManager.userChats.count ||
+//          messageManager.chatImages.count != messageManager.userChats.count ||
+            messageManager.lastMessages.count != messageManager.userChats.count ||
+            refresh {
+            
+            let timer = Timer.publish(every: 2, on: .main, in: .common)
             
             LoadingScreen()
+                .onReceive(timer, perform: { _ in
+                    messageManager.updateData(userID: userID){ _ in
+                        refresh = false
+                    }
+                })
                 .onAppear(){
-                    getChatsOf(user: userID) { chats in
-                        if chats.isEmpty{
-                            print("no CHATS")
-                        }
-                        messageManager.userChats = chats
-                        self.chats = chats
-                        
-                        messageManager.getNames(emails: chats) { names in
-                            self.names = names
-                            messageManager.chatNames = names
-                        }
-                        messageManager.getImagesForChats(chats: chats){ images in
-                            self.images = images
-                            messageManager.chatImages = images
-                        }
-                        messageManager.getLatestMessage(chats: chats, user: userID){ lastChats in
-                            self.lastChats = lastChats
-                            messageManager.lastMessages = lastChats
-                        }
-                        
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-//                            loading = false
-//                        }
-                        
+                    messageManager.updateData(userID: userID){ _ in
+                        refresh = false
                     }
                 }
+            
         } else if messageManager.userChats.isEmpty {
             Text("No Recent Chats")
+                .refreshable {
+                    refresh = true
+                }
+                .onAppear{
+                messageManager.updateData(userID: userID)
+                }
         }else{
             
                 ScrollView{
@@ -126,6 +118,9 @@ struct MessagingView: View {
                     
                     
                     
+                }
+                .refreshable {
+                    refresh = true
                 }
                 
             

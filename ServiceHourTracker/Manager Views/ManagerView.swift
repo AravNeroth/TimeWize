@@ -12,9 +12,9 @@ enum ManagerViews{
     case SettingsView
     case ManagerClass
     case ManagerHome
-    //case historyLog
     case RequestsView
     case MessagesView
+    case actionView
 }
 
 var currManagerView: ManagerViews = .ManagerHome
@@ -43,6 +43,14 @@ struct ManagerView: View {
                 ManagerBottomBar(selection: $tabSelection)
                     
                 }
+            case .actionView:
+                VStack{
+                    actionView()
+                        .navigationTitle(settingsManager.title)
+                        .navigationBarTitleDisplayMode(.inline)
+                    
+                    ManagerBottomBar(selection: $tabSelection)
+                }
             case .RequestsView:
                 VStack {
                     RequestListView(fromManSide: true).navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
@@ -68,7 +76,11 @@ struct ManagerView: View {
             
         }.navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
             .onAppear(){
-                settingsManager.manTab = 0
+                if currManagerView == .SettingsView{
+                    settingsManager.manTab = 1
+                }else if currManagerView == .ManagerHome{
+                    settingsManager.manTab = 0
+                }
             }
         
             .onChange(of: settingsManager.manTab, { old, new in
@@ -79,6 +91,7 @@ struct ManagerView: View {
                 case 2: settingsManager.title = "Requests"; currManagerView = .RequestsView
                 case 3: currManagerView = .ManagerClass; print("changing into class")
                 case 4: currManagerView = .MessagesView; settingsManager.title = "Messages"
+                case 5: currManagerView = .actionView; settingsManager.title = "Messages"
                 default:
                     settingsManager.title = ""
                 }

@@ -25,7 +25,7 @@ struct NewClassTabView: View {
     var body: some View {
         Button {
             settingsManager.tab = 4
-            currentView = .ClassroomView
+            currStudentViewSelected = .ClassroomView
             settingsManager.title = title
             classData.code = classCode
         } label: {

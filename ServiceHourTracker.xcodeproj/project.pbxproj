@@ -24,6 +24,7 @@
 		06CEF9072BA4CDE800DFC973 /* MessageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF9062BA4CDE800DFC973 /* MessageField.swift */; };
 		06CEF90B2BA57E0E00DFC973 /* NewManagerPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF90A2BA57E0E00DFC973 /* NewManagerPeopleView.swift */; };
 		06E1C8D42BB1E2DA004A7F8C /* UserColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E1C8D32BB1E2DA004A7F8C /* UserColorPalette.swift */; };
+		06E1C8D62BB3B628004A7F8C /* actionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E1C8D52BB3B628004A7F8C /* actionView.swift */; };
 		06E576A42B59C86000A7A36D /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A32B59C86000A7A36D /* SignUp.swift */; };
 		06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A52B59C92300A7A36D /* TermsAndServices.swift */; };
 		06E576A92B5A29E100A7A36D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E576A82B5A29E100A7A36D /* String.swift */; };
@@ -108,6 +109,7 @@
 		06CEF9062BA4CDE800DFC973 /* MessageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageField.swift; sourceTree = "<group>"; };
 		06CEF90A2BA57E0E00DFC973 /* NewManagerPeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewManagerPeopleView.swift; sourceTree = "<group>"; };
 		06E1C8D32BB1E2DA004A7F8C /* UserColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorPalette.swift; sourceTree = "<group>"; };
+		06E1C8D52BB3B628004A7F8C /* actionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = actionView.swift; sourceTree = "<group>"; };
 		06E576A32B59C86000A7A36D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		06E576A52B59C92300A7A36D /* TermsAndServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServices.swift; sourceTree = "<group>"; };
 		06E576A82B5A29E100A7A36D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				06AEC3952B942E810023646B /* ManagerRoomView.swift */,
 				06F111012B928CA200EB4F01 /* ManagerPeopleView.swift */,
 				EBAECDD92B81B15D00614CCE /* ManagerReqListView.swift */,
+				06E1C8D52BB3B628004A7F8C /* actionView.swift */,
 				EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */,
 				06CEF90A2BA57E0E00DFC973 /* NewManagerPeopleView.swift */,
 			);
@@ -510,6 +513,7 @@
 				06CEF9032BA4C5E400DFC973 /* MessageLogView.swift in Sources */,
 				06F54A312B727F0500FD6069 /* bottomPicks.swift in Sources */,
 				06E576A92B5A29E100A7A36D /* String.swift in Sources */,
+				06E1C8D62BB3B628004A7F8C /* actionView.swift in Sources */,
 				06F111002B9196EC00EB4F01 /* ColorPalette.swift in Sources */,
 				EBEA3A6F2BB10B4A00F7BC1A /* RequestListView.swift in Sources */,
 				EBEA3A6D2BAA27AD00F7BC1A /* NewRequestView.swift in Sources */,

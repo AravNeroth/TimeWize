@@ -17,7 +17,7 @@ enum currStudentView{
     case Profile
 }
 
-var currentView: currStudentView = .ClassesView
+var currStudentViewSelected: currStudentView = .ClassesView
 
 
 struct StudentView: View {
@@ -30,7 +30,7 @@ struct StudentView: View {
          
 
             
-            switch currentView {
+            switch currStudentViewSelected {
             case .ClassesView:
                 VStack{
                     StudentClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title)
@@ -93,22 +93,27 @@ struct StudentView: View {
                 
             
         }
+        .onAppear{
+            if currStudentViewSelected == .ClassesView {
+                settingsManager.tab = 2
+            }else if currStudentViewSelected == .SettingsView{
+                settingsManager.tab = 3
+            }
+        }
         .onChange(of: settingsManager.tab, { old, new in
             switch settingsManager.tab {
-            case 0: settingsManager.title = "Hours Log"; currentView = .HourBoardView; break;
-            case 2: settingsManager.title = "Classes"; currentView = .ClassesView; break;
-            case 3: settingsManager.title = "Settings"; currentView = .SettingsView; break;
-            case 4: settingsManager.title = "\(settingsManager.title)"; currentView = .ClassroomView; break;
-            case 5: settingsManager.title = "\(settingsManager.title)"; currentView = .ManagerRoomView; break;
-            case 6: settingsManager.title = "Messages"; currentView = .MessagesView; break;
-            case 7: settingsManager.title = "Profile"; currentView = .Profile; break;
+            case 0: settingsManager.title = "Hours Log"; currStudentViewSelected = .HourBoardView; break;
+            case 2: settingsManager.title = "Classes"; currStudentViewSelected = .ClassesView; break;
+            case 3: settingsManager.title = "Settings"; currStudentViewSelected = .SettingsView; break;
+            case 4: settingsManager.title = "\(settingsManager.title)"; currStudentViewSelected = .ClassroomView; break;
+            case 5: settingsManager.title = "\(settingsManager.title)"; currStudentViewSelected = .ManagerRoomView; break;
+            case 6: settingsManager.title = "Messages"; currStudentViewSelected = .MessagesView; break;
+            case 7: settingsManager.title = "Profile"; currStudentViewSelected = .Profile; break;
             default:
                 settingsManager.title = ""
             }
         })
-        .onAppear(){
-            print("appeared")
-        }
+        
 //        .preferredColorScheme(.dark)
     }
 }

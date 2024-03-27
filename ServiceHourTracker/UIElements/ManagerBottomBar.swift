@@ -32,15 +32,15 @@ struct ManagerBottomBar: View {
 //            }
             Button{
 
-                settingsManager.manTab = 4
+                settingsManager.manTab = 5
             }label: {
                 
                 
                 LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
                     VStack{
 
-                        Image(systemName: (settingsManager.manTab == 6) ? "message.fill" : "message").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
-                        Text("Messages").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                        Image(systemName: (settingsManager.manTab == 5) ? "person.crop.rectangle.stack.fill" : "person.crop.rectangle.stack").resizable().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
+                        Text("Actions").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                     }
                 ).frame(width: 65, height: 50)
 

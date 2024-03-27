@@ -64,7 +64,16 @@
          contextName = "MessagingView.body.getter:MessagingView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "messageManager.chatNames">
+               value = "messageManager.chatImages">
+            </PersistentString>
+            <PersistentString
+               value = "messageManager.userChats.count">
+            </PersistentString>
+            <PersistentString
+               value = "messageManager.chatNames.count">
+            </PersistentString>
+            <PersistentString
+               value = "messageManager.lastMessages.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
