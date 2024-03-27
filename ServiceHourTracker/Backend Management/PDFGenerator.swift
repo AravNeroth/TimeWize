@@ -81,19 +81,19 @@ struct ContentView: View {
             .padding()
             
             Button("Email Report") {
-//                
-//                if let pdfData = pdfDocument?.dataRepresentation() {
-//                    emailReport(pdfData: pdfData)
-//                } else {
-//                    print("No PDF data available")
-//                }
+                
+                if let pdfData = pdfDocument?.dataRepresentation() {
+                    emailReport(pdfData: pdfData)
+                } else {
+                    print("No PDF data available")
+                }
                 // tnis for testing bc my email isnt set up on simulator
-                if let pdfDocument = pdfDocument {
-                        // Displaying content instead of sending email
-                        displayPDFDocument(pdfDocument: pdfDocument)
-                    } else {
-                        print("No PDF available")
-                    }
+//                if let pdfDocument = pdfDocument {
+//                        // Displaying content instead of sending email
+//                        displayPDFDocument(pdfDocument: pdfDocument)
+//                    } else {
+//                        print("No PDF available")
+//                    }
             }
             .padding()
             
@@ -142,6 +142,7 @@ struct ContentView: View {
             return
         }
         
+        // what the email has
         let mailComposer = MFMailComposeViewController()
         mailComposer.mailComposeDelegate = mailDelegate
         mailComposer.setToRecipients([userEmail])
@@ -157,17 +158,16 @@ struct ContentView: View {
         
     }
     
-    // Function to display PDF document
     func displayPDFDocument(pdfDocument: PDFDocument) {
-        // Create a PDFView to display the document
+        // PDFView to display the document
         let pdfView = PDFView()
         pdfView.document = pdfDocument
         
-        // Create a UIViewController to host the PDFView
+        // host the PDFView
         let pdfViewController = UIViewController()
         pdfViewController.view = pdfView
         
-        // Present the PDFViewController
+        // PDFViewController
         if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
             rootViewController.present(pdfViewController, animated: true, completion: nil)
         }
@@ -175,6 +175,7 @@ struct ContentView: View {
     
     }
 
+// mail delegator which idk how works
 class MailDelegate: NSObject, MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
