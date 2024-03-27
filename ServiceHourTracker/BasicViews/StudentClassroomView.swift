@@ -20,6 +20,7 @@ struct StudentClassroomView: View {
     @State private var loading = true
     @State var showPplList = false
     @AppStorage("authuid") private var authID = ""
+    @State var showMessageSheet: Bool = false
 
     var body: some View {
         if loading {
@@ -134,8 +135,14 @@ struct StudentClassroomView: View {
             }
             .ignoresSafeArea(.keyboard, edges: .bottom)
             .sheet(isPresented: $showPplList) {
-                StudentPeopleView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPplList)
+                StudentPeopleView(code: classData.code, classTitle: settingsManager.title, isShowing: $showPplList, showMessage: $showMessageSheet)
             }
+            .sheet(isPresented: $showMessageSheet) {
+                showMessageSheet = false
+            } content: {
+//                MessageLogView(lastChats: , recipientEmail: <#T##String#>, settingsManager: <#T##SettingsManager#>)
+            }
+
         }
     }
     

@@ -19,6 +19,7 @@ struct StudentPeopleView: View {
     @State var usernameList: [String:String] = [:]
     @State var colList: [String:[Color]] = [:]
     @Binding var isShowing: Bool
+    @Binding var showMessage: Bool
     @State private var loaded = false
     
     var body: some View {
@@ -43,7 +44,7 @@ struct StudentPeopleView: View {
                     .padding(.vertical, 5.0)
                 
                 ForEach(managerList, id: \.self) { person in
-                    MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
+                    MiniProfileView(showMessageSheet: $showMessage, showCurrSheet: $isShowing, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                 }
                 
                 Divider()
@@ -64,7 +65,7 @@ struct StudentPeopleView: View {
                         Text("")
                         
                         ForEach(peopleList, id: \.self) { person in
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], loaded: $loaded)
+                            MiniProfileView(showMessageSheet: $showMessage, showCurrSheet: $isShowing, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], loaded: $loaded)
                         }
                     }
                 }

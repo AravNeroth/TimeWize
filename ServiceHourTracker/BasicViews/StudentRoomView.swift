@@ -24,7 +24,10 @@ struct StudentRoomView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
+    @EnvironmentObject var messageManager: MessageManager
     @State var useDefaults = false
+    @State var showMessage = false
+    
     
     var body: some View {
         if loading {
@@ -166,15 +169,25 @@ struct StudentRoomView: View {
                     .presentationDetents([.height(120.0)])
             }
             .sheet(isPresented: $showPplList) {
-                StudentPeopleView(code: classData.code, classTitle: title, isShowing: $showPplList)
-                    .onDisappear() {
+                StudentPeopleView(code: classData.code, classTitle: title, isShowing: $showPplList, showMessage: $showMessage)
+                    .onDisappear {
                         showPplList = false
                     }
+            }
+            .sheet(isPresented: $showMessage) {
+                
+                    
+                MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
+                    .padding(.top, 10)
+                    .onDisappear {
+                        showMessage = false
+                    }
+                
             }
             .sheet(isPresented: $showRequest) {
                 requestPopUp(colors: colors, isShowing: $showRequest)
                     .ignoresSafeArea(.keyboard)
-                    .onDisappear() {
+                    .onDisappear {
                         showRequest = false
                     }
             }

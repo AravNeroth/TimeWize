@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewManagerPeopleView: View {
-    
+    @Binding var showMessage: Bool
     @AppStorage("uid") var userID = ""
     @State var code: String
     @State var classOwner: String = ""
@@ -43,7 +43,7 @@ struct NewManagerPeopleView: View {
                     .padding(.vertical, 5.0)
                 
                 ForEach(managerList, id: \.self) { person in
-                    MiniProfileView(classCode: code, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
+                    MiniProfileView(showMessageSheet: $showMessage, showCurrSheet: $isShowing, classCode: code, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                 }
                 
                 Divider()
@@ -64,7 +64,7 @@ struct NewManagerPeopleView: View {
                         Text("")
                         
                         ForEach(peopleList, id: \.self) { person in
-                            MiniProfileView(classCode: code, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], fromManView: true, loaded: $loaded)
+                            MiniProfileView(showMessageSheet: $showMessage, showCurrSheet: $isShowing, classCode: code, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], fromManView: true, loaded: $loaded)
                         }
                     }
                 }

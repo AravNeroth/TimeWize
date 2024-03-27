@@ -24,7 +24,7 @@ struct ManagerPeopleView: View {
     @State private var loaded: Bool = false
     @State private var isOwner: Bool = false
     @State private var peopleToPfp:[String:UIImage] = [:]
-    
+    @Binding var showMessage: Bool
     var body: some View {
         
         if !loaded {
@@ -126,7 +126,7 @@ struct ManagerPeopleView: View {
                 if editing {
                     ForEach(managerList, id: \.self) { person in
                         HStack {
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
+                            MiniProfileView(showMessageSheet: $showMessage, showCurrSheet: $isShowing, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                             Spacer()
                             
                             
@@ -161,7 +161,7 @@ struct ManagerPeopleView: View {
                     ForEach(managerList, id: \.self) { person in
                         
                         HStack {
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
+                            MiniProfileView(showMessageSheet: $showMessage, showCurrSheet: $isShowing, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                             Spacer()
                         }
                     }
@@ -196,7 +196,7 @@ struct ManagerPeopleView: View {
                     ForEach(peopleList, id: \.self) { person in
                         
                         HStack {
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
+                            MiniProfileView(showMessageSheet: $showMessage, showCurrSheet: $isShowing, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                             
                             Spacer()
                             Button(action: {
@@ -226,7 +226,7 @@ struct ManagerPeopleView: View {
                         
                         
                         HStack {
-                            MiniProfileView(userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
+                            MiniProfileView(showMessageSheet: $showMessage, showCurrSheet: $isShowing, userEmail: person, userPfp: pfpList[person], username: usernameList[person] ?? "", personCols: colList[person] ?? [.green4, .green6], wantedPerson: managerList[0], loaded: $loaded)
                             Spacer()
                         }
                     }

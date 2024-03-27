@@ -14,7 +14,7 @@ struct UserColorPalette: View {
     
     @Binding var showPop: Bool
     @Binding var refresh: Bool
-   
+    @State var selectedColors: [Color] = []
     @State private var featuredColors: [[Color]] = [[.green4, .green6], [.blue4, .blue6],[.purple4, .purple6]]
     @State private var currPick = -1
     @EnvironmentObject private var classData: ClassData
@@ -33,7 +33,7 @@ struct UserColorPalette: View {
                 .fontWeight(.semibold)
             
             Circle()
-                .fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                .fill(LinearGradient(gradient: Gradient(colors: (selectedColors != []) ? selectedColors : settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
                 .frame(width: 100)
                 .shadow(radius: 2.0, y: 2.0)
             
@@ -44,8 +44,8 @@ struct UserColorPalette: View {
             HStack {
                 Button {
                     currPick = 0
-                    
-                    settingsManager.userColors = featuredColors[0]
+                    selectedColors = featuredColors[0]
+//                    settingsManager.userColors = featuredColors[0]
                 } label: {
                     Circle()
                         .fill(LinearGradient(gradient: Gradient(colors: featuredColors[0]), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -56,7 +56,7 @@ struct UserColorPalette: View {
                 Button {
                     currPick = 1
                     
-                    settingsManager.userColors = featuredColors[1]
+                    selectedColors = featuredColors[1]
                 } label: {
                     Circle()
                         .fill(LinearGradient(gradient: Gradient(colors: featuredColors[1]), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -67,7 +67,7 @@ struct UserColorPalette: View {
                 Button {
                     currPick = 2
                     
-                    settingsManager.userColors = featuredColors[2]
+                    selectedColors = featuredColors[2]
                 } label: {
                     Circle()
                         .fill(LinearGradient(gradient: Gradient(colors: featuredColors[2]), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -91,7 +91,7 @@ struct UserColorPalette: View {
                                 currPick = index
                                 scrollView.scrollTo(index, anchor: .center)
                                 
-                                settingsManager.userColors = colorsForIndex(index)
+                                selectedColors = colorsForIndex(index)
                             } label: {
                                 Circle()
                                     .fill(LinearGradient(gradient: Gradient(colors: colorsForIndex(index)), startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -108,8 +108,10 @@ struct UserColorPalette: View {
             Spacer()
             
             Button {
-                
-                setUserColors(email: userID, colors: settingsManager.userColors)
+                if selectedColors != [] {
+                    settingsManager.userColors = selectedColors
+                    setUserColors(email: userID, colors: selectedColors)
+                }
                 showPop = false
                 refresh = true
             } label: {

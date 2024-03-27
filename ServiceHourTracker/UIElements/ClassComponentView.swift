@@ -23,6 +23,7 @@ struct ClassComponentView: View {
     @State var isTask = true
     @State var fromManagerSide = false
     @State var showTaskPopUp = false
+    @State var showMessage = false
     @AppStorage("uid") var userID: String = ""
     
     var body: some View {
@@ -90,7 +91,7 @@ struct ClassComponentView: View {
             }
             .buttonStyle(PlainButtonStyle())
             .sheet(isPresented: $showTaskPopUp) {
-                taskPopUp(title: title, creator: creator, signedUp: $signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp, fromManagerSide: $fromManagerSide)
+                taskPopUp(title: title, creator: creator, signedUp: $signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp, fromManagerSide: $fromManagerSide, showMessage: $showMessage)
             }
         } else {
             VStack {
@@ -152,7 +153,7 @@ private struct taskPopUp: View {
     @EnvironmentObject var classData: ClassData
     @Binding var isShowing: Bool
     @Binding var fromManagerSide: Bool
-    
+    @Binding var showMessage: Bool
     var body: some View {
         if !loaded {
             LoadingScreen()
@@ -273,7 +274,7 @@ private struct taskPopUp: View {
                             Text("")
                             
                             ForEach(signedUp, id: \.self) { person in
-                                MiniProfileView(userEmail: person, userPfp: signedUpPfps[person], username: signedUpNames[person] ?? "", personCols: signedUpColors[person] ?? [.green4, .green6], loaded: $loaded)
+                                MiniProfileView(showMessageSheet: $showMessage, showCurrSheet: $isShowing, userEmail: person, userPfp: signedUpPfps[person], username: signedUpNames[person] ?? "", personCols: signedUpColors[person] ?? [.green4, .green6], loaded: $loaded)
                             }
                         }
                         .frame(height: 200)

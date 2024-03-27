@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MiniProfileView: View {
-    
+    @Binding var showMessageSheet: Bool
+    @Binding var showCurrSheet: Bool
     @State var classCode = ""
     @State var userEmail: String = ""
     @State var userPfp: UIImage? = UIImage(resource: .image2)
@@ -19,6 +20,7 @@ struct MiniProfileView: View {
     @State var isManager = false
     @State var displayOptions = false
     @Binding var loaded: Bool
+    @EnvironmentObject var settingsManager: SettingsManager
 
     var body: some View {
         if displayOptions {
@@ -77,7 +79,9 @@ struct MiniProfileView: View {
                     )
                 
                 Button {
-                    
+                    showCurrSheet = false
+                    showMessageSheet = true
+                    settingsManager.dm = userEmail
                 } label: {
                     Image(systemName: "message.fill")
                         .font(.system(size: 15.0, weight: .bold))

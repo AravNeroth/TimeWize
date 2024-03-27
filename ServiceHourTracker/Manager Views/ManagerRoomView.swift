@@ -28,7 +28,7 @@ struct ManagerRoomView: View {
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
     @State var useDefaults = false
-    
+    @State var showMessage = false
     var body: some View {
             if loading {
                 LoadingScreen()
@@ -173,7 +173,7 @@ struct ManagerRoomView: View {
                         .presentationDetents([.height(240.0)])
                 }
                 .sheet(isPresented: $showPplList) {
-                    NewManagerPeopleView(code: classData.code, classTitle: title, isShowing: $showPplList)
+                    NewManagerPeopleView(showMessage: $showMessage, code: classData.code, classTitle: title, isShowing: $showPplList)
                         .onDisappear() {
                             showPplList = false
                         }

@@ -28,7 +28,7 @@ struct MessageLogView: View {
                         MessageBubble(message: message).id(message)
                     }
                     .onAppear{
-                        print(messageManager.messages.last)
+                        
                         proxy.scrollTo(messageManager.messages.last, anchor: .bottom)
                     }
                 }

@@ -20,7 +20,7 @@ struct actionView: View {
             Picker(selection: $selection, label: Text("action mode")){
                 Text("Messages").tag(0)
                 Text("Requests").tag(1)
-            }.pickerStyle(SegmentedPickerStyle())
+            }.padding( 20).pickerStyle(SegmentedPickerStyle())
             
             switch currActionSelected{
             case .Messages:
