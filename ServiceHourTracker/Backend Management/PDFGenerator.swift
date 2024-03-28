@@ -23,7 +23,7 @@ class PDFGenerator {
                 let data = document.data()
                 let name = data?["displayName"] as? String ?? ""
                 let hours = data?["hours"] as? Int ?? 0
-                let pdfContent = "Name: \(name) | Hours: \(hours)"
+                let pdfContent = "EMAIL TEST ||  Name: \(name) | Hours: \(hours)"
                 
                 if let pdfData = generatePDFData(content: pdfContent) {
                     completion(pdfData)
@@ -135,7 +135,7 @@ struct ContentView: View {
         
         //let userEmail = currentUser.email ?? "example@gmail.com"
         
-        let userEmail = "2findmyemail@gmail.com"
+        let userEmail = "ptsdpuma@gmail.com"
         
         guard MFMailComposeViewController.canSendMail() else {
             print("Mail services are not available")
@@ -145,6 +145,7 @@ struct ContentView: View {
         // what the email has
         let mailComposer = MFMailComposeViewController()
         mailComposer.mailComposeDelegate = mailDelegate
+        mailComposer.setPreferredSendingEmailAddress("2findmyemail@gmail.com")
         mailComposer.setToRecipients([userEmail])
         mailComposer.setSubject("TimeWize Report")
         mailComposer.addAttachmentData(pdfData, mimeType: "application/pdf", fileName: "ServiceHourReport.pdf")
