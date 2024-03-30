@@ -20,7 +20,7 @@ struct Profile: View {
         
         
         ZStack{
-            Rectangle().fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing)).padding(.horizontal, 0).frame(height: 150)
+            Rectangle().fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing)).shadow(radius: 3, y: 2).padding(.horizontal, 0).frame(height: 150)
                 .overlay(
                     ZStack{
                         VStack{
@@ -60,7 +60,7 @@ struct Profile: View {
                                     
                                     
                                     
-                                }.padding(.leading, 10)
+                                }.padding(.leading, 10).shadow(radius: 3,y:3)
                                 Spacer()
                             }.padding(.top, 130)
                             
@@ -69,6 +69,12 @@ struct Profile: View {
                         
                         
                         HStack{
+                            
+                            Text(settingsManager.displayName)
+                                .padding(.leading, 95)
+                                .bold()
+                                .font(.largeTitle)
+                                .foregroundStyle(settingsManager.userColors.first!.isBright() ? .black : .white)
                             Spacer()
                             Button{
                                 colorPaletteSheet = true

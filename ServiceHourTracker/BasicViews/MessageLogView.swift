@@ -42,6 +42,8 @@ struct MessageLogView: View {
             }
             MessageField(recipientEmail: recipientEmail, lastChats: $lastChats)
         }
+            
     }
+    
 }
 

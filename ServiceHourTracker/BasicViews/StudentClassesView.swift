@@ -26,7 +26,7 @@ struct StudentClassesView: View {
     
     var body: some View {
         
-        if classInfoManager.allClasses.isEmpty || classInfoManager.classColors.count != classInfoManager.allClasses.count || refresh {
+        if classInfoManager.allClasses.isEmpty || classInfoManager.classColors.count < classInfoManager.allClasses.count || refresh {
             
             LoadingScreen()
                 .ignoresSafeArea(.all)

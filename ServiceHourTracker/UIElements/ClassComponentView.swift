@@ -25,7 +25,8 @@ struct ClassComponentView: View {
     @State var showTaskPopUp = false
     @State var showMessage = false
     @AppStorage("uid") var userID: String = ""
-    
+    @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var messageManager: MessageManager
     var body: some View {
         if isTask {
             Button {
@@ -92,6 +93,16 @@ struct ClassComponentView: View {
             .buttonStyle(PlainButtonStyle())
             .sheet(isPresented: $showTaskPopUp) {
                 taskPopUp(title: title, creator: creator, signedUp: $signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp, fromManagerSide: $fromManagerSide, showMessage: $showMessage)
+            }
+            .sheet(isPresented: $showMessage) {
+                
+                    
+                MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
+                    .padding(.top, 10)
+                    .onDisappear {
+                        showMessage = false
+                    }
+                
             }
         } else {
             VStack {

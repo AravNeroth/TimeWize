@@ -24,82 +24,29 @@ struct ManagerClassesView: View {
     @State var allClasses: [Classroom] = []
     @State var ownerPfps: [Classroom:UIImage] = [:]
     @State var classColors: [Classroom:[Color]] = [:]
-    @ObservedObject private var settingsMan = SettingsManager.shared
+    @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @AppStorage("uid") var userID: String = ""
-    @State var refreshed = false
+    @State var refresh = false
     @AppStorage("authuid") private var authID = ""
     
     var body: some View {
-        if refreshed == false {
+        if classInfoManager.allManagerClasses.isEmpty || classInfoManager.classColors.count < classInfoManager.allManagerClasses.count || refresh {
+            
             LoadingScreen()
-                .animation(.easeInOut, value: refreshed)
                 .onAppear() {
-                    classesToSM()
                     
-                    for code in settingsMan.classes {
-                        print("for code in \n \(settingsMan.classes)")
-                        getClassInfo(classCloudCode: code) { classroom in
-                            if let classroom = classroom {
-                                allClasses.append(classroom)
-                                
-                                downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
-                                    if let image = image {
-                                        ownerPfps[classroom] = image
-                                    }
-                                }
-                                
-                                getColorScheme(classCode: classroom.code) { colors in
-                                    if !colors.isEmpty {
-                                        classColors[classroom] = colors
-                                    }
-                                }
-                            }
-                            
-//                            if let classroom = classroom {
-//                                
-//                                if !settingsMan.managerClassObjects.contains(where: {$0.code == classroom.code}) {
-//                                    
-//                                    settingsMan.managerClassObjects.append(classroom)
-//                                    print("\n appending \n")
-//                                    downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
-//                                        classInfoManager.managerClassImages[classroom.title] = image
-//                                    }
-//                                    
-//                                    downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
-//                                        if let image = image {
-//                                            print("found \(code)")
-//                                            classInfoManager.managerClassPfp[classroom.title] = image
-//                                        } else {
-//                                            print("no pfp for class with code \(code) and name \(classroom.title)")
-//                                        }
-//                                    }
-//                                }
-//                            }
-                            
-                        }
+                    classInfoManager.updateManagerData(userID: userID){ _ in
+                        refresh = false
+                        
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        if(settingsMan.fresh) {
-                            settingsMan.managerClassObjects.sort { $0.title < $1.title }
-                            allClasses.sort { $0.title < $1.title }
-                            refreshed = true
-                            settingsMan.fresh = false
-                            settingsMan.updateUserDefaults()
-                        } else {
-                            settingsMan.managerClassObjects.sort { $0.title < $1.title }
-                            allClasses.sort { $0.title < $1.title }
-                            refreshed = true
-                        }
-                    }
+                
                 }
         } else {
             
                 ScrollView {
-                    ForEach(allClasses, id: \.self) { classroom in
-//                        ManagerTabView(name: classroom.title, classCode: classroom.code, banner: classInfoManager.managerClassImages[classroom.title], pfp: classInfoManager.managerClassPfp[classroom.title])
-                        
-                        NewManagerTabView(title: classroom.title, classCode: classroom.code, colors: classColors[classroom] ?? [.green4, .green6], ownerPfp: ownerPfps[classroom], allClasses: $allClasses, classroom: classroom)
+                    ForEach(classInfoManager.allManagerClasses, id: \.self) { classroom in
+                        NewManagerTabView(title: classroom.title, classCode: classroom.code, colors: classInfoManager.classColors[classroom] ?? settingsManager.userColors, ownerPfp: classInfoManager.ownerPfps[classroom], allClasses: $classInfoManager.allManagerClasses, classroom: classroom)
                     }
                 
                 .alert("Create A Class", isPresented: $classCreationAlert) {
@@ -121,14 +68,13 @@ struct ManagerClassesView: View {
                     let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, peopleList: [], managerList: [userID], minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours, colors: [])
                     
                     storeClassInfoInFirestore(org: newClass)
-                    uploadImageToClassroomStorage(code: "\(newClass.code)", image: settingsMan.pfp, file: "Pfp\(newClass.code)")
                     
-                    settingsMan.classes.append(newClass.code)
-                    storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
+                    uploadImageToClassroomStorage(code: "\(newClass.code)", image: settingsManager.pfp, file: "Pfp\(newClass.code)")
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1 ){
-                        refreshed = false
-                    }
+                    classInfoManager.classes.append(newClass.code)
+                    storeUserCodeInFirestore(uid: userID, codes: classInfoManager.classes)
+                    
+                    
                   
                 }
                 .alert("Join Class", isPresented: $managerCodeAlert) {
@@ -138,9 +84,7 @@ struct ManagerClassesView: View {
                             if exists {
                                 fetchClassDetailsForManagerCode(manCode: joinCode)
                                 joinCode = ""
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                                    refreshed = false
-                                }
+                                
                             } else {
                                 alertMessage = "Code Does Not Exist"
                                 joinCode = ""
@@ -155,6 +99,9 @@ struct ManagerClassesView: View {
                 }
                 
             }
+                .refreshable {
+                    refresh = true
+                }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
@@ -180,25 +127,7 @@ struct ManagerClassesView: View {
     }
     
     
-     func classesToSM() {
-        getClasses(uid: userID) { list in
-            print("list in \n \(settingsMan.classes)")
-            if let list = list {
-                settingsMan.classes = list // list of codes
-//                for index in 0..<list.count {
-//                    if list.firstIndex(of: list[index]) != index{
-//                        list.remove(at: index)
-//                    }
-//                    if index == list.count-1 {
-//                        settingsMan.classes = list // list of codes
-//                        print("list out in \n \(settingsMan.classes)")
-//                    }
-//                }
-            } else {
-                settingsMan.classes = []
-            }
-        }
-    }
+    
     
     private func fetchClassDetailsForManagerCode(manCode: String) {
            let db = Firestore.firestore()
@@ -219,8 +148,8 @@ struct ManagerClassesView: View {
                            managerList.append(userID)
                            addManagerToClass(person: userID, classCode: classCode)
                            let classroom = Classroom(code: classCode, managerCode: manCode, title: className, owner: owner, peopleList: peopleList, managerList: managerList, minServiceHours: minServiceHours, minSpecificHours: minSpecificHours, colors: colors)
-                           settingsMan.classes.append(classroom.code)
-                           storeUserCodeInFirestore(uid: userID, codes: settingsMan.classes)
+                            classInfoManager.classes.append(classroom.code)
+                           storeUserCodeInFirestore(uid: userID, codes: classInfoManager.classes)
                        }
                    }
                }

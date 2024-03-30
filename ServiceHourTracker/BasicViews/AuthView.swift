@@ -52,8 +52,6 @@ struct AuthView: View {
                 case .ManagerView:
                     ManagerView()
                     
-                    //                case .ManagerClass:
-                    //                    ManagerClass(loaded: .constant(true))
                 }
             }
             .onAppear {
@@ -130,7 +128,6 @@ struct AuthView: View {
         settingsManager.pfp = UIImage()
         settingsManager.perfHourRange = 20
         settingsManager.title = "Login"
-        settingsManager.classes = []
         settingsManager.inClass = false
         classInfoManager.classInfo = []
         classInfoManager.classImages = [:]
@@ -146,7 +143,6 @@ struct AuthView: View {
         @AppStorage("uid") var userID = ""
         userID = ""
         try? Auth.auth().signOut()
-        settingsManager.zeroUserDefaults()
         settingsManager.fresh = true
         settingsManager.studentFresh = true
         messageManager.chatImages = [:]
@@ -154,6 +150,10 @@ struct AuthView: View {
         messageManager.lastMessages = [:]
         messageManager.userChats = []
         messageManager.messages = []
+        classInfoManager.allClasses = []
+        classInfoManager.classColors = [:]
+        classInfoManager.classCodes = []
+        classInfoManager.classOwners = [:]
         
     }
     private func loadData(completion: ((Result<Void, Error>)-> Void)? = nil){
@@ -163,6 +163,10 @@ struct AuthView: View {
                     settingsManager.pfp = image
                 }
             })
+        
+        getName(email: userID) { name in
+            settingsManager.displayName = name
+        }
         
         getUserColors(email: userID) { colors in
             settingsManager.userColors = colors

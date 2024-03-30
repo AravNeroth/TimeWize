@@ -27,6 +27,7 @@ struct ManagerRoomView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
+    @EnvironmentObject var messageManager: MessageManager
     @State var useDefaults = false
     @State var showMessage = false
     var body: some View {
@@ -195,6 +196,16 @@ struct ManagerRoomView: View {
                         .onDisappear() {
                             showColorPalette = false
                         }
+                }
+                .sheet(isPresented: $showMessage) {
+                    
+                        
+                    MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
+                        .padding(.top, 10)
+                        .onDisappear {
+                            showMessage = false
+                        }
+                    
                 }
                 .onChange(of: newHomeImage) {
                     if let newHomeImage = newHomeImage {

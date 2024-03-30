@@ -14,6 +14,7 @@ import SwiftUI
 
 class SettingsManager: ObservableObject {
     static var shared =  SettingsManager()
+    @Published var displayName = ""
     @Published var fresh = false
     @Published var studentFresh = false
     @AppStorage("managerMode") var isManagerMode: Bool = false
@@ -21,24 +22,24 @@ class SettingsManager: ObservableObject {
     @Published var perfHourRange = 20
     @AppStorage("isDarkModeEnabled") var isDarkModeEnabled: Bool = false
     @Published var title: String = "Classes"
-    @Published var classes: [String] = UserDefaults.standard.stringArray(forKey: "classes") ?? [] {
-        didSet{
-            updateUserDefaults()
-        }
-    }
+//    @Published var classes: [String] = UserDefaults.standard.stringArray(forKey: "classes") ?? [] {
+//        didSet{
+//            updateUserDefaults()
+//        }
+//    }
 
-    @Published var managerClassObjects: [Classroom] = []
+//    @Published var managerClassObjects: [Classroom] = []
     @Published var inClass = false
     @Published var tab: Int = 2
     @Published var manTab: Int = 1
     @Published var userColors: [Color] = []
     @Published var dm: String = ""
-     func updateUserDefaults() {
-           UserDefaults.standard.set(classes, forKey: "classes")
-       }
-     func zeroUserDefaults(){
-        UserDefaults.standard.set([], forKey: "classes")
-    }
+//     func updateUserDefaults() {
+//           UserDefaults.standard.set(classes, forKey: "classes")
+//       }
+//     func zeroUserDefaults(){
+//        UserDefaults.standard.set([], forKey: "classes")
+//    }
 }
 //End of settingsManager
 
@@ -56,6 +57,55 @@ class ClassInfoManager: ObservableObject {
     @Published var classColors: [Classroom:[Color]] = [:]
     @Published var classOwners: [Classroom:String] = [:]
     var classCodes: [String] = []
+    ///-----------------------------------------------------
+    ///manager class info variables
+    @Published var classes: [String] = [] //list of managing classes codes
+    @Published var allManagerClasses: [Classroom] = []
+    @Published var ownerPfps: [Classroom:UIImage] = [:]
+    
+    
+    ///methods
+    ///----------------------------------------------------
+    ///
+    func updateManagerData(userID: String, completion: ((Bool) -> Void)? = nil){
+        getClasses(uid: userID) { list in
+           
+            if let list = list {
+                self.classes = list // list of codes
+
+            }
+        }
+        for code in classes {
+            
+            getClassInfo(classCloudCode: code) { classroom in
+                if let classroom = classroom {
+                    if !self.allManagerClasses.contains(classroom){
+                        self.allManagerClasses.append(classroom)
+                    }
+                    downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
+                        if let image = image {
+                            self.ownerPfps[classroom] = image
+                        }
+                    }
+                    
+                    getColorScheme(classCode: classroom.code) { colors in
+                        if !colors.isEmpty {
+                            self.classColors[classroom] = colors
+                        }
+                    }
+                }
+                
+                
+                
+            }
+            if code == classes.last{
+                if let completion{
+                    completion(true)
+                }
+            }
+        }
+    }
+    
     
     func updateData(userID: String, completion: ((Bool) -> Void)? = nil){
         

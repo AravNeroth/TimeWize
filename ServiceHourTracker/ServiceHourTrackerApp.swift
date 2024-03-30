@@ -43,6 +43,7 @@ struct ServiceHourTrackerApp: App {
                         if userID != "" {
                             messageManager.updateData(userID: userID)
                             classInfoManager.updateData(userID: userID)
+                            
                         }
                     }
            

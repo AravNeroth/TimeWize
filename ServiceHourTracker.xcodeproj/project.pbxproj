@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		064EC9B72BACCA6500F0E872 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064EC9B62BACCA6500F0E872 /* Profile.swift */; };
+		064EF55D2BB7E040001AFB63 /* HourProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064EF55C2BB7E040001AFB63 /* HourProgressBar.swift */; };
 		06A935062B81694600BD163F /* ManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A935052B81694500BD163F /* ManagerTabView.swift */; };
 		06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3932B92D0B40023646B /* MiniProfileView.swift */; };
 		06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3952B942E810023646B /* ManagerRoomView.swift */; };
@@ -95,6 +96,7 @@
 
 /* Begin PBXFileReference section */
 		064EC9B62BACCA6500F0E872 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		064EF55C2BB7E040001AFB63 /* HourProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourProgressBar.swift; sourceTree = "<group>"; };
 		06A935052B81694500BD163F /* ManagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerTabView.swift; sourceTree = "<group>"; };
 		06AEC3932B92D0B40023646B /* MiniProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		06AEC3952B942E810023646B /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				06F111072B92A81D00EB4F01 /* AnnouncementField.swift */,
 				06CEF9062BA4CDE800DFC973 /* MessageField.swift */,
 				06F110FF2B9196EC00EB4F01 /* ColorPalette.swift */,
+				064EF55C2BB7E040001AFB63 /* HourProgressBar.swift */,
 				06F54A322B72808900FD6069 /* LoadingScreen.swift */,
 				06CEF9042BA4C97C00DFC973 /* MessageBubble.swift */,
 				06E1C8D32BB1E2DA004A7F8C /* UserColorPalette.swift */,
@@ -499,6 +502,7 @@
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
 				06F54A332B72808900FD6069 /* LoadingScreen.swift in Sources */,
 				06F111082B92A81D00EB4F01 /* AnnouncementField.swift in Sources */,
+				064EF55D2BB7E040001AFB63 /* HourProgressBar.swift in Sources */,
 				EBAECDDA2B81B15D00614CCE /* ManagerReqListView.swift in Sources */,
 				EB75C79A2B7C0F9B00DC615D /* TaskView.swift in Sources */,
 				EB84AA2E2B99170800D6FCDE /* NewManagerTabView.swift in Sources */,
