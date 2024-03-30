@@ -13,12 +13,19 @@ struct HourProgressBar: View {
     var classroomname: String
     @EnvironmentObject var settingsManager: SettingsManager
     var body: some View {
+        
         HStack{
-            Text(classroomname).font(.headline).padding([.leading, .trailing])
+            Text(classroomname).font(.headline)
             Spacer()
             Text("\(hoursEarned)"+"/\(goal)")
         }
-        ProgressView(value: hoursEarned, total: goal).progressViewStyle(.linear).foregroundStyle(LinearGradient(colors: settingsManager.userColors, startPoint: .topLeading, endPoint: .bottomTrailing)).padding()
+        .padding([.leading, .trailing])
+        
+        
+        ProgressView(value: hoursEarned, total: goal)
+            .progressViewStyle(.linear)
+            .foregroundStyle(LinearGradient(colors: settingsManager.userColors, startPoint: .topLeading, endPoint: .bottomTrailing))
+            .padding()
     }
 }
 
