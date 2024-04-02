@@ -52,6 +52,7 @@
 		06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */; };
 		06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3C2B77E77D00FD6069 /* AppObjects.swift */; };
 		06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* StudentClassroomView.swift */; };
+		CFA1FF062BBC94AB007AF9A7 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = CFA1FF052BBC94AB007AF9A7 /* SwiftSMTP */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB354F192B94E6C40061F90F /* ClassComponentView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
@@ -168,6 +169,7 @@
 				06E576B22B5A361C00A7A36D /* FirebaseFirestore in Frameworks */,
 				06F54A152B7031E700FD6069 /* FirebaseStorageCombine-Community in Frameworks */,
 				06CEF8F92B9AF36700DFC973 /* FirebaseAnalytics in Frameworks */,
+				CFA1FF062BBC94AB007AF9A7 /* SwiftSMTP in Frameworks */,
 				06F54A132B7031BB00FD6069 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +363,7 @@
 				06F54A142B7031E700FD6069 /* FirebaseStorageCombine-Community */,
 				06CEF8F82B9AF36700DFC973 /* FirebaseAnalytics */,
 				06CEF8FA2B9AF36700DFC973 /* FirebaseMessaging */,
+				CFA1FF052BBC94AB007AF9A7 /* SwiftSMTP */,
 			);
 			productName = ServiceHourTracker;
 			productReference = EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */;
@@ -436,6 +439,7 @@
 			mainGroup = EEF83F202B1FCDD90098D3A2;
 			packageReferences = (
 				06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CFA1FF042BBC94AB007AF9A7 /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
 			);
 			productRefGroup = EEF83F2A2B1FCDD90098D3A2 /* Products */;
 			projectDirPath = "";
@@ -697,7 +701,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				DEVELOPMENT_TEAM = 6GGP5SNW78;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -711,7 +715,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourtime;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourtimepfp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -727,7 +731,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = 94NLQFUSSS;
+				DEVELOPMENT_TEAM = 6GGP5SNW78;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -741,7 +745,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourtime;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourtimepfp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -875,6 +879,14 @@
 				kind = branch;
 			};
 		};
+		CFA1FF042BBC94AB007AF9A7 /* XCRemoteSwiftPackageReference "Swift-SMTP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-SMTP";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -907,6 +919,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		CFA1FF052BBC94AB007AF9A7 /* SwiftSMTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFA1FF042BBC94AB007AF9A7 /* XCRemoteSwiftPackageReference "Swift-SMTP" */;
+			productName = SwiftSMTP;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
