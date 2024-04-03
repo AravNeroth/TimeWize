@@ -10,25 +10,40 @@ import SwiftUI
 struct HourProgressBar: View {
     var goal: Float
     var hoursEarned: Float
-    var classroomname: String
+    var classroomName: String
     @EnvironmentObject var settingsManager: SettingsManager
     var body: some View {
         
-        HStack{
-            Text(classroomname).font(.headline)
-            Spacer()
-            Text("\(hoursEarned)"+"/\(goal)")
+        if hoursEarned < goal {
+            HStack {
+                Text(classroomName).font(.headline)
+                Spacer()
+                Text("\(hoursEarned)" + " / \(goal)")
+            }
+            .padding([.leading, .trailing])
+        } else {
+            HStack {
+                Text(classroomName).font(.headline)
+                Spacer()
+                Text("Hours Complete")
+            }
+            .padding([.leading, .trailing])
         }
-        .padding([.leading, .trailing])
         
-        
-        ProgressView(value: hoursEarned, total: goal)
-            .progressViewStyle(.linear)
-            .foregroundStyle(LinearGradient(colors: settingsManager.userColors, startPoint: .topLeading, endPoint: .bottomTrailing))
-            .padding()
+        if hoursEarned < goal {
+            ProgressView(value: hoursEarned, total: goal)
+                .progressViewStyle(.linear)
+                .tint(LinearGradient(colors: settingsManager.userColors, startPoint: .topLeading, endPoint: .bottomTrailing))
+                .padding()
+        } else {
+            ProgressView(value: 2, total: 2)
+                .progressViewStyle(.linear)
+                .tint(LinearGradient(colors: settingsManager.userColors, startPoint: .topLeading, endPoint: .bottomTrailing))
+                .padding()
+        }
     }
 }
 
 #Preview {
-    HourProgressBar(goal: 3, hoursEarned: 2.5, classroomname: "MUAT - CPHS")
+    HourProgressBar(goal: 3, hoursEarned: 2.5, classroomName: "MUAT - CPHS")
 }

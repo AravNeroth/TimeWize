@@ -66,6 +66,7 @@
 		EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */; };
 		EBEA3A6D2BAA27AD00F7BC1A /* NewRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA3A6C2BAA27AD00F7BC1A /* NewRequestView.swift */; };
 		EBEA3A6F2BB10B4A00F7BC1A /* RequestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA3A6E2BB10B4A00F7BC1A /* RequestListView.swift */; };
+		EBEA3A712BBC97EE00F7BC1A /* NewHourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA3A702BBC97EE00F7BC1A /* NewHourBoardView.swift */; };
 		EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */; };
 		EECB92B12BB1D78800486730 /* PDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECB92B02BB1D78800486730 /* PDFGenerator.swift */; };
 		EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */; };
@@ -148,6 +149,7 @@
 		EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		EBEA3A6C2BAA27AD00F7BC1A /* NewRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRequestView.swift; sourceTree = "<group>"; };
 		EBEA3A6E2BB10B4A00F7BC1A /* RequestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestListView.swift; sourceTree = "<group>"; };
+		EBEA3A702BBC97EE00F7BC1A /* NewHourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHourBoardView.swift; sourceTree = "<group>"; };
 		EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
 		EECB92B02BB1D78800486730 /* PDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFGenerator.swift; sourceTree = "<group>"; };
 		EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceHourTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,6 +249,7 @@
 				EB048C752B2696E0003719A0 /* StudentView.swift */,
 				06E576A52B59C92300A7A36D /* TermsAndServices.swift */,
 				EBEA3A6E2BB10B4A00F7BC1A /* RequestListView.swift */,
+				EBEA3A702BBC97EE00F7BC1A /* NewHourBoardView.swift */,
 			);
 			path = BasicViews;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				EBD0F2F02B8822F20047C5FF /* StudentPeopleView.swift in Sources */,
 				06CEF8FD2B9FFE0B00DFC973 /* PushNotificationsManager.swift in Sources */,
 				06F54A392B773CCB00FD6069 /* MiscFuncs.swift in Sources */,
+				EBEA3A712BBC97EE00F7BC1A /* NewHourBoardView.swift in Sources */,
 				06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */,
 				EB048C762B2696E0003719A0 /* StudentView.swift in Sources */,
 				06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */,

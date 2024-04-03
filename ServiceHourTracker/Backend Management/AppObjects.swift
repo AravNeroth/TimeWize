@@ -54,6 +54,7 @@ class ClassInfoManager: ObservableObject {
     @Published var managerClassPfp: [String: UIImage] = [:]
     
     @Published var allClasses: [Classroom] = []
+    @Published var allRequests: [Request] = []
     @Published var classColors: [Classroom:[Color]] = [:]
     @Published var classOwners: [Classroom:String] = [:]
     var classCodes: [String] = []
@@ -121,9 +122,10 @@ class ClassInfoManager: ObservableObject {
                 self.classCodes = codes
                 
                 for classCode in codes {
-                    if classCode == ""{
+                    if classCode == "" {
                         continue
                     }
+                    
                     getClassInfo(classCloudCode: classCode) { newClass in
                         let list = newClass?.managerList
                         
@@ -136,11 +138,15 @@ class ClassInfoManager: ObservableObject {
                         getColorScheme(classCode: classCode) { scheme in
                             self.classColors[newClass!] = scheme
                         }
+                        
+                        getUserRequests(email: userID) { requests in
+                            self.allRequests = requests
+                        }
                     }
                 }
             }
             
-            self.loadClassInfo(){ _ in
+            self.loadClassInfo() { _ in
                 if let completion{
                     completion(true)
                 }

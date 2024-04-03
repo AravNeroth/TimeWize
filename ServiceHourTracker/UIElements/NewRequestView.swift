@@ -78,6 +78,7 @@ struct NewRequestView: View {
                                 HStack {
                                     Button {
                                         acceptRequest(request: request, classCode: classCode)
+                                        request.accepted = true
                                         done.toggle()
                                     } label: {
                                         RoundedRectangle(cornerRadius: 15.0)

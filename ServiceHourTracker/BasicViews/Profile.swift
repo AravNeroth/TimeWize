@@ -10,12 +10,15 @@ import SwiftUI
 struct Profile: View {
     
     @EnvironmentObject private var settingsManager: SettingsManager
+    @EnvironmentObject var classInfoManager: ClassInfoManager
     @State var colorPaletteSheet = false
     @State private var refresh = true
     @State var showImgPicker = false
     @State private var userPfp = UIImage(resource: .image1)
     @State private var newPfp = UIImage(systemName: "person")
+    @State var totalHoursEarned: [Classroom:Int] = [:]
     @AppStorage("authuid") var authID = ""
+    
     var body: some View {
         
         
@@ -99,9 +102,9 @@ struct Profile: View {
         }.ignoresSafeArea().frame(height: 225).position(x: UIScreen.main.bounds.width / 2, y: 75).frame(height: 190)
         
         
-        ScrollView{
-                HourBoardView()
-    }
+        ScrollView {
+            NewHourBoardView(totalHoursEarned: $totalHoursEarned)
+        }
     
         
         .sheet(isPresented: $colorPaletteSheet) {
@@ -123,8 +126,19 @@ struct Profile: View {
                 uploadImageToUserStorage(id: "\(authID)", image: newPfp, file: "Pfp\(authID)")
             }
         }
-
-            
+        .onAppear() {
+            for classroom in classInfoManager.allClasses {
+                for request in classInfoManager.allRequests {
+                    if request.accepted && request.classCode == classroom.code {
+                        if totalHoursEarned[classroom] != nil {
+                            totalHoursEarned[classroom]! += request.numHours
+                        } else {
+                            totalHoursEarned[classroom] = request.numHours
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

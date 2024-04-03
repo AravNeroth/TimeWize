@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import SwiftUI
 
-class UserData: ObservableObject{
+class UserData: ObservableObject {
     @Published var currentUser: User
     
     init(user: User) {

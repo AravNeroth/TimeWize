@@ -334,7 +334,9 @@ func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
                 let hourType = data["hourType"] as? String ?? ""
                 let numHours = data["numHours"] as? Int ?? 0
                 
-                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours)
+                let accepted = data["accepted"] as? Bool ?? false
+                
+                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, accepted: accepted)
                 
                 com.append(currReq)
             }
