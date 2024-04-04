@@ -11,6 +11,7 @@ struct Profile: View {
     
     @EnvironmentObject private var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
+    @EnvironmentObject var messageManager: MessageManager
     @State var colorPaletteSheet = false
     @State private var refresh = true
     @State var showImgPicker = false
@@ -104,6 +105,9 @@ struct Profile: View {
         
         ScrollView {
             NewHourBoardView(totalHoursEarned: $totalHoursEarned)
+        }
+        .refreshable {
+            refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
         }
     
         
