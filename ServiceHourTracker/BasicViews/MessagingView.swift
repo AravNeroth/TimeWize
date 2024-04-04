@@ -13,6 +13,7 @@ struct MessagingView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @AppStorage("uid") private var userID = ""
     @EnvironmentObject var messageManager: MessageManager
+    @EnvironmentObject var classInfoManager: ClassInfoManager
     @State var refresh = false
     var body: some View {
         
@@ -39,6 +40,7 @@ struct MessagingView: View {
             Text("No Recent Chats")
                 .refreshable {
                     refresh = true
+                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
                 }
                 .onAppear{
                 messageManager.updateData(userID: userID)
@@ -89,7 +91,7 @@ struct MessagingView: View {
                                             if let image = messageManager.chatImages[chatWith]{
                                                 Circle()
                                                     .fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                    .frame(width: 40, height: 40)
+                                                    .frame(width: 52, height: 52)
                                                     .overlay(
                                                         image
                                                             .resizable()
@@ -98,16 +100,16 @@ struct MessagingView: View {
                                                         
                                                     )
                                                     .shadow(radius: 3, y: 1)
-                                                    .padding(.all, 10)
+                                                    .padding(.all, 5)
                                             }else{
                                                 
                                                 Circle()
                                                     .fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                    .frame(width: 40, height: 40)
+                                                    .frame(width: 52, height: 52)
                                                     .overlay {
                                                         Text(chatWith.prefix(1)).bold().tint(.white)
                                                     }.shadow(radius: 5, y: 1)
-                                                    .padding(.all, 10)
+                                                    .padding(.all, 5)
                                             }
                                         }
                                         
@@ -129,9 +131,10 @@ struct MessagingView: View {
                                         
                                         
                                         
-                                    }.padding(.all, 20)
+                                    }.padding(.all, 8)
                                     
-                                    Divider().padding(.leading, 100)
+                                    Divider()
+                                        .padding(.horizontal, 8)
                                     
                                     
                                     
@@ -149,6 +152,7 @@ struct MessagingView: View {
                 }
                 .refreshable {
                     refresh = true
+                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
                 }
                 
             

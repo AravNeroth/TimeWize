@@ -23,7 +23,7 @@ struct StudentClassesView: View {
     @State var classCodes: [String] = [""]
     @State var refresh: Bool = false
     @AppStorage("authuid") var authUID = ""
-    
+    @EnvironmentObject var messageManager: MessageManager
     var body: some View {
         
         if classInfoManager.allClasses.isEmpty || classInfoManager.classColors.count < classInfoManager.allClasses.count || refresh {
@@ -61,6 +61,7 @@ struct StudentClassesView: View {
                     }.refreshable{
 
                         refresh = true
+                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
                     }
                     .padding(.top, 7)
                     .alert("Class Code", isPresented: $showJoinMessage) {
@@ -113,6 +114,10 @@ struct StudentClassesView: View {
                 }
             }
             .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
+            .onAppear{
+                // add a call to publush to the timer
+                refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+            }
         }
     }
 

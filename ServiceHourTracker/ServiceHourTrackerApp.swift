@@ -18,13 +18,13 @@ struct ServiceHourTrackerApp: App {
     @StateObject private var classData = ClassData(code: "")
     @StateObject private var messageManager = MessageManager()
     @AppStorage("uid") var userID = ""
-    let timer = Timer.publish(every: 5, on: .main, in: .common)
+    @State var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 //    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     //check PushNotificationsManager
     
     init() {
         FirebaseApp.configure()
-       
+        
     }
     
     
@@ -38,16 +38,17 @@ struct ServiceHourTrackerApp: App {
                     .environmentObject(classData)
                     .environmentObject(classInfoManager)
                     .environmentObject(messageManager)
-            
+                   
                     .onReceive(timer) { _ in
-                        if userID != "" {
-                            messageManager.updateData(userID: userID)
-                            classInfoManager.updateData(userID: userID)
-                            
-                        }
+                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                           print("\n updating \n")
                     }
            
         }
         
+        
+        
     }
+    
 }
+

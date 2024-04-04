@@ -174,3 +174,20 @@ func formatDate(_ date: Date) -> String {
 //        // Call the generate PDF action from another class
 //        contentView.generatePDFAction?()
 //    }
+
+func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoManager ) {
+//    @EnvironmentObject var settingsManager: SettingsManager
+//    @EnvironmentObject var classInfoManager: ClassInfoManager
+//    @EnvironmentObject var messageManager: MessageManager
+    @AppStorage("uid") var userID = ""
+   
+
+    if userID != "" {
+  
+        messageManager.updateData(userID: userID)
+            
+        classInfoManager.updateData(userID: userID)
+        
+        
+    }
+}
