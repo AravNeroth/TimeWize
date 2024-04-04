@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import FirebaseAuth
 import SwiftSMTP
+import PDFKit
 
 
 //            Button{
@@ -20,7 +21,7 @@ import SwiftSMTP
 //
 //    }
 
-func sendMail(to receiver: Mail.User){
+func sendMail(to receiver: Mail.User, PDFDocument: PDFDocument){
     let htmlContent = """
             <h2>TimeWize</h2>
             <p>Hour Log</p>
@@ -46,13 +47,19 @@ func sendMail(to receiver: Mail.User){
             name: "TimeWize",
             email: "TestWize.test@gmail.com"
         )
-        
+    
+        let pdfAttachment = PDFDocument
+    
+//        let pdfAttachment = Attachment(
+//            pdfDocument: PDFDocument
+//        )
+    
         let mail = Mail(
             from: me,
             to: [receiver],
             subject: "Email Test.",
             text: "Confirmed Working.",
-            attachments: [htmlAttachment]
+            attachments: [htmlAttachment] //pdfAttachment]
         )
         
         smtp.send(mail) { (error) in

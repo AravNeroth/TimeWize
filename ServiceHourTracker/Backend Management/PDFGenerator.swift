@@ -11,6 +11,7 @@ import PDFKit
 import Firebase
 import FirebaseAuth
 import MessageUI
+import SwiftSMTP
 
 class PDFGenerator {
     static func generatePDF(completion: @escaping (Data?) -> Void) {
@@ -67,7 +68,6 @@ class PDFGenerator {
 
 struct ContentView: View {
     @State private var pdfDocument: PDFDocument?
-    let mailDelegate = MailDelegate()
     
     var body: some View {
         VStack {
@@ -81,9 +81,9 @@ struct ContentView: View {
             .padding()
             
             Button("Email Report") {
-                
+
                 if let pdfData = pdfDocument?.dataRepresentation() {
-                    emailReport(pdfData: pdfData)
+                //    sendMail(to: Mail.User(name: "Night Wielder", email: "2findmyemail@gmail.com", pdf: PDFDocument))
                 } else {
                     print("No PDF data available")
                 }
@@ -127,38 +127,6 @@ struct ContentView: View {
     }
     
     
-    func emailReport(pdfData: Data) {
-        guard let currentUser = Auth.auth().currentUser else {
-            print("User is not authenticated")
-            return
-        }
-        
-        //let userEmail = currentUser.email ?? "example@gmail.com"
-        
-        let userEmail = "ptsdpuma@gmail.com"
-        
-        guard MFMailComposeViewController.canSendMail() else {
-            print("Mail services are not available")
-            return
-        }
-        
-        // what the email has
-        let mailComposer = MFMailComposeViewController()
-        mailComposer.mailComposeDelegate = mailDelegate
-        mailComposer.setPreferredSendingEmailAddress("2findmyemail@gmail.com")
-        mailComposer.setToRecipients([userEmail])
-        mailComposer.setSubject("TimeWize Report")
-        mailComposer.addAttachmentData(pdfData, mimeType: "application/pdf", fileName: "ServiceHourReport.pdf")
-        
-        if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
-            rootViewController.present(mailComposer, animated: true, completion: nil)
-        }
-        
-        
-        
-        
-    }
-    
     func displayPDFDocument(pdfDocument: PDFDocument) {
         // PDFView to display the document
         let pdfView = PDFView()
@@ -175,15 +143,6 @@ struct ContentView: View {
     }
     
     }
-
-// mail delegator which idk how works
-class MailDelegate: NSObject, MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-}
-
-
 
 struct PDFKitView: UIViewRepresentable {
     let document: PDFDocument
