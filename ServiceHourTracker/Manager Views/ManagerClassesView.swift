@@ -26,6 +26,7 @@ struct ManagerClassesView: View {
     @State var classColors: [Classroom:[Color]] = [:]
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
+    @EnvironmentObject var messageManager: MessageManager
     @AppStorage("uid") var userID: String = ""
     @State var refresh = false
     @AppStorage("authuid") private var authID = ""
@@ -101,6 +102,7 @@ struct ManagerClassesView: View {
             }
                 .refreshable {
                     refresh = true
+                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
                 }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

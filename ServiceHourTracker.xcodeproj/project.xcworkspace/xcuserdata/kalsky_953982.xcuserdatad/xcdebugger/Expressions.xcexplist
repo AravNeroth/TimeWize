@@ -42,7 +42,7 @@
          contextName = "mach_msg2_trap:(null)">
          <PersistentStrings>
             <PersistentString
-               value = "messageManager.chatNames">
+               value = "ClassInfoManager">
             </PersistentString>
             <PersistentString
                value = "lastChats">
