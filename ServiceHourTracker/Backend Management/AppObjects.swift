@@ -264,6 +264,7 @@ class MessageManager: ObservableObject{
             }
         }
         
+
     }
 
     //passes in the user email of who it is sending it too

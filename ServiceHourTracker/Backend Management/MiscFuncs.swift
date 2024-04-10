@@ -8,6 +8,70 @@
 import Foundation
 import SwiftUI
 import FirebaseAuth
+<<<<<<< Updated upstream
+=======
+import SwiftSMTP
+
+
+//            Button{
+//                sendMail(to: Mail.User(name: "Night Wielder", email: "2findmyemail@gmail.com"))
+//            }label: {
+//                Text("Send Mail")
+//            }
+//        }
+//
+//    }
+
+func sendMail(to receiver: Mail.User){
+    let htmlContent = """
+            <h2>TimeWize</h2>
+            <p>Hour Log</p>
+            <ul>
+                <li>List item one</li>
+                <li>List item two</li>
+            </ul>
+            <a href="">Download Log</a>
+            """
+    let pdfContent = """
+            <h2>\(PDFGenerator())<h2>
+
+"""
+        let htmlAttachment = Attachment(
+            htmlContent: htmlContent
+        // To reference `fileAttachment`
+        )
+    let pdfAttachment = Attachment(htmlContent: pdfContent)
+
+    
+        let smtp = SMTP(
+            hostname: "smtp.gmail.com",     // SMTP server address
+            email: "noreply.Timewize@gmail.com",        // username to login
+            password: "kazv khiq dqzl yvvi"            // password to login
+        )
+        
+        let me = Mail.User(
+            name: "TimeWize",
+            email: "TestWize.test@gmail.com"
+        )
+        
+        let mail = Mail(
+            from: me,
+            to: [receiver],
+            subject: "Email Test.",
+            text: "Confirmed Working.",
+            attachments: [htmlAttachment, pdfAttachment]
+        )
+        
+        smtp.send(mail) { (error) in
+            if let error = error {
+                print(error)
+                print("error")
+            } else {
+                print("Send email successful")
+            }
+        }
+    }
+>>>>>>> Stashed changes
 
 func getEmail() -> String {
     var out = ""
