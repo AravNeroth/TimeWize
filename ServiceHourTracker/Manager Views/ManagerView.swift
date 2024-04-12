@@ -24,7 +24,7 @@ struct ManagerView: View {
     @State var tabSelection = 0
     @State var title = ""
     @State var classes = ManagerClassesView()
-    
+    @State private var hideActionTitle = false
     var body: some View{
         
         NavigationView{
@@ -45,10 +45,11 @@ struct ManagerView: View {
                 }
             case .actionView:
                 VStack{
-                    actionView()
-                        .navigationTitle(settingsManager.title)
+                    actionView(messageOnLog: $hideActionTitle, hideTitleAndPicker: $hideActionTitle)
+                        .navigationTitle(hideActionTitle ? "" : settingsManager.title)
                         .navigationBarTitleDisplayMode(.inline)
-                    
+                       
+                        
                     ManagerBottomBar(selection: $tabSelection)
                 }
             case .RequestsView:
@@ -66,7 +67,7 @@ struct ManagerView: View {
                     .navigationBarTitleDisplayMode(.inline)
             case .MessagesView:
                 VStack{
-                    MessagingView().navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
+                    MessagingView(messaging: .constant(false)).navigationTitle(settingsManager.title).navigationBarTitleDisplayMode(.inline)
                         
                     ManagerBottomBar(selection: $tabSelection)
                         

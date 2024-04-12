@@ -11,15 +11,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in MessageManager.getLatestMessage(chats:user:):AppObjects.swift">
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in ManagerClassesView.body.getter:ManagerClassesView.swift">
          <PersistentStrings>
             <PersistentString
                value = "classInfoManager.classColors">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MessageManager.getLatestMessage(chats:user:):AppObjects.swift">
       </ContextState>
       <ContextState
          contextName = "getChatsOf(user:completion:):MessageManager.swift">
@@ -33,10 +33,18 @@
          contextName = "closure #1 in MessagingView.body.getter:MessagingView.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in closure #1 in MessagingView.body.getter:MessagingView.swift">
+         contextName = "closure #1 in actionView.body.getter:actionView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "messageOnLog">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "main:ServiceHourTrackerApp.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in MessagingView.body.getter:MessagingView.swift">
       </ContextState>
       <ContextState
          contextName = "mach_msg2_trap:(null)">
@@ -50,18 +58,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in getAuthIDForEmail(email:):UserManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "dat[&quot;uid&quot;] as? String ?? &quot;&quot;">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in getChatsOf(user:completion:):MessageManager.swift">
          <PersistentStrings>
             <PersistentString
                value = "db.collection(&quot;userInfo&quot;).document(user).collection(&quot;Message3s&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in getAuthIDForEmail(email:):UserManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dat[&quot;uid&quot;] as? String ?? &quot;&quot;">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

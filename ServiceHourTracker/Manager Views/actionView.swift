@@ -15,16 +15,20 @@ struct actionView: View {
         case Requests
     }
     @State var currActionSelected: currAction = .Messages
+    @Binding var messageOnLog: Bool
+    @Binding var hideTitleAndPicker: Bool
     var body: some View {
         VStack{
-            Picker(selection: $selection, label: Text("action mode")){
-                Text("Messages").tag(0)
-                Text("Requests").tag(1)
-            }.padding( 20).pickerStyle(SegmentedPickerStyle())
-            
+            if !messageOnLog {
+                Picker(selection: $selection, label: Text("action mode")){
+                    Text("Messages").tag(0)
+                    Text("Requests").tag(1)
+                }.animation(.easeIn(duration: 2), value: messageOnLog).padding( 20).pickerStyle(SegmentedPickerStyle())
+                    
+            }
             switch currActionSelected{
             case .Messages:
-                MessagingView()
+                MessagingView(messaging: $messageOnLog)
             case .Requests:
                 RequestListView(fromManSide: true)
             }
@@ -46,6 +50,3 @@ struct actionView: View {
         
 }
 
-#Preview {
-    actionView()
-}

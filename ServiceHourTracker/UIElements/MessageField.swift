@@ -45,6 +45,9 @@ struct customTextField: View{
             }
             
             TextField("", text: $text, onEditingChanged: editingChanged, onCommit: comit)
+                .autocorrectionDisabled(true).onSubmit {
+                    
+                }
         }
     }
 }

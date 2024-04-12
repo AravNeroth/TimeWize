@@ -27,6 +27,8 @@ extension String {
         return trimmed.isEmpty
     }
     
+   
+    
 }
 
 extension View {

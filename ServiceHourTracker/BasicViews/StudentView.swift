@@ -70,7 +70,7 @@ struct StudentView: View {
                 }
             case .MessagesView:
                 VStack{
-                    MessagingView()
+                    MessagingView(messaging: .constant(false))
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationBarBackButtonHidden(true)
                         .navigationTitle(settingsManager.title)

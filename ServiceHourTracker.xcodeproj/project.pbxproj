@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		064EC9B72BACCA6500F0E872 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064EC9B62BACCA6500F0E872 /* Profile.swift */; };
 		064EF55D2BB7E040001AFB63 /* HourProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064EF55C2BB7E040001AFB63 /* HourProgressBar.swift */; };
+		066B289E2BC894B3008ADBFA /* NewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B289D2BC894B3008ADBFA /* NewMessage.swift */; };
 		06A935062B81694600BD163F /* ManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A935052B81694500BD163F /* ManagerTabView.swift */; };
 		06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3932B92D0B40023646B /* MiniProfileView.swift */; };
 		06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3952B942E810023646B /* ManagerRoomView.swift */; };
@@ -98,6 +99,7 @@
 /* Begin PBXFileReference section */
 		064EC9B62BACCA6500F0E872 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		064EF55C2BB7E040001AFB63 /* HourProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourProgressBar.swift; sourceTree = "<group>"; };
+		066B289D2BC894B3008ADBFA /* NewMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessage.swift; sourceTree = "<group>"; };
 		06A935052B81694500BD163F /* ManagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerTabView.swift; sourceTree = "<group>"; };
 		06AEC3932B92D0B40023646B /* MiniProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		06AEC3952B942E810023646B /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				EBD81B972B27ABDF00F5FDC6 /* LoginView.swift */,
 				06CEF9002BA157EA00DFC973 /* MessagingView.swift */,
 				EBD0F2EF2B8822F20047C5FF /* StudentPeopleView.swift */,
+				066B289D2BC894B3008ADBFA /* NewMessage.swift */,
 				06CEF9022BA4C5E400DFC973 /* MessageLogView.swift */,
 				064EC9B62BACCA6500F0E872 /* Profile.swift */,
 				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
@@ -511,6 +514,7 @@
 				EB84AA2E2B99170800D6FCDE /* NewManagerTabView.swift in Sources */,
 				EBD81B982B27ABDF00F5FDC6 /* LoginView.swift in Sources */,
 				EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */,
+				066B289E2BC894B3008ADBFA /* NewMessage.swift in Sources */,
 				EBD0F2F02B8822F20047C5FF /* StudentPeopleView.swift in Sources */,
 				06CEF8FD2B9FFE0B00DFC973 /* PushNotificationsManager.swift in Sources */,
 				06F54A392B773CCB00FD6069 /* MiscFuncs.swift in Sources */,

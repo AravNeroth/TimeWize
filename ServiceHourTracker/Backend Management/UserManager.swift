@@ -419,3 +419,21 @@ db.collection("userInfo").document(email).getDocument { docSnap, error in
 }
 
 }
+
+//input an email String
+// if the email exists in our database it will return true, otherwise false
+func doesEmailExistInDB(email: String, completion: @escaping (Bool)-> Void){
+    
+    db.collection("userInfo").whereField("email", isEqualTo: email).getDocuments { query, error in
+        if let error = error{
+            print(error.localizedDescription)
+            completion(false)
+        }else{
+            if let query = query {
+                print(email)
+                completion(!query.documents.isEmpty)
+            }
+        }
+    }
+    
+}
