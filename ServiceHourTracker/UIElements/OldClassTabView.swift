@@ -60,7 +60,7 @@ struct OldClassTabView: View {
                 HStack {
                     Button {
                         settingsManager.tab = 4
-                        print("tap")
+                        
                         currStudentViewSelected = .ClassroomView
                         settingsManager.title = name
                         classData.code = classCode

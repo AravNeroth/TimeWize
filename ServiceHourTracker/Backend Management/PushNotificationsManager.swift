@@ -35,7 +35,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
             if let error {
                 print("Error fetching FCM registration token: \(error)")
             } else if let token {
-                print("FCM registration token: \(token)")
+                
             }
         }
 
@@ -51,7 +51,6 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         for index in 0 ..< deviceToken.count {
             readableToken += String(format: "%02.2hhx", deviceToken[index] as CVarArg)
         }
-        print("Received an APNs device token: \(readableToken)")
         Messaging.messaging().apnsToken = deviceToken //added b/c of swizzling or something
         
         //added:
@@ -63,7 +62,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
     @objc func messaging(_: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("Firebase token: \(String(describing: fcmToken))")
+        
         //added:
         let dataDict: [String: String] = ["token": fcmToken ?? ""]
           NotificationCenter.default.post(

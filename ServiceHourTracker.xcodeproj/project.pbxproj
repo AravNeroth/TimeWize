@@ -56,6 +56,7 @@
 		06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */; };
 		06F54A3D2B77E77D00FD6069 /* AppObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F54A3C2B77E77D00FD6069 /* AppObjects.swift */; };
 		06FD082F2B6996D400484FEE /* StudentClassroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD082E2B6996D400484FEE /* StudentClassroomView.swift */; };
+		CFF9326D2BC725F0009B5444 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = CFF9326C2BC725F0009B5444 /* SwiftSMTP */; };
 		EB048C762B2696E0003719A0 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB048C752B2696E0003719A0 /* StudentView.swift */; };
 		EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB354F192B94E6C40061F90F /* ClassComponentView.swift */; };
 		EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70EB022B2542B700D93A40 /* SettingsView.swift */; };
@@ -70,7 +71,6 @@
 		EBEA3A6F2BB10B4A00F7BC1A /* RequestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA3A6E2BB10B4A00F7BC1A /* RequestListView.swift */; };
 		EBEA3A712BBC97EE00F7BC1A /* NewHourBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEA3A702BBC97EE00F7BC1A /* NewHourBoardView.swift */; };
 		EE5C23FF2B7424AF00D4DCBC /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */; };
-		EECB92B12BB1D78800486730 /* PDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECB92B02BB1D78800486730 /* PDFGenerator.swift */; };
 		EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */; };
 		EEF83F2F2B1FCDD90098D3A2 /* StudentClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF83F2E2B1FCDD90098D3A2 /* StudentClassesView.swift */; };
 		EEF83F312B1FCDDB0098D3A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */; };
@@ -155,7 +155,6 @@
 		EBEA3A6E2BB10B4A00F7BC1A /* RequestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestListView.swift; sourceTree = "<group>"; };
 		EBEA3A702BBC97EE00F7BC1A /* NewHourBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHourBoardView.swift; sourceTree = "<group>"; };
 		EE5C23FC2B7424AE00D4DCBC /* ManagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
-		EECB92B02BB1D78800486730 /* PDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFGenerator.swift; sourceTree = "<group>"; };
 		EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceHourTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHourTrackerApp.swift; sourceTree = "<group>"; };
 		EEF83F2E2B1FCDD90098D3A2 /* StudentClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassesView.swift; sourceTree = "<group>"; };
@@ -178,6 +177,7 @@
 				06E576B22B5A361C00A7A36D /* FirebaseFirestore in Frameworks */,
 				06F54A152B7031E700FD6069 /* FirebaseStorageCombine-Community in Frameworks */,
 				06CEF8F92B9AF36700DFC973 /* FirebaseAnalytics in Frameworks */,
+				CFF9326D2BC725F0009B5444 /* SwiftSMTP in Frameworks */,
 				06F54A132B7031BB00FD6069 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,7 +285,6 @@
 				06F54A3A2B77E4C600FD6069 /* NotificationsManager.swift */,
 				06F54A362B773BFE00FD6069 /* StorageManager.swift */,
 				06E576B52B5B47EA00A7A36D /* UserManager.swift */,
-				EECB92B02BB1D78800486730 /* PDFGenerator.swift */,
 			);
 			path = "Backend Management";
 			sourceTree = "<group>";
@@ -376,6 +375,7 @@
 				06F54A142B7031E700FD6069 /* FirebaseStorageCombine-Community */,
 				06CEF8F82B9AF36700DFC973 /* FirebaseAnalytics */,
 				06CEF8FA2B9AF36700DFC973 /* FirebaseMessaging */,
+				CFF9326C2BC725F0009B5444 /* SwiftSMTP */,
 			);
 			productName = ServiceHourTracker;
 			productReference = EEF83F292B1FCDD90098D3A2 /* ServiceHourTracker.app */;
@@ -451,6 +451,7 @@
 			mainGroup = EEF83F202B1FCDD90098D3A2;
 			packageReferences = (
 				06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CFF9326B2BC725F0009B5444 /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
 			);
 			productRefGroup = EEF83F2A2B1FCDD90098D3A2 /* Products */;
 			projectDirPath = "";
@@ -505,7 +506,6 @@
 				06F111062B92927700EB4F01 /* OldClassTabView.swift in Sources */,
 				06CEF9012BA157EA00DFC973 /* MessagingView.swift in Sources */,
 				06F111022B928CA200EB4F01 /* ManagerPeopleView.swift in Sources */,
-				EECB92B12BB1D78800486730 /* PDFGenerator.swift in Sources */,
 				EB354F1A2B94E6C40061F90F /* ClassComponentView.swift in Sources */,
 				06E1C8D42BB1E2DA004A7F8C /* UserColorPalette.swift in Sources */,
 				06F54A112B702A7B00FD6069 /* ImagePicker.swift in Sources */,
@@ -717,7 +717,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = G85D3VS6S4;
+				DEVELOPMENT_TEAM = 6GGP5SNW78;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -731,7 +731,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracke;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTrackerrr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -747,7 +747,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ServiceHourTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = G85D3VS6S4;
+				DEVELOPMENT_TEAM = 6GGP5SNW78;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeWize;
@@ -761,7 +761,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracke;
+				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTrackerrr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -895,6 +895,14 @@
 				kind = branch;
 			};
 		};
+		CFF9326B2BC725F0009B5444 /* XCRemoteSwiftPackageReference "Swift-SMTP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-SMTP";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -927,6 +935,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 06E576AE2B5A361C00A7A36D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		CFF9326C2BC725F0009B5444 /* SwiftSMTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFF9326B2BC725F0009B5444 /* XCRemoteSwiftPackageReference "Swift-SMTP" */;
+			productName = SwiftSMTP;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

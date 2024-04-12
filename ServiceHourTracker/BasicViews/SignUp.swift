@@ -193,7 +193,7 @@ struct SignUp: View {
                         if shouldContinue{
                             if confirm == password {
                                 authUID = authResult.uid
-                                                        print(authResult.uid)
+                                                        
                                 let newUser = User(uid: authUID, email: authResult.email ?? "")
 //                                let newUser = User(uid: authResult.uid, email: authResult.email ?? "")
                                 

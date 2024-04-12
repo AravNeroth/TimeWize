@@ -94,7 +94,6 @@ struct ManagerPeopleView: View {
                             }
                         }
                         classOwner = managerList[0]
-                        print("Managers:   \(managers)")
                     }
                     
                     

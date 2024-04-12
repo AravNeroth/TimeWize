@@ -53,7 +53,7 @@ func sendMessage(message: Message){
                         if let error = error {
                             print("Error creating document:", error.localizedDescription)
                         } else {
-                            print("Document created successfully")
+                            
                             // Now set data for the subcollection document
                             sendingRef.getDocument { doc, error in
                                 if let error = error{
@@ -146,11 +146,11 @@ func getChatsOf(user: String, completion: @escaping ([String])-> Void){
             
             if let docs = docs{
                 
-                print(docs.count) //0
-                print(user) //jonathan.cs@gmail.com
+                //0
+                //jonathan.cs@gmail.com
                 for document in docs.documents { //doesnt go inside
-                    print(document)
-                    print("inside for loop")
+                    
+                    
                     output.append(document.documentID)
                     
                 }

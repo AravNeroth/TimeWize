@@ -148,8 +148,7 @@ struct StudentClassroomView: View {
     
     private func getHomeImage(){
         
-        print("\n \(settingsManager.title)\n\n")
-
+        
         downloadImageFromClassroomStorage(code: classData.code, file: "Home\(settingsManager.title).jpg") { image in
            
             if let image = image{

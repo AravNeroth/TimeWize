@@ -184,7 +184,7 @@ struct AuthView: View {
             
             settingsManager.title = "Classes"
             
-            print("\n\n logged in with user id:: \(userID)")
+            
             return true
         }
     }

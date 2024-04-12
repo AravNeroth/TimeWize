@@ -17,7 +17,7 @@ func uploadImageToUserStorage(id: String, image: UIImage, file: String? = "", do
     guard !id.isEmpty else {
             return
         }
-    print(id)
+    
     var ref: StorageReference
     if(file == ""){
         ref = Storage.storage().reference().child("users").child(id).child("\(UUID().uuidString).jpg")
@@ -54,7 +54,7 @@ func uploadImageToClassroomStorage(code: String, image: UIImage, file: String? =
     guard !code.isEmpty else {
             return
         }
-    print(code)
+    
     var ref: StorageReference
     if(file == ""){
         ref = Storage.storage().reference().child("classrooms").child(code).child("\(UUID().uuidString).jpg")
@@ -93,7 +93,7 @@ func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>?
         completion(nil)
         return
     }
-    print("\n\(file)\n")
+    
     // Create a reference to the Firebase Storage using the provided UID and fileName
     let storageRef = Storage.storage().reference().child("users").child(id).child(file)
 
@@ -109,9 +109,9 @@ func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>?
         if let imageData = data, let image = UIImage(data: imageData) {
             if let done = done{
                 done.wrappedValue = false
-                print("done")
+                
             }
-            print("completed")
+            
             completion(image)
         } else {
             print("Failed to convert data to UIImage")
@@ -126,7 +126,7 @@ func downloadImageFromClassroomStorage(code: String, file: String, done: Binding
         completion(nil)
         return
     }
-    print("\n\(file)\n")
+    
     // Create a reference to the Firebase Storage using the provided UID and fileName
     let storageRef = Storage.storage().reference().child("classrooms").child(code).child(file)
 
@@ -162,7 +162,7 @@ func saveImageToDocumentsDirectory(image: UIImage, fileName: String) -> URL? {
 
     do {
         try image.jpegData(compressionQuality: 0.8)?.write(to: fileURL)
-        print("Image saved successfully to \(fileURL.path)")
+        
         return fileURL
     } catch {
         print("Error saving image: \(error.localizedDescription)")

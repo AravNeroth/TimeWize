@@ -8,6 +8,121 @@
 import Foundation
 import SwiftUI
 import FirebaseAuth
+import SwiftSMTP
+
+
+//            Button{
+//                sendMail(to: Mail.User(name: "Night Wielder", email: "2findmyemail@gmail.com"))
+//            }label: {
+//                Text("Send Mail")
+//            }
+//        }
+//
+//    }
+
+func sendMail(to receiver: Mail.User, pdfData: Data) {
+    let fileAttachment = Attachment(data: pdfData, mime: "application/pdf", name: "Hour Log")
+
+    let smtp = SMTP(
+        hostname: "smtp.gmail.com",     // SMTP server address
+        email: "noreply.Timewize@gmail.com",        // username to login
+        password: "kazv khiq dqzl yvvi"            // password to login
+    )
+    
+    let me = Mail.User(
+        name: "TimeWize",
+        email: "TestWize.test@gmail.com"
+    )
+    
+    let mail = Mail(
+        from: me,
+        to: [receiver],
+        subject: "TimeWize Community Hour Log.",
+        text: "",
+        attachments: [fileAttachment]
+    )
+    
+    smtp.send(mail) { (error) in
+        if let error = error {
+            print(error)
+            
+        } else {
+            
+        }
+    }
+}
+
+func generatePDF(completion: @escaping (Data?, Error?) -> Void) {
+    getUserRequests(email: "jonathan.cs@gmail.com") { requests in
+        var content = "Time Wize\nHour Log\n\n"
+        
+        for (index, request) in requests.enumerated() {
+            let date = formatDate(request.timeCreated)
+            let classCode = request.classCode
+            let description = request.description
+            let hours = "\(request.numHours) hours"
+            
+            // Construct the line with headers and details
+            var line = "Date: \(date)\nClass Code: \(classCode)\nDescription: \(description)\nHours: \(hours)\n\n"
+            
+            // Append the line to content
+            content.append(line)
+        }
+        
+        let pdfData = NSMutableData()
+        UIGraphicsBeginPDFContextToData(pdfData, .zero, nil)
+        UIGraphicsBeginPDFPage()
+        
+        // Draw the content with increased text size
+        let bounds = UIGraphicsGetCurrentContext()?.boundingBoxOfClipPath ?? .zero
+        let fontSize: CGFloat = 16 // Specify the desired font size
+        let font = UIFont.systemFont(ofSize: fontSize)
+        let attributes: [NSAttributedString.Key: Any] = [.font: font]
+        let attributedContent = NSAttributedString(string: content, attributes: attributes)
+        attributedContent.draw(with: bounds, options: .usesLineFragmentOrigin, context: nil)
+        
+        UIGraphicsEndPDFContext()
+        
+        completion(pdfData as Data, nil) // Call completion handler with PDF data
+    }
+}
+
+
+
+
+
+
+@MainActor func savePDF() {
+    let fileName = "GeneratedPDF.pdf"
+    
+    generatePDF { pdfData, error in
+        if let error = error {
+            print("Error generating PDF: \(error.localizedDescription)")
+            return
+        }
+        
+        guard let pdfData = pdfData else {
+            print("No PDF data generated.")
+            return
+        }
+        
+        if let documentDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let documentURL = documentDirectories.appendingPathComponent(fileName)
+            do {
+                try pdfData.write(to: documentURL)
+                
+                // Set documentUrl
+                documentUrl = documentURL // Assigning the value directly
+            } catch {
+                print("Error saving PDF: \(error.localizedDescription)")
+            }
+        }
+    }
+}
+
+
+private var documentUrl: URL?// State variable to hold document URL
+
 
 func getEmail() -> String {
     var out = ""
@@ -66,9 +181,9 @@ func colorToHex(color: Color) -> String{
 }
 
 func hexToColor(hex: String) -> Color{
-    print(hex)
+    
     if hex == "\(.green6 as Color)"{
-        print("green6")
+        
         return .green6
     }
     if hex == "" {

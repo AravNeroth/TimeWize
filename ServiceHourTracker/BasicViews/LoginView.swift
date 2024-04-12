@@ -100,7 +100,7 @@ struct LoginView: View {
                     
                     if blueButtonText == "Login"{
 
-                        print("authenticating loggin")
+                        
                         
                         Auth.auth().signIn(withEmail: userName, password: password) {authResult, error in
                             if let error = error{
@@ -110,7 +110,7 @@ struct LoginView: View {
                                 return
                             }
                             if let authResult = authResult{
-                                print(authResult.user.uid)
+                                
                                 withAnimation {
                                     userID = authResult.user.email ?? ""
                                     authID = authResult.user.uid
