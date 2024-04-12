@@ -24,7 +24,7 @@ struct StudentView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @State var tabSelection = 2
     @State var title = ""
-    
+    @State private var onMessagingLog = false
     var body: some View {
         NavigationView {
          
@@ -70,10 +70,10 @@ struct StudentView: View {
                 }
             case .MessagesView:
                 VStack{
-                    MessagingView(messaging: .constant(false))
+                    MessagingView(messaging: $onMessagingLog)
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationBarBackButtonHidden(true)
-                        .navigationTitle(settingsManager.title)
+                        .navigationTitle(onMessagingLog ? "" : settingsManager.title)
                     
                     bottomPicks(selection: $settingsManager.tab)
                 }
