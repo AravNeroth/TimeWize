@@ -103,7 +103,7 @@ struct Profile: View {
                                     colorPaletteSheet = true
                                     
                                 }label: {
-                                    Image(systemName: "paintpalette.fill").resizable().scaledToFit().frame(width: 25, height: 25).foregroundStyle(.white).padding(10)
+                                    Image(systemName: "paintpalette.fill").resizable().scaledToFill().frame(width: 25, height: 25).foregroundStyle(.white).padding(10)
                                 }
                                 Button{
                                     settingsManager.tab = 3

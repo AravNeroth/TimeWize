@@ -70,11 +70,11 @@ struct MessagingView: View {
                                     ToolbarItem(placement: .topBarLeading) {
                                         if let image = messageManager.chatImages[chatWith]{
                                             Circle()
-                                                .fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
                                                 .frame(width: 40, height: 40)
                                                 .overlay(
                                                     image
                                                         .resizable()
+                                                        .scaledToFill()
                                                         .clipShape(Circle())
                                                     
                                                     
@@ -107,6 +107,7 @@ struct MessagingView: View {
                                                 .overlay(
                                                     image
                                                         .resizable()
+                                                        .scaledToFill()
                                                         .clipShape(Circle())
                                                     
                                                     
