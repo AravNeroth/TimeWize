@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftSMTP
 
 struct Profile: View {
     
@@ -159,7 +160,30 @@ struct Profile: View {
                             }
                         }
                     }
+                    
                 }
+            
+            Button{
+                // Define receiver before calling generatePDF
+                let receiver = Mail.User(name: "Verlyn Fischer", email: "verlyn.fischer.mobileapp@gmail.com")
+
+                generatePDF { pdfData, error in
+                    if let error = error {
+                        // Handle error
+                        print("Error generating PDF: \(error.localizedDescription)")
+                    } else if let pdfData = pdfData {
+                        // Use pdfData
+                        sendMail(to: receiver, pdfData: pdfData)
+                    }
+                }
+
+
+
+                savePDF()
+                
+            }label: {
+                Text("Generate Hour Log")
+            }
         }
     }
 }

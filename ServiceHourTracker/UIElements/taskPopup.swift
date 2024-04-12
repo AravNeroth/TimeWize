@@ -50,14 +50,14 @@ struct taskPopup: View {
                     
                     if taskName != ""{
                         showStroke = false
-                                            print(date.formatted(.dateTime.year().month().day()))
+                                            
                         let passed = hasDatePassed(date: date.formatted(.dateTime.year().month().day()))
-                                                print(passed)
+                                                
                         if !passed {
                             datePassed = false
                             showPop = false
                             addTask(classCode: classData.code, creator: userID, title: taskName, date: date, timeCreated: Date(), maxSize: Int(maxPeople), numHours: Int(taskHours))
-                            print("Hours: \(taskHours) in Button")
+                            
                         }else{
                             datePassed = true
                         }

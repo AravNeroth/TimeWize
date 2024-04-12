@@ -151,9 +151,9 @@ struct SettingsView:View {
                     
                     
 
-                    NavigationLink(destination: ContentView()) {
-                                Text("Generate Report")
-                            }
+                    //NavigationLink(destination: ContentView()) {
+                                //Text("Generate Report")
+                          //  }
                     
                       
                 }
@@ -176,7 +176,7 @@ struct SettingsView:View {
                     
                     
                 }
-                print(settingsManager.isManagerMode)
+                
                 managerIndex = settingsManager.isManagerMode ? 1 : 0
             }.onChange(of: updated) { oldValue, newValue in
                 if(newName != ""){

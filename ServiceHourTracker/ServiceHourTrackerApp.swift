@@ -41,7 +41,7 @@ struct ServiceHourTrackerApp: App {
                    
                     .onReceive(timer) { _ in
                         refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
-                           print("\n updating \n")
+                           
                     }
            
         }

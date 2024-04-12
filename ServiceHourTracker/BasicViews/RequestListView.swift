@@ -41,7 +41,7 @@ struct RequestListView: View {
                     colorsForRequest = [:]
                     classForRequest = [:]
                     
-                    print("fromManSide: \(fromManSide)")
+                    
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                         if fromManSide {
@@ -66,7 +66,7 @@ struct RequestListView: View {
                             }
                         } else {
                             getPendingRequests(email: userID) { requests in
-                                print(requests)
+                                
                                 for request in requests {
                                     getColorScheme(classCode: request.classCode) { colors in
                                         colorsForRequest[request] = colors

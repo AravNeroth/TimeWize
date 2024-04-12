@@ -253,7 +253,7 @@ class MessageManager: ObservableObject{
         var images: [String:Image] = [:]
         for chat in chats {
             getAuthIDForEmail(email: chat){ id in
-                print("Pfp\(id).jpg")
+                
                 downloadImageFromUserStorage(id: id, file: "Pfp\(id).jpg") { image in
                     if let image = image{
                         images[chat] = Image(uiImage: image)

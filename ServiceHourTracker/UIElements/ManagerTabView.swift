@@ -89,7 +89,7 @@ struct ManagerTabView: View {
                     //                    }
                     
                     Button{
-                        print("tapped manager class")
+                        
                         classData.code = classCode
                         settingsManager.title = name
                         navToClass = true

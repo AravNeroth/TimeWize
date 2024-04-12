@@ -59,12 +59,12 @@ func storeUserCodeInFirestore(uid: String, codes: [String]) {
     
 
    
-    print("before")
+    
     getData(uid: uid) { user in
         db.collection("userInfo").document(uid).updateData(["classes": codes])
     }
    
-    print("after")
+    
 
         
     
@@ -72,7 +72,7 @@ func storeUserCodeInFirestore(uid: String, codes: [String]) {
 
 func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
 
-    print("in")
+    
     db.collection("userInfo").document(uid).getDocument { doc, error in
         do{
             if let error = error {
@@ -86,7 +86,7 @@ func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
                 if let output = document["classes"] as? [String] {
                     completion(output)
                 } else {
-                    print("Classes key not found or is not of type [String]")
+                    
                     completion(nil)
                 }
             } else {
@@ -201,7 +201,7 @@ func unenrollClass(uid: String, code: String) {
                         if let error = error{
                             print(error.localizedDescription)
                         }else{
-                            print("succesfully unenrolled")
+                            
                         }
                         
                     }
@@ -235,7 +235,7 @@ func leaveAsManager(uid: String, code: String) {
                         if let error = error {
                             print(error.localizedDescription)
                         } else {
-                            print("succesfully unenrolled")
+                            
                         }
                     }
                 } else {
@@ -362,7 +362,7 @@ func getClassHoursField(email: String, completion: @escaping ([[String:String]]?
                     completion(nil)
                 }
             } else {
-                print("Document does not exist for email: \(email)")
+                
                 completion(nil)
             }
         }

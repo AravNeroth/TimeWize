@@ -89,7 +89,7 @@ struct ManagerView: View {
                 case 1: settingsManager.title = "Settings"; currManagerView = .SettingsView
 //                case 2: currManagerView = .ManagerClass
                 case 2: settingsManager.title = "Requests"; currManagerView = .RequestsView
-                case 3: currManagerView = .ManagerClass; print("changing into class")
+                case 3: currManagerView = .ManagerClass; 
                 case 4: currManagerView = .MessagesView; settingsManager.title = "Messages"
                 case 5: currManagerView = .actionView; settingsManager.title = "Messages"
                 default:
