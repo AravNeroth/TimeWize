@@ -293,24 +293,39 @@ class MessageManager: ObservableObject{
         }
     }
     
+    //function that will keep being called
+    //as the funciton is called it updates all the message related variables that
+    //are stored locally in MessageManager
     func updateData(userID: String, completion: ((Bool)->Void)? = nil){
         getChatsOf(user: userID) { [self] chats in
-            
-            self.userChats = chats
-            
+            if !chats.isEmpty{
+                self.userChats = chats
+                
+            }
                 
             getNames(emails: chats) { names in
-                
-                self.chatNames = names
+                if !names.isEmpty{
+                    for(key, value) in names {
+                        self.chatNames[key] = value
+                    }
+
+                }
             }
             getImagesForChats(chats: chats){ images in
-                
-                self.chatImages = images
+                if !images.isEmpty{
+
+                    for(key, value) in images {
+                        self.chatImages[key] = value
+                    }
+                }
             }
             getLatestMessage(chats: chats, user: userID){ lastChats in
-                
-                self.lastMessages = lastChats
-                
+                if !lastChats.isEmpty{
+                    for(key, value) in lastChats {
+                        self.lastMessages[key] = value
+                    }
+
+                }
                 if let completion = completion{
                     completion(true)
                 }

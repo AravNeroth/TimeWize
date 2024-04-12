@@ -21,9 +21,9 @@ struct MessagingView: View {
         NavigationView{
             
             
-            if  messageManager.chatNames.count != messageManager.userChats.count ||
-                    //          messageManager.chatImages.count != messageManager.userChats.count ||
-                    messageManager.lastMessages.count != messageManager.userChats.count ||
+            if
+//                messageManager.chatNames.count != messageManager.userChats.count ||
+//                messageManager.lastMessages.count != messageManager.userChats.count ||
                     refresh {
                 
                 let timer = Timer.publish(every: 2, on: .main, in: .common)
