@@ -107,6 +107,16 @@ class ClassInfoManager: ObservableObject {
         }
     }
     
+    /*
+     Retrieves class codes linked to user ID
+     gets rid of empty codes from the list
+     Updates the classCodes with the retrieved codes from firebase
+     Loops through each class code to get class information, owner details, and color schemes
+     adds to classOwners dictionary with class-owner
+     adds to  classColors dictionary with class-colorScheme
+     gets  user requests and updates allRequests array
+     calls loadClassInfo to load and sort class information
+     */
     
     func updateData(userID: String, completion: ((Bool) -> Void)? = nil){
         
@@ -156,6 +166,11 @@ class ClassInfoManager: ObservableObject {
         
         
     }
+    /*
+     Retrieves class details from firebase- title, owner, and images
+     puts class info to arrays and sorts  alphabetically
+     ends when all class codes are processed & loaded
+     */
     
     private func loadClassInfo(completion: ((Bool)->Void)? = nil) {
         for code in classCodes {
