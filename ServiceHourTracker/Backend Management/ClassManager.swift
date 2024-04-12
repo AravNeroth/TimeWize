@@ -353,7 +353,7 @@ func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
 }
 
 /// Fetches accepted Requests from a User using an email
-/// 1 gets documents in Requests collection that are pending acceptance
+/// 1 gets documents in Requests collection that are accepted
 /// 2 handles error
 /// 3 creates a completion array
 /// 4 appends each request to the completion array
