@@ -151,9 +151,7 @@ struct SettingsView:View {
                     
                     
 
-                    NavigationLink(destination: ContentView()) {
-                                Text("Generate Report")
-                    }
+                    
                     NavigationLink(destination: ContenetView()) {
                                 Text("crop?")
                     }
