@@ -231,8 +231,10 @@ struct Request: Codable, Hashable, Identifiable {
     var numHours: Int
     /// 7
     var accepted: Bool
+    /// 8
+    var verifier: String
     
-    init(creator: String = "", classCode: String = "", description: String = "", timeCreated: Date = Date(), hourType: String = "", numHours: Int = 0, accepted: Bool = false) {
+    init(creator: String = "", classCode: String = "", description: String = "", timeCreated: Date = Date(), hourType: String = "", numHours: Int = 0, accepted: Bool = false, verifier: String = "") {
         self.creator = creator
         self.classCode = classCode
         self.description = description
@@ -240,6 +242,7 @@ struct Request: Codable, Hashable, Identifiable {
         self.hourType = hourType
         self.numHours = numHours
         self.accepted = accepted
+        self.verifier = verifier
     }
 }
 
@@ -248,9 +251,9 @@ struct Request: Codable, Hashable, Identifiable {
 /// 2 adds the Request to the request list in the classes collection
 /// 3 adds the Request to the request list in the userInfo collection
 /// 
-func addRequest(classCode: String, email: String, hours: Int, type: String, description: String) {
+func addRequest(classCode: String, email: String, hours: Int, type: String, description: String, verifier: String) {
     /// 1
-    let req = Request(creator: email, classCode: classCode, description: description, hourType: type, numHours: hours)
+    let req = Request(creator: email, classCode: classCode, description: description, hourType: type, numHours: hours, verifier: verifier)
     /// 2
     do {
         try db.collection("classes").document(classCode).collection("requests").addDocument(from: req)
@@ -287,6 +290,7 @@ func getClassRequests(classCode: String, completion: @escaping ([Request]) -> Vo
                 
                 let creator = data["creator"] as? String ?? ""
                 let description = data["description"] as? String ?? ""
+                let verifier = data["verifier"] as? String ?? ""
                 
                 let timeTimestamp = data["timeCreated"] as? Timestamp
                 let timeCreated = timeTimestamp?.dateValue() ?? Date()
@@ -294,7 +298,7 @@ func getClassRequests(classCode: String, completion: @escaping ([Request]) -> Vo
                 let hourType = data["hourType"] as? String ?? ""
                 let numHours = data["numHours"] as? Int ?? 0
                 
-                let currReq = Request(creator: creator, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours)
+                let currReq = Request(creator: creator, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
                 
                 com.append(currReq)
             }
@@ -327,6 +331,7 @@ func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
                 
                 let classCode = data["classCode"] as? String ?? ""
                 let description = data["description"] as? String ?? ""
+                let verifier = data["verifier"] as? String ?? ""
                 
                 let timeTimestamp = data["timeCreated"] as? Timestamp
                 let timeCreated = timeTimestamp?.dateValue() ?? Date()
@@ -336,7 +341,7 @@ func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
                 
                 let accepted = data["accepted"] as? Bool ?? false
                 
-                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, accepted: accepted)
+                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, accepted: accepted, verifier: verifier)
                 
                 com.append(currReq)
             }
@@ -369,6 +374,7 @@ func getPendingRequests(email: String, completion: @escaping ([Request]) -> Void
                 
                 let classCode = data["classCode"] as? String ?? ""
                 let description = data["description"] as? String ?? ""
+                let verifier = data["verifier"] as? String ?? ""
                 
                 let timeTimestamp = data["timeCreated"] as? Timestamp
                 let timeCreated = timeTimestamp?.dateValue() ?? Date()
@@ -376,7 +382,7 @@ func getPendingRequests(email: String, completion: @escaping ([Request]) -> Void
                 let hourType = data["hourType"] as? String ?? ""
                 let numHours = data["numHours"] as? Int ?? 0
                 
-                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours)
+                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
                 
                 com.append(currReq)
             }

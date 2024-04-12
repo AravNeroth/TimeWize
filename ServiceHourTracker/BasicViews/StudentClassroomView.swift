@@ -197,7 +197,7 @@ struct Popup: View {
             HStack {
                 Button("Send Request") {
                     showReqHours = false
-                    addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selectedOption, description: title)
+//                    addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selectedOption, description: title, verifier: )
                 }
                 .padding().background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                 .background(Color.white)

@@ -250,6 +250,7 @@ private struct requestPopUp: View {
     @State var description = ""
     @State var hourCount: Double = 0
     @State var selected = "Attendance"
+    @State var verifier = ""
     var colors: [Color]
     var options = ["Attendance", "Service", "Club Specific"]
     @EnvironmentObject private var classData: ClassData
@@ -273,6 +274,16 @@ private struct requestPopUp: View {
                     .padding(.horizontal, 30.0)
                 
                 TextField("Enter Description", text: $description)
+                    .padding()
+                    .background(.black.opacity(0.1))
+                    .cornerRadius(15.0)
+                    .shadow(radius: 2.0, y: 2.0)
+                    .padding(.horizontal, 30.0)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                TextField("Enter Reference", text: $verifier)
                     .padding()
                     .background(.black.opacity(0.1))
                     .cornerRadius(15.0)
@@ -312,7 +323,7 @@ private struct requestPopUp: View {
             
             Button {
                 if description != "" && hourCount != 0 {
-                    addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selected, description: description)
+                    addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selected, description: description, verifier: verifier)
                     isShowing = false
                 }
             } label: {
