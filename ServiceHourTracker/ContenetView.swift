@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// view to show the cropping of your image
 struct SquareCropImageView: View {
     let image: Image
     @State private var scaleFactor: CGFloat = 1.0
