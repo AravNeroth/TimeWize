@@ -25,8 +25,8 @@ struct MessageField: View {
                     textMessage = "" //reset
                 }
             }label: {
-                Image(systemName: "paperplane.circle.fill")
-            }
+                Image(systemName: "paperplane.circle.fill").resizable()
+            }.frame(width: 25, height: 25)
         }.padding(.horizontal).padding(.vertical,10).background(Color(.systemGray4)).cornerRadius(50).padding()
     }
 }

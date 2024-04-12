@@ -10,6 +10,7 @@
 		064EC9B72BACCA6500F0E872 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064EC9B62BACCA6500F0E872 /* Profile.swift */; };
 		064EF55D2BB7E040001AFB63 /* HourProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064EF55C2BB7E040001AFB63 /* HourProgressBar.swift */; };
 		066B289E2BC894B3008ADBFA /* NewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B289D2BC894B3008ADBFA /* NewMessage.swift */; };
+		066B28A02BC8E846008ADBFA /* ContenetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B289F2BC8E846008ADBFA /* ContenetView.swift */; };
 		06A935062B81694600BD163F /* ManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A935052B81694500BD163F /* ManagerTabView.swift */; };
 		06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3932B92D0B40023646B /* MiniProfileView.swift */; };
 		06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3952B942E810023646B /* ManagerRoomView.swift */; };
@@ -100,6 +101,7 @@
 		064EC9B62BACCA6500F0E872 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		064EF55C2BB7E040001AFB63 /* HourProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourProgressBar.swift; sourceTree = "<group>"; };
 		066B289D2BC894B3008ADBFA /* NewMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessage.swift; sourceTree = "<group>"; };
+		066B289F2BC8E846008ADBFA /* ContenetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContenetView.swift; sourceTree = "<group>"; };
 		06A935052B81694500BD163F /* ManagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerTabView.swift; sourceTree = "<group>"; };
 		06AEC3932B92D0B40023646B /* MiniProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		06AEC3952B942E810023646B /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				EEF83F2C2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift */,
 				EEF83F302B1FCDDB0098D3A2 /* Assets.xcassets */,
 				06CEF8F62B9A993A00DFC973 /* ThreeColumnSampleCode.swift */,
+				066B289F2BC8E846008ADBFA /* ContenetView.swift */,
 				EE0B76052B7182C900933552 /* Backend Management */,
 				EBFB3FA92B274A3E0087ABA3 /* BasicViews */,
 				06E576A72B5A29CC00A7A36D /* Extensions */,
@@ -537,6 +540,7 @@
 				06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */,
 				EB70EB032B2542B700D93A40 /* SettingsView.swift in Sources */,
 				06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */,
+				066B28A02BC8E846008ADBFA /* ContenetView.swift in Sources */,
 				06E576BA2B5F0B1C00A7A36D /* ManagerClassesView.swift in Sources */,
 				EEF83F2D2B1FCDD90098D3A2 /* ServiceHourTrackerApp.swift in Sources */,
 				06F54A3B2B77E4C600FD6069 /* NotificationsManager.swift in Sources */,
