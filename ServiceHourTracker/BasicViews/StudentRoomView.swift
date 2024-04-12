@@ -283,6 +283,11 @@ private struct requestPopUp: View {
                 Text("")
                     .padding(.vertical, 5.0)
                 
+                Text("Reference Person")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
                 TextField("Enter Reference", text: $verifier)
                     .padding()
                     .background(.black.opacity(0.1))

@@ -352,6 +352,47 @@ func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
     }
 }
 
+/// Fetches accepted Requests from a User using an email
+/// 1 gets documents in Requests collection that are pending acceptance
+/// 2 handles error
+/// 3 creates a completion array
+/// 4 appends each request to the completion array
+/// 5 returns the completion array
+func getAcceptedRequests(email: String, completion: @escaping ([Request]) -> Void) {
+    /// 1
+    db.collection("userInfo").document(email).collection("requests").whereField("accepted", isEqualTo: true).getDocuments() { query, error in
+        /// 2
+        if let error = error {
+            print(error.localizedDescription)
+            completion([])
+        } else {
+            /// 3
+            var com: [Request] = []
+            /// 4
+            for document in query!.documents {
+                let data = document.data()
+                
+                let classCode = data["classCode"] as? String ?? ""
+                let description = data["description"] as? String ?? ""
+                let verifier = data["verifier"] as? String ?? ""
+                
+                let timeTimestamp = data["timeCreated"] as? Timestamp
+                let timeCreated = timeTimestamp?.dateValue() ?? Date()
+                
+                let hourType = data["hourType"] as? String ?? ""
+                let numHours = data["numHours"] as? Int ?? 0
+                
+                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
+                
+                com.append(currReq)
+            }
+            
+            /// 5
+            completion(com)
+        }
+    }
+}
+
 /// Fetches pending Requests from a User using an email
 /// 1 gets documents in Requests collection that are pending acceptance
 /// 2 handles error
