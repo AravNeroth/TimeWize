@@ -15,6 +15,7 @@ struct SquareCropImageView: View {
                 image
                     
                     .resizable()
+                    .frame(width: 80,height: 80)
                     .scaledToFill()
                     .scaleEffect(scaleFactor)
                     .offset(offset)
@@ -73,14 +74,22 @@ struct ContenetView: View {
                 .clipShape(Circle()).frame(width: 80, height: 80)
             Button{
                 showPicker = true
+                let render = ImageRenderer(content: image2.scaleEffect(10).offset(CGSize(width: 50, height: 10.0)))
+                if let image = render.cgImage {
+                    selectedImage =  UIImage(cgImage: image)
+                }
+                
             }label: {
                 Text("Pick an Image")
             }.padding()
             
         }
         .onAppear{
-//            image2 = Image(.image3).modifier(ImageModifier(scale: 0.1, offset:CGSize(width: 50, height: 10.0)))
-                
+            let render = ImageRenderer(content: image2.scaleEffect(0.1).offset(CGSize(width: 50, height: 10.0)))
+            
+            if let image = render.cgImage {
+                image2 = Image(uiImage: UIImage(cgImage: image))
+            }
             
             
         }
@@ -88,6 +97,10 @@ struct ContenetView: View {
             ImagePicker(image: $newPfp)
         }).onDisappear{
             showPicker = false
+            let render = ImageRenderer(content: image2.scaleEffect(0.1).offset(CGSize(width: 50, height: 10.0)))
+            if let image = render.cgImage {
+                image2 = Image(uiImage: UIImage(cgImage: image))
+            }
         }
         .onChange(of: newPfp) { oldValue, newValue in
             if let newPfp = newPfp{
