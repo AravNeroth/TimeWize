@@ -149,11 +149,7 @@ struct SettingsView:View {
                     
                     Stepper("Max Hours", value: $settingsManager.perfHourRange, in: 0...100, step: 2)
                     
-                    
 
-                    NavigationLink(destination: ContentView()) {
-                                Text("Generate Report")
-                    }
                     NavigationLink(destination: ContenetView()) {
                                 Text("crop?")
                     }
