@@ -12,6 +12,7 @@ struct RequestListView: View {
     @State var colorsForRequest: [Request:[Color]] = [:]
     @State var classForRequest: [Request:Classroom] = [:]
     @State var fromManSide = true
+    @State var checkAccepted = false
     @State var requestList: [Request] = []
     @State var done = false
     @AppStorage("uid") var userID = ""
@@ -65,18 +66,35 @@ struct RequestListView: View {
                                 }
                             }
                         } else {
-                            getPendingRequests(email: userID) { requests in
-                                print(requests)
-                                for request in requests {
-                                    getColorScheme(classCode: request.classCode) { colors in
-                                        colorsForRequest[request] = colors
-                                    }
-                                    getClassInfo(classCloudCode: request.classCode) { classroom in
-                                        if let classroom = classroom {
-                                            classForRequest[request] = classroom
+                            if !checkAccepted {
+                                getPendingRequests(email: userID) { requests in
+                                    print(requests)
+                                    for request in requests {
+                                        getColorScheme(classCode: request.classCode) { colors in
+                                            colorsForRequest[request] = colors
                                         }
+                                        getClassInfo(classCloudCode: request.classCode) { classroom in
+                                            if let classroom = classroom {
+                                                classForRequest[request] = classroom
+                                            }
+                                        }
+                                        requestList.append(request)
                                     }
-                                    requestList.append(request)
+                                }
+                            } else {
+                                getAcceptedRequests(email: userID) { requests in
+                                    print(requests)
+                                    for request in requests {
+                                        getColorScheme(classCode: request.classCode) { colors in
+                                            colorsForRequest[request] = colors
+                                        }
+                                        getClassInfo(classCloudCode: request.classCode) { classroom in
+                                            if let classroom = classroom {
+                                                classForRequest[request] = classroom
+                                            }
+                                        }
+                                        requestList.append(request)
+                                    }
                                 }
                             }
                         }
