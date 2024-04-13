@@ -165,8 +165,8 @@ struct Profile: View {
             
             Button{
                 // Define receiver before calling generatePDF
-                let receiver = Mail.User(name: "Verlyn Fischer", email: "verlyn.fischer.mobileapp@gmail.com")
-
+                let receiver = Mail.User(name: "Jonathan Kalsky", email: "jonathan.kalsky@gmail.com")
+//verlyn.fischer.mobileapp@gmail.com
                 generatePDF { pdfData, error in
                     if let error = error {
                         // Handle error

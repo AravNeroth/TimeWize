@@ -54,38 +54,62 @@ func sendMail(to receiver: Mail.User, pdfData: Data) {
 
 func generatePDF(completion: @escaping (Data?, Error?) -> Void) {
     getUserRequests(email: "jonathan.cs@gmail.com") { requests in
-        var content = "Time Wize\nHour Log\n\n"
+        var titleContent = "Time Wize Hour Log Report\n\n"
+        var content = ""
+        let dispatchGroup = DispatchGroup() // Create a dispatch group
         
         for (index, request) in requests.enumerated() {
-            let date = formatDate(request.timeCreated)
+            dispatchGroup.enter() // Enter the dispatch group
+            
+            let date = request.timeCreated.formatted(date: .numeric, time: .omitted)
             let classCode = request.classCode
             let description = request.description
             let hours = "\(request.numHours) hours"
             
             // Construct the line with headers and details
-            var line = "Date: \(date)\nClass Code: \(classCode)\nDescription: \(description)\nHours: \(hours)\n\n"
-            
-            // Append the line to content
-            content.append(line)
+            getClassInfo(classCloudCode: classCode) { classroom in
+                if let classroom = classroom {
+                    let className = classroom.title
+                    var line = "\(date)\t\(className)\t\t\t\t\(hours.padding(toLength: 10, withPad: " ", startingAt: 0))\nDescription: \(description)\n\n"
+                    
+                    // Append the line to content
+                    content += line
+                }
+                
+                dispatchGroup.leave() // Leave the dispatch group once the operation is complete
+            }
         }
         
-        let pdfData = NSMutableData()
-        UIGraphicsBeginPDFContextToData(pdfData, .zero, nil)
-        UIGraphicsBeginPDFPage()
-        
-        // Draw the content with increased text size
-        let bounds = UIGraphicsGetCurrentContext()?.boundingBoxOfClipPath ?? .zero
-        let fontSize: CGFloat = 16 // Specify the desired font size
-        let font = UIFont.systemFont(ofSize: fontSize)
-        let attributes: [NSAttributedString.Key: Any] = [.font: font]
-        let attributedContent = NSAttributedString(string: content, attributes: attributes)
-        attributedContent.draw(with: bounds, options: .usesLineFragmentOrigin, context: nil)
-        
-        UIGraphicsEndPDFContext()
-        
-        completion(pdfData as Data, nil) // Call completion handler with PDF data
+        dispatchGroup.notify(queue: .main) {
+            // All asynchronous operations have completed
+            
+            let pdfData = NSMutableData()
+            UIGraphicsBeginPDFContextToData(pdfData, .zero, nil)
+            UIGraphicsBeginPDFPage()
+            
+            // Draw the title content with increased text size
+            let titleBounds = CGRect(x: 36, y: 36, width: 8.5 * 72.0 - 2 * 36, height: CGFloat.greatestFiniteMagnitude)
+            let titleFont = UIFont.systemFont(ofSize: 26, weight: .bold)
+            let titleAttributes: [NSAttributedString.Key: Any] = [.font: titleFont]
+            let attributedTitleContent = NSAttributedString(string: titleContent, attributes: titleAttributes)
+            let titleHeight = attributedTitleContent.boundingRect(with: titleBounds.size, options: .usesLineFragmentOrigin, context: nil).height
+            attributedTitleContent.draw(with: titleBounds, options: .usesLineFragmentOrigin, context: nil)
+            
+            // Draw the content with regular text size below the title
+            let contentBounds = CGRect(x: 36, y: 36 + titleHeight, width: 8.5 * 72.0 - 2 * 36, height:  11.0 * 72.0 - 2 * 36 - titleHeight)
+            let contentFont = UIFont.systemFont(ofSize: 16)
+            let contentAttributes: [NSAttributedString.Key: Any] = [.font: contentFont]
+            let attributedContent = NSAttributedString(string: content, attributes: contentAttributes)
+            attributedContent.draw(with: contentBounds, options: .usesLineFragmentOrigin, context: nil)
+            
+            UIGraphicsEndPDFContext()
+            
+            completion(pdfData as Data, nil) // Call completion handler with PDF data
+        }
     }
 }
+
+
 
 
 
