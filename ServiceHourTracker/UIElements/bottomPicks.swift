@@ -33,8 +33,8 @@ struct bottomPicks: View {
                 
                 LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
                     VStack{
-                        Image(systemName: (settingsManager.tab == 6) ? "message.fill" : "message").resizable().scaledToFit().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
-                        Text("Messages").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
+                        Image(systemName: (settingsManager.tab == 6) ? "person.crop.rectangle.stack.fill" : "person.crop.rectangle.stack").resizable().scaledToFit().tint((settingsManager.isDarkModeEnabled) ? .white : .green5).frame(width: 25, height:25)
+                        Text("Actions").font(.caption).tint((settingsManager.isDarkModeEnabled) ? .white : .green5)
                     }
                 ).frame(width: 65, height: 50)
             }

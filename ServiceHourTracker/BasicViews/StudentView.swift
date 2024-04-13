@@ -15,6 +15,7 @@ enum currStudentView{
     case ManagerRoomView
     case MessagesView
     case Profile
+    case actionView
 }
 
 var currStudentViewSelected: currStudentView = .ClassesView
@@ -25,12 +26,25 @@ struct StudentView: View {
     @State var tabSelection = 2
     @State var title = ""
     @State private var onMessagingLog = false
+    @State private var hideActionTitle = false
+
     var body: some View {
         NavigationView {
          
 
             
             switch currStudentViewSelected {
+                
+            case .actionView:
+                VStack{
+                    actionView(messageOnLog: $hideActionTitle, hideTitleAndPicker: $hideActionTitle)
+                        .navigationTitle(hideActionTitle ? "" : settingsManager.title)
+                        .navigationBarTitleDisplayMode(.inline)
+                       
+                        
+                    bottomPicks(selection: $tabSelection)
+                }
+                
             case .ClassesView:
                 VStack{
                     StudentClassesView().navigationBarTitleDisplayMode(.inline).navigationBarBackButtonHidden(true).navigationTitle(settingsManager.title)
@@ -107,7 +121,7 @@ struct StudentView: View {
             case 3: settingsManager.title = "Settings"; currStudentViewSelected = .SettingsView; break;
             case 4: settingsManager.title = "\(settingsManager.title)"; currStudentViewSelected = .ClassroomView; break;
             case 5: settingsManager.title = "\(settingsManager.title)"; currStudentViewSelected = .ManagerRoomView; break;
-            case 6: settingsManager.title = "Messages"; currStudentViewSelected = .MessagesView; break;
+            case 6: settingsManager.title = "Actions"; currStudentViewSelected = .actionView; break;
             case 7: settingsManager.title = "Profile"; currStudentViewSelected = .Profile; break;
             default:
                 settingsManager.title = ""
