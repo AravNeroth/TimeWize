@@ -22,7 +22,7 @@ struct RequestListView: View {
             ScrollView {
                 if !requestList.isEmpty {
                     ForEach(requestList) { request in
-                        NewRequestView(className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                        NewRequestView(className: classForRequest[request]?.title ?? "no title", classCode: request.classCode, colors: colorsForRequest[request] ?? [.green4, .green6], description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
                     }
                 } else {
                     if fromManSide {
