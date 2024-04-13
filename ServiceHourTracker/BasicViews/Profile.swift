@@ -20,6 +20,7 @@ struct Profile: View {
     @State private var newPfp = UIImage(systemName: "person")
     @State var totalHoursEarned: [Classroom:Int] = [:]
     @AppStorage("authuid") var authID = ""
+    @AppStorage("uid") var userID = ""
     @State var load = false
     
     var body: some View {
@@ -167,7 +168,7 @@ struct Profile: View {
                 // Define receiver before calling generatePDF
                 let receiver = Mail.User(name: "Jonathan Kalsky", email: "jonathan.kalsky@gmail.com")
 //verlyn.fischer.mobileapp@gmail.com
-                generatePDF { pdfData, error in
+                generatePDF(userID: userID) { pdfData, error in
                     if let error = error {
                         // Handle error
                         print("Error generating PDF: \(error.localizedDescription)")
@@ -179,7 +180,7 @@ struct Profile: View {
 
 
 
-                savePDF()
+                savePDF(userID: userID)
                 
             }label: {
                 Text("Generate Hour Log")

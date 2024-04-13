@@ -19,8 +19,10 @@ import SwiftSMTP
 //        }
 //
 //    }
+//https://www.youtube.com/watch?v=rDQ5ENvJxyc
 
 func sendMail(to receiver: Mail.User, pdfData: Data) {
+    
     let fileAttachment = Attachment(data: pdfData, mime: "application/pdf", name: "Hour Log")
 
     let smtp = SMTP(
@@ -52,29 +54,43 @@ func sendMail(to receiver: Mail.User, pdfData: Data) {
     }
 }
 
-func generatePDF(completion: @escaping (Data?, Error?) -> Void) {
+func generatePDF(userID: String, completion: @escaping (Data?, Error?) -> Void) {
     getUserRequests(email: "jonathan.cs@gmail.com") { requests in
         var titleContent = "Time Wize Hour Log Report\n\n"
         var content = ""
         let dispatchGroup = DispatchGroup() // Create a dispatch group
+        var name = ""
+        getName(email: userID) {  usnm in
+            
+            name = usnm
+            
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY"
+        let currYear: String = dateFormatter.string(from: Date())
         
         for (index, request) in requests.enumerated() {
             dispatchGroup.enter() // Enter the dispatch group
             
             let date = request.timeCreated.formatted(date: .numeric, time: .omitted)
+            
             let classCode = request.classCode
             let description = request.description
             let hours = "\(request.numHours) hours"
+            let numbers = ""
             
+           
             // Construct the line with headers and details
             getClassInfo(classCloudCode: classCode) { classroom in
                 if let classroom = classroom {
                     let className = classroom.title
-                    var line = "\(date)\t\(className)\t\t\t\t\(hours.padding(toLength: 10, withPad: " ", startingAt: 0))\nDescription: \(description)\n\n"
+                    let line = "\(date)\t\(className.padding(toLength: 20, withPad: " ", startingAt: 0))\t\t\t\t\t\t\(hours.padding(toLength: 15, withPad: " ", startingAt: 0))\nDescription: \(description)\n\n"
                     
                     // Append the line to content
                     content += line
                 }
+                
+                
                 
                 dispatchGroup.leave() // Leave the dispatch group once the operation is complete
             }
@@ -95,11 +111,19 @@ func generatePDF(completion: @escaping (Data?, Error?) -> Void) {
             let titleHeight = attributedTitleContent.boundingRect(with: titleBounds.size, options: .usesLineFragmentOrigin, context: nil).height
             attributedTitleContent.draw(with: titleBounds, options: .usesLineFragmentOrigin, context: nil)
             
+            let subTitleBounds = CGRect(x: 36, y: 36 + titleHeight, width: 8.5 * 72.0 - 2 * 36, height: 11.0 * 72.0 - 2 * 36 - titleHeight)
+            let subtitleFont = UIFont.systemFont(ofSize: 16, weight: .medium)
+            let subTitleAttributes: [NSAttributedString.Key: Any] = [.font: subtitleFont]
+            let attributedsubTitleContent = NSAttributedString(string: "\(name) \(currYear)", attributes: subTitleAttributes)
+            let subTitleHeight = attributedsubTitleContent.boundingRect(with: subTitleBounds.size, options: .usesLineFragmentOrigin, context: nil).height
+            attributedsubTitleContent.draw(with: subTitleBounds, options: .usesLineFragmentOrigin, context: nil)
+            
             // Draw the content with regular text size below the title
-            let contentBounds = CGRect(x: 36, y: 36 + titleHeight, width: 8.5 * 72.0 - 2 * 36, height:  11.0 * 72.0 - 2 * 36 - titleHeight)
-            let contentFont = UIFont.systemFont(ofSize: 16)
+            let contentBounds = CGRect(x: 36, y: 36 + titleHeight + subTitleHeight, width: 8.5 * 72.0 - 2 * 36, height:  11.0 * 72.0 - 2 * 36 - (titleHeight + subTitleHeight))
+            let contentFont = UIFont.systemFont(ofSize: 12)
             let contentAttributes: [NSAttributedString.Key: Any] = [.font: contentFont]
             let attributedContent = NSAttributedString(string: content, attributes: contentAttributes)
+            
             attributedContent.draw(with: contentBounds, options: .usesLineFragmentOrigin, context: nil)
             
             UIGraphicsEndPDFContext()
@@ -116,10 +140,10 @@ func generatePDF(completion: @escaping (Data?, Error?) -> Void) {
 
 
 
-@MainActor func savePDF() {
+@MainActor func savePDF(userID: String) {
     let fileName = "GeneratedPDF.pdf"
     
-    generatePDF { pdfData, error in
+    generatePDF(userID: userID) { pdfData, error in
         if let error = error {
             print("Error generating PDF: \(error.localizedDescription)")
             return
