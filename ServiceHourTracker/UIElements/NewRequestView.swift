@@ -143,13 +143,15 @@ struct NewRequestView: View {
                 .overlay(
                     VStack {
                         HStack {
-                            VStack(alignment: .leading) {
-                                Text(className)
-                                    .font(.title2)
-                                    .bold()
-                            }
+                            Text(title)
+                                .font(.title2)
+                                .bold()
                             
                             Spacer()
+                            
+                            Text(className)
+                                .font(.title2)
+                                .bold()
                         }
                         .padding(.horizontal, 30.0)
                         
@@ -166,9 +168,14 @@ struct NewRequestView: View {
                                     .font(.headline)
                                     .bold()
                                 
+                                Text("Reference: \(verifier)")
+                                    .multilineTextAlignment(.leading)
+                                    .font(.headline)
+                                    .bold()
+                                
                                 Text("\(description)")
                                     .multilineTextAlignment(.leading)
-                                    .frame(height: 50)
+                                    .frame(height: 30)
                             }
                             .padding(.horizontal, 30.0)
                             
