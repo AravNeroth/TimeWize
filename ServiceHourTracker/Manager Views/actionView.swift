@@ -30,7 +30,7 @@ struct actionView: View {
             case .Messages:
                 MessagingView(messaging: $messageOnLog)
             case .Requests:
-                RequestListView(fromManSide: true)
+                RequestListView(fromManSide: settingsManager.isManagerMode)
             }
             
         }

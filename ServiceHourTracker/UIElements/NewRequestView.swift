@@ -12,7 +12,9 @@ struct NewRequestView: View {
     @State var className = "name"
     @State var classCode = "code"
     @State var colors: [Color] = [.green4, .green6]
+    @State var title = "title"
     @State var description = "description"
+    @State var verifier = "verifier"
     @State var numHours = 0
     @State var hourType = "type"
     @State var email = "email"
@@ -32,11 +34,25 @@ struct NewRequestView: View {
                     VStack {
                         HStack {
                             VStack(alignment: .leading) {
+                                HStack {
+                                    Text(title)
+                                        .font(.title2)
+                                        .bold()
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "message.fill")
+                                        .font(.title2)
+                                        .imageScale(.large)
+                                        .foregroundStyle(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                }
+                                .padding(.top, 2.5)
+                                .padding(.bottom, 7.5)
+                                
                                 Text(className)
-                                    .font(.title2)
+                                    .multilineTextAlignment(.leading)
+                                    .font(.headline)
                                     .bold()
-                                    .padding(.top, 2.5)
-                                    .padding(.bottom, 7.5)
                                 
                                 Text(email)
                                     .multilineTextAlignment(.leading)
@@ -62,9 +78,14 @@ struct NewRequestView: View {
                                     .font(.headline)
                                     .bold()
                                 
+                                Text("Reference: \(verifier)")
+                                    .multilineTextAlignment(.leading)
+                                    .font(.headline)
+                                    .bold()
+                                
                                 Text("\(description)")
                                     .multilineTextAlignment(.leading)
-                                    .frame(height: 125)
+                                    .frame(height: 50)
                             }
                             
                             Spacer()
@@ -131,7 +152,6 @@ struct NewRequestView: View {
                             Spacer()
                         }
                         .padding(.horizontal, 30.0)
-                        .padding(.bottom, 30.0)
                         
                         HStack {
                             VStack(alignment: .leading) {
