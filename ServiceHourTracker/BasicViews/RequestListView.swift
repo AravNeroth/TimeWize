@@ -81,7 +81,8 @@ struct RequestListView: View {
                                         requestList.append(request)
                                     }
                                 }
-                            } else {
+                            } 
+                            else {
                                 getAcceptedRequests(email: userID) { requests in
                                     print(requests)
                                     for request in requests {
