@@ -23,41 +23,48 @@ struct RequestListView: View {
             ScrollView {
                 // * i dunno how to make the boxes fit
                 
-                
-                // check if there is any pending
-                if pendingRequests.isEmpty {
-                    Text("No Pending Requests").bold()
-                }
-                else{
-                    Text("PENDING REQUESTS").bold()
-                    
-                // if there is pending req, display
-                    ForEach(pendingRequests) { request in
-                        NewRequestView(className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                if !fromManSide {
+                    // check if there is any pending
+                    if pendingRequests.isEmpty {
+                        Text("No Pending Requests").bold()
+                    } else {
+                        Text("PENDING REQUESTS").bold()
+                        
+                        // if there is pending req, display
+                        ForEach(pendingRequests) { request in
+                            NewRequestView(className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                        }
+                        
                     }
-
-                }
-                
+                    
                     Divider() // do yuo use spacer or divider or both for this?
                     
-                
-                // check if there is any accepted
-                if acceptedRequests.isEmpty {
-                    Text("No Accepted Requests").bold()
-                
-                }
-                else{
-                    Text("ACCEPTED REQUESTS").bold()
-                    // if there is accepted req, display
-                    ForEach(acceptedRequests) { request in
-                        NewRequestView(className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
-                    }
-
-                }
+                    
+                    // check if there is any accepted
+                    if acceptedRequests.isEmpty {
+                        Text("No Accepted Requests").bold()
+                    } else {
+                        Text("ACCEPTED REQUESTS").bold()
+                        // if there is accepted req, display
+                        ForEach(acceptedRequests) { request in
+                            NewRequestView(className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                        }
                         
-            }
-        } // end of "done" / end of view
-        
+                    }
+                    
+                } else {
+                    if pendingRequests.isEmpty {
+                        Text("No Requests").bold()
+                    } else {
+                        // if there is pending req, display
+                        ForEach(pendingRequests) { request in
+                            NewRequestView(className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                        }
+                        
+                    }
+                }
+            } // end of "done" / end of view
+        }
          else {
             LoadingScreen()
                 .padding()
