@@ -144,17 +144,15 @@ struct NewRequestView: View {
             RoundedRectangle(cornerRadius: 15.0)
                 .fill(.background)
                 .stroke(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2.0)
-                .frame(height: 150)
+                .frame(height: 200)
                 .padding(.horizontal, 10.0)
                 .shadow(radius: 2.0, y: 2.0)
                 .overlay(
                     VStack {
                         HStack {
-                            VStack(alignment: .leading) {
-                                Text(className)
-                                    .font(.title2)
-                                    .bold()
-                            }
+                            Text(title)
+                                .font(.title2)
+                                .bold()
                             
                             Spacer()
                         }
@@ -162,6 +160,10 @@ struct NewRequestView: View {
                         
                         HStack {
                             VStack(alignment: .leading) {
+                                Text(className)
+                                    .multilineTextAlignment(.leading)
+                                    .font(.headline)
+                                    .bold()
                                 
                                 Text("Hour Type: \(hourType)")
                                     .multilineTextAlignment(.leading)
@@ -169,6 +171,11 @@ struct NewRequestView: View {
                                     .bold()
                                 
                                 Text("Hours: \(numHours)")
+                                    .multilineTextAlignment(.leading)
+                                    .font(.headline)
+                                    .bold()
+                                
+                                Text("Reference: \(verifier)")
                                     .multilineTextAlignment(.leading)
                                     .font(.headline)
                                     .bold()

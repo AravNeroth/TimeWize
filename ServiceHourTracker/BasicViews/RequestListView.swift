@@ -31,13 +31,13 @@ struct RequestListView: View {
                         Text("PENDING REQUESTS").bold()
                         
                         ForEach(pendingRequests) { request in
-                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
                         }
                         
                     }
                     
                     Divider() // do yuo use spacer or divider or both for this?
-                    
+                        .padding(10)
                     
                     // check if there is any accepted
                     if acceptedRequests.isEmpty {
@@ -48,7 +48,7 @@ struct RequestListView: View {
                         Text("ACCEPTED REQUESTS").bold()
                         // if there is accepted req, display
                         ForEach(acceptedRequests) { request in
-                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
                         }
                         
                     }
@@ -60,7 +60,7 @@ struct RequestListView: View {
                         Text("PENDING REQUESTS").bold()
                         
                         ForEach(pendingRequests) { request in
-                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
                         }
                         
                     }
