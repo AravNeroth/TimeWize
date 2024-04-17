@@ -56,7 +56,7 @@ struct taskPopup: View {
                         if !passed {
                             datePassed = false
                             showPop = false
-                            addTask(classCode: classData.code, creator: userID, title: taskName, date: date, timeCreated: Date(), maxSize: Int(maxPeople), numHours: Int(taskHours))
+                            //addTask(classCode: classData.code, creator: userID, title: taskName, date: date, timeCreated: Date(), maxSize: Int(maxPeople), numHours: Int(taskHours))
                             
                         }else{
                             datePassed = true

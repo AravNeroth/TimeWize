@@ -9,8 +9,6 @@ import SwiftUI
 
 struct actionView: View {
     @State private var selection = 0
-    // how do i get this to change on its own? idk
-    @State var isManager = false
     @EnvironmentObject private var settingsManager: SettingsManager
     enum currAction {
         case Messages
@@ -34,7 +32,7 @@ struct actionView: View {
                     MessagingView(messaging: $messageOnLog)
                 case .Requests:
                     // loads ReqListView if student is True/False
-                    RequestListView(fromManSide: isManager)
+                RequestListView(fromManSide: settingsManager.isManagerMode)
             }
             
         }
@@ -46,7 +44,7 @@ struct actionView: View {
                     settingsManager.title = "Messages"
                 }else{
                     //   if student is True/False
-                    if (isManager){
+                    if (settingsManager.isManagerMode) {
                         currActionSelected = .Requests
                         settingsManager.title = "Manager Requests"
                     }

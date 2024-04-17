@@ -205,38 +205,34 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
 
 
 
-/// Request struct
-/// 1 email of User who made Request
-/// 2 classCode associated with Request
-/// 3 description of Request
-/// 4 used for sorting by time
-/// 5 type of hour: either service, attendance, or club-specific
-/// 6 number of hours of hourType
-/// 7 false means the Request is pending, true means the request has gone through
+/// the infrastructure for a request from a User, which can be accepted by a class manager for hours
 struct Request: Codable, Hashable, Identifiable {
     var id: String {
         return "\(UUID())"
     }
-    /// 1
+    /// the email of the User who made the request
     var creator: String
-    /// 2
+    /// the code of the class that the User sends the request to
     var classCode: String
-    /// 3
+    /// title of the request
+    var title: String
+    /// description of the request
     var description: String
-    /// 4
+    /// the exact date and time that the request was sent
     var timeCreated: Date
-    /// 5
+    /// the type of hour the request is: service, attendance, or club-specific
     var hourType: String
-    /// 6
+    /// the number of hours the request is for
     var numHours: Int
-    /// 7
+    /// false means the request is pending, true means that the request counts towards the User's total hour count
     var accepted: Bool
-    /// 8
+    /// the reference person for verification
     var verifier: String
     
-    init(creator: String = "", classCode: String = "", description: String = "", timeCreated: Date = Date(), hourType: String = "", numHours: Int = 0, accepted: Bool = false, verifier: String = "") {
+    init(creator: String = "", classCode: String = "", title: String = "", description: String = "", timeCreated: Date = Date(), hourType: String = "", numHours: Int = 0, accepted: Bool = false, verifier: String = "") {
         self.creator = creator
         self.classCode = classCode
+        self.title = title
         self.description = description
         self.timeCreated = timeCreated
         self.hourType = hourType
@@ -251,9 +247,9 @@ struct Request: Codable, Hashable, Identifiable {
 /// 2 adds the Request to the request list in the classes collection
 /// 3 adds the Request to the request list in the userInfo collection
 /// 
-func addRequest(classCode: String, email: String, hours: Int, type: String, description: String, verifier: String) {
+func addRequest(classCode: String, email: String, hours: Int, type: String, title: String, description: String, verifier: String) {
     /// 1
-    let req = Request(creator: email, classCode: classCode, description: description, hourType: type, numHours: hours, verifier: verifier)
+    let req = Request(creator: email, classCode: classCode, title: title, description: description, hourType: type, numHours: hours, verifier: verifier)
     /// 2
     do {
         try db.collection("classes").document(classCode).collection("requests").addDocument(from: req)
@@ -289,6 +285,7 @@ func getClassRequests(classCode: String, completion: @escaping ([Request]) -> Vo
                 let data = document.data()
                 
                 let creator = data["creator"] as? String ?? ""
+                let title = data["title"] as? String ?? ""
                 let description = data["description"] as? String ?? ""
                 let verifier = data["verifier"] as? String ?? ""
                 
@@ -298,7 +295,7 @@ func getClassRequests(classCode: String, completion: @escaping ([Request]) -> Vo
                 let hourType = data["hourType"] as? String ?? ""
                 let numHours = data["numHours"] as? Int ?? 0
                 
-                let currReq = Request(creator: creator, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
+                let currReq = Request(creator: creator, classCode: classCode, title: title, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
                 
                 com.append(currReq)
             }
@@ -330,6 +327,7 @@ func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
                 let data = document.data()
                 
                 let classCode = data["classCode"] as? String ?? ""
+                let title = data["title"] as? String ?? ""
                 let description = data["description"] as? String ?? ""
                 let verifier = data["verifier"] as? String ?? ""
                 
@@ -341,7 +339,7 @@ func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
                 
                 let accepted = data["accepted"] as? Bool ?? false
                 
-                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, accepted: accepted, verifier: verifier)
+                let currReq = Request(creator: email, classCode: classCode, title: title, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, accepted: accepted, verifier: verifier)
                 
                 com.append(currReq)
             }
@@ -373,6 +371,7 @@ func getAcceptedRequests(email: String, completion: @escaping ([Request]) -> Voi
                 let data = document.data()
                 
                 let classCode = data["classCode"] as? String ?? ""
+                let title = data["title"] as? String ?? ""
                 let description = data["description"] as? String ?? ""
                 let verifier = data["verifier"] as? String ?? ""
                 
@@ -382,7 +381,7 @@ func getAcceptedRequests(email: String, completion: @escaping ([Request]) -> Voi
                 let hourType = data["hourType"] as? String ?? ""
                 let numHours = data["numHours"] as? Int ?? 0
                 
-                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
+                let currReq = Request(creator: email, classCode: classCode, title: title, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
                 
                 com.append(currReq)
             }
@@ -414,6 +413,7 @@ func getPendingRequests(email: String, completion: @escaping ([Request]) -> Void
                 let data = document.data()
                 
                 let classCode = data["classCode"] as? String ?? ""
+                let title = data["title"] as? String ?? ""
                 let description = data["description"] as? String ?? ""
                 let verifier = data["verifier"] as? String ?? ""
                 
@@ -423,7 +423,7 @@ func getPendingRequests(email: String, completion: @escaping ([Request]) -> Void
                 let hourType = data["hourType"] as? String ?? ""
                 let numHours = data["numHours"] as? Int ?? 0
                 
-                let currReq = Request(creator: email, classCode: classCode, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
+                let currReq = Request(creator: email, classCode: classCode, title: title, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
                 
                 com.append(currReq)
             }
@@ -550,6 +550,7 @@ struct ClassTask: Codable, Hashable, Identifiable {
     var creator: String
     /// 2
     var title: String
+    var description: String
     /// 3
     var date: Date
     /// 4
@@ -561,9 +562,10 @@ struct ClassTask: Codable, Hashable, Identifiable {
     /// 7
     var listOfPeople: [String]?
     
-    init(creator: String = "", title: String = "", date: Date = Date(), timeCreated: Date = Date(), maxSize: Int = 0, numHours: Int = 0, listOfPeople: [String]? = []) {
+    init(creator: String = "", title: String = "", description: String = "", date: Date = Date(), timeCreated: Date = Date(), maxSize: Int = 0, numHours: Int = 0, listOfPeople: [String]? = []) {
         self.creator = creator
         self.title = title
+        self.description = description
         self.date = date
         self.timeCreated = timeCreated
         self.maxSize = maxSize
@@ -572,9 +574,9 @@ struct ClassTask: Codable, Hashable, Identifiable {
     }
 }
 
-func addTask(classCode: String, creator: String, title: String, date: Date, timeCreated: Date, maxSize: Int, numHours: Int, listOfPeople: [String]? = []) {
+func addTask(classCode: String, creator: String, title: String, description: String, date: Date, timeCreated: Date, maxSize: Int, numHours: Int, listOfPeople: [String]? = []) {
     
-    let task = ClassTask(creator: creator, title: title, date: date, timeCreated: timeCreated, maxSize: maxSize, numHours: numHours, listOfPeople: listOfPeople)
+    let task = ClassTask(creator: creator, title: title, description: description, date: date, timeCreated: timeCreated, maxSize: maxSize, numHours: numHours, listOfPeople: listOfPeople)
     
     do {
         try db.collection("classes").document(classCode).collection("tasks").addDocument(from: task)
@@ -604,6 +606,7 @@ func getTasks(classCode: String, completion: @escaping ([ClassTask]) -> Void) {
             let newClassTask = ClassTask(
                 creator: taskData["creator"] as? String ?? "",
                 title: taskData["title"] as? String ?? "",
+                description: taskData["description"] as? String ?? "",
                 date: date,
                 timeCreated: timeCreated,
                 maxSize: taskData["maxSize"] as? Int ?? 0,
@@ -651,44 +654,6 @@ func getTaskParticipants(classCode: String, title: String, completion: @escaping
         }
     }
 }
-
-func acceptRequest(request: [String:String], classCode: String) {
-    
-    let email = request["email"]!
-    let hours = Int(request["hours"] ?? "0")!
-    let type = request["type"]!
-    let id = request["ID"] ?? ""
-    getClassHours(email: email, type: type) { classHours in
-        if var classHours = classHours{
-            let currHours: Int = classHours[type] ?? 0
-            
-            classHours[type] = currHours + hours
-            db.collection("userInfo").document(email).updateData(["classHours":classHours])
-            
-        
-            
-            
-        }
-    }
-    
-    getData(uid: email) { user in
-        if let user = user {
-            updateHours(uid: email, newHourCount: (user.hours ?? 0) + Float(hours))
-        }
-    }
-    
-    if id != "" {
-        db.collection("classes").document(classCode).collection("requests").document(id).delete()
-    }
-    
-}
-
-func declineRequest(request: [String:String], classCode: String) {
-    if let requestID = request["ID"] {
-        db.collection("classes").document(classCode).collection("requests").document(requestID).delete()
-    }
-}
-
 
 func addPersonToClass(person: String, classCode: String) {
     let docRef = db.collection("classes").document(classCode)

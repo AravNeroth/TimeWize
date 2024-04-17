@@ -14,6 +14,7 @@ struct ClassComponentView: View {
     @State var creator: String = "Creator"
     @State var creatorName: String = "Name"
     @State var title: String = "Test Title"
+    @State var description: String = "Test Desc"
     @State var message: String = "No Announcement to Display"
     @State var date: Date
     @State var timeMade: Date
@@ -92,7 +93,7 @@ struct ClassComponentView: View {
             }
             .buttonStyle(PlainButtonStyle())
             .sheet(isPresented: $showTaskPopUp) {
-                taskPopUp(title: title, creator: creator, signedUp: $signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp, fromManagerSide: $fromManagerSide, showMessage: $showMessage)
+                taskPopUp(title: title, description: description, creator: creator, signedUp: $signedUp, size: size, numHours: numHours, date: date, isShowing: $showTaskPopUp, fromManagerSide: $fromManagerSide, showMessage: $showMessage)
             }
             .sheet(isPresented: $showMessage) {
                 
@@ -151,6 +152,7 @@ private struct taskPopUp: View {
     
     @AppStorage("uid") var userID = ""
     @State var title = ""
+    @State var description = ""
     @State var creator: String = ""
     @Binding var signedUp: [String]
     @State var signedUpNames: [String:String] = [:]
@@ -212,6 +214,18 @@ private struct taskPopUp: View {
                     Text("Details:")
                         .font(.title3)
                         .bold()
+                    
+                    Divider()
+                        .frame(height: 1)
+                        .padding(.horizontal, 30.0)
+                        .padding(.bottom, 10.0)
+                    
+                    Text(description)
+                        .font(.headline)
+                        .multilineTextAlignment(.center)
+                        .bold()
+                        .padding(.horizontal, 30.0)
+                        .padding(.bottom, 10.0)
                     
                     Divider()
                         .frame(height: 1)

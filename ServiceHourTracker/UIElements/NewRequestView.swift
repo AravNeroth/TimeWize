@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewRequestView: View {
     
+    @Binding var showMessageSheet: Bool
     @State var className = "name"
     @State var classCode = "code"
     @State var colors: [Color] = [.green4, .green6]
@@ -21,6 +22,7 @@ struct NewRequestView: View {
     @State var request: Request
     @State var fromManSide = true
     @Binding var done: Bool
+    @EnvironmentObject var settingsManager: SettingsManager
     
     var body: some View {
         if fromManSide {
@@ -41,10 +43,15 @@ struct NewRequestView: View {
                                     
                                     Spacer()
                                     
-                                    Image(systemName: "message.fill")
-                                        .font(.title2)
-                                        .imageScale(.large)
-                                        .foregroundStyle(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                    Button {
+                                        showMessageSheet = true
+                                        settingsManager.dm = email
+                                    } label: {
+                                        Image(systemName: "message.fill")
+                                            .font(.title2)
+                                            .imageScale(.large)
+                                            .foregroundStyle(LinearGradient(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                    }
                                 }
                                 .padding(.top, 2.5)
                                 .padding(.bottom, 7.5)

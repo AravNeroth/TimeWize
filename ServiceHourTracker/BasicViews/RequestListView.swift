@@ -12,49 +12,67 @@ struct RequestListView: View {
     @State var colorsForRequest: [Request:[Color]] = [:]
     @State var classForRequest: [Request:Classroom] = [:]
     @State var fromManSide = false
-    @State var checkAccepted = false
+    @State var showMessage = false
     @State var pendingRequests: [Request] = []
     @State var acceptedRequests: [Request] = []
     @State var done = false
+    @EnvironmentObject var messageManager: MessageManager
+    @EnvironmentObject var settingsManager: SettingsManager
     @AppStorage("uid") var userID = ""
     
     var body: some View {
         if done {
             ScrollView {
-                // * i dunno how to make the boxes fit
-                
-                
-                // check if there is any pending
-                if pendingRequests.isEmpty {
-                    Text("No Pending Requests").bold()
-                }
-                else{
-                    Text("PENDING REQUESTS").bold()
-                    
-                // if there is pending req, display
-                    ForEach(pendingRequests) { request in
-                        NewRequestView(className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                if !fromManSide {
+                    if pendingRequests.isEmpty {
+                        Text("No Pending Requests").bold()
                     }
-
-                }
-                
+                    else{
+                        Text("PENDING REQUESTS").bold()
+                        
+                        ForEach(pendingRequests) { request in
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                        }
+                        
+                    }
+                    
                     Divider() // do yuo use spacer or divider or both for this?
                     
-                
-                // check if there is any accepted
-                if acceptedRequests.isEmpty {
-                    Text("No Accepted Requests").bold()
-                
-                }
-                else{
-                    Text("ACCEPTED REQUESTS").bold()
-                    // if there is accepted req, display
-                    ForEach(acceptedRequests) { request in
-                        NewRequestView(className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                    
+                    // check if there is any accepted
+                    if acceptedRequests.isEmpty {
+                        Text("No Accepted Requests").bold()
+                        
                     }
-
+                    else{
+                        Text("ACCEPTED REQUESTS").bold()
+                        // if there is accepted req, display
+                        ForEach(acceptedRequests) { request in
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                        }
+                        
+                    }
+                } else {
+                    if pendingRequests.isEmpty {
+                        Text("No Pending Requests").bold()
+                    }
+                    else{
+                        Text("PENDING REQUESTS").bold()
+                        
+                        ForEach(pendingRequests) { request in
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                        }
+                        
+                    }
                 }
                         
+            }
+            .sheet(isPresented: $showMessage) {
+                MessageLogView(lastChats: $messageManager.lastMessages, recipientEmail: settingsManager.dm)
+                    .padding(.top, 10)
+                    .onDisappear {
+                        showMessage = false
+                    }
             }
         } // end of "done" / end of view
         
