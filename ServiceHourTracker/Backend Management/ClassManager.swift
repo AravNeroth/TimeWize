@@ -603,16 +603,32 @@ func getTasks(classCode: String, completion: @escaping ([ClassTask]) -> Void) {
             let timeTimestamp = taskData["timeCreated"] as? Timestamp
             let timeCreated = timeTimestamp?.dateValue() ?? Date()
             
-            let newClassTask = ClassTask(
-                creator: taskData["creator"] as? String ?? "",
-                title: taskData["title"] as? String ?? "",
-                description: taskData["description"] as? String ?? "",
-                date: date,
-                timeCreated: timeCreated,
-                maxSize: taskData["maxSize"] as? Int ?? 0,
-                numHours: taskData["numHours"] as? Int ?? 0,
-                listOfPeople: taskData["listOfPeople"] as? [String] ?? [])
-            classTasks.append(newClassTask)
+            if Date().compare(date) == .orderedDescending {
+                let pplList = taskData["listOfPeople"] as? [String] ?? []
+                
+                for person in pplList {
+                    addRequest(classCode: classCode,
+                               email: person,
+                               hours: taskData["numHours"] as? Int ?? 0,
+                               type: "Club Specific",
+                               title: taskData["title"] as? String ?? "",
+                               description: taskData["description"] as? String ?? "",
+                               verifier: "Created as a Task")
+                }
+                
+                db.collection("classes").document(classCode).collection("tasks").document(document.documentID).delete()
+            } else {
+                let newClassTask = ClassTask(
+                    creator: taskData["creator"] as? String ?? "",
+                    title: taskData["title"] as? String ?? "",
+                    description: taskData["description"] as? String ?? "",
+                    date: date,
+                    timeCreated: timeCreated,
+                    maxSize: taskData["maxSize"] as? Int ?? 0,
+                    numHours: taskData["numHours"] as? Int ?? 0,
+                    listOfPeople: taskData["listOfPeople"] as? [String] ?? [])
+                classTasks.append(newClassTask)
+            }
         }
         
         completion(classTasks)
@@ -805,7 +821,7 @@ func demoteManager(person: String, classCode: String) {
         } else {
             if let document = document {
                 let map = document.data()
-                var peopleList = map?["peopleList"] as? [String] ?? []
+                let peopleList = map?["peopleList"] as? [String] ?? []
                 
                 if peopleList.contains(person) {
                     removeManagerFromClass(person: person, classCode: classCode)
@@ -917,7 +933,11 @@ func getAnnouncements(classCode: String, completion: @escaping ([Announcement]) 
                     do {
                         let announcement = try doc.data(as: Announcement.self)
                         if !announcements.contains(announcement) {
-                            announcements.append(announcement)
+                            if Date().compare(Calendar.current.date(byAdding: .month, value: 1, to: announcement.date) ?? Date()) == .orderedDescending {
+                                db.collection("classes").document(classCode).collection("announcements").document(doc.documentID).delete()
+                            } else {
+                                announcements.append(announcement)
+                            }
                         }
                     } catch {
                         print(error.localizedDescription)
