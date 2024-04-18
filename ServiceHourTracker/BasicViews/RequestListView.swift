@@ -31,7 +31,7 @@ struct RequestListView: View {
                         Text("PENDING REQUESTS").bold()
                         
                         ForEach(pendingRequests) { request in
-                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]?.title ?? "No Title", classCode: request.classCode, colors: colorsForRequest[request] ?? [.green4, .green6], title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
                         }
                         
                     }
@@ -48,7 +48,7 @@ struct RequestListView: View {
                         Text("ACCEPTED REQUESTS").bold()
                         // if there is accepted req, display
                         ForEach(acceptedRequests) { request in
-                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]?.title ?? "No Title", classCode: request.classCode, colors: colorsForRequest[request] ?? [.green4, .green6], title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
                         }
                         
                     }
@@ -60,7 +60,7 @@ struct RequestListView: View {
                         Text("PENDING REQUESTS").bold()
                         
                         ForEach(pendingRequests) { request in
-                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]!.title, classCode: request.classCode, colors: colorsForRequest[request]!, title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]?.title ?? "title", classCode: request.classCode, colors: colorsForRequest[request] ?? [.green4, .green6], title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
                         }
                         
                     }
@@ -145,7 +145,7 @@ struct RequestListView: View {
                         
                     }
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         pendingRequests.sort { $0.timeCreated < $1.timeCreated }
                         acceptedRequests.sort { $0.timeCreated < $1.timeCreated }
                         done = true
