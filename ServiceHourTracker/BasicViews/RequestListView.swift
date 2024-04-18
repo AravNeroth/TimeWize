@@ -60,7 +60,7 @@ struct RequestListView: View {
                         Text("PENDING REQUESTS").bold()
                         
                         ForEach(pendingRequests) { request in
-                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]?.title ?? "title", classCode: request.classCode, colors: colorsForRequest[request] ?? [.green4, .green6], title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
+                            NewRequestView(showMessageSheet: $showMessage, className: classForRequest[request]?.title ?? "No Title", classCode: request.classCode, colors: colorsForRequest[request] ?? [.green4, .green6], title: request.title, description: request.description, verifier: request.verifier, numHours: request.numHours, hourType: request.hourType, email: request.creator, request: request, fromManSide: fromManSide, done: $done)
                         }
                         
                     }
