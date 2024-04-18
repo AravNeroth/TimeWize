@@ -162,3 +162,22 @@ struct GoalSettingView: View {
 #Preview {
     HourBoardView()
 }
+
+
+/*
+ ZStack {
+             Circle()
+                 .trim(from: 0, to: 1)
+                 .stroke(Color.gray.opacity(0.3), lineWidth: 20)
+                 .rotationEffect(Angle(degrees: -90))
+             Circle()
+                 .trim(from: 60/360, to: 200/360)
+                 .stroke(.red, lineWidth: 20)
+                 .rotationEffect(Angle(degrees: -90))
+             Circle()
+                 .trim(from: 0/360, to: 60/360)
+                 .stroke(.blue, lineWidth: 20)
+                 .rotationEffect(Angle(degrees: -90))
+             
+         }
+ */
