@@ -129,7 +129,7 @@ struct StudentRoomView: View {
                         ForEach(allComponents, id: \.self) { component in
                             Text("")
                             
-                            ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator] ?? "Former Manager", title: component.title, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask)
+                            ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator] ?? "Former Manager", title: component.title, description: component.description, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask)
                         }
                     } else {
                         Text("Nothing to Display")
@@ -247,6 +247,7 @@ private struct menuPopUp: View {
 private struct requestPopUp: View {
     
     @AppStorage("uid") var userID = ""
+    @State var title = ""
     @State var description = ""
     @State var hourCount: Double = 0
     @State var selected = "Attendance"
@@ -267,6 +268,21 @@ private struct requestPopUp: View {
                 Divider()
                     .padding(.horizontal, 30.0)
                     .padding(.bottom, 30.0)
+                
+                Text("Title")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                TextField("Enter Title", text: $title)
+                    .padding()
+                    .background(.black.opacity(0.1))
+                    .cornerRadius(15.0)
+                    .shadow(radius: 2.0, y: 2.0)
+                    .padding(.horizontal, 30.0)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
                 
                 Text("Description")
                     .font(.title2)
@@ -328,7 +344,7 @@ private struct requestPopUp: View {
             
             Button {
                 if description != "" && hourCount != 0 {
-                    addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selected, description: description, verifier: verifier)
+                    addRequest(classCode: classData.code, email: userID, hours: Int(hourCount), type: selected, title: title, description: description, verifier: verifier)
                     isShowing = false
                 }
             } label: {
@@ -366,6 +382,15 @@ enum ClassComponent: Hashable {
         switch self {
             case .classTask(let classTask):
                 return classTask.title
+            case .announcement(_):
+                return ""
+        }
+    }
+    
+    var description: String {
+        switch self {
+            case .classTask(let classTask):
+                return classTask.description
             case .announcement(_):
                 return ""
         }

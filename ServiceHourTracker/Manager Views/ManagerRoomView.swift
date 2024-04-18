@@ -137,7 +137,7 @@ struct ManagerRoomView: View {
                             ForEach(allComponents, id: \.self) { component in
                                 Text("")
                                 
-                                ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator] ?? "Former Manager", title: component.title, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask, fromManagerSide: true)
+                                ClassComponentView(classCode: classData.code, colors: colors, creator: component.creator, creatorName: managerNames[component.creator] ?? "Former Manager", title: component.title, description: component.description, message: component.message, date: component.dueDate, timeMade: component.dateCreated, size: component.maxSize, signedUp: component.listOfPeople, numHours: component.numHours, isTask: component.isTask, fromManagerSide: true)
                             }
                         } else {
                             Text("Nothing to Display")
@@ -309,6 +309,7 @@ private struct menuPopUp: View {
 private struct taskPopUp: View {
     
     @State var classCode = ""
+    @State var title = ""
     @State var description = ""
     @State var dueDate: Date = Date()
     @State var size: Double = 0
@@ -335,7 +336,22 @@ private struct taskPopUp: View {
                     .bold()
                     .padding(.horizontal, 30.0)
                 
-                TextField("Enter Title", text: $description)
+                TextField("Enter Title", text: $title)
+                    .padding()
+                    .background(.black.opacity(0.1))
+                    .cornerRadius(15.0)
+                    .shadow(radius: 2.0, y: 2.0)
+                    .padding(.horizontal, 30.0)
+                
+                Text("")
+                    .padding(.vertical, 5.0)
+                
+                Text("Description")
+                    .font(.title2)
+                    .bold()
+                    .padding(.horizontal, 30.0)
+                
+                TextField("Enter Description", text: $description)
                     .padding()
                     .background(.black.opacity(0.1))
                     .cornerRadius(15.0)
@@ -388,7 +404,7 @@ private struct taskPopUp: View {
             
             Button {
                 if description != "" && size != 0 && hourCount != 0 {
-                    addTask(classCode: classCode, creator: userID, title: description, date: dueDate, timeCreated: Date(), maxSize: Int(size), numHours: Int(hourCount))
+                    addTask(classCode: classCode, creator: userID, title: title, description: description, date: dueDate, timeCreated: Date(), maxSize: Int(size), numHours: Int(hourCount))
                     reloadPage = true
                     showTask = false
                 }
