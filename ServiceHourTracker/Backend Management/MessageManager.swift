@@ -109,7 +109,7 @@ func getMessages(user: String, from:String, completion: @escaping ([Message]) ->
     db.collection("userInfo").document(user).collection("Messages").document(from).collection("chat").getDocuments { docs, error in
         if let error = error{
             print(error.localizedDescription)
-            completion([])
+//            completion([])
         }else{
             var output: [Message] = []//completion output
            
@@ -126,14 +126,18 @@ func getMessages(user: String, from:String, completion: @escaping ([Message]) ->
                     output.append(currMessage)
                     
                 }
+                print("completion output")
                 completion(output)
-            }else{
-                completion([])
             }
+//            else{
+//                print("before else docs completion")
+//                completion([])
+//            }
         }
         
     }
-    completion([])
+//    print("before last completion")
+//    completion([])
 }
 
 func getChatsOf(user: String, completion: @escaping ([String])-> Void){

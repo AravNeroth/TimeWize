@@ -2914,8 +2914,8 @@
             filePath = "ServiceHourTracker/Backend Management/MessageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "getChatsOf(user:completion:)"
             landmarkType = "9">
             <Locations>
@@ -2962,8 +2962,8 @@
             filePath = "ServiceHourTracker/Backend Management/MessageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
             landmarkName = "getChatsOf(user:completion:)"
             landmarkType = "9">
             <Locations>
@@ -3010,8 +3010,8 @@
             filePath = "ServiceHourTracker/Backend Management/MessageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "getChatsOf(user:completion:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3026,8 +3026,8 @@
             filePath = "ServiceHourTracker/Backend Management/MessageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "getChatsOf(user:completion:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3042,8 +3042,8 @@
             filePath = "ServiceHourTracker/Backend Management/MessageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "getChatsOf(user:completion:)"
             landmarkType = "9">
             <Locations>
@@ -3090,8 +3090,8 @@
             filePath = "ServiceHourTracker/Backend Management/MessageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "getChatsOf(user:completion:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3106,8 +3106,8 @@
             filePath = "ServiceHourTracker/Backend Management/MessageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "getChatsOf(user:completion:)"
             landmarkType = "9">
             <Locations>
@@ -3199,8 +3199,8 @@
             filePath = "ServiceHourTracker/Backend Management/MessageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "getChatsOf(user:completion:)"
             landmarkType = "9">
             <Locations>
@@ -3325,8 +3325,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "getImagesForChats(chats:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3670,8 +3670,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
             landmarkName = "getMessagesList(user:from:)"
             landmarkType = "7">
             <Locations>
@@ -3861,6 +3861,21 @@
                   endingLineNumber = "22"
                   offsetFromSymbolStart = "632">
                </Location>
+               <Location
+                  uuid = "F1CAF8AD-A3A9-409E-9AA0-37F8540AB252 - 7d469ea16976d2c1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.pickerStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.PickerStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0&gt;, SwiftUI._ConditionalContent&lt;ServiceHourTracker.MessagingView, ServiceHourTracker.RequestListView&gt;)&gt; in ServiceHourTracker.actionView.body.getter : some"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Manager%20Views/actionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "840">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -3906,8 +3921,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3922,9 +3937,73 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "updateData(userID:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC68656F-25E7-4F53-B146-2189E6D58C4F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "getLatestMessage(chats:user:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E335A170-9EF9-402D-8B06-947ADAF76347"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "getLatestMessage(chats:user:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DE480E18-A0B0-4B1D-8C57-8968EA3344B9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
+            landmarkName = "getLatestMessage(chats:user:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2C21DF8E-EA2A-4B0C-8552-020963C077BD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "getLatestMessage(chats:user:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

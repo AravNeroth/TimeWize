@@ -236,13 +236,18 @@ class MessageManager: ObservableObject{
         var message: [String:Message] = [:]
         let dispatchG = DispatchGroup()
             for chat in chats{
+                
+                print("enter")
+                print(chat)
                 dispatchG.enter()
                 getMessages(user: user, from: chat) { messages in
+                    
                     let newmessages = messages.sorted(by: {$0.time < $1.time})
                     if let last = newmessages.last{
                         message[chat] = last
                         
                     }
+                    print("leave")
                     dispatchG.leave()
                 }
                 
