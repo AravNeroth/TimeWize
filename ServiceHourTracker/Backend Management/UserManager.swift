@@ -74,29 +74,27 @@ func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
 
     
     db.collection("userInfo").document(uid).getDocument { doc, error in
-        do{
-            if let error = error {
-                print("Error getting user data: \(error)")
-                completion(nil)
-                return
-            }
-            
-            if let document = doc, document.exists {
-                print(document.data())
-                if let output = document["classes"] as? [String] {
-                    completion(output)
-                } else {
-                    
-                    completion(nil)
-                }
-            } else {
-                print("User data document does not exist")
-                completion(nil)
-            }
-
-        }catch let error as NSError {
-            print("Error getting class: \(error.localizedDescription)")
+        
+        if let error = error {
+            print("Error getting user data: \(error)")
+//                completion(nil)
+            return
         }
+        
+        if let document = doc, document.exists {
+            print(document.data())
+            if let output = document["classes"] as? [String] {
+                completion(output)
+            } else {
+                
+//                    completion(nil)
+            }
+        } else {
+            print("User data document does not exist")
+//                completion(nil)
+        }
+
+        
     }
 }
 
@@ -140,7 +138,7 @@ func getData(uid: String, completion: @escaping (User?) -> Void) {
     db.collection("userInfo").document(uid).getDocument { doc, error in
         if let error = error {
             print("Error getting user data: \(error)")
-            completion(nil)
+//            completion(nil)
             return
         }
 
@@ -150,11 +148,11 @@ func getData(uid: String, completion: @escaping (User?) -> Void) {
                 completion(output)
             } catch {
                 print("Error decoding user data: \(error)")
-                completion(nil)
+//                completion(nil)
             }
         } else {
             print("User data document does not exist")
-            completion(nil)
+//            completion(nil)
         }
     }
 }
@@ -349,7 +347,7 @@ func getClassHoursField(email: String, completion: @escaping ([[String:String]]?
     docRef.getDocument { document, error in
         if let error = error {
             print("Error fetching class hours: \(error)")
-            completion(nil)
+//            completion(nil)
         } else {
             if let document = document, document.exists {
                 if let classHoursData = document.data()?["classHours"] as? [String: Int] {
@@ -359,11 +357,11 @@ func getClassHoursField(email: String, completion: @escaping ([[String:String]]?
                     completion(classHours)
                 } else {
                     print("No class hours data found.")
-                    completion(nil)
+//                    completion(nil)
                 }
             } else {
                 
-                completion(nil)
+//                completion(nil)
             }
         }
     }
