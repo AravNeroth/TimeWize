@@ -86,22 +86,36 @@ struct RequestListView: View {
                     acceptedRequests = []
                     colorsForRequest = [:]
                     classForRequest = [:]
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    let group = DispatchGroup()
+                    group.enter()
                         
                         if fromManSide { // if user is manager
+                            group.enter()
+                            
                             getClasses(uid: userID) { classes in
+                                defer { group.leave() }
+                                
                                 if let classes = classes {
                                     for classCode in classes {
+                                        group.enter()
+                                        
                                         getClassRequests(classCode: classCode) { requests in // below gets all requests in class
+                                            defer { group.leave() }
+                                            
                                             for request in requests {
+                                                group.enter()
+                                                
                                                 getColorScheme(classCode: classCode) { colors in
                                                     colorsForRequest[request] = colors
+                                                    group.leave()
                                                 }
+                                                group.enter()
+                                                
                                                 getClassInfo(classCloudCode: classCode) { classroom in
                                                     if let classroom = classroom {
                                                         classForRequest[request] = classroom
                                                     }
+                                                    group.leave()
                                                 }
                                                 pendingRequests.append(request)
                                             }
@@ -112,44 +126,63 @@ struct RequestListView: View {
                         } // end of manager (note* - we need a func that gets logbook of all past accepted requests!
                         
                         else { // if user is student
+                            group.enter()
                             
-                                getPendingRequests(email: userID) { requests in // gets pending
-                                    for request in requests {
-                                        getColorScheme(classCode: request.classCode) { colors in
-                                            colorsForRequest[request] = colors
-                                        }
-                                        getClassInfo(classCloudCode: request.classCode) { classroom in
-                                            if let classroom = classroom {
-                                                classForRequest[request] = classroom
-                                            }
-                                        }
-                                        pendingRequests.append(request) // finds all pending req & appends to pendingRequest to be displayed
-                                    }
+                            getPendingRequests(email: userID) { requests in // gets pending
+                                defer { group.leave() }
+                                
+                                for request in requests {
+                                    group.enter()
                                     
+                                    getColorScheme(classCode: request.classCode) { colors in
+                                        colorsForRequest[request] = colors
+                                        group.leave()
+                                    }
+                                    group.enter()
+                                    
+                                    getClassInfo(classCloudCode: request.classCode) { classroom in
+                                        if let classroom = classroom {
+                                            classForRequest[request] = classroom
+                                        }
+                                        group.leave()
+                                    }
+                                    pendingRequests.append(request) // finds all pending req & appends to pendingRequest to be displayed
+                                }
+                                group.enter()
                                 getAcceptedRequests(email: userID) { requests in // gets accepted
+                                    defer { group.leave() }
                                     for request in requests {
+                                        group.enter()
+                                        
                                         getColorScheme(classCode: request.classCode) { colors in
                                             colorsForRequest[request] = colors
+                                            group.leave()
                                         }
+                                        group.enter()
+                                        
                                         getClassInfo(classCloudCode: request.classCode) { classroom in
                                             if let classroom = classroom {
                                                 classForRequest[request] = classroom
                                             }
+                                            group.leave()
                                         }
                                         acceptedRequests.append(request) // finds all accepted req & appends to pendingRequest to be displayed
                                     }
                                 }
                             }
                         } // end of from student
-                        
-                        
-                    }
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    group.notify(queue: .main) {
                         pendingRequests.sort { $0.timeCreated < $1.timeCreated }
                         acceptedRequests.sort { $0.timeCreated < $1.timeCreated }
                         done = true
                     }
+                    group.leave()
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+//                        pendingRequests.sort { $0.timeCreated < $1.timeCreated }
+//                        acceptedRequests.sort { $0.timeCreated < $1.timeCreated }
+//                        done = true
+//                    }
                 }
         }
     }
