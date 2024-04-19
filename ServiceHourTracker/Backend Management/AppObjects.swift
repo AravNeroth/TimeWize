@@ -213,13 +213,19 @@ class MessageManager: ObservableObject{
     //takes in a list of emails a user is chatting with
     //returns a name as a value for each email key
     func getNames(emails: [String], completion: @escaping ([String:String])-> Void ){
+        //if dispatch works correctly we can remove the completion
+        let dispatchG = DispatchGroup()
         var names: [String:String] = [:]
         for email in emails{
+            dispatchG.enter()
             getName(email: email) { name in
+                defer{dispatchG.leave()}
                 names[email] = name
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+        
+        
+        dispatchG.notify(queue: .main){
             completion(names)
         }
     }
@@ -228,18 +234,22 @@ class MessageManager: ObservableObject{
     //returns in a completion a dictionary of emails as keys and Messages (custom struct) as the values
     func getLatestMessage(chats: [String], user: String, completion: @escaping ([String: Message]) -> Void ){
         var message: [String:Message] = [:]
-   
+        let dispatchG = DispatchGroup()
             for chat in chats{
+                dispatchG.enter()
                 getMessages(user: user, from: chat) { messages in
                     let newmessages = messages.sorted(by: {$0.time < $1.time})
                     if let last = newmessages.last{
                         message[chat] = last
                         
                     }
+                    dispatchG.leave()
                 }
                 
             }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        
+        
+        dispatchG.notify(queue: .main){
             completion(message)
         }
             
