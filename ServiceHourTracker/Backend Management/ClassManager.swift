@@ -38,6 +38,7 @@ struct Classroom: Codable, Hashable, Identifiable {
     let managerList: [String]
     let minServiceHours: Int
     let minSpecificHours: Int
+    let lastCollectionDate: Date
     let colors: [String]
     var id: String {
         return code
@@ -203,7 +204,45 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
     }
 }
 
-
+// fix later
+func collectHours(code: String, completion: @escaping ([String:[Request]]) -> Void) {
+    let db = Firestore.firestore()
+    let classRef = db.collection("classes").document(code)
+    
+    var com: [String:[Request]] = [:]
+    
+    classRef.getDocument { classroom, error in
+        if let error = error {
+            print("\(error.localizedDescription)")
+            completion([:])
+        } else {
+            if let classroom = classroom {
+                let listOfPpl = classroom["peopleList"] as? [String] ?? []
+                for person in listOfPpl {
+                    com[person] = []
+                    db.collection("userInfo").document(person).collection("requests").getDocuments { requests, error2 in
+                        if let error2 = error2 {
+                            print("\(error2.localizedDescription)")
+                        } else {
+                            for request in requests!.documents {
+                                do {
+                                    let newReq = try request.data(as: Request.self)
+                                    com[person]?.append(newReq)
+                                } catch {
+                                    print("couldn't make request")
+                                }
+                            }
+                            completion(com)
+                        }
+                    }
+                }
+            } else {
+                completion([:])
+            }
+        }
+    }
+    classRef.updateData(["lastCollectionDate":Date()])
+}
 
 /// the infrastructure for a request from a User, which can be accepted by a class manager for hours
 struct Request: Codable, Hashable, Identifiable {
