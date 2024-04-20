@@ -88,6 +88,8 @@ func uploadImageToClassroomStorage(code: String, image: UIImage, file: String? =
 
 //AUTHID, FileName with .jpg!!!
 func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>? = nil, completion: @escaping (UIImage?) -> Void) {
+    
+    print("inside downloadImage")
     guard !id.isEmpty else {
         print("downloadImageFromUserStorage \n folder is empty")
 //        completion(nil)

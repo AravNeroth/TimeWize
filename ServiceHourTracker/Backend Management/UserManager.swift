@@ -285,41 +285,22 @@ func sendPasswordResetEmail(email: String) -> String {
 }
 
 
-//only works if youre signed in
+
 func getAuthIDForEmail(email: String, completion: @escaping (String) -> Void) {
     
-    
-    /*
-     var output = ""
-    Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
-        if let error = error {
-            print("Error fetching sign-in methods: \(error.localizedDescription)")
-        } else {
-            if let signInMethods = signInMethods {
-                if signInMethods.isEmpty {
-                    print("No user found with the provided email address.")
-                } else {
-                    // User found, retrieve UID or perform other actions
-                    if let uid = Auth.auth().currentUser?.uid {
-                        output = uid
-                    }
-                }
-            }
-        }
-    }
-     */
     var output = ""
     db.collection("userInfo").document(email).getDocument { docSnap, error in
-        if let error = error{
+        if let error = error {
             print(error.localizedDescription)
             completion("")
-        }else if let doc = docSnap, let dat = doc.data() {
-            let output = dat["uid"] as? String ?? ""
+        } else if let doc = docSnap, let dat = doc.data() {
+            output = dat["uid"] as? String ?? ""
             completion(output)
         }
     }
     
 }
+
 
 //returns the dictionary of classType:Hour pair
 func getClassHours(email: String, type: String, completion: @escaping ([String:Int]?) -> Void) {

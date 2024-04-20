@@ -263,23 +263,36 @@ class MessageManager: ObservableObject{
     
     
     //chats: an array of emails for each email a user is chatting with
-    //Function that returns in a completion a dictionary of emails to their associated profile picture
-    func getImagesForChats(chats:[String], completion: @escaping ([String:Image]) -> Void ){
-        var images: [String:Image] = [:]
+    //Function that updates the environment variable MessageManager's chatImages property based on newly found values for keys
+    func updateImagesForChats(chats:[String], completion: (() -> (Void))? = nil ){
+        var count = chats.count
         for chat in chats {
+            defer {
+                count -= 1
+                if count == 0{
+                    completion?()
+                }
+            }
+            
             getAuthIDForEmail(email: chat){ id in
                 
                 downloadImageFromUserStorage(id: id, file: "Pfp\(id).jpg") { image in
+                    
                     if let image = image{
-                        images[chat] = Image(uiImage: image)
-                        completion(images)
+                        if self.chatImages[chat] != Image(uiImage: image){
+                            self.chatImages[chat] = Image(uiImage: image)
+                        }
+
                     }
+                    
+                    
                 }
                 
             }
         }
         
-
+        
+  
     }
 
     //passes in the user email of who it is sending it too
@@ -309,46 +322,65 @@ class MessageManager: ObservableObject{
         }
     }
     
-    //function that will keep being called
-    //as the funciton is called it updates all the message related variables that
-    //are stored locally in MessageManager
+    ///function that will keep being called
+    ///as the funciton is called it updates all the message related variables that
+    ///are stored locally in MessageManager
+    ///Dispatch Group to make sure everything is being called before compeltion
     func updateData(userID: String, completion: ((Bool)->Void)? = nil){
+        let DG = DispatchGroup()
+        
+        DG.enter()
+        DG.enter()
+        DG.enter()
+        DG.enter()
+       
         getChatsOf(user: userID) { [self] chats in
+            defer{ DG.leave(); print("l")} //getChatsOf done
             if !chats.isEmpty{
                 self.userChats = chats
                 
             }
                 
             getNames(emails: chats) { names in
+                defer { DG.leave(); print("l")}
+                
                 if !names.isEmpty{
                     for(key, value) in names {
+                        DG.enter()
+                        defer { DG.leave(); print("l") }
                         self.chatNames[key] = value
                     }
 
                 }
+                
             }
-            getImagesForChats(chats: chats){ images in
-                if !images.isEmpty{
-
-                    for(key, value) in images {
-                        self.chatImages[key] = value
-                    }
-                }
+            
+            updateImagesForChats(chats: chats){
+                DG.leave()
             }
+            
             getLatestMessage(chats: chats, user: userID){ lastChats in
+                defer{ DG.leave(); print("l") }
+                
                 if !lastChats.isEmpty{
                     for(key, value) in lastChats {
+                        DG.enter()
+                        print("e")
+                        defer{ DG.leave(); print("l")  }
                         self.lastMessages[key] = value
                     }
-
                 }
-                if let completion = completion{
-                    completion(true)
-                }
+                
             }
             
 
             
+        }
+        
+        DG.notify(queue: .main) {
+            if let completion = completion{
+                completion(true)
+            }
         }
     }
     
