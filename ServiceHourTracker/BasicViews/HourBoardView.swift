@@ -109,7 +109,8 @@ struct HourBoardView: View {
     }
 }
 
-struct GoalSettingView: View {
+/*
+ struct GoalSettingView: View {
     @Binding var isSettingGoal: Bool
     @Binding var goalHours: Int?
     @FocusState private var isTextFieldFocused: Bool
@@ -157,6 +158,7 @@ struct GoalSettingView: View {
         
     }
 }
+ */
 
 
 #Preview {
