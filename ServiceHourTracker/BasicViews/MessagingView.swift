@@ -65,7 +65,8 @@ struct MessagingView: View {
                                 .onDisappear{
                                     messaging = false
                                 }
-                                .navigationBarTitleDisplayMode(.inline).navigationTitle(messageManager.chatNames[chatWith] ?? chatWith)
+                                .navigationBarTitleDisplayMode(.inline)
+                                .navigationTitle(messageManager.chatNames[chatWith] ?? chatWith)
                                 .toolbar{
                                     ToolbarItem(placement: .topBarLeading) {
                                         if let image = messageManager.chatImages[chatWith]{

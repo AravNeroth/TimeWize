@@ -378,9 +378,7 @@ class MessageManager: ObservableObject{
         }
         
         DG.notify(queue: .main) {
-            if let completion = completion{
-                completion(true)
-            }
+            completion?(true)
         }
     }
     
