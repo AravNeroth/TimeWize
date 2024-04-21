@@ -254,7 +254,7 @@ class MessageManager: ObservableObject{
             }
         
         
-        dispatchG.notify(queue: .main){
+        dispatchG.notify(queue: .main) {
             completion(message)
         }
             

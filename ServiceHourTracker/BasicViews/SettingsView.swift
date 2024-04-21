@@ -160,7 +160,14 @@ struct SettingsView:View {
                                 Text("crop?")
                     }
                     
-                      
+                    Button {
+                        collectHours(code: "5788MR") { reqsPerPerson in
+                            print("DICTIONARY: \(reqsPerPerson)")
+                        }
+                    } label: {
+                        Text("Test Hour Collection")
+                    }
+                    
                 }
             }
             .onAppear{
