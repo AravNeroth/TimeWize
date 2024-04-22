@@ -109,7 +109,7 @@ func getMessages(user: String, from:String, completion: @escaping ([Message]) ->
     db.collection("userInfo").document(user).collection("Messages").document(from).collection("chat").getDocuments { docs, error in
         if let error = error{
             print(error.localizedDescription)
-            completion([])
+//            completion([])
         }else{
             var output: [Message] = []//completion output
            
@@ -126,38 +126,39 @@ func getMessages(user: String, from:String, completion: @escaping ([Message]) ->
                     output.append(currMessage)
                     
                 }
+                print("completion output")
                 completion(output)
-            }else{
-                completion([])
             }
+//            else{
+//                print("before else docs completion")
+//                completion([])
+//            }
         }
         
     }
-    completion([])
+//    print("before last completion")
+//    completion([])
 }
 
 func getChatsOf(user: String, completion: @escaping ([String])-> Void){
     db.collection("userInfo").document(user).collection("Messages").getDocuments { docs, error in
         if let error = error{
             print(error.localizedDescription)
-            completion([])
+//            completion([])
         }else{
             var output: [String] = [] //completion output
             
             if let docs = docs{
                 
-                //0
-                //jonathan.cs@gmail.com
-                for document in docs.documents { //doesnt go inside
+                for document in docs.documents {
                     
                     
                     output.append(document.documentID)
                     
                 }
                 completion(output)
-            }else{
-                completion([])
             }
+            
         }
         
     }

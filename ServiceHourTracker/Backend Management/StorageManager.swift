@@ -88,9 +88,11 @@ func uploadImageToClassroomStorage(code: String, image: UIImage, file: String? =
 
 //AUTHID, FileName with .jpg!!!
 func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>? = nil, completion: @escaping (UIImage?) -> Void) {
+    
+    print("inside downloadImage")
     guard !id.isEmpty else {
         print("downloadImageFromUserStorage \n folder is empty")
-        completion(nil)
+//        completion(nil)
         return
     }
     
@@ -101,7 +103,7 @@ func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>?
     storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
         if let error = error {
             print("Failed to download image data: \(error)")
-            completion(nil)
+//            completion(nil)
             return
         }
 
@@ -115,7 +117,7 @@ func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>?
             completion(image)
         } else {
             print("Failed to convert data to UIImage")
-            completion(nil)
+//            completion(nil)
         }
     }
 }
@@ -123,7 +125,7 @@ func downloadImageFromClassroomStorage(code: String, file: String, done: Binding
     
     guard !code.isEmpty else {
         print("downloadImageFromClassroomStorage \n folder is empty")
-        completion(nil)
+//        completion(nil)
         return
     }
     
@@ -134,7 +136,7 @@ func downloadImageFromClassroomStorage(code: String, file: String, done: Binding
     storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
         if let error = error {
             print("Failed to download image data: \(error)")
-            completion(nil)
+//            completion(nil)
             return
         }
 
@@ -146,7 +148,7 @@ func downloadImageFromClassroomStorage(code: String, file: String, done: Binding
             completion(image)
         } else {
             print("Failed to convert data to UIImage")
-            completion(nil)
+//            completion(nil)
         }
     }
 }

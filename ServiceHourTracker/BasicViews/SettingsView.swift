@@ -127,7 +127,11 @@ struct SettingsView:View {
                     }.frame(width:300)
                         .pickerStyle(SegmentedPickerStyle())
                     
-                    
+                    Button("test"){
+                        getAuthIDForEmail(email: "parker.cs@gmail.com") { id in
+                            print("\n\(id)\n")
+                        }
+                    }
                     
                     Button{
                         updateHours(uid: userID, newHourCount: Float(hoursEarned))
@@ -156,7 +160,14 @@ struct SettingsView:View {
                                 Text("crop?")
                     }
                     
-                      
+                    Button {
+                        collectHours(code: "5788MR") { reqsPerPerson in
+                            print("DICTIONARY: \(reqsPerPerson)")
+                        }
+                    } label: {
+                        Text("Test Hour Collection")
+                    }
+                    
                 }
             }
             .onAppear{

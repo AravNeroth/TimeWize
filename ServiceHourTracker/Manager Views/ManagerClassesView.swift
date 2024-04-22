@@ -66,7 +66,7 @@ struct ManagerClassesView: View {
                 }
                 .onChange(of: className) { oldValue, newValue in
                     
-                    let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, peopleList: [], managerList: [userID], minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours, colors: [])
+                    let newClass = Classroom(code: "\(createClassCode())", managerCode: "\(createManagerCode())", title: "\(className)", owner: authID, peopleList: [], managerList: [userID], minServiceHours: minServiceHours, minSpecificHours: minClassSpecificHours, lastCollectionDate: Date(), colors: [])
                     
                     storeClassInfoInFirestore(org: newClass)
                     
@@ -145,11 +145,13 @@ struct ManagerClassesView: View {
                           let minSpecificHours = classData["minSpecificHours"] as? Int,
                           let minServiceHours = classData["minServiceHours"] as? Int,
                           let peopleList = classData["peopleList"] as? [String],
+                          let lastCollectionTimeStamp = classData["lastCollectionDate"] as? Timestamp,
                           let colors = classData["colors"] as? [String],
                           let owner = classData["owner"] as? String {
+                           let lastCollectionDate = lastCollectionTimeStamp.dateValue()
                            managerList.append(userID)
                            addManagerToClass(person: userID, classCode: classCode)
-                           let classroom = Classroom(code: classCode, managerCode: manCode, title: className, owner: owner, peopleList: peopleList, managerList: managerList, minServiceHours: minServiceHours, minSpecificHours: minSpecificHours, colors: colors)
+                           let classroom = Classroom(code: classCode, managerCode: manCode, title: className, owner: owner, peopleList: peopleList, managerList: managerList, minServiceHours: minServiceHours, minSpecificHours: minSpecificHours, lastCollectionDate: lastCollectionDate, colors: colors)
                             classInfoManager.classes.append(classroom.code)
                            storeUserCodeInFirestore(uid: userID, codes: classInfoManager.classes)
                        }

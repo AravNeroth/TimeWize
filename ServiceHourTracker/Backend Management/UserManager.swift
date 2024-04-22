@@ -74,15 +74,15 @@ func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
 
     
     db.collection("userInfo").document(uid).getDocument { doc, error in
-        do{
-            if let error = error {
-                print("Error getting user data: \(error)")
+        
+        if let error = error {
+            print("Error getting user data: \(error)")
                 completion(nil)
-                return
-            }
+            return
+        }else{
             
             if let document = doc, document.exists {
-                print(document.data())
+//                print(document.data())
                 if let output = document["classes"] as? [String] {
                     completion(output)
                 } else {
@@ -93,9 +93,7 @@ func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
                 print("User data document does not exist")
                 completion(nil)
             }
-
-        }catch let error as NSError {
-            print("Error getting class: \(error.localizedDescription)")
+            
         }
     }
 }
@@ -140,7 +138,7 @@ func getData(uid: String, completion: @escaping (User?) -> Void) {
     db.collection("userInfo").document(uid).getDocument { doc, error in
         if let error = error {
             print("Error getting user data: \(error)")
-            completion(nil)
+//            completion(nil)
             return
         }
 
@@ -150,11 +148,11 @@ func getData(uid: String, completion: @escaping (User?) -> Void) {
                 completion(output)
             } catch {
                 print("Error decoding user data: \(error)")
-                completion(nil)
+//                completion(nil)
             }
         } else {
             print("User data document does not exist")
-            completion(nil)
+//            completion(nil)
         }
     }
 }
@@ -287,41 +285,22 @@ func sendPasswordResetEmail(email: String) -> String {
 }
 
 
-//only works if youre signed in
+
 func getAuthIDForEmail(email: String, completion: @escaping (String) -> Void) {
     
-    
-    /*
-     var output = ""
-    Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
-        if let error = error {
-            print("Error fetching sign-in methods: \(error.localizedDescription)")
-        } else {
-            if let signInMethods = signInMethods {
-                if signInMethods.isEmpty {
-                    print("No user found with the provided email address.")
-                } else {
-                    // User found, retrieve UID or perform other actions
-                    if let uid = Auth.auth().currentUser?.uid {
-                        output = uid
-                    }
-                }
-            }
-        }
-    }
-     */
     var output = ""
     db.collection("userInfo").document(email).getDocument { docSnap, error in
-        if let error = error{
+        if let error = error {
             print(error.localizedDescription)
             completion("")
-        }else if let doc = docSnap, let dat = doc.data() {
-            let output = dat["uid"] as? String ?? ""
+        } else if let doc = docSnap, let dat = doc.data() {
+            output = dat["uid"] as? String ?? ""
             completion(output)
         }
     }
     
 }
+
 
 //returns the dictionary of classType:Hour pair
 func getClassHours(email: String, type: String, completion: @escaping ([String:Int]?) -> Void) {
@@ -349,7 +328,7 @@ func getClassHoursField(email: String, completion: @escaping ([[String:String]]?
     docRef.getDocument { document, error in
         if let error = error {
             print("Error fetching class hours: \(error)")
-            completion(nil)
+//            completion(nil)
         } else {
             if let document = document, document.exists {
                 if let classHoursData = document.data()?["classHours"] as? [String: Int] {
@@ -359,11 +338,11 @@ func getClassHoursField(email: String, completion: @escaping ([[String:String]]?
                     completion(classHours)
                 } else {
                     print("No class hours data found.")
-                    completion(nil)
+//                    completion(nil)
                 }
             } else {
                 
-                completion(nil)
+//                completion(nil)
             }
         }
     }

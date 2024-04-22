@@ -38,6 +38,7 @@ struct Classroom: Codable, Hashable, Identifiable {
     let managerList: [String]
     let minServiceHours: Int
     let minSpecificHours: Int
+    let lastCollectionDate: Date
     let colors: [String]
     var id: String {
         return code
@@ -63,7 +64,7 @@ func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> 
     
     guard !classCloudCode.isEmpty else {
         print("Error: classCloudCode is empty")
-        completion(nil)
+//        completion(nil)
         return
     }
     let classRef = db.collection("classes").document(classCloudCode)
@@ -74,7 +75,7 @@ func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> 
         
         if let error = error {
             print("Error getting classroom data: \(error)")
-            completion(nil)
+//            completion(nil)
             return
         }
         
@@ -86,11 +87,11 @@ func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> 
                 completion(output)
             } catch {
                 print("Error decoding class data: \(error)")
-                completion(nil)
+//                completion(nil)
             }
         } else {
             print("classroom data document does not exist")
-            completion(nil)
+//            completion(nil)
         }
     }
 }
@@ -194,7 +195,10 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
     collectionRef.whereField("code", isEqualTo: code).getDocuments { (snapshot, error) in
         guard error == nil, let snapshot = snapshot else {
             // Handle the error
-            completion(false)
+//            completion(false)
+            if let error = error{
+                print(error.localizedDescription)
+            }
             return
         }
         
@@ -203,7 +207,45 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
     }
 }
 
-
+// fix later
+func collectHours(code: String, completion: @escaping ([String:[Request]]) -> Void) {
+    let db = Firestore.firestore()
+    let classRef = db.collection("classes").document(code)
+    
+    var com: [String:[Request]] = [:]
+    
+    classRef.getDocument { classroom, error in
+        if let error = error {
+            print("\(error.localizedDescription)")
+            completion([:])
+        } else {
+            if let classroom = classroom {
+                let listOfPpl = classroom["peopleList"] as? [String] ?? []
+                for person in listOfPpl {
+                    com[person] = []
+                    db.collection("userInfo").document(person).collection("requests").getDocuments { requests, error2 in
+                        if let error2 = error2 {
+                            print("\(error2.localizedDescription)")
+                        } else {
+                            for request in requests!.documents {
+                                do {
+                                    let newReq = try request.data(as: Request.self)
+                                    com[person]?.append(newReq)
+                                } catch {
+                                    print("couldn't make request")
+                                }
+                            }
+                            completion(com)
+                        }
+                    }
+                }
+            } else {
+                completion([:])
+            }
+        }
+    }
+    classRef.updateData(["lastCollectionDate":Date()])
+}
 
 /// the infrastructure for a request from a User, which can be accepted by a class manager for hours
 struct Request: Codable, Hashable, Identifiable {
@@ -270,18 +312,22 @@ func addRequest(classCode: String, email: String, hours: Int, type: String, titl
 /// 3 creates a completion array
 /// 4 appends each request to the completion array
 /// 5 returns the completion array
+/// 6 Dispatch group for breaking down the functions to asynchronous groups
 func getClassRequests(classCode: String, completion: @escaping ([Request]) -> Void) {
+    ///6
+    let DG = DispatchGroup()
     /// 1
     db.collection("classes").document(classCode).collection("requests").getDocuments { querySnapshot, error in
         /// 2
         if let error = error {
             print(error.localizedDescription)
-            completion([])
+//            completion([])
         } else {
             /// 3
             var com: [Request] = []
             /// 4
             for document in querySnapshot!.documents {
+                DG.enter()
                 let data = document.data()
                 
                 let creator = data["creator"] as? String ?? ""
@@ -298,10 +344,15 @@ func getClassRequests(classCode: String, completion: @escaping ([Request]) -> Vo
                 let currReq = Request(creator: creator, classCode: classCode, title: title, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
                 
                 com.append(currReq)
+                DG.leave()
             }
             
             /// 5
-            completion(com)
+            DG.notify(queue: .main) {
+                
+                completion(com)
+            }
+            
         }
     }
 }
@@ -312,18 +363,23 @@ func getClassRequests(classCode: String, completion: @escaping ([Request]) -> Vo
 /// 3 creates a completion array
 /// 4 appends each request to the completion array
 /// 5 returns the completion array
+/// 6 Dispatch group for breaking down the functions to asynchronous groups
 func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
+   ///6
+    let DG = DispatchGroup()
     /// 1
     db.collection("userInfo").document(email).collection("requests").getDocuments { querySnapshot, error in
         /// 2
         if let error = error {
             print(error.localizedDescription)
-            completion([])
+//            completion([])
         } else {
             /// 3
             var com: [Request] = []
             /// 4
+
             for document in querySnapshot!.documents {
+                DG.enter()
                 let data = document.data()
                 
                 let classCode = data["classCode"] as? String ?? ""
@@ -342,10 +398,14 @@ func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
                 let currReq = Request(creator: email, classCode: classCode, title: title, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, accepted: accepted, verifier: verifier)
                 
                 com.append(currReq)
+                DG.leave()
             }
             
             /// 5
-            completion(com)
+            DG.notify(queue: .main) {
+                
+                completion(com)
+            }
         }
     }
 }
@@ -356,18 +416,24 @@ func getUserRequests(email: String, completion: @escaping ([Request]) -> Void) {
 /// 3 creates a completion array
 /// 4 appends each request to the completion array
 /// 5 returns the completion array
+///6 Dispatch group for breaking down the functions to asynchronous groups
 func getAcceptedRequests(email: String, completion: @escaping ([Request]) -> Void) {
+    
+    ///6
+    let DG = DispatchGroup()
     /// 1
     db.collection("userInfo").document(email).collection("requests").whereField("accepted", isEqualTo: true).getDocuments() { query, error in
         /// 2
         if let error = error {
             print(error.localizedDescription)
-            completion([])
+//            completion([])
+            
         } else {
             /// 3
             var com: [Request] = []
             /// 4
             for document in query!.documents {
+                DG.enter()
                 let data = document.data()
                 
                 let classCode = data["classCode"] as? String ?? ""
@@ -384,10 +450,14 @@ func getAcceptedRequests(email: String, completion: @escaping ([Request]) -> Voi
                 let currReq = Request(creator: email, classCode: classCode, title: title, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
                 
                 com.append(currReq)
+                DG.leave()
             }
             
             /// 5
-            completion(com)
+            DG.notify(queue: .main) {
+                completion(com)
+            }
+            
         }
     }
 }
@@ -398,18 +468,23 @@ func getAcceptedRequests(email: String, completion: @escaping ([Request]) -> Voi
 /// 3 creates a completion array
 /// 4 appends each request to the completion array
 /// 5 returns the completion array
+/// 6 Dispatch group for breaking down the functions to asynchronous groups
 func getPendingRequests(email: String, completion: @escaping ([Request]) -> Void) {
+    
+    ///6
+    let DG = DispatchGroup()
     /// 1
     db.collection("userInfo").document(email).collection("requests").whereField("accepted", isEqualTo: false).getDocuments() { query, error in
         /// 2
         if let error = error {
             print(error.localizedDescription)
-            completion([])
+//            completion([])
         } else {
             /// 3
             var com: [Request] = []
             /// 4
             for document in query!.documents {
+                DG.enter()
                 let data = document.data()
                 
                 let classCode = data["classCode"] as? String ?? ""
@@ -426,10 +501,14 @@ func getPendingRequests(email: String, completion: @escaping ([Request]) -> Void
                 let currReq = Request(creator: email, classCode: classCode, title: title, description: description, timeCreated: timeCreated, hourType: hourType, numHours: numHours, verifier: verifier)
                 
                 com.append(currReq)
+                DG.leave()
             }
             
             /// 5
-            completion(com)
+            DG.notify(queue: .main) {
+                completion(com)
+            }
+            
         }
     }
 }
@@ -589,7 +668,7 @@ func getTasks(classCode: String, completion: @escaping ([ClassTask]) -> Void) {
     db.collection("classes").document(classCode).collection("tasks").getDocuments { querySnapshot, error in
         if let error = error {
             print("Error fetching tasks: \(error.localizedDescription)")
-            completion([])
+//            completion([])
             return
         }
         
@@ -654,13 +733,13 @@ func getTaskParticipants(classCode: String, title: String, completion: @escaping
     db.collection("classes").document(classCode).collection("tasks").whereField("title", isEqualTo: title).getDocuments { query, error1 in
         if let error1 = error1 {
             print(error1.localizedDescription)
-            completion([])
+//            completion([])
         } else {
             let docRef = query!.documents.first
             db.collection("classes").document(classCode).collection("tasks").document(docRef!.documentID).getDocument { doc, error2 in
                 if let error2 = error2 {
                     print(error2.localizedDescription)
-                    completion([])
+//                    completion([])
                 } else {
                     if let doc = doc {
                         completion(doc["listOfPeople"] as? [String] ?? [])
@@ -717,7 +796,7 @@ func getPeopleList(classCode: String, completion: @escaping([String]) -> Void) {
     docRef.getDocument { document, error in
         if let error = error as NSError? {
             print("Error getting document \(error.localizedDescription)")
-            completion([])
+//            completion([])
         } else {
             if let document = document {
                 completion(document["peopleList"] as? [String] ?? [])
@@ -840,7 +919,7 @@ func getManagerList(classCode: String, completion: @escaping([String]) -> Void) 
     docRef.getDocument { document, error in
         if let error = error as NSError? {
             print("Error getting document \(error.localizedDescription)")
-            completion([])
+//            completion([])
         } else {
             if let document = document {
                 completion(document["managerList"] as? [String] ?? [])
