@@ -69,16 +69,23 @@ class ClassInfoManager: ObservableObject {
     ///----------------------------------------------------
     ///
     func updateManagerData(userID: String, completion: ((Bool) -> Void)? = nil){
+        let DG = DispatchGroup()
+        DG.enter() //getClasses
+        DG.enter() //for loop
         getClasses(uid: userID) { list in
-           
+            defer{DG.leave()}
             if let list = list {
                 self.classes = list // list of codes
 
             }
         }
+       //add a semaphore between?
         for code in classes {
-            
+            DG.enter() //getting class info
             getClassInfo(classCloudCode: code) { classroom in
+                DG.enter() //downloadImage task
+                DG.enter() //getColorScheme task
+                
                 if let classroom = classroom {
                     if !self.allManagerClasses.contains(classroom){
                         self.allManagerClasses.append(classroom)
@@ -87,23 +94,27 @@ class ClassInfoManager: ObservableObject {
                         if let image = image {
                             self.ownerPfps[classroom] = image
                         }
+                        DG.leave()
                     }
                     
                     getColorScheme(classCode: classroom.code) { colors in
                         if !colors.isEmpty {
                             self.classColors[classroom] = colors
                         }
+                        DG.leave()
                     }
                 }
                 
                 
-                
+                DG.leave()
             }
             if code == classes.last{
-                if let completion{
-                    completion(true)
-                }
+                DG.leave()
             }
+        }
+        
+        DG.notify(queue: .main) {
+            completion?(true)
         }
     }
     
@@ -329,25 +340,25 @@ class MessageManager: ObservableObject{
     func updateData(userID: String, completion: ((Bool)->Void)? = nil){
         let DG = DispatchGroup()
         
-        DG.enter()
-        DG.enter()
-        DG.enter()
-        DG.enter()
+        DG.enter() //getChatsOf
+        DG.enter() //getNames
+        DG.enter() //update images
+        DG.enter() //getLatestMessage
        
         getChatsOf(user: userID) { [self] chats in
-            defer{ DG.leave(); print("l")} //getChatsOf done
+            defer{ DG.leave()} //getChatsOf done
             if !chats.isEmpty{
                 self.userChats = chats
                 
             }
                 
             getNames(emails: chats) { names in
-                defer { DG.leave(); print("l")}
+                defer { DG.leave()}
                 
                 if !names.isEmpty{
                     for(key, value) in names {
                         DG.enter()
-                        defer { DG.leave(); print("l") }
+                        defer { DG.leave()}
                         self.chatNames[key] = value
                     }
 
@@ -360,13 +371,13 @@ class MessageManager: ObservableObject{
             }
             
             getLatestMessage(chats: chats, user: userID){ lastChats in
-                defer{ DG.leave(); print("l") }
+                defer{ DG.leave()}
                 
                 if !lastChats.isEmpty{
                     for(key, value) in lastChats {
                         DG.enter()
                         print("e")
-                        defer{ DG.leave(); print("l")  }
+                        defer{ DG.leave()}
                         self.lastMessages[key] = value
                     }
                 }

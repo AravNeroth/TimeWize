@@ -77,24 +77,24 @@ func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
         
         if let error = error {
             print("Error getting user data: \(error)")
-//                completion(nil)
+                completion(nil)
             return
-        }
-        
-        if let document = doc, document.exists {
-            print(document.data())
-            if let output = document["classes"] as? [String] {
-                completion(output)
+        }else{
+            
+            if let document = doc, document.exists {
+//                print(document.data())
+                if let output = document["classes"] as? [String] {
+                    completion(output)
+                } else {
+                    
+                    completion(nil)
+                }
             } else {
-                
-//                    completion(nil)
+                print("User data document does not exist")
+                completion(nil)
             }
-        } else {
-            print("User data document does not exist")
-//                completion(nil)
+            
         }
-
-        
     }
 }
 
