@@ -54,16 +54,18 @@ struct Profile: View {
         
         // start point for each new circle
         // ex. class 1: 0% -> 20% filled, class 2: 20% --> 65% filled.  startPoint goes from 0 -> 20 -> 65
-        private var startPoints: [Double] {
-            var points: [Double] = []
-            var currentPoint = 0.0
-            for request in acceptedRequests {
-                let percentage = Double(request.numHours) / Double(totalHours)
-                points.append(currentPoint)
-                currentPoint += percentage
-            }
-            return points
+    private var startPoints: [Double] {
+        var points: [Double] = []
+        var currentPoint = 0.0
+        for (_, hours) in classAndHours {
+            let percentage = Double(hours) / Double(totalHours)
+            points.append(currentPoint)
+            currentPoint += percentage
         }
+        return points
+    }
+
+
 
     var body: some View {
         if load{
@@ -140,30 +142,29 @@ struct Profile: View {
                       
                         // Circle display
                         let circleSize = CGSize(width: 305, height: 305)
-                        let keysArray = Array(classAndHours.keys)
-                        var startPoint = 0.0
+                            
+                            Circle()
+                                .trim(from: 0, to: 1)
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 26.5)
+                                .rotationEffect(Angle(degrees: -90))
+                                .frame(width: circleSize.width, height: circleSize.height)
+                                .padding(.top, 20)
+                        Text("\(totalHours) hours") // Display total hours earned
+                            .font(.title)
                         
-                        Circle()
-                            .trim(from: 0, to: 1)
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 26.5)
-                            .rotationEffect(Angle(degrees: -90))
-                            .frame(width: circleSize.width, height: circleSize.height)
-                       
-                    .padding(.top, 20)
-                
-                            ForEach(keysArray) { request in
-
+                            .padding(.top, 20)
+                            ForEach(acceptedRequests.indices, id: \.self) { requests in
+                                let request = acceptedRequests[requests]
+                                let startPoint = startPoints[requests]
+                                let endPoint = startPoint + (Double(request.numHours) / Double(totalHours))
+                                
                                 Circle()
-                                // circle starts at 0, and then fills till the current request's number of hours divided by total hours
-                                    .trim(from: startPoint, to: CGFloat(startPoint + (Double(classAndHours[keysArray]) / Double(totalHours))))
+                                    .trim(from: CGFloat(startPoint), to: CGFloat(endPoint))
                                     .stroke(Color.red, lineWidth: 26.5)
                                     .rotationEffect(Angle(degrees: -90))
                                     .frame(width: circleSize.width, height: circleSize.height)
-                                                
-                            startPoint += CGFloat(Double(classAndHours[keysArray]) / Double(totalHours))
+                            }
                         }
-                        
-                    }
                                         
                     Spacer(minLength: 85)
                     NewHourBoardView(totalHoursEarned: $totalHoursEarned)
@@ -325,8 +326,7 @@ struct Profile: View {
                              
                              this dictionary is used for the circle bc it makes sure all the hours for a class is gathered
                              */
-                            if classAndHours.contains(where: { $0.key == request.classCode }) {
-                                // 9999 is there so that if it hits an error here we know where
+                            if classAndHours[request.classCode] != nil {
                                 classAndHours.updateValue(((classAndHours[request.classCode] ?? 9999) + request.numHours), forKey: request.classCode)
                             } else {
                                 classAndHours[request.classCode] = request.numHours

@@ -51,135 +51,137 @@ struct HourBoardView: View {
                     .animation(.easeInOut(duration: 1.5), value: animate)
                 Text("\(totalHoursEarned) hours") // Display total hours earned
                     .font(.title)
-            }
-            .padding(.top, 20)
-            Spacer()
-            Spacer()
-            
-            // display from func getClassHoursField
-            List(requests, id: \.self) { request in
+                
+                    .padding(.top, 20)
+                Spacer()
                 Spacer()
                 
-                VStack {
+                // display from func getClassHoursField
+                List(requests, id: \.self) { request in
                     Spacer()
-                    VStack(alignment: .center) {
-                        Text(request["className"] ?? "")
-                        Text("\(request["hours"] ?? "") hours")
-                    }
-                    .padding()
-                    .background(isDarkMode ? Color.green : Color.mint)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(isDarkMode ? Color.white : Color.black, lineWidth: 1)
-                    )
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal)
-                Spacer()
-            }
-            .padding(.horizontal)
-
-        }
-        
-        
-        .sheet(isPresented: $isSettingGoal) {
-            GoalSettingView(isSettingGoal: $isSettingGoal, goalHours: $goalHours) // Corrected the order
-                .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.5)
-        }
-        .onAppear {
-            // Fetch class hours for the current user
-            getClassHoursField(email: userID) { classHours in
-                if let classHours = classHours {
-                    // Update the requests array with the fetched data
-                    self.requests = classHours
-                    // Calculate total hours earned
-                    self.totalHoursEarned = classHours.reduce(0) { $0 + (Int($1["hours"] ?? "") ?? 0) }
-                } else {
-                    // Handle case where class hours couldn't be fetched
-                    print("Failed to fetch class hours.")
-                    // You can display an error message or handle it in any other appropriate way
-                }
-            }
-            // Start animation
-            animate = true
-        }
-        .padding()
-    }
-}
-
-/*
- struct GoalSettingView: View {
-    @Binding var isSettingGoal: Bool
-    @Binding var goalHours: Int?
-    @FocusState private var isTextFieldFocused: Bool
-    @EnvironmentObject private var settingsManager: SettingsManager
-    @State private var enteredGoal: String = ""
-    @State private var tempGoal: Int?
-    @AppStorage("range") var range: Int = 0
-    var body: some View {
-        VStack {
-            Text("Enter an Hour Goal")
-                .multilineTextAlignment(.center)
-                .font(.largeTitle)
-                .bold()
-                .frame(width: 350, alignment: .center)
-            
-            TextField("Enter Goal", text: $enteredGoal)
-                .keyboardType(.numberPad)
-                .padding()
-                .focused($isTextFieldFocused)
-                .onAppear {
-                    isTextFieldFocused = true
-                }
-                .background(Color.green.opacity(0.45))
-                .cornerRadius(15)
-            
-            
-            Button("Set Goal") {
-                if let goal = Int(enteredGoal) {
-                    goalHours = goal
-                    settingsManager.perfHourRange = goal
-                    range = goal
                     
-                    isSettingGoal = false
-
+                    VStack {
+                        Spacer()
+                        VStack(alignment: .center) {
+                            Text(request["className"] ?? "")
+                            Text("\(request["hours"] ?? "") hours")
+                        }
+                        .padding()
+                        .background(isDarkMode ? Color.green : Color.mint)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(isDarkMode ? Color.white : Color.black, lineWidth: 1)
+                        )
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal)
+                    Spacer()
                 }
+                .padding(.horizontal)
+                
             }
-            .foregroundColor(.white)
-            .padding()
-            .background(Color.green)
-            .cornerRadius(15)
             
+            
+            .sheet(isPresented: $isSettingGoal) {
+                GoalSettingView(isSettingGoal: $isSettingGoal, goalHours: $goalHours) // Corrected the order
+                    .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.5)
+            }
+            .onAppear {
+                // Fetch class hours for the current user
+                getClassHoursField(email: userID) { classHours in
+                    if let classHours = classHours {
+                        // Update the requests array with the fetched data
+                        self.requests = classHours
+                        // Calculate total hours earned
+                        self.totalHoursEarned = classHours.reduce(0) { $0 + (Int($1["hours"] ?? "") ?? 0) }
+                    } else {
+                        // Handle case where class hours couldn't be fetched
+                        print("Failed to fetch class hours.")
+                        // You can display an error message or handle it in any other appropriate way
+                    }
+                }
+                // Start animation
+                animate = true
+            }
+            .padding()
         }
-        
-        .padding()
-        
     }
+    
+    /*
+     struct GoalSettingView: View {
+     @Binding var isSettingGoal: Bool
+     @Binding var goalHours: Int?
+     @FocusState private var isTextFieldFocused: Bool
+     @EnvironmentObject private var settingsManager: SettingsManager
+     @State private var enteredGoal: String = ""
+     @State private var tempGoal: Int?
+     @AppStorage("range") var range: Int = 0
+     var body: some View {
+     VStack {
+     Text("Enter an Hour Goal")
+     .multilineTextAlignment(.center)
+     .font(.largeTitle)
+     .bold()
+     .frame(width: 350, alignment: .center)
+     
+     TextField("Enter Goal", text: $enteredGoal)
+     .keyboardType(.numberPad)
+     .padding()
+     .focused($isTextFieldFocused)
+     .onAppear {
+     isTextFieldFocused = true
+     }
+     .background(Color.green.opacity(0.45))
+     .cornerRadius(15)
+     
+     
+     Button("Set Goal") {
+     if let goal = Int(enteredGoal) {
+     goalHours = goal
+     settingsManager.perfHourRange = goal
+     range = goal
+     
+     isSettingGoal = false
+     
+     }
+     }
+     .foregroundColor(.white)
+     .padding()
+     .background(Color.green)
+     .cornerRadius(15)
+     
+     }
+     
+     .padding()
+     
+     }
+     }
+     
+     
+     
+     #Preview {
+     HourBoardView()
+     }
+     
+     
+     
+     ZStack {
+     Circle()
+     .trim(from: 0, to: 1)
+     .stroke(Color.gray.opacity(0.3), lineWidth: 20)
+     .rotationEffect(Angle(degrees: -90))
+     Circle()
+     .trim(from: 60/360, to: 200/360)
+     .stroke(.red, lineWidth: 20)
+     .rotationEffect(Angle(degrees: -90))
+     Circle()
+     .trim(from: 0/360, to: 60/360)
+     .stroke(.blue, lineWidth: 20)
+     .rotationEffect(Angle(degrees: -90))
+     
+     }
+     */
+    
 }
- 
-
-
-#Preview {
-    HourBoardView()
-}
-
-
-/*
- ZStack {
-             Circle()
-                 .trim(from: 0, to: 1)
-                 .stroke(Color.gray.opacity(0.3), lineWidth: 20)
-                 .rotationEffect(Angle(degrees: -90))
-             Circle()
-                 .trim(from: 60/360, to: 200/360)
-                 .stroke(.red, lineWidth: 20)
-                 .rotationEffect(Angle(degrees: -90))
-             Circle()
-                 .trim(from: 0/360, to: 60/360)
-                 .stroke(.blue, lineWidth: 20)
-                 .rotationEffect(Angle(degrees: -90))
-             
-         }
- */
