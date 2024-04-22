@@ -37,7 +37,6 @@ struct Profile: View {
             ZStack{
                 ScrollView {
                     Spacer(minLength: 212.5)
-                    ContentView()
                     Spacer(minLength: 100)
                     NewHourBoardView(totalHoursEarned: $totalHoursEarned)
                 }
