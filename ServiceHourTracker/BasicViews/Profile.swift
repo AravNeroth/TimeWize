@@ -140,6 +140,7 @@ struct Profile: View {
                       
                         // Circle display
                         let circleSize = CGSize(width: 305, height: 305)
+                        let keysArray = Array(classAndHours.keys)
                         var startPoint = 0.0
                         
                         Circle()
@@ -147,19 +148,19 @@ struct Profile: View {
                             .stroke(Color.gray.opacity(0.3), lineWidth: 26.5)
                             .rotationEffect(Angle(degrees: -90))
                             .frame(width: circleSize.width, height: circleSize.height)
-                            .animation(.easeInOut(duration: 1.5))
-                                            
-                            ForEach(acceptedRequests) { request in
+                       
+                    .padding(.top, 20)
+                
+                            ForEach(keysArray) { request in
 
                                 Circle()
                                 // circle starts at 0, and then fills till the current request's number of hours divided by total hours
-                                    .trim(from: startPoint, to: CGFloat(startPoint + (Double(request.numHours) / Double(totalHours))))
+                                    .trim(from: startPoint, to: CGFloat(startPoint + (Double(classAndHours[keysArray]) / Double(totalHours))))
                                     .stroke(Color.red, lineWidth: 26.5)
                                     .rotationEffect(Angle(degrees: -90))
                                     .frame(width: circleSize.width, height: circleSize.height)
                                                 
-                            //startPoint = CGFloat(startPoint + (Double(request.numHours) / Double(totalHours)))
-
+                            startPoint += CGFloat(Double(classAndHours[keysArray]) / Double(totalHours))
                         }
                         
                     }
