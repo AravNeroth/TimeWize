@@ -25,7 +25,6 @@ struct Profile: View {
     
     // circle vars
     @State private var totalHours = 0
-    @State private var allClassCodes: [String] = []
     @State private var animate = false
     @State private var className = ""
     @State private var isSettingGoal = false // toggles when button to set goals is clocked
@@ -34,10 +33,37 @@ struct Profile: View {
     @State private var requests: [[String:String]] = [] // for the table getRequest
     @State private var isDarkMode = true
     //@State private var percentFull: CGFloat = 0.0
-    @State var acceptedRequests: [Request] = []
+    @State private var acceptedRequests: [Request] = []
     @State private var percentFull: Double? = nil
+    @State private var classAndHours = [String: Int]()
 
-    
+
+        // total hours
+        private var totalHoursEarnedValue: Int {
+            var total = 0
+            for request in acceptedRequests {
+                total += request.numHours
+            }
+            return total
+        }
+        
+        // the percentage of the circle filled
+        private var percentFullValue: Double {
+            return totalHours != 0 ? Double(totalHours) / Double(circleGoal) : 0.0
+        }
+        
+        // start point for each new circle
+        // ex. class 1: 0% -> 20% filled, class 2: 20% --> 65% filled.  startPoint goes from 0 -> 20 -> 65
+        private var startPoints: [Double] {
+            var points: [Double] = []
+            var currentPoint = 0.0
+            for request in acceptedRequests {
+                let percentage = Double(request.numHours) / Double(totalHours)
+                points.append(currentPoint)
+                currentPoint += percentage
+            }
+            return points
+        }
 
     var body: some View {
         if load{
@@ -82,8 +108,8 @@ struct Profile: View {
                     
                     ZStack { 
                         // circle display
-                        let circleW = 305.0
-                        let circleH = 305.0
+//                        let circleW = 305.0
+//                        let circleH = 305.0
 
                         /*
                          ORGANIZATION
@@ -99,6 +125,10 @@ struct Profile: View {
                          var percentFill = how much is filled
                          
                          
+                         proccess- fetch all data, new linked list with class code:hours
+                         this is so that multiple requests from the same class get the hours updated rather than re-written
+                         
+                         
                          Circle()
                              .trim(from: 0/360, to: 60/360)
                              .stroke(.blue, lineWidth: 26.5)
@@ -108,45 +138,30 @@ struct Profile: View {
                          */
                         
                       
-                                // base circle- is the grey
-                                Circle()
-                                    .trim(from: 0, to: 1)
-                                    .stroke(Color.gray.opacity(0.3), lineWidth: 26.5)
-                                    .rotationEffect(Angle(degrees: -90))
-                                    .frame(width: circleW, height: circleH)
-                                Text("\(totalHours) hours") // Display total hours earned
-                                    .font(.title)
-                                    .padding(.top, 20)
-                            
-                        var percentFull: Double {
-                            // if totalHours is 0, return 0.0. otherwise calculate how full the circle is
-                                return totalHours != 0 ? Double(totalHours) / Double(circleGoal) : 0.0
-                            }
+                        // Circle display
+                        let circleSize = CGSize(width: 305, height: 305)
                         var startPoint = 0.0
                         
-                        if (!acceptedRequests.isEmpty){
-                            ForEach(acceptedRequests) { currentRequest in
-                                
-                                if totalHours != 0 {
-                                    // animate ? CGFloat(totalHours) / CGFloat(circleGoal ?? CGFloat(goalHours)) : 1
-                                    
-                                    // Create a new circle for the current class
-                                    Circle()
-                                        .trim(from: startPoint, to: CGFloat( Double (currentRequest.numHours) / totalHours))
-                                        .stroke(Color.blue, lineWidth: 26.5)
-                                        .rotationEffect(Angle(degrees: -90))
-                                        .frame(width: circleW, height: circleH)
-                                        .animation(.easeInOut(duration: 1.5), value: animate)
+                        Circle()
+                            .trim(from: 0, to: 1)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 26.5)
+                            .rotationEffect(Angle(degrees: -90))
+                            .frame(width: circleSize.width, height: circleSize.height)
+                            .animation(.easeInOut(duration: 1.5))
+                                            
+                            ForEach(acceptedRequests) { request in
 
-                                
-                                    startPoint = Double(currentRequest.numHours) / totalHours
-                                              
-                                    print(startPoint)
-                                }
-                                
-                            }
+                                Circle()
+                                // circle starts at 0, and then fills till the current request's number of hours divided by total hours
+                                    .trim(from: startPoint, to: CGFloat(startPoint + (Double(request.numHours) / Double(totalHours))))
+                                    .stroke(Color.red, lineWidth: 26.5)
+                                    .rotationEffect(Angle(degrees: -90))
+                                    .frame(width: circleSize.width, height: circleSize.height)
+                                                
+                            //startPoint = CGFloat(startPoint + (Double(request.numHours) / Double(totalHours)))
+
                         }
-                                
+                        
                     }
                                         
                     Spacer(minLength: 85)
@@ -298,7 +313,23 @@ struct Profile: View {
                         for request in requests {
                             acceptedRequests.append(request)
                             totalHours += (request.numHours)
-                            allClassCodes.append(request.classCode)
+                            
+                            /* 
+                             dictionary classAndHours keeps key of class code and value of total hours in that class
+                             
+                             this checks if the class of the current request is present in this list, and if it is, add the hours
+                             of the current request to the existing hours of the class.
+                             
+                             if the class is not present in the list of keys, then it adds it.
+                             
+                             this dictionary is used for the circle bc it makes sure all the hours for a class is gathered
+                             */
+                            if classAndHours.contains(where: { $0.key == request.classCode }) {
+                                // 9999 is there so that if it hits an error here we know where
+                                classAndHours.updateValue(((classAndHours[request.classCode] ?? 9999) + request.numHours), forKey: request.classCode)
+                            } else {
+                                classAndHours[request.classCode] = request.numHours
+                            }
                         }
                         
                     }
@@ -387,21 +418,3 @@ struct GoalSettingView: View {
     Profile()
 }
 
-
-/*
- ZStack {
-             Circle()
-                 .trim(from: 0, to: 1)
-                 .stroke(Color.gray.opacity(0.3), lineWidth: 20)
-                 .rotationEffect(Angle(degrees: -90))
-             Circle()
-                 .trim(from: 60/360, to: 200/360)
-                 .stroke(.red, lineWidth: 20)
-                 .rotationEffect(Angle(degrees: -90))
-             Circle()
-                 .trim(from: 0/360, to: 60/360)
-                 .stroke(.blue, lineWidth: 20)
-                 .rotationEffect(Angle(degrees: -90))
-             
-         }
- */
