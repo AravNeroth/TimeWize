@@ -34,36 +34,34 @@ struct Profile: View {
     @State private var isDarkMode = true
     //@State private var percentFull: CGFloat = 0.0
     @State private var acceptedRequests: [Request] = []
-    @State private var percentFull: Double? = nil
-    @State private var classAndHours = [String: Int]()
 
 
         // total hours
-        private var totalHoursEarnedValue: Int {
-            var total = 0
-            for request in acceptedRequests {
-                total += request.numHours
-            }
-            return total
-        }
-        
-        // the percentage of the circle filled
-        private var percentFullValue: Double {
-            return totalHours != 0 ? Double(totalHours) / Double(circleGoal) : 0.0
-        }
+//        private var totalHoursEarnedValue: Int {
+//            var total = 0
+//            for request in acceptedRequests {
+//                total += request.numHours
+//            }
+//            return total
+//        }
+//        
+            // declare this sometime somewhere for percentFull: totalHours != 0 ? Double(totalHours) / Double(circleGoal) : 0.0
+ //       }
         
         // start point for each new circle
         // ex. class 1: 0% -> 20% filled, class 2: 20% --> 65% filled.  startPoint goes from 0 -> 20 -> 65
-    private var startPoints: [Double] {
-        var points: [Double] = []
-        var currentPoint = 0.0
-        for (_, hours) in classAndHours {
-            let percentage = Double(hours) / Double(totalHours)
-            points.append(currentPoint)
-            currentPoint += percentage
-        }
-        return points
-    }
+    
+
+//private var startPoints: [Double] {
+//        var points: [Double] = []
+//        var currentPoint = 0.0
+//        for (_, hours) in classAndHours {
+//            let percentage = Double(hours) / Double(totalHours)
+//            points.append(currentPoint)
+//            currentPoint += percentage
+//        }
+//        return points
+//    }
 
 
 
@@ -154,9 +152,9 @@ struct Profile: View {
                         
                             .padding(.top, 20)
                             ForEach(acceptedRequests.indices, id: \.self) { requests in
-                                let request = acceptedRequests[requests]
-                                let startPoint = startPoints[requests]
-                                let endPoint = startPoint + (Double(request.numHours) / Double(totalHours))
+//                                let request = acceptedRequests[requests]
+//                                let startPoint = startPoints[requests]
+//                                let endPoint = startPoint + (Double(request.numHours) / Double(totalHours))
                                 
                                 Circle()
                                     .trim(from: CGFloat(startPoint), to: CGFloat(endPoint))

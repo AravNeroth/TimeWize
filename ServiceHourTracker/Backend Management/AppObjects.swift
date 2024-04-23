@@ -40,6 +40,15 @@ class SettingsManager: ObservableObject {
 //     func zeroUserDefaults(){
 //        UserDefaults.standard.set([], forKey: "classes")
 //    }
+    
+    // for Profile Circle
+    
+    // the percentage of the circle filled
+    
+    @Published private var percentFullValue: Double = 0.0
+    @Published private var startPoints: [Double] = []
+    @Published private var classAndHours = [String: Int]()
+
 }
 //End of settingsManager
 
