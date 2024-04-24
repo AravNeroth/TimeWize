@@ -40,7 +40,7 @@ struct ServiceHourTrackerApp: App {
                     .environmentObject(messageManager)
             
                     .onReceive(timer) { _ in
-                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager, settingsManager: settingsManager)
                            
                     }
            

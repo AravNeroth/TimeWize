@@ -61,7 +61,7 @@ struct StudentClassesView: View {
                     }.refreshable{
 
                         refresh = true
-                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager, settingsManager: settingsManager)
                     }
                     .padding(.top, 7)
                     .alert("Class Code", isPresented: $showJoinMessage) {
@@ -116,7 +116,7 @@ struct StudentClassesView: View {
             .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
             .onAppear{
                 // add a call to publush to the timer
-                refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                refreshVars(messageManager: messageManager, classInfoManager: classInfoManager, settingsManager: settingsManager)
             }
         }
     }

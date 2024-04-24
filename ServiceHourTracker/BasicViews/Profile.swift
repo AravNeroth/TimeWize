@@ -34,6 +34,8 @@ struct Profile: View {
     @State private var isDarkMode = true
     //@State private var percentFull: CGFloat = 0.0
     @State private var acceptedRequests: [Request] = []
+    @State private var startPoint = 0.0
+    @State private var EndPoint = 0.0
 
 
         // total hours
@@ -45,7 +47,8 @@ struct Profile: View {
 //            return total
 //        }
 //        
-            // declare this sometime somewhere for percentFull: totalHours != 0 ? Double(totalHours) / Double(circleGoal) : 0.0
+            // declare this sometime somewhere for 
+    
  //       }
         
         // start point for each new circle
@@ -80,7 +83,7 @@ struct Profile: View {
                 
             ScrollView {
                 
-                Spacer(minLength: 170)
+                Spacer(minLength: 185)
 
                 HStack {
                     Text("Goal: \(circleGoal) hours")
@@ -106,7 +109,7 @@ struct Profile: View {
                 
                     Spacer(minLength: 35)
                     
-                    ZStack { 
+                    ZStack {
                         // circle display
 //                        let circleW = 305.0
 //                        let circleH = 305.0
@@ -151,16 +154,34 @@ struct Profile: View {
                             .font(.title)
                         
                             .padding(.top, 20)
-                            ForEach(acceptedRequests.indices, id: \.self) { requests in
-//                                let request = acceptedRequests[requests]
-//                                let startPoint = startPoints[requests]
-//                                let endPoint = startPoint + (Double(request.numHours) / Double(totalHours))
-                                
+                        
+                        ForEach(classInfoManager.allClasses) { classroom in
+                            
+                            var currentClassCode = classroom.code
+                            var hours = settingsManager.classAndHours[currentClassCode]
+                            
+                            /*
+                             circle point math
+                             
+                             (hours is the total hours of the current class)
+                             
+                             start = 0
+                             end = (start + hours) / percent filled
+                             *set point*
+                             start = end
+                             */
+                            
+                                                            
                                 Circle()
-                                    .trim(from: CGFloat(startPoint), to: CGFloat(endPoint))
-                                    .stroke(Color.red, lineWidth: 26.5)
+                                .trim(from: CGFloat(settingsManager.startPoint), to: CGFloat(settingsManager.endPoint))
+                                .stroke(LinearGradient(gradient: Gradient(colors: classInfoManager.classColors[classroom] ?? [.red]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 26.5)
                                     .rotationEffect(Angle(degrees: -90))
+                                      
                                     .frame(width: circleSize.width, height: circleSize.height)
+                            
+                            settingsManager.startPoint = settingsManager.endPoint
+                            
+                           
                             }
                         }
                                         
@@ -171,7 +192,32 @@ struct Profile: View {
                 
                 //            .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height )
                 .refreshable {
-                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager,
+                                settingsManager: settingsManager)
+                    
+                    getAcceptedRequests(email: userID) { requests in
+                        for request in requests {
+                            acceptedRequests.append(request)
+                            totalHours += (request.numHours)
+                            
+                            /*
+                             dictionary classAndHours keeps key of class code and value of total hours in that class
+                             
+                             this checks if the class of the current request is present in this list, and if it is, add the hours
+                             of the current request to the existing hours of the class.
+                             
+                             if the class is not present in the list of keys, then it adds it.
+                             
+                             this dictionary is used for the circle bc it makes sure all the hours for a class is gathered
+                             */
+                            
+                            settingsManager.percentFullValue = Double(totalHours / circleGoal)
+                            
+                            settingsManager.getClassesAndHours(userID:userID)
+                            
+                        }
+                        
+                    }
                     load = true
                     
                     
@@ -309,29 +355,7 @@ struct Profile: View {
                     
                     // for circle
                     
-                    getAcceptedRequests(email: userID) { requests in
-                        for request in requests {
-                            acceptedRequests.append(request)
-                            totalHours += (request.numHours)
-                            
-                            /* 
-                             dictionary classAndHours keeps key of class code and value of total hours in that class
-                             
-                             this checks if the class of the current request is present in this list, and if it is, add the hours
-                             of the current request to the existing hours of the class.
-                             
-                             if the class is not present in the list of keys, then it adds it.
-                             
-                             this dictionary is used for the circle bc it makes sure all the hours for a class is gathered
-                             */
-                            if classAndHours[request.classCode] != nil {
-                                classAndHours.updateValue(((classAndHours[request.classCode] ?? 9999) + request.numHours), forKey: request.classCode)
-                            } else {
-                                classAndHours[request.classCode] = request.numHours
-                            }
-                        }
-                        
-                    }
+                    
                     
                 }
             

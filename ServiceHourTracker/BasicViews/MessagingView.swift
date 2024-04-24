@@ -44,7 +44,7 @@ struct MessagingView: View {
                 Text("No Recent Chats")
                     .refreshable {
                         refresh = true
-                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager, settingsManager: settingsManager)
                     }
                     .onAppear{
                         messageManager.updateData(userID: userID)
@@ -166,7 +166,7 @@ struct MessagingView: View {
                 }
                 .refreshable {
                     refresh = true
-                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager, settingsManager: settingsManager)
                 }
                 .toolbar{
                     ToolbarItem(placement: .topBarTrailing) {

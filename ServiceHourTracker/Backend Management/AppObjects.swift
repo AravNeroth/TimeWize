@@ -45,10 +45,34 @@ class SettingsManager: ObservableObject {
     
     // the percentage of the circle filled
     
-    @Published private var percentFullValue: Double = 0.0
-    @Published private var startPoints: [Double] = []
-    @Published private var classAndHours = [String: Int]()
+    @Published var percentFullValue: Double = 0.0
+    @Published var startPoint: Double = 0.0
+    @Published var endPoint: Double = 0.0
+    @Published var classAndHours = [String: Double]()
+    
+    
+    func getClassesAndHours(userID: String, completion: ((Bool) -> Void)? = nil){
+        getAcceptedRequests(email: userID) { [self] requests in
+            for request in requests {
+                
+                if self.classAndHours[request.classCode] != nil {
+                    self.classAndHours.updateValue(((self.classAndHours[request.classCode] ?? 0) + Double(request.numHours)), forKey: request.classCode)
+                } else {
+                    self.classAndHours[request.classCode] = Double(request.numHours)
+                }
+            }
+        }
+    }
 
+    
+    func updateData(userID: String, completion: ((Bool) -> Void)? = nil){
+        
+        
+        }
+    func endPointCalculation(classCode: String, completion: ((Bool) -> Void)? = nil){
+        self.endPoint = (self.startPoint + (self.classAndHours[classCode] ?? 0.0 )) / self.percentFullValue
+    }
+    
 }
 //End of settingsManager
 

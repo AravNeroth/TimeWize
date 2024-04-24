@@ -102,7 +102,7 @@ struct ManagerClassesView: View {
             }
                 .refreshable {
                     refresh = true
-                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager, settingsManager: settingsManager)
                 }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

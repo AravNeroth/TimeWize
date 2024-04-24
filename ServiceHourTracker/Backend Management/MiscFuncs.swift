@@ -338,7 +338,7 @@ func formatDate(_ date: Date) -> String {
 //        contentView.generatePDFAction?()
 //    }
 
-func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoManager ) {
+func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoManager, settingsManager: SettingsManager ) {
 //    @EnvironmentObject var settingsManager: SettingsManager
 //    @EnvironmentObject var classInfoManager: ClassInfoManager
 //    @EnvironmentObject var messageManager: MessageManager
@@ -351,6 +351,7 @@ func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoMana
             
         classInfoManager.updateData(userID: userID)
         
-        
+        settingsManager.updateData(userID: userID)
+
     }
 }
