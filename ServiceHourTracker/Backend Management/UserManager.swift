@@ -138,21 +138,23 @@ func getData(uid: String, completion: @escaping (User?) -> Void) {
     db.collection("userInfo").document(uid).getDocument { doc, error in
         if let error = error {
             print("Error getting user data: \(error)")
-//            completion(nil)
+            completion(nil)
             return
-        }
-
-        if let document = doc, document.exists {
-            do {
-                let output = try document.data(as: User.self)
-                completion(output)
-            } catch {
-                print("Error decoding user data: \(error)")
-//                completion(nil)
+        }else{
+            
+            if let document = doc, document.exists {
+                do {
+                    let output = try document.data(as: User.self)
+                    completion(output)
+                } catch {
+                    print("Error decoding user data: \(error)")
+//                    completion(nil)
+                }
+                
+            } else {
+                print("User data document does not exist")
+                completion(nil)
             }
-        } else {
-            print("User data document does not exist")
-//            completion(nil)
         }
     }
 }

@@ -348,7 +348,7 @@ func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoMana
     if userID != "" {
   
         messageManager.updateData(userID: userID)
-            
+        classInfoManager.updateManagerData(userID: userID)
         classInfoManager.updateData(userID: userID)
         
         

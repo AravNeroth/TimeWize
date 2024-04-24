@@ -70,8 +70,11 @@ class ClassInfoManager: ObservableObject {
     ///
     func updateManagerData(userID: String, completion: ((Bool) -> Void)? = nil){
         let DG = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 1)
         DG.enter() //getClasses
         DG.enter() //for loop
+        
+        semaphore.wait()
         getClasses(uid: userID) { list in
             defer{DG.leave()}
             if let list = list {
@@ -79,7 +82,8 @@ class ClassInfoManager: ObservableObject {
 
             }
         }
-       //add a semaphore between?
+        semaphore.signal()
+      
         for code in classes {
             DG.enter() //getting class info
             getClassInfo(classCloudCode: code) { classroom in
@@ -120,55 +124,95 @@ class ClassInfoManager: ObservableObject {
     
     
     func updateData(userID: String, completion: ((Bool) -> Void)? = nil){
+        let DG = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 1)
+       
+        
+        
+        DG.enter() //user Requests
         
         getCodes(uid: userID) { codes in
+            semaphore.wait()
             if var codes = codes {
+               
                 while codes.contains("") {
                     let remove = codes.firstIndex(of: "")
                     if let index = remove {
                         codes.remove(at: index)
                     }
-                }
+                }// remove empty codes
+                
+                semaphore.signal()
                 
                 self.classCodes = codes
                 
                 for classCode in codes {
+                    DG.enter()//get classes info
+                    DG.enter() //getData
+                    DG.enter()//color scheme
+                    
+                    
                     if classCode == "" {
                         continue
                     }
                     
                     getClassInfo(classCloudCode: classCode) { newClass in
+                        defer{ DG.leave() }  //classInfo
+                        
                         let list = newClass?.managerList
                         
                         if let list = list {
+                            
+                            defer{DG.leave()} //getData
+                            
                             getData(uid: list.first!) { newUser in
+                                
                                 self.classOwners[newClass!] = (newUser?.displayName)!
+                                
+                               
                             }
+                            
+                        }else{
+                            DG.leave() //getData
                         }
                         
                         getColorScheme(classCode: classCode) { scheme in
                             self.classColors[newClass!] = scheme
+                            DG.leave() //color shceme
                         }
                         
-                        getUserRequests(email: userID) { requests in
-                            self.allRequests = requests
-                        }
+                        
                     }
                 }
+            }else{
+                semaphore.signal()
             }
             
-            self.loadClassInfo() { _ in
-                if let completion{
-                    completion(true)
-                }
+            getUserRequests(email: userID) { requests in
+                self.allRequests = requests
+                DG.leave() // requests
             }
+            
+           
+                
+            
         }
         
-        
+        DG.notify(queue: .main) {
+            self.loadClassInfo() { _ in
+            
+                completion?(true)
+            
+            }
+        }
         
     }
     
     private func loadClassInfo(completion: ((Bool)->Void)? = nil) {
+        let DG = DispatchGroup()
+        for _ in 0..<classCodes.count{
+            DG.enter()
+        }
         for code in classCodes {
             getClassInfo(classCloudCode: code) { classroom in
                 if let classroom = classroom {
@@ -193,15 +237,14 @@ class ClassInfoManager: ObservableObject {
                 self.classInfo.sort { $0.title < $1.title }
                 self.allClasses.sort { $0.title < $1.title }
                 
-                if code == self.classCodes.last {
-                    if let completion{
-                        completion(true)
-                    }
-                }
+                
             }
+            DG.leave()
         }
         
-        
+        DG.notify(queue: .main) {
+            completion?(true)
+        }
         
     }
 
