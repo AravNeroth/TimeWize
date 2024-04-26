@@ -179,7 +179,7 @@ struct Profile: View {
                                       
                                     .frame(width: circleSize.width, height: circleSize.height)
                             
-                            settingsManager.startPoint = settingsManager.endPoint
+                            //settingsManager.startPoint = settingsManager.endPoint
                             
                            
                             }
