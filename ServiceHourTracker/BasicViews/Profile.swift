@@ -155,7 +155,7 @@ struct Profile: View {
                         
                             .padding(.top, 20)
                         
-                        ForEach(classInfoManager.allClasses) { classroom in
+                        ForEach(classInfoManager.allClasses, id: \.self) { classroom in
                             
                             var currentClassCode = classroom.code
                             var hours = settingsManager.classAndHours[currentClassCode]
@@ -175,12 +175,13 @@ struct Profile: View {
                                 Circle()
                                 .trim(from: CGFloat(settingsManager.startPoint), to: CGFloat(settingsManager.endPoint))
                                 .stroke(LinearGradient(gradient: Gradient(colors: classInfoManager.classColors[classroom] ?? [.red]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 26.5)
+                                //.stroke(Color.orange, lineWidth: 26.5)
                                     .rotationEffect(Angle(degrees: -90))
-                                      
                                     .frame(width: circleSize.width, height: circleSize.height)
                             
-                            //settingsManager.startPoint = settingsManager.endPoint
+                           // uncommenting the bottom line will crash the compiler and give no usefull error reason!
                             
+                           // settingsManager.endPointCalculation(classCode: currentClassCode)
                            
                             }
                         }

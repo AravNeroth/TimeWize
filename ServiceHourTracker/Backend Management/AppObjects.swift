@@ -68,9 +68,15 @@ class SettingsManager: ObservableObject {
     func updateData(userID: String, completion: ((Bool) -> Void)? = nil){
         
         
-        }
-    func endPointCalculation(classCode: String, completion: ((Bool) -> Void)? = nil){
+        
+    }
+    func endPointCalculation(classCode: String){
+
+        
+        self.startPoint = self.endPoint
+
         self.endPoint = (self.startPoint + (self.classAndHours[classCode] ?? 0.0 )) / self.percentFullValue
+        
     }
     
 }
