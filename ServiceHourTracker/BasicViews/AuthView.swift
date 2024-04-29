@@ -13,6 +13,7 @@ enum Views {
     case StudentView
     case ClassMode
     case ManagerView
+    case loading
 //    case ManagerClass
 }
 
@@ -52,11 +53,36 @@ struct AuthView: View {
                 case .ManagerView:
                     ManagerView()
                     
+                case .loading:
+                    LoadingScreen()
                 }
             }
             .onAppear {
                 
                 if isLoggedIn() {
+                    /*
+                     
+                     currentView = .loading
+                     
+                     refreshVars(messageManager: messageManager, classInfoManager: classInfoManager){ success in
+                     if !success{
+                     currentView = .LoginView
+                     }else{
+                     if(settingsManager.isManagerMode){
+                     
+                     currentView = .ManagerView
+                     }else{
+                     
+                     currentView = .StudentView
+                     }
+                     }
+                     }
+                     
+                     
+                     } else {
+                     currentView = .LoginView
+                     }
+                     */
                     if(settingsManager.isManagerMode){
                         
                         currentView = .ManagerView
@@ -65,9 +91,8 @@ struct AuthView: View {
                         currentView = .StudentView
                     }
                 } else {
-                    currentView = .LoginView
+                currentView = .LoginView
                 }
-                
                 
             }.onChange(of: userID) { oldValue, newValue in
                 if isLoggedIn() {

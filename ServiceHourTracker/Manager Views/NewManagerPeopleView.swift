@@ -73,41 +73,84 @@ struct NewManagerPeopleView: View {
             LoadingScreen()
                 .ignoresSafeArea(.all)
                 .onAppear() {
+                    let DG = DispatchGroup()
+                    DG.enter() // for loop
+                    DG.enter() //peopleList
+                    
+                    DG.enter()//managerForLoop
+                    DG.enter()//managerList
+                    
+                    //MARK: People
                     getPeopleList(classCode: code) { newList in
+                        defer{ DG.leave() }
                         peopleList = newList
-                       
-                        getManagerList(classCode: code) { managers in
-                                managerList = managers
-                                classOwner = managerList[0]
-                            }
                         
                         for personEmail in newList {
+                            DG.enter() //getData'
+                            
                             getData(uid: personEmail) { user in
                                 if let user = user {
+                                    DG.enter() //userColors
+                                    DG.enter() // userImage
+                                    defer{ DG.leave() /*getData*/}
                                     getUserColors(email: personEmail) { colors in
                                         if !colors.isEmpty {
                                             colList[personEmail] = colors
                                         }
+                                        DG.leave() //userColors
                                         
-                                        usernameList[personEmail] = user.displayName ?? "No Name"
-                                        
-                                        downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
-                                            if let pfp = pfp {
-                                                pfpList[personEmail] = pfp
-                                            }
-                                        }
                                     }
+                                    usernameList[personEmail] = user.displayName ?? "No Name"
+                                    
+                                    downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                        if let pfp = pfp {
+                                            pfpList[personEmail] = pfp
+                                        }
+                                        DG.leave() //image
+                                    }
+                                    
+                                }else{
+                                    DG.leave() //getData
                                 }
+                            }
+                            if personEmail == newList.last {
+                                DG.leave() // for loop
                             }
                         }
                         
-                        for manEmail in managerList {
-                            getData(uid: manEmail) { user in
-                                if let user = user {
-                                    getUserColors(email: manEmail) { colors in
-                                        if !colors.isEmpty {
-                                            colList[manEmail] = colors
-                                        }
+                        
+                    }
+                    
+                    getManagerList(classCode: code) { managers in
+                        if managers != [] {
+                            managerList = managers
+                            classOwner = managerList[0]
+                        }
+                        DG.leave() //managerList
+                       
+                        if managerList.count == 0{
+                            DG.leave() //forloop
+                        }else{
+                            
+                            for manEmail in managerList {
+                                
+                                DG.enter() //colors
+                                DG.enter() //image
+                                DG.enter() //getData
+                                
+                                getUserColors(email: manEmail) { colors in
+                                    if !colors.isEmpty {
+                                        colList[manEmail] = colors
+                                    }
+                                
+                                    DG.leave() //colors
+                                    
+                                }
+                                
+                                getData(uid: manEmail) { user in
+                                    defer{DG.leave()}//getData
+                                    
+                                    if let user = user {
                                         
                                         usernameList[manEmail] = user.displayName ?? "No Name"
                                         
@@ -115,15 +158,25 @@ struct NewManagerPeopleView: View {
                                             if let pfp = pfp {
                                                 pfpList[manEmail] = pfp
                                             }
+                                            
+                                            DG.leave() //image
+                                            
                                         }
+                                        
+                                    }else{
+                                        DG.leave() //image
                                     }
+                                }
+                                if manEmail == managerList.last{
+                                    DG.leave() //for Loop
                                 }
                             }
                         }
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                            loaded = true
-                        }
+                    }
+                    
+                    DG.notify(queue: .main) {
+                        loaded = true
                     }
                 }
         }

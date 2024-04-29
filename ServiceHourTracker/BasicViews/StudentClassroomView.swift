@@ -17,12 +17,14 @@ struct StudentClassroomView: View {
     @State private var showIMGPicker = false
     @State private var selectedImage: UIImage?
     @State private var classImage: UIImage?
-    @State private var loading = true
+    @State private var loading = false
     @State var showPplList = false
     @AppStorage("authuid") private var authID = ""
+    @AppStorage("uid") private var userID = ""
     @State var showMessageSheet: Bool = false
 
     var body: some View {
+        
         if loading {
             LoadingScreen()
                 .padding()
@@ -30,8 +32,11 @@ struct StudentClassroomView: View {
                 .background(ignoresSafeAreaEdges: .all)
                 .animation(.easeOut(duration: 2))
                 .onAppear() {
-                    
+                    let DS = DispatchSemaphore(value: 2)
+                    DS.wait()
                     getHomeImage()
+                    classInfoManager.updateData(userID: userID)
+                    DS.signal()
                     loading = false
                 }
         } else {
@@ -79,6 +84,8 @@ struct StudentClassroomView: View {
 //                        } else {
 //                            Text("No Tasks")
 //                        }
+                    }.refreshable{
+                        loading = true
                     }
                 }
                 .animation(.easeInOut)

@@ -338,19 +338,38 @@ func formatDate(_ date: Date) -> String {
 //        contentView.generatePDFAction?()
 //    }
 
-func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoManager ) {
+func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoManager, completion: ((Bool) -> Void )? = nil ) {
 //    @EnvironmentObject var settingsManager: SettingsManager
 //    @EnvironmentObject var classInfoManager: ClassInfoManager
 //    @EnvironmentObject var messageManager: MessageManager
     @AppStorage("uid") var userID = ""
    
-
+   
+    let DG = DispatchGroup()
+    
     if userID != "" {
-  
-        messageManager.updateData(userID: userID)
-        classInfoManager.updateManagerData(userID: userID)
-        classInfoManager.updateData(userID: userID)
+        
+        DG.enter()
+        DG.enter()
+        DG.enter()
+        
+        messageManager.updateData(userID: userID){ _ in
+            DG.leave()
+            print("left message")
+        }
+        classInfoManager.updateManagerData(userID: userID){ _ in
+            DG.leave()
+            print("left manager")
+        }
+        classInfoManager.updateData(userID: userID){ _ in
+            DG.leave()
+            print("left student")
+        }
         
         
     }
+    DG.notify(queue: .main){
+        completion?(userID != "")
+    }
+   
 }

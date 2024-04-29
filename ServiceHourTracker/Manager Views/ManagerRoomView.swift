@@ -37,57 +37,87 @@ struct ManagerRoomView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(ignoresSafeAreaEdges: .all)
                     .onAppear() {
+                        let DG = DispatchGroup()
+                        DG.enter() //downloadImageFromClassroomStorage
+                        DG.enter() //getColorScheme
+                        DG.enter() //getClassInfo
+                        DG.enter() //getTasks
+                        DG.enter() //getAnnouncements
+                        DG.enter() //getManagersList
                         allComponents = []
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            downloadImageFromClassroomStorage(code: "\(classData.code)", file: "Home\(settingsManager.title).jpg") { image in
-                                if let image = image {
-                                    classImage = image
-                                }
+                    
+                        downloadImageFromClassroomStorage(code: "\(classData.code)", file: "Home\(settingsManager.title).jpg") { image in
+                            if let image = image {
+                                classImage = image
                             }
-                            
-                            getColorScheme(classCode: classData.code) { scheme in
-                                if scheme.count != 0 {
-                                    if scheme.last!.luminance > 0.8 {
-                                        useDefaults = true
-                                    }
-                                    
-                                    colors = scheme
+                            DG.leave()
+                        }
+                        
+                        getColorScheme(classCode: classData.code) { scheme in
+                            if scheme.count != 0 {
+                                if scheme.last!.luminance > 0.8 {
+                                    useDefaults = true
                                 }
-                            }
-                            
-                            getClassInfo(classCloudCode: classData.code) { classroom in
-                                if let classroom = classroom {
-                                    title = classroom.title
-                                }
-                            }
-                            
-                            getTasks(classCode: classData.code) { newTasks in
-                                tasks = newTasks
                                 
+                                colors = scheme
+                            }
+                            DG.leave()
+                        }
+                        
+                        getClassInfo(classCloudCode: classData.code) { classroom in
+                            if let classroom = classroom {
+                                title = classroom.title
+                            }
+                            DG.leave()
+                        }
+                        
+                        getTasks(classCode: classData.code) { newTasks in
+                            tasks = newTasks
+                            if newTasks.count == 0 {
+                                DG.leave()
+                            }else{
                                 for classTask in newTasks {
                                     allComponents.append(ClassComponent.classTask(classTask))
-                                }
-                            }
-                            
-                            getAnnouncements(classCode: classData.code) { newAnnouncements in
-                                announcements = newAnnouncements
-                                
-                                for announcement in newAnnouncements {
-                                    allComponents.append(ClassComponent.announcement(announcement))
-                                }
-                            }
-                            
-                            getManagerList(classCode: classData.code) { managers in
-                                for email in managers {
-                                    getData(uid: email) { manager in
-                                        managerNames[email] = manager!.displayName ?? "No Name"
+                                    if classTask == newTasks.last{
+                                        DG.leave()
                                     }
                                 }
                             }
                         }
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        getAnnouncements(classCode: classData.code) { newAnnouncements in
+                            announcements = newAnnouncements
+                            
+                            if newAnnouncements.count == 0 {
+                                DG.leave()
+                            }else{
+                                for announcement in newAnnouncements {
+                                    allComponents.append(ClassComponent.announcement(announcement))
+                                    if announcement == newAnnouncements.last{
+                                        DG.leave()
+                                    }
+                                }
+                            }
+                        }
+                        
+                        getManagerList(classCode: classData.code) { managers in
+                            if managers.count == 0 {
+                                DG.leave()
+                            }else{
+                                for email in managers {
+                                    getData(uid: email) { manager in
+                                        managerNames[email] = manager!.displayName ?? "No Name"
+                                    }
+                                    if email == managers.last {
+                                        DG.leave()
+                                    }
+                                }
+                            }
+                        }
+                    
+                    
+                        DG.notify(queue: .main){
                             allComponents.sort { $0.dateCreated > $1.dateCreated }
                             loading = false
                         }
@@ -144,6 +174,9 @@ struct ManagerRoomView: View {
                                 .padding(.vertical, 10.0)
                         }
                     }
+                }
+                .refreshable{
+                    loading = true
                 }
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {

@@ -148,7 +148,7 @@ func getData(uid: String, completion: @escaping (User?) -> Void) {
                     completion(output)
                 } catch {
                     print("Error decoding user data: \(error)")
-//                    completion(nil)
+                    completion(nil)
                 }
                 
             } else {
@@ -375,6 +375,7 @@ func getUserColors(email: String, completion: @escaping ([Color]) -> Void) {
     docRef.getDocument { document, error in
         if let error = error as NSError? {
             print("Error getting document: \(error.localizedDescription)")
+            completion([])
         } else {
             if let document = document {
                 let colorsStringList = document.data()?["userColors"] as? [String] ?? [""]
@@ -383,6 +384,8 @@ func getUserColors(email: String, completion: @escaping ([Color]) -> Void) {
                     colors.append(hexToColor(hex: colorStr))
                 }
                 completion(colors)
+            }else{
+                completion([])
             }
         }
     }

@@ -50,8 +50,8 @@ class ClassInfoManager: ObservableObject {
     @Published var classInfo: [Classroom] = []
     @Published var classImages: [String: UIImage] = [:]
     @Published var classPfp: [String: UIImage] = [:]
-    @Published var managerClassImages: [String: UIImage] = [:]
-    @Published var managerClassPfp: [String: UIImage] = [:]
+    @Published var managerClassImages: [String: UIImage] = [:] //doesnt get updated in function calls
+    @Published var managerClassPfp: [String: UIImage] = [:] //doesnt get updated in function calls
     
     @Published var allClasses: [Classroom] = []
     @Published var allRequests: [Request] = []
@@ -200,9 +200,9 @@ class ClassInfoManager: ObservableObject {
         
         DG.notify(queue: .main) {
             self.loadClassInfo() { _ in
-            
+                
                 completion?(true)
-            
+                
             }
         }
         
@@ -390,12 +390,14 @@ class MessageManager: ObservableObject{
        
         getChatsOf(user: userID) { [self] chats in
             defer{ DG.leave()} //getChatsOf done
+            print("gotChats")
             if !chats.isEmpty{
                 self.userChats = chats
                 
             }
                 
             getNames(emails: chats) { names in
+                print("gotNames")
                 defer { DG.leave()}
                 
                 if !names.isEmpty{
@@ -410,16 +412,18 @@ class MessageManager: ObservableObject{
             }
             
             updateImagesForChats(chats: chats){
+                print("updatedImages")
                 DG.leave()
             }
             
             getLatestMessage(chats: chats, user: userID){ lastChats in
+                print("gotLatestMessages")
                 defer{ DG.leave()}
                 
                 if !lastChats.isEmpty{
                     for(key, value) in lastChats {
                         DG.enter()
-                        print("e")
+                        
                         defer{ DG.leave()}
                         self.lastMessages[key] = value
                     }
@@ -432,6 +436,7 @@ class MessageManager: ObservableObject{
         }
         
         DG.notify(queue: .main) {
+            print("completion")
             completion?(true)
         }
     }

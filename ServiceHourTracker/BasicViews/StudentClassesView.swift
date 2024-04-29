@@ -26,16 +26,23 @@ struct StudentClassesView: View {
     @EnvironmentObject var messageManager: MessageManager
     var body: some View {
         
-        if classInfoManager.allClasses.isEmpty || classInfoManager.classColors.count < classInfoManager.allClasses.count || refresh {
+        if 
+//
+            refresh {
             
             LoadingScreen()
                 .ignoresSafeArea(.all)
                 .onAppear() {
-                    
+                    let DG = DispatchGroup()
+                    DG.enter()
                     classInfoManager.updateData(userID: userID){_ in
-                            refresh = false
+                        DG.leave()
                     }
 
+                    
+                    DG.notify(queue: .main) {
+                        refresh = false
+                    }
                 }
                 .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
             

@@ -64,7 +64,7 @@ func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> 
     
     guard !classCloudCode.isEmpty else {
         print("Error: classCloudCode is empty")
-//        completion(nil)
+        completion(nil)
         return
     }
     let classRef = db.collection("classes").document(classCloudCode)
@@ -75,23 +75,24 @@ func getClassInfo(classCloudCode: String, completion: @escaping (Classroom?) -> 
         
         if let error = error {
             print("Error getting classroom data: \(error)")
-//            completion(nil)
+            completion(nil)
             return
-        }
-        
-        if let doc = document, doc.exists {
+        }else{
             
-            
-            do {
-                let output = try doc.data(as: Classroom.self)
-                completion(output)
-            } catch {
-                print("Error decoding class data: \(error)")
-//                completion(nil)
+            if let doc = document, doc.exists {
+                
+                
+                do {
+                    let output = try doc.data(as: Classroom.self)
+                    completion(output)
+                } catch {
+                    print("Error decoding class data: \(error)")
+                    completion(nil)
+                }
+            } else {
+                print("classroom data document does not exist")
+                completion(nil)
             }
-        } else {
-            print("classroom data document does not exist")
-//            completion(nil)
         }
     }
 }
@@ -668,49 +669,50 @@ func getTasks(classCode: String, completion: @escaping ([ClassTask]) -> Void) {
     db.collection("classes").document(classCode).collection("tasks").getDocuments { querySnapshot, error in
         if let error = error {
             print("Error fetching tasks: \(error.localizedDescription)")
-//            completion([])
+            completion([])
             return
-        }
-        
-        var classTasks: [ClassTask] = []
-        for document in querySnapshot!.documents {
-            let taskData = document.data()
+        }else{
             
-            let dateTimestamp = taskData["date"] as? Timestamp
-            let date = dateTimestamp?.dateValue() ?? Date()
-            
-            let timeTimestamp = taskData["timeCreated"] as? Timestamp
-            let timeCreated = timeTimestamp?.dateValue() ?? Date()
-            
-            if Date().compare(date) == .orderedDescending {
-                let pplList = taskData["listOfPeople"] as? [String] ?? []
+            var classTasks: [ClassTask] = []
+            for document in querySnapshot!.documents {
+                let taskData = document.data()
                 
-                for person in pplList {
-                    addRequest(classCode: classCode,
-                               email: person,
-                               hours: taskData["numHours"] as? Int ?? 0,
-                               type: "Club Specific",
-                               title: taskData["title"] as? String ?? "",
-                               description: taskData["description"] as? String ?? "",
-                               verifier: "Created as a Task")
+                let dateTimestamp = taskData["date"] as? Timestamp
+                let date = dateTimestamp?.dateValue() ?? Date()
+                
+                let timeTimestamp = taskData["timeCreated"] as? Timestamp
+                let timeCreated = timeTimestamp?.dateValue() ?? Date()
+                
+                if Date().compare(date) == .orderedDescending {
+                    let pplList = taskData["listOfPeople"] as? [String] ?? []
+                    
+                    for person in pplList {
+                        addRequest(classCode: classCode,
+                                   email: person,
+                                   hours: taskData["numHours"] as? Int ?? 0,
+                                   type: "Club Specific",
+                                   title: taskData["title"] as? String ?? "",
+                                   description: taskData["description"] as? String ?? "",
+                                   verifier: "Created as a Task")
+                    }
+                    
+                    db.collection("classes").document(classCode).collection("tasks").document(document.documentID).delete()
+                } else {
+                    let newClassTask = ClassTask(
+                        creator: taskData["creator"] as? String ?? "",
+                        title: taskData["title"] as? String ?? "",
+                        description: taskData["description"] as? String ?? "",
+                        date: date,
+                        timeCreated: timeCreated,
+                        maxSize: taskData["maxSize"] as? Int ?? 0,
+                        numHours: taskData["numHours"] as? Int ?? 0,
+                        listOfPeople: taskData["listOfPeople"] as? [String] ?? [])
+                    classTasks.append(newClassTask)
                 }
-                
-                db.collection("classes").document(classCode).collection("tasks").document(document.documentID).delete()
-            } else {
-                let newClassTask = ClassTask(
-                    creator: taskData["creator"] as? String ?? "",
-                    title: taskData["title"] as? String ?? "",
-                    description: taskData["description"] as? String ?? "",
-                    date: date,
-                    timeCreated: timeCreated,
-                    maxSize: taskData["maxSize"] as? Int ?? 0,
-                    numHours: taskData["numHours"] as? Int ?? 0,
-                    listOfPeople: taskData["listOfPeople"] as? [String] ?? [])
-                classTasks.append(newClassTask)
             }
+            
+            completion(classTasks)
         }
-        
-        completion(classTasks)
     }
 }
 
@@ -919,10 +921,12 @@ func getManagerList(classCode: String, completion: @escaping([String]) -> Void) 
     docRef.getDocument { document, error in
         if let error = error as NSError? {
             print("Error getting document \(error.localizedDescription)")
-//            completion([])
+            completion([])
         } else {
             if let document = document {
                 completion(document["managerList"] as? [String] ?? [])
+            }else{
+                completion([])
             }
         }
     }
@@ -1002,6 +1006,7 @@ func getAnnouncements(classCode: String, completion: @escaping ([Announcement]) 
         
         if let error = error{
             print(error.localizedDescription)
+            completion([])
         } else {
             
             var announcements: [Announcement] = []

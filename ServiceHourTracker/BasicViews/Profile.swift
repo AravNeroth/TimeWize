@@ -28,6 +28,10 @@ struct Profile: View {
             
             LoadingScreen()
                 .onAppear{
+                    let DS = DispatchSemaphore(value: 1)
+                    DS.wait()
+                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                    DS.signal()
                     load = false
                 }
             
@@ -42,8 +46,9 @@ struct Profile: View {
                 }
                 //            .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height )
                 .refreshable {
-                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
                     load = true
+//                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                    
                 }
                 Rectangle().fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing)).shadow(radius: 3, y: 2).padding(.horizontal, 0).frame(height: 150)
                     .overlay(

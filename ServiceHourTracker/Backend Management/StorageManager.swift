@@ -92,7 +92,7 @@ func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>?
     print("inside downloadImage")
     guard !id.isEmpty else {
         print("downloadImageFromUserStorage \n folder is empty")
-//        completion(nil)
+        completion(nil)
         return
     }
     
@@ -103,21 +103,22 @@ func downloadImageFromUserStorage(id: String, file: String, done: Binding<Bool>?
     storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
         if let error = error {
             print("Failed to download image data: \(error)")
-//            completion(nil)
+            completion(nil)
             return
-        }
-
-        // Convert the downloaded data to a UIImage
-        if let imageData = data, let image = UIImage(data: imageData) {
-            if let done = done{
-                done.wrappedValue = false
-                
-            }
+        }else{
             
-            completion(image)
-        } else {
-            print("Failed to convert data to UIImage")
-//            completion(nil)
+            // Convert the downloaded data to a UIImage
+            if let imageData = data, let image = UIImage(data: imageData) {
+                if let done = done{
+                    done.wrappedValue = false
+                    
+                }
+                
+                completion(image)
+            } else {
+                print("Failed to convert data to UIImage")
+                completion(nil)
+            }
         }
     }
 }
@@ -125,7 +126,7 @@ func downloadImageFromClassroomStorage(code: String, file: String, done: Binding
     
     guard !code.isEmpty else {
         print("downloadImageFromClassroomStorage \n folder is empty")
-//        completion(nil)
+        completion(nil)
         return
     }
     
@@ -136,19 +137,20 @@ func downloadImageFromClassroomStorage(code: String, file: String, done: Binding
     storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
         if let error = error {
             print("Failed to download image data: \(error)")
-//            completion(nil)
+            completion(nil)
             return
-        }
-
-        // Convert the downloaded data to a UIImage
-        if let imageData = data, let image = UIImage(data: imageData) {
-            if let done = done{
-                done.wrappedValue = false
+        }else{
+            
+            // Convert the downloaded data to a UIImage
+            if let imageData = data, let image = UIImage(data: imageData) {
+                if let done = done{
+                    done.wrappedValue = false
+                }
+                completion(image)
+            } else {
+                print("Failed to convert data to UIImage")
+                completion(nil)
             }
-            completion(image)
-        } else {
-            print("Failed to convert data to UIImage")
-//            completion(nil)
         }
     }
 }
