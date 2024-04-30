@@ -147,9 +147,9 @@ class ClassInfoManager: ObservableObject {
             }
             
             self.loadClassInfo() { _ in
-                if let completion{
-                    completion(true)
-                }
+               
+                completion?(true)
+                
             }
         }
         

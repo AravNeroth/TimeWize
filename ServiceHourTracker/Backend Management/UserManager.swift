@@ -126,9 +126,6 @@ func getCodes(uid: String, completion: @escaping ([String]?) -> Void) {
           }
         }
       }
-    
-    
-    
 }
 
 

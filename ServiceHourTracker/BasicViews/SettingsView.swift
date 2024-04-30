@@ -25,6 +25,7 @@ struct SettingsView:View {
     @State private var nameAlert = false
     @AppStorage("hours") var hoursEarned = 0
     @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var classInfoManager: ClassInfoManager
     @State var updated = false
 
     @AppStorage("authuid") private var authID = ""
@@ -161,8 +162,12 @@ struct SettingsView:View {
                     }
                     
                     Button {
+                        //let semaphore = DispatchSemaphore(value: 1)
+                        //semaphore.wait()
                         collectHours(code: "5788MR") { reqsPerPerson in
                             print("DICTIONARY: \(reqsPerPerson)")
+                            print("CLASS CODES: \(classInfoManager.classCodes)")
+                            //semaphore.signal()
                         }
                     } label: {
                         Text("Test Hour Collection")

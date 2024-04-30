@@ -220,6 +220,8 @@ func collectHours(code: String, completion: @escaping ([String:[Request]]) -> Vo
             completion([:])
         } else {
             if let classroom = classroom {
+                let lastCollectionStamp = classroom["lastCollectionDate"] as? Timestamp
+                let lastCollectionDate = lastCollectionStamp?.dateValue() as? Date ?? Date()
                 let listOfPpl = classroom["peopleList"] as? [String] ?? []
                 for person in listOfPpl {
                     com[person] = []
@@ -230,7 +232,9 @@ func collectHours(code: String, completion: @escaping ([String:[Request]]) -> Vo
                             for request in requests!.documents {
                                 do {
                                     let newReq = try request.data(as: Request.self)
-                                    com[person]?.append(newReq)
+                                    if newReq.timeCreated.compare(lastCollectionDate) == .orderedDescending {
+                                        com[person]?.append(newReq)
+                                    }
                                 } catch {
                                     print("couldn't make request")
                                 }

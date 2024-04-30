@@ -32,10 +32,12 @@ struct StudentClassesView: View {
                 .ignoresSafeArea(.all)
                 .onAppear() {
                     
-                    classInfoManager.updateData(userID: userID){_ in
+                    classInfoManager.updateData(userID: userID) {_ in
                             refresh = false
                     }
-
+                    
+                    print("CLASS CODES IN STUDENT CLASSES VIEW: \(classInfoManager.classCodes)")
+                    
                 }
                 .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
             
