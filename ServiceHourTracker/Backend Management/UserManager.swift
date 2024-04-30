@@ -77,24 +77,24 @@ func getClasses(uid: String, completion: @escaping ([String]?) -> Void) {
         
         if let error = error {
             print("Error getting user data: \(error)")
-//                completion(nil)
+                completion(nil)
             return
-        }
-        
-        if let document = doc, document.exists {
-            print(document.data())
-            if let output = document["classes"] as? [String] {
-                completion(output)
+        }else{
+            
+            if let document = doc, document.exists {
+//                print(document.data())
+                if let output = document["classes"] as? [String] {
+                    completion(output)
+                } else {
+                    
+                    completion(nil)
+                }
             } else {
-                
-//                    completion(nil)
+                print("User data document does not exist")
+                completion(nil)
             }
-        } else {
-            print("User data document does not exist")
-//                completion(nil)
+            
         }
-
-        
     }
 }
 
@@ -135,21 +135,23 @@ func getData(uid: String, completion: @escaping (User?) -> Void) {
     db.collection("userInfo").document(uid).getDocument { doc, error in
         if let error = error {
             print("Error getting user data: \(error)")
-//            completion(nil)
+            completion(nil)
             return
-        }
-
-        if let document = doc, document.exists {
-            do {
-                let output = try document.data(as: User.self)
-                completion(output)
-            } catch {
-                print("Error decoding user data: \(error)")
-//                completion(nil)
+        }else{
+            
+            if let document = doc, document.exists {
+                do {
+                    let output = try document.data(as: User.self)
+                    completion(output)
+                } catch {
+                    print("Error decoding user data: \(error)")
+                    completion(nil)
+                }
+                
+            } else {
+                print("User data document does not exist")
+                completion(nil)
             }
-        } else {
-            print("User data document does not exist")
-//            completion(nil)
         }
     }
 }
@@ -370,6 +372,7 @@ func getUserColors(email: String, completion: @escaping ([Color]) -> Void) {
     docRef.getDocument { document, error in
         if let error = error as NSError? {
             print("Error getting document: \(error.localizedDescription)")
+            completion([])
         } else {
             if let document = document {
                 let colorsStringList = document.data()?["userColors"] as? [String] ?? [""]
@@ -378,6 +381,8 @@ func getUserColors(email: String, completion: @escaping ([Color]) -> Void) {
                     colors.append(hexToColor(hex: colorStr))
                 }
                 completion(colors)
+            }else{
+                completion([])
             }
         }
     }

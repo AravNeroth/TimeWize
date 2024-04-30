@@ -26,18 +26,23 @@ struct StudentClassesView: View {
     @EnvironmentObject var messageManager: MessageManager
     var body: some View {
         
-        if classInfoManager.allClasses.isEmpty || classInfoManager.classColors.count < classInfoManager.allClasses.count || refresh {
+        if 
+//
+            refresh {
             
             LoadingScreen()
                 .ignoresSafeArea(.all)
                 .onAppear() {
-                    
-                    classInfoManager.updateData(userID: userID) {_ in
-                            refresh = false
+                    let DG = DispatchGroup()
+                    DG.enter()
+                    classInfoManager.updateData(userID: userID){_ in
+                        DG.leave()
                     }
+
                     
-                    print("CLASS CODES IN STUDENT CLASSES VIEW: \(classInfoManager.classCodes)")
-                    
+                    DG.notify(queue: .main) {
+                        refresh = false
+                    }
                 }
                 .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
             

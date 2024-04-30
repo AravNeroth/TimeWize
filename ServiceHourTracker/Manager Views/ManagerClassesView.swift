@@ -32,7 +32,10 @@ struct ManagerClassesView: View {
     @AppStorage("authuid") private var authID = ""
     
     var body: some View {
-        if classInfoManager.allManagerClasses.isEmpty || classInfoManager.classColors.count < classInfoManager.allManagerClasses.count || refresh {
+        if
+//            classInfoManager.allManagerClasses.isEmpty ||
+//            classInfoManager.classColors.count < classInfoManager.allManagerClasses.count ||
+            refresh {
             
             LoadingScreen()
                 .onAppear() {

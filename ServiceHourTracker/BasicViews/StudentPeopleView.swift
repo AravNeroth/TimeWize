@@ -85,38 +85,58 @@ struct StudentPeopleView: View {
             LoadingScreen()
                 .ignoresSafeArea(.all)
                 .onAppear() {
+                    let DG = DispatchGroup()
+                    DG.enter()
                     getPeopleList(classCode: code) { newList in
                         peopleList = newList
                        
+                        DG.enter()
                         getManagerList(classCode: code) { managers in
+                            if managers != [] {
                                 managerList = managers
                                 classOwner = managerList[0]
                             }
+                            DG.leave()
+                        }
                         
                         for personEmail in newList {
+                            DG.enter()
                             getData(uid: personEmail) { user in
+                                
                                 if let user = user {
+                                    DG.enter()
+                                    DG.enter()
+                                    defer{ DG.leave() }
                                     getUserColors(email: personEmail) { colors in
                                         if !colors.isEmpty {
                                             colList[personEmail] = colors
                                         }
-                                        
-                                        usernameList[personEmail] = user.displayName ?? "No Name"
-                                        
-                                        downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
-                                            if let pfp = pfp {
-                                                pfpList[personEmail] = pfp
-                                            }
-                                            
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                                loaded = true
-                                            }
+                                        DG.leave()
+                                    }
+                                    usernameList[personEmail] = user.displayName ?? "No Name"
+                                    
+                                    downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                        if let pfp = pfp {
+                                            pfpList[personEmail] = pfp
                                         }
+                                        DG.leave()
+                                        
                                         
                                     }
+                                        
+                                    
+                                }else{
+                                    DG.leave()
                                 }
                             }
+                            if personEmail == newList.last{
+                                DG.leave()
+                            }
                         }
+                    }
+                    
+                    DG.notify(queue: .main) {
+                        loaded = true
                     }
                 }
         }

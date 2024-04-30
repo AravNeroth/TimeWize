@@ -26,16 +26,19 @@ struct MessagingView: View {
 //                messageManager.lastMessages.count != messageManager.userChats.count ||
                     refresh {
                 
-                let timer = Timer.publish(every: 2, on: .main, in: .common)
-                
                 LoadingScreen()
-                    .onReceive(timer, perform: { _ in
-                        messageManager.updateData(userID: userID){ _ in
-                            refresh = false
-                        }
-                    })
+                    
                     .onAppear(){
+                        let DG = DispatchGroup()
+                        DG.enter()
+                        
+                        
                         messageManager.updateData(userID: userID){ _ in
+                            DG.leave()
+                            
+                        }
+                        
+                        DG.notify(queue: .main) {
                             refresh = false
                         }
                     }

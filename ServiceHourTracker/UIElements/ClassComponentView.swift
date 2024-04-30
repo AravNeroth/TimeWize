@@ -161,7 +161,7 @@ private struct taskPopUp: View {
     @State var size = 0
     @State var numHours = 0
     @State var date: Date
-    @State var loaded = true
+    @State var loaded = false
     @State var showFullAlert = false
     @EnvironmentObject var classData: ClassData
     @Binding var isShowing: Bool
@@ -174,30 +174,60 @@ private struct taskPopUp: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(ignoresSafeAreaEdges: .all)
                 .onAppear() {
+                    
+                    let DG = DispatchGroup()
+                    DG.enter() //getTaskParticipants or GTP
+                    
                     getTaskParticipants(classCode: classData.code, title: title) { list in
                         signedUp = list
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        for userEmail in signedUp {
-                            getUserColors(email: userEmail) { colors in
-                                signedUpColors[userEmail] = colors
-                            }
-                            getData(uid: userEmail) { user in
-                                if let user = user {
-                                    signedUpNames[userEmail] = user.displayName
-                                    
-                                    downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
-                                        if let pfp = pfp {
-                                            signedUpPfps[userEmail] = pfp
+                        
+                        if list.count == 0 {
+                            DG.leave() //GTP
+                        }else{
+                            
+                            for userEmail in list {
+                                DG.enter() //getUserColors
+                                DG.enter() // getData
+                                DG.enter() // downloadImage
+                                
+                                getUserColors(email: userEmail) { colors in
+                                    signedUpColors[userEmail] = colors
+                                    DG.leave() //usercolors
+                                }
+                                
+                                
+                                getData(uid: userEmail) { user in
+                                    DG.leave() //getData
+                                    if let user = user {
+                                        signedUpNames[userEmail] = user.displayName
+                                        
+                                        downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                            if let pfp = pfp {
+                                                signedUpPfps[userEmail] = pfp
+                                            }
+                                            DG.leave() // image
                                         }
+                                    }else{
+                                        DG.leave() //image
                                     }
                                 }
-                            }
+                                
+                                if userEmail == list.last {
+                                    DG.leave() //GTP
+                                }
+                            } //for loop
+                            
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    
+                    
+                    
+                    
+                    
+                    DG.notify(queue: .main){
                         loaded = true
                     }
+                    
                 }
         } else {
             VStack(alignment: .leading) {

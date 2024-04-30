@@ -50,8 +50,8 @@ class ClassInfoManager: ObservableObject {
     @Published var classInfo: [Classroom] = []
     @Published var classImages: [String: UIImage] = [:]
     @Published var classPfp: [String: UIImage] = [:]
-    @Published var managerClassImages: [String: UIImage] = [:]
-    @Published var managerClassPfp: [String: UIImage] = [:]
+    @Published var managerClassImages: [String: UIImage] = [:] //doesnt get updated in function calls
+    @Published var managerClassPfp: [String: UIImage] = [:] //doesnt get updated in function calls
     
     @Published var allClasses: [Classroom] = []
     @Published var allRequests: [Request] = []
@@ -69,16 +69,27 @@ class ClassInfoManager: ObservableObject {
     ///----------------------------------------------------
     ///
     func updateManagerData(userID: String, completion: ((Bool) -> Void)? = nil){
+        let DG = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 1)
+        DG.enter() //getClasses
+        DG.enter() //for loop
+        
+        semaphore.wait()
         getClasses(uid: userID) { list in
-           
+            defer{DG.leave()}
             if let list = list {
                 self.classes = list // list of codes
 
             }
         }
+        semaphore.signal()
+      
         for code in classes {
-            
+            DG.enter() //getting class info
             getClassInfo(classCloudCode: code) { classroom in
+                DG.enter() //downloadImage task
+                DG.enter() //getColorScheme task
+                
                 if let classroom = classroom {
                     if !self.allManagerClasses.contains(classroom){
                         self.allManagerClasses.append(classroom)
@@ -87,77 +98,121 @@ class ClassInfoManager: ObservableObject {
                         if let image = image {
                             self.ownerPfps[classroom] = image
                         }
+                        DG.leave()
                     }
                     
                     getColorScheme(classCode: classroom.code) { colors in
                         if !colors.isEmpty {
                             self.classColors[classroom] = colors
                         }
+                        DG.leave()
                     }
                 }
                 
                 
-                
+                DG.leave()
             }
             if code == classes.last{
-                if let completion{
-                    completion(true)
-                }
+                DG.leave()
             }
+        }
+        
+        DG.notify(queue: .main) {
+            completion?(true)
         }
     }
     
     
     func updateData(userID: String, completion: ((Bool) -> Void)? = nil){
+        let DG = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 1)
+       
+        
+        
+        DG.enter() //user Requests
         
         getCodes(uid: userID) { codes in
+            semaphore.wait()
             if var codes = codes {
+               
                 while codes.contains("") {
                     let remove = codes.firstIndex(of: "")
                     if let index = remove {
                         codes.remove(at: index)
                     }
-                }
+                }// remove empty codes
+                
+                semaphore.signal()
                 
                 self.classCodes = codes
                 
                 for classCode in codes {
+                    DG.enter()//get classes info
+                    DG.enter() //getData
+                    DG.enter()//color scheme
+                    
+                    
                     if classCode == "" {
                         continue
                     }
                     
                     getClassInfo(classCloudCode: classCode) { newClass in
+                        defer{ DG.leave() }  //classInfo
+                        
                         let list = newClass?.managerList
                         
                         if let list = list {
+                            
+                            defer{DG.leave()} //getData
+                            
                             getData(uid: list.first!) { newUser in
+                                
                                 self.classOwners[newClass!] = (newUser?.displayName)!
+                                
+                               
                             }
+                            
+                        }else{
+                            DG.leave() //getData
                         }
                         
                         getColorScheme(classCode: classCode) { scheme in
                             self.classColors[newClass!] = scheme
+                            DG.leave() //color shceme
                         }
                         
-                        getUserRequests(email: userID) { requests in
-                            self.allRequests = requests
-                        }
+                        
                     }
                 }
+            }else{
+                semaphore.signal()
             }
             
+            getUserRequests(email: userID) { requests in
+                self.allRequests = requests
+                DG.leave() // requests
+            }
+            
+           
+                
+            
+        }
+        
+        DG.notify(queue: .main) {
             self.loadClassInfo() { _ in
-               
+                
                 completion?(true)
                 
             }
         }
         
-        
-        
     }
     
     private func loadClassInfo(completion: ((Bool)->Void)? = nil) {
+        let DG = DispatchGroup()
+        for _ in 0..<classCodes.count{
+            DG.enter()
+        }
         for code in classCodes {
             getClassInfo(classCloudCode: code) { classroom in
                 if let classroom = classroom {
@@ -182,15 +237,14 @@ class ClassInfoManager: ObservableObject {
                 self.classInfo.sort { $0.title < $1.title }
                 self.allClasses.sort { $0.title < $1.title }
                 
-                if code == self.classCodes.last {
-                    if let completion{
-                        completion(true)
-                    }
-                }
+                
             }
+            DG.leave()
         }
         
-        
+        DG.notify(queue: .main) {
+            completion?(true)
+        }
         
     }
 
@@ -329,25 +383,27 @@ class MessageManager: ObservableObject{
     func updateData(userID: String, completion: ((Bool)->Void)? = nil){
         let DG = DispatchGroup()
         
-        DG.enter()
-        DG.enter()
-        DG.enter()
-        DG.enter()
+        DG.enter() //getChatsOf
+        DG.enter() //getNames
+        DG.enter() //update images
+        DG.enter() //getLatestMessage
        
         getChatsOf(user: userID) { [self] chats in
-            defer{ DG.leave(); print("l")} //getChatsOf done
+            defer{ DG.leave()} //getChatsOf done
+            print("gotChats")
             if !chats.isEmpty{
                 self.userChats = chats
                 
             }
                 
             getNames(emails: chats) { names in
-                defer { DG.leave(); print("l")}
+                print("gotNames")
+                defer { DG.leave()}
                 
                 if !names.isEmpty{
                     for(key, value) in names {
                         DG.enter()
-                        defer { DG.leave(); print("l") }
+                        defer { DG.leave()}
                         self.chatNames[key] = value
                     }
 
@@ -356,17 +412,19 @@ class MessageManager: ObservableObject{
             }
             
             updateImagesForChats(chats: chats){
+                print("updatedImages")
                 DG.leave()
             }
             
             getLatestMessage(chats: chats, user: userID){ lastChats in
-                defer{ DG.leave(); print("l") }
+                print("gotLatestMessages")
+                defer{ DG.leave()}
                 
                 if !lastChats.isEmpty{
                     for(key, value) in lastChats {
                         DG.enter()
-                        print("e")
-                        defer{ DG.leave(); print("l")  }
+                        
+                        defer{ DG.leave()}
                         self.lastMessages[key] = value
                     }
                 }
@@ -378,6 +436,7 @@ class MessageManager: ObservableObject{
         }
         
         DG.notify(queue: .main) {
+            print("completion")
             completion?(true)
         }
     }
