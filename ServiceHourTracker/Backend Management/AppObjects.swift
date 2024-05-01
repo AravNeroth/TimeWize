@@ -144,7 +144,7 @@ class ClassInfoManager: ObservableObject {
                 
                 semaphore.signal()
                 
-                self.classCodes = codes
+                self.classCodes = Array(Set(codes))
                 
                 for classCode in codes {
                     DG.enter()//get classes info
@@ -172,7 +172,7 @@ class ClassInfoManager: ObservableObject {
                                
                             }
                             
-                        }else{
+                        } else {
                             DG.leave() //getData
                         }
                         
@@ -216,7 +216,8 @@ class ClassInfoManager: ObservableObject {
         for code in classCodes {
             getClassInfo(classCloudCode: code) { classroom in
                 if let classroom = classroom {
-                    if !self.classInfo.contains(classroom) {
+                    
+                    if !self.classInfo.contains(where: { $0.code == classroom.code }) {
                         self.classInfo.append(classroom)
                         
                         downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
@@ -228,8 +229,6 @@ class ClassInfoManager: ObservableObject {
                                 self.classPfp[classroom.title] = image
                             }
                         }
-                    }
-                    if !self.allClasses.contains(classroom) {
                         self.allClasses.append(classroom)
                     }
                 }

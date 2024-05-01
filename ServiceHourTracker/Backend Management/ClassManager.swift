@@ -212,6 +212,7 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
 func collectHours(code: String, completion: @escaping ([String:[Request]]) -> Void) {
     let db = Firestore.firestore()
     let classRef = db.collection("classes").document(code)
+    @EnvironmentObject var classInfoManager: ClassInfoManager
     
     var com: [String:[Request]] = [:]
     

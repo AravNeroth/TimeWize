@@ -13,6 +13,7 @@ struct ManagerRoomView: View {
     @State var title: String = "Title"
     @State var colors: [Color] = [.green4, .green6] // keep last as green6 for default purpouses
     @State var tasks: [ClassTask] = []
+    @State var manCode = ""
     @State var announcements: [Announcement] = []
     @State var allComponents: [ClassComponent] = []
     @State var managerNames: [String:String] = [:]
@@ -24,6 +25,9 @@ struct ManagerRoomView: View {
     @State var showImageSelection = false
     @State var showTask = false
     @State var showColorPalette = false
+    @State var showCodes = false
+    @State var showHourReport = false
+    @State var showManCode = false
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
@@ -68,6 +72,7 @@ struct ManagerRoomView: View {
                         getClassInfo(classCloudCode: classData.code) { classroom in
                             if let classroom = classroom {
                                 title = classroom.title
+                                manCode = classroom.managerCode
                             }
                             DG.leave()
                         }
@@ -203,8 +208,8 @@ struct ManagerRoomView: View {
                     }
                 }
                 .sheet(isPresented: $showMenu) {
-                    menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList, showImageSelection: $showImageSelection, showTask: $showTask, showColorPalette: $showColorPalette)
-                        .presentationDetents([.height(240.0)])
+                    menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList, showImageSelection: $showImageSelection, showTask: $showTask, showColorPalette: $showColorPalette, showCodes: $showCodes)
+                        .presentationDetents([.height(300.0)])
                 }
                 .sheet(isPresented: $showPplList) {
                     NewManagerPeopleView(showMessage: $showMessage, code: classData.code, classTitle: title, isShowing: $showPplList)
@@ -231,14 +236,43 @@ struct ManagerRoomView: View {
                         }
                 }
                 .sheet(isPresented: $showMessage) {
-                    
-                        
                     MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
                         .padding(.top, 10)
                         .onDisappear {
                             showMessage = false
                         }
-                    
+                }
+                .sheet(isPresented: $showCodes) {
+                    VStack {
+                        Text("Student Join Code")
+                            .font(.largeTitle)
+                            .bold()
+                            .padding(30.0)
+                        
+                        Text("\(classData.code)")
+                            .font(.headline)
+                            .bold()
+                        
+                        Text("Manager Join Code")
+                            .font(.largeTitle)
+                            .bold()
+                            .padding(30.0)
+                        
+                        Button {
+                            showManCode.toggle()
+                        } label: {
+                            if showManCode {
+                                Text("\(manCode)")
+                                    .font(.headline)
+                                    .bold()
+                            } else {
+                                Text("SHOW CODE")
+                                    .font(.headline)
+                                    .bold()
+                            }
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
                 }
                 .onChange(of: newHomeImage) {
                     if let newHomeImage = newHomeImage {
@@ -258,6 +292,7 @@ private struct menuPopUp: View {
     @Binding var showImageSelection: Bool
     @Binding var showTask: Bool
     @Binding var showColorPalette: Bool
+    @Binding var showCodes: Bool
     
     var body: some View {
         VStack(spacing: 0) {
@@ -331,6 +366,26 @@ private struct menuPopUp: View {
                         .ignoresSafeArea()
                     
                     Text("Pick Class Colors")
+                }
+                
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Divider()
+            
+            Button {
+                showMenu = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showCodes = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .opacity(0.0)
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                    
+                    Text("Display Class Join Codes")
                 }
                 
             }
