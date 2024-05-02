@@ -97,13 +97,15 @@ struct ClassComponentView: View {
             }
             .sheet(isPresented: $showMessage) {
                 
+                VStack{
+                    Text(settingsManager.dm).font(.title).bold()
                     
-                MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
-                    .padding(.top, 10)
-                    .onDisappear {
-                        showMessage = false
-                    }
-                
+                    MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
+                        .padding(.top, 10)
+                        .onDisappear {
+                            showMessage = false
+                        }
+                }
             }
         } else {
             VStack {

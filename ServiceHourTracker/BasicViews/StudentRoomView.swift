@@ -210,11 +210,15 @@ struct StudentRoomView: View {
             .sheet(isPresented: $showMessage) {
                 
                     
-                MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
-                    .padding(.top, 10)
-                    .onDisappear {
-                        showMessage = false
-                    }
+                VStack{
+                    Text(settingsManager.dm).font(.title).bold()
+                    
+                    MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
+                        .padding(.top, 10)
+                        .onDisappear {
+                            showMessage = false
+                        }
+                }
                 
             }
             .sheet(isPresented: $showRequest) {

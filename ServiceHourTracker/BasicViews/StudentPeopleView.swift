@@ -86,53 +86,113 @@ struct StudentPeopleView: View {
                 .ignoresSafeArea(.all)
                 .onAppear() {
                     let DG = DispatchGroup()
-                    DG.enter()
+                    DG.enter() //getPeopleList
+                    
+                    DG.enter()//for loop
+                    
+                    DG.enter()//managerForLoop
+                    DG.enter()//managerList
                     getPeopleList(classCode: code) { newList in
+                        defer{DG.leave()}//getPeopleList
                         peopleList = newList
                        
-                        DG.enter()
-                        getManagerList(classCode: code) { managers in
-                            if managers != [] {
-                                managerList = managers
-                                classOwner = managerList[0]
-                            }
-                            DG.leave()
-                        }
                         
-                        for personEmail in newList {
-                            DG.enter()
-                            getData(uid: personEmail) { user in
-                                
-                                if let user = user {
-                                    DG.enter()
-                                    DG.enter()
-                                    defer{ DG.leave() }
-                                    getUserColors(email: personEmail) { colors in
-                                        if !colors.isEmpty {
-                                            colList[personEmail] = colors
-                                        }
-                                        DG.leave()
-                                    }
-                                    usernameList[personEmail] = user.displayName ?? "No Name"
+                        
+                        
+                        if newList.count == 0{
+                            print("\nnewListCount is 0\n")
+                            DG.leave() //forLoop
+                        }else{
+                            for personEmail in newList {
+                                DG.enter()//getData
+                                getData(uid: personEmail) { user in
                                     
-                                    downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
-                                        if let pfp = pfp {
-                                            pfpList[personEmail] = pfp
+                                    if let user = user {
+                                        DG.enter() //colors
+                                        DG.enter() //image
+                                        defer{ DG.leave() } //getData
+                                        getUserColors(email: personEmail) { colors in
+                                            if !colors.isEmpty {
+                                                colList[personEmail] = colors
+                                            }
+                                            DG.leave() //colors
                                         }
-                                        DG.leave()
+                                        usernameList[personEmail] = user.displayName ?? "No Name"
+                                        
+                                        downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                            if let pfp = pfp {
+                                                pfpList[personEmail] = pfp
+                                            }
+                                            DG.leave() //image
+                                            
+                                            
+                                        }
                                         
                                         
+                                    }else{
+                                        DG.leave() //getData
                                     }
-                                        
-                                    
-                                }else{
-                                    DG.leave()
+                                }
+                                if personEmail == newList.last{
+                                    DG.leave() //forloop
                                 }
                             }
-                            if personEmail == newList.last{
-                                DG.leave()
+                        }
+                    }
+                    
+                    
+                    getManagerList(classCode: code) { managers in
+                        if managers != [] {
+                            managerList = managers
+                            classOwner = managerList[0]
+                        }
+                        DG.leave() //managerList
+                       
+                        if managerList.count == 0{
+                            DG.leave() //forloop
+                        }else{
+                            
+                            for manEmail in managerList {
+                                
+                                DG.enter() //colors
+                                DG.enter() //image
+                                DG.enter() //getData
+                                
+                                getUserColors(email: manEmail) { colors in
+                                    if !colors.isEmpty {
+                                        colList[manEmail] = colors
+                                    }
+                                
+                                    DG.leave() //colors
+                                    
+                                }
+                                
+                                getData(uid: manEmail) { user in
+                                    defer{DG.leave()}//getData
+                                    
+                                    if let user = user {
+                                        
+                                        usernameList[manEmail] = user.displayName ?? "No Name"
+                                        
+                                        downloadImageFromUserStorage(id: user.uid, file: "Pfp\(user.uid).jpg") { pfp in
+                                            if let pfp = pfp {
+                                                pfpList[manEmail] = pfp
+                                            }
+                                            
+                                            DG.leave() //image
+                                            
+                                        }
+                                        
+                                    }else{
+                                        DG.leave() //image
+                                    }
+                                }
+                                if manEmail == managerList.last{
+                                    DG.leave() //for Loop
+                                }
                             }
                         }
+                        
                     }
                     
                     DG.notify(queue: .main) {

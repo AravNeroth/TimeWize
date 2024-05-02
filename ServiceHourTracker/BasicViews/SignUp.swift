@@ -194,7 +194,7 @@ struct SignUp: View {
                             if confirm == password {
                                 authUID = authResult.uid
                                                         
-                                let newUser = User(uid: authUID, email: authResult.email ?? "")
+                                let newUser = User(uid: authUID, email: authResult.email ?? "", userColors: ["007AFF"])
 //                                let newUser = User(uid: authResult.uid, email: authResult.email ?? "")
                                 
                                 withAnimation {

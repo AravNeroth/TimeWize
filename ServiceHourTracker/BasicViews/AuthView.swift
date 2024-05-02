@@ -147,6 +147,14 @@ struct AuthView: View {
             
         }
     }
+    
+    private func newAccountSettings(){
+        
+        
+        settingsManager.userColors = [.blue, .blue]
+        
+        
+    }
     private func clearAppStorageAndObjects(){
         //not including the darkmode
         SettingsManager.shared = SettingsManager()
@@ -157,8 +165,8 @@ struct AuthView: View {
         classInfoManager.classInfo = []
         classInfoManager.classImages = [:]
         classInfoManager.classPfp = [:]
-        classInfoManager.managerClassImages = [:]
-        classInfoManager.managerClassPfp = [:]
+//        classInfoManager.managerClassImages = [:]
+//        classInfoManager.managerClassPfp = [:]
         @AppStorage("name") var name = ""
         name = ""
         @AppStorage("hours") var hours = 0
@@ -179,7 +187,7 @@ struct AuthView: View {
         classInfoManager.classColors = [:]
         classInfoManager.classCodes = []
         classInfoManager.classOwners = [:]
-        
+        newAccountSettings()
     }
     private func loadData(completion: ((Result<Void, Error>)-> Void)? = nil){
         

@@ -57,9 +57,11 @@ struct MiniProfileView: View {
                                 .foregroundStyle(personCols.first!.isBright() ? .black : .white)
                             
                             if(userEmail == wantedPerson) {
-                                Image(systemName: "crown.fill")
+//                                Image(systemName: "crown.fill")
+                                Text("👑")
                                     .foregroundColor(.yellow)
                                     .padding(.horizontal, 2.5)
+                                    .padding(.bottom, 2.5)
                             }
                             
                             Spacer()
@@ -147,9 +149,11 @@ struct MiniProfileView: View {
                             .foregroundStyle(personCols.first!.isBright() ? .black : .white)
                         
                         if(userEmail == wantedPerson) {
-                            Image(systemName: "crown.fill")
+//                            Image(systemName: "crown.fill")
+                            Text("👑")
                                 .foregroundColor(.yellow)
                                 .padding(.horizontal, 2.5)
+                                .padding(.bottom, 2.5)
                         }
                         
                         Spacer()

@@ -70,33 +70,33 @@ struct MessagingView: View {
                                 }
                                 .navigationBarTitleDisplayMode(.inline)
                                 .navigationTitle(messageManager.chatNames[chatWith] ?? chatWith)
-                                .toolbar{
-                                    ToolbarItem(placement: .topBarLeading) {
-                                        if let image = messageManager.chatImages[chatWith]{
-                                            Circle()
-                                                .frame(width: 40, height: 40)
-                                                .overlay(
-                                                    image
-                                                        .resizable()
-                                                        .scaledToFill()
-                                                        .clipShape(Circle())
-                                                    
-                                                    
-                                                )
-                                                .shadow(radius: 1, y: 1)
-                                                .padding(.all, 10)
-                                        }else{
-                                            
-                                            Circle()
-                                                .fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                .frame(width: 40, height: 40)
-                                                .overlay {
-                                                    Text(chatWith.prefix(1)).bold().tint(.white)
-                                                }.shadow(radius: 1, y: 1)
-                                                .padding(.all, 10)
-                                        }
-                                    }
-                                }
+//                                .toolbar{
+////                                    ToolbarItem(placement: .topBarLeading) {
+////                                        if let image = messageManager.chatImages[chatWith]{
+////                                            Circle()
+////                                                .frame(width: 40, height: 40)
+////                                                .overlay(
+////                                                    image
+////                                                        .resizable()
+////                                                        .scaledToFill()
+////                                                        .clipShape(Circle())
+////                                                    
+////                                                    
+////                                                )
+////                                                .shadow(radius: 1, y: 1)
+////                                                .padding(.all, 10)
+////                                        }else{
+////                                            
+////                                            Circle()
+////                                                .fill(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
+////                                                .frame(width: 40, height: 40)
+////                                                .overlay {
+////                                                    Text(chatWith.prefix(1)).bold().tint(.white)
+////                                                }.shadow(radius: 1, y: 1)
+////                                                .padding(.all, 10)
+////                                        }
+////                                    }
+//                                }
                             
                         }label:{
                             
