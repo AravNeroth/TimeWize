@@ -41,6 +41,39 @@ struct Profile: View {
             ZStack{
                 ScrollView {
                     Spacer(minLength: 212.5)
+                    ZStack {
+                        Circle()
+                            .fill(.black)
+                        Circle()
+                            .fill(.gray.opacity(0.3))
+                            .overlay(
+                                Text("15 Hours")
+                                    .font(.largeTitle)
+                                    .fontWeight(.semibold)
+                                    .fontDesign(.rounded)
+                                    .foregroundStyle(.white)
+                                    
+                                
+                            )
+                        Circle()
+                            .trim(from: 0, to: 1)
+            //                .stroke(Color.gray.opacity(0.3), lineWidth: 20)
+                            .stroke(.gray, style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
+                            .rotationEffect(Angle(degrees: -90))
+                        Circle()
+                            .trim(from: 60/360, to: 200/360)
+            //                .stroke(.red, lineWidth: 20)
+                            .stroke(LinearGradient(colors: [.red, .purple], startPoint: .topLeading, endPoint: .bottomTrailing), style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
+                            .rotationEffect(Angle(degrees: -90))
+                        .shadow(radius: 20, y: 3)
+                        Circle()
+                            .trim(from: 0/360, to: 60/360)
+            //                .stroke(.blue, lineWidth: 20)
+                            .stroke(LinearGradient(colors: [.purple, .blue], startPoint: .topLeading, endPoint: .bottomTrailing), style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
+                            .rotationEffect(Angle(degrees: -90))
+                            .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, y: 3)
+                        
+                            }
                     Spacer(minLength: 100)
                     NewHourBoardView(totalHoursEarned: $totalHoursEarned)
                 }
