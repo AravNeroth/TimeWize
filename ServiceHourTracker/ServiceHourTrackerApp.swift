@@ -24,31 +24,22 @@ struct ServiceHourTrackerApp: App {
     
     init() {
         FirebaseApp.configure()
-        
     }
     
     
     var body: some Scene {
         WindowGroup {
-            
-                AuthView()
-                    .environmentObject(settingsManager)
-                    .preferredColorScheme(settingsManager.isDarkModeEnabled ? .dark : .light)
-                    .environmentObject(userData)
-                    .environmentObject(classData)
-                    .environmentObject(classInfoManager)
-                    .environmentObject(messageManager)
-            
-                    .onReceive(timer) { _ in
-                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
-                           
-                    }
-           
+            AuthView()
+                .environmentObject(settingsManager)
+                .preferredColorScheme(settingsManager.isDarkModeEnabled ? .dark : .light)
+                .environmentObject(userData)
+                .environmentObject(classData)
+                .environmentObject(classInfoManager)
+                .environmentObject(messageManager)
+                .onReceive(timer) { _ in
+                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                }
         }
-        
-        
-        
     }
-    
 }
 

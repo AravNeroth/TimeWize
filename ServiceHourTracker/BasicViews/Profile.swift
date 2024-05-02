@@ -158,7 +158,7 @@ struct Profile: View {
                 .onAppear() {
                     for classroom in classInfoManager.allClasses {
                         for request in classInfoManager.allRequests {
-                            if request.accepted && request.classCode == classroom.code {
+                            if request.accepted && request.classCode == classroom.code && request.timeCreated > classroom.lastCollectionDate {
                                 if totalHoursEarned[classroom] != nil {
                                     totalHoursEarned[classroom]! += request.numHours
                                 } else {
@@ -167,13 +167,13 @@ struct Profile: View {
                             }
                         }
                     }
-                    
                 }
             
             Button{
                 // Define receiver before calling generatePDF
                 let receiver = Mail.User(name: "Jonathan Kalsky", email: "jonathan.kalsky@gmail.com")
 //verlyn.fischer.mobileapp@gmail.com
+                //parker.huang10@k12.leanderisd.org
                 generatePDF(userID: userID) { pdfData, error in
                     if let error = error {
                         // Handle error

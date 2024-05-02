@@ -327,6 +327,13 @@ func formatDate(_ date: Date) -> String {
     return dateFormatter.string(from: date)
 }
 
+func reportDate(_ date: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MM/dd/YY"
+    
+    return dateFormatter.string(from: date)
+}
+
 //func callGeneratePDFAction() {
 //    var contentView = ContentView()
 //        contentView.generatePDFAction = {

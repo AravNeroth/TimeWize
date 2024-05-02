@@ -126,9 +126,6 @@ func getCodes(uid: String, completion: @escaping ([String]?) -> Void) {
           }
         }
       }
-    
-    
-    
 }
 
 
@@ -252,24 +249,19 @@ func leaveAsManager(uid: String, code: String) {
 
 //append a class Code
 func updateCodes(uid: String, newCode: String) {
-
     getData(uid: uid) { currUser in
         let userRef = db.collection("userInfo").document(uid)
-        if var userCodes = currUser?.codes{
-            if !(userCodes.contains(newCode)){
+        if var userCodes = currUser?.codes {
+            if !(userCodes.contains(newCode)) {
                 userCodes.append(newCode)
                 userRef.updateData(["codes": userCodes]) { error in
                 if let error = error{
                     print("error manipulating document variable \(error)")
+                    }
                 }
-            }
+            } 
         }
-            
-        }
-        
-        }
-
-    
+    }
 }
 
 func sendPasswordResetEmail(email: String) -> String {

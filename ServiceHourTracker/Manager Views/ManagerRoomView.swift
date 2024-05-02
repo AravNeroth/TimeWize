@@ -13,8 +13,10 @@ struct ManagerRoomView: View {
     @State var title: String = "Title"
     @State var colors: [Color] = [.green4, .green6] // keep last as green6 for default purpouses
     @State var tasks: [ClassTask] = []
+    @State var manCode = ""
     @State var announcements: [Announcement] = []
     @State var allComponents: [ClassComponent] = []
+    @State var reqsPerPerson: [String:[Request]] = [:]
     @State var managerNames: [String:String] = [:]
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var newHomeImage: UIImage? = UIImage(resource: .image1)
@@ -24,6 +26,9 @@ struct ManagerRoomView: View {
     @State var showImageSelection = false
     @State var showTask = false
     @State var showColorPalette = false
+    @State var showCodes = false
+    @State var showHourReport = false
+    @State var showManCode = false
     @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var classInfoManager: ClassInfoManager
     @EnvironmentObject var classData: ClassData
@@ -68,6 +73,7 @@ struct ManagerRoomView: View {
                         getClassInfo(classCloudCode: classData.code) { classroom in
                             if let classroom = classroom {
                                 title = classroom.title
+                                manCode = classroom.managerCode
                             }
                             DG.leave()
                         }
@@ -203,8 +209,8 @@ struct ManagerRoomView: View {
                     }
                 }
                 .sheet(isPresented: $showMenu) {
-                    menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList, showImageSelection: $showImageSelection, showTask: $showTask, showColorPalette: $showColorPalette)
-                        .presentationDetents([.height(240.0)])
+                    menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList, showImageSelection: $showImageSelection, showTask: $showTask, showColorPalette: $showColorPalette, showCodes: $showCodes, showHourReport: $showHourReport, reqsForPeople: $reqsPerPerson)
+                        .presentationDetents([.height(360.0)])
                 }
                 .sheet(isPresented: $showPplList) {
                     NewManagerPeopleView(showMessage: $showMessage, code: classData.code, classTitle: title, isShowing: $showPplList)
@@ -231,14 +237,53 @@ struct ManagerRoomView: View {
                         }
                 }
                 .sheet(isPresented: $showMessage) {
-                    
-                    VStack{
-                        Text(settingsManager.dm).font(.title).bold()
-                        MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
-                            .padding(.top, 10)
-                            .onDisappear {
-                                showMessage = false
+                    MessageLogView(lastChats: $messageManager.lastMessages , recipientEmail: settingsManager.dm)
+                        .padding(.top, 10)
+                        .onDisappear {
+                            showMessage = false
+                        }
+                }
+                .sheet(isPresented: $showCodes) {
+                    VStack {
+                        Text("Student Join Code")
+                            .font(.largeTitle)
+                            .bold()
+                            .padding(30.0)
+                        
+                        Text("\(classData.code)")
+                            .font(.headline)
+                            .bold()
+                        
+                        Text("Manager Join Code")
+                            .font(.largeTitle)
+                            .bold()
+                            .padding(30.0)
+                        
+                        Button {
+                            showManCode.toggle()
+                        } label: {
+                            if showManCode {
+                                Text("\(manCode)")
+                                    .font(.headline)
+                                    .bold()
+                            } else {
+                                Text("SHOW CODE")
+                                    .font(.headline)
+                                    .bold()
                             }
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+                .sheet(isPresented: $showHourReport) {
+                    if !reqsPerPerson.isEmpty {
+                        HourReportView(reqsPerPerson: reqsPerPerson)
+                            .onDisappear {
+                                showHourReport = false
+                            }
+                    } else {
+                        LoadingScreen()
+                            .ignoresSafeArea(.all)
                     }
                 }
                 .onChange(of: newHomeImage) {
@@ -259,6 +304,9 @@ private struct menuPopUp: View {
     @Binding var showImageSelection: Bool
     @Binding var showTask: Bool
     @Binding var showColorPalette: Bool
+    @Binding var showCodes: Bool
+    @Binding var showHourReport: Bool
+    @Binding var reqsForPeople: [String:[Request]]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -332,6 +380,52 @@ private struct menuPopUp: View {
                         .ignoresSafeArea()
                     
                     Text("Pick Class Colors")
+                }
+                
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Divider()
+            
+            Button {
+                showMenu = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showCodes = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .opacity(0.0)
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                    
+                    Text("Display Class Join Codes")
+                }
+                
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Divider()
+            
+            Button {
+                showMenu = false
+                
+                collectHours(code: classCode) { dict in
+                    reqsForPeople = dict
+                    print(dict)
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showHourReport = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .opacity(0.0)
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                    
+                    Text("Create Hour Report")
                 }
                 
             }

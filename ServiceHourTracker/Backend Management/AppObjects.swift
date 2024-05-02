@@ -50,10 +50,9 @@ class ClassInfoManager: ObservableObject {
     @Published var classInfo: [Classroom] = []
     @Published var classImages: [String: UIImage] = [:]
     @Published var classPfp: [String: UIImage] = [:]
-    /*
     @Published var managerClassImages: [String: UIImage] = [:] //doesnt get updated in function calls
     @Published var managerClassPfp: [String: UIImage] = [:] //doesnt get updated in function calls
-    */
+    
     @Published var allClasses: [Classroom] = []
     @Published var allRequests: [Request] = []
     @Published var classColors: [Classroom:[Color]] = [:]
@@ -145,45 +144,36 @@ class ClassInfoManager: ObservableObject {
                 
                 semaphore.signal()
                 
-                self.classCodes = codes
+                self.classCodes = Array(Set(codes))
                 
                 for classCode in codes {
+                    DG.enter()//get classes info
+                    DG.enter() //getData
+                    DG.enter()//color scheme
+                    
                     
                     if classCode == "" {
                         continue
                     }
                     
-                    DG.enter()//get classes info
-                    DG.enter() //getData
-                    DG.enter()//color scheme
-                    DG.enter() //image
-                    
                     getClassInfo(classCloudCode: classCode) { newClass in
                         defer{ DG.leave() }  //classInfo
-                        if let newClass = newClass{
-                        let list = newClass.managerList
                         
+                        let list = newClass?.managerList
                         
+                        if let list = list {
                             
-                            
+                            defer{DG.leave()} //getData
                             
                             getData(uid: list.first!) { newUser in
                                 
-                                self.classOwners[newClass] = (newUser?.displayName)!
-                                DG.leave()//getData
+                                self.classOwners[newClass!] = (newUser?.displayName)!
                                 
+                               
                             }
                             
-                            downloadImageFromUserStorage(id: "\(newClass.owner)", file: "Pfp\(newClass.owner).jpg") { image in
-                                if let image = image {
-                                    self.ownerPfps[newClass] = image
-                                }
-                                DG.leave()//getImage
-                            }
-                        
-                        }else{
+                        } else {
                             DG.leave() //getData
-                            DG.leave() //getImage
                         }
                         
                         getColorScheme(classCode: classCode) { scheme in
@@ -226,7 +216,8 @@ class ClassInfoManager: ObservableObject {
         for code in classCodes {
             getClassInfo(classCloudCode: code) { classroom in
                 if let classroom = classroom {
-                    if !self.classInfo.contains(classroom) {
+                    
+                    if !self.classInfo.contains(where: { $0.code == classroom.code }) {
                         self.classInfo.append(classroom)
                         
                         downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
@@ -238,9 +229,21 @@ class ClassInfoManager: ObservableObject {
                                 self.classPfp[classroom.title] = image
                             }
                         }
-                    }
-                    if !self.allClasses.contains(classroom) {
                         self.allClasses.append(classroom)
+                    } else {
+                        self.classInfo[self.classInfo.firstIndex(where: { $0.code == classroom.code })!] = classroom
+                        
+                        downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
+                            self.classImages[classroom.title] = image
+                        }
+                    
+                        downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
+                            if let image = image {
+                                self.classPfp[classroom.title] = image
+                            }
+                        }
+                        
+                        self.allClasses[self.allClasses.firstIndex(where: { $0.code == classroom.code })!] = classroom
                     }
                 }
                 
