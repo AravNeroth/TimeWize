@@ -16,6 +16,7 @@ struct ManagerRoomView: View {
     @State var manCode = ""
     @State var announcements: [Announcement] = []
     @State var allComponents: [ClassComponent] = []
+    @State var reqsPerPerson: [String:[Request]] = [:]
     @State var managerNames: [String:String] = [:]
     @State var classImage: UIImage? = UIImage(resource: .image1)
     @State var newHomeImage: UIImage? = UIImage(resource: .image1)
@@ -208,8 +209,8 @@ struct ManagerRoomView: View {
                     }
                 }
                 .sheet(isPresented: $showMenu) {
-                    menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList, showImageSelection: $showImageSelection, showTask: $showTask, showColorPalette: $showColorPalette, showCodes: $showCodes)
-                        .presentationDetents([.height(300.0)])
+                    menuPopUp(classCode: classData.code, showMenu: $showMenu, showPplList: $showPplList, showImageSelection: $showImageSelection, showTask: $showTask, showColorPalette: $showColorPalette, showCodes: $showCodes, showHourReport: $showHourReport, reqsForPeople: $reqsPerPerson)
+                        .presentationDetents([.height(360.0)])
                 }
                 .sheet(isPresented: $showPplList) {
                     NewManagerPeopleView(showMessage: $showMessage, code: classData.code, classTitle: title, isShowing: $showPplList)
@@ -274,6 +275,17 @@ struct ManagerRoomView: View {
                         .buttonStyle(PlainButtonStyle())
                     }
                 }
+                .sheet(isPresented: $showHourReport) {
+                    if !reqsPerPerson.isEmpty {
+                        HourReportView(reqsPerPerson: reqsPerPerson)
+                            .onDisappear {
+                                showHourReport = false
+                            }
+                    } else {
+                        LoadingScreen()
+                            .ignoresSafeArea(.all)
+                    }
+                }
                 .onChange(of: newHomeImage) {
                     if let newHomeImage = newHomeImage {
                         uploadImageToClassroomStorage(code: classData.code, image: newHomeImage, file: "Home\(settingsManager.title)")
@@ -293,6 +305,8 @@ private struct menuPopUp: View {
     @Binding var showTask: Bool
     @Binding var showColorPalette: Bool
     @Binding var showCodes: Bool
+    @Binding var showHourReport: Bool
+    @Binding var reqsForPeople: [String:[Request]]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -386,6 +400,32 @@ private struct menuPopUp: View {
                         .ignoresSafeArea()
                     
                     Text("Display Class Join Codes")
+                }
+                
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Divider()
+            
+            Button {
+                showMenu = false
+                
+                collectHours(code: classCode) { dict in
+                    reqsForPeople = dict
+                    print(dict)
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    showHourReport = true
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .opacity(0.0)
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                    
+                    Text("Create Hour Report")
                 }
                 
             }

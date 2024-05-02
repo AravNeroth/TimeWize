@@ -230,6 +230,20 @@ class ClassInfoManager: ObservableObject {
                             }
                         }
                         self.allClasses.append(classroom)
+                    } else {
+                        self.classInfo[self.classInfo.firstIndex(where: { $0.code == classroom.code })!] = classroom
+                        
+                        downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
+                            self.classImages[classroom.title] = image
+                        }
+                    
+                        downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
+                            if let image = image {
+                                self.classPfp[classroom.title] = image
+                            }
+                        }
+                        
+                        self.allClasses[self.allClasses.firstIndex(where: { $0.code == classroom.code })!] = classroom
                     }
                 }
                 

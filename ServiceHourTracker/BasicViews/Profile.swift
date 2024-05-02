@@ -158,7 +158,7 @@ struct Profile: View {
                 .onAppear() {
                     for classroom in classInfoManager.allClasses {
                         for request in classInfoManager.allRequests {
-                            if request.accepted && request.classCode == classroom.code {
+                            if request.accepted && request.classCode == classroom.code && request.timeCreated > classroom.lastCollectionDate {
                                 if totalHoursEarned[classroom] != nil {
                                     totalHoursEarned[classroom]! += request.numHours
                                 } else {
@@ -167,7 +167,6 @@ struct Profile: View {
                             }
                         }
                     }
-                    
                 }
             
             Button{

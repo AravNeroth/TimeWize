@@ -19,13 +19,65 @@ struct HourReportView: View {
                 .padding(20)
             
             ForEach (reqsPerPerson.sorted(by: { $0.key < $1.key }), id: \.key) { person, arr in
-                Text(person)
-                    .font(.title3)
-                    .bold()
-                    .padding(.bottom, 5)
-                
-                ForEach (arr) { req in
+                HStack {
+                    Text(person)
+                        .font(.title3)
+                        .bold()
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                        .padding(.bottom, 5)
+                        .padding(.horizontal, 30)
                     
+                    Spacer()
+                }
+                
+                ForEach (arr.sorted(by: { $0.timeCreated < $1.timeCreated }), id: \.timeCreated) { req in
+                    VStack {
+                        HStack {
+                            Text("\(req.title)")
+                                .font(.headline)
+                                .bold()
+                                .padding(.horizontal, 30)
+                            
+                            Spacer()
+                            
+                            Text("\(reportDate(req.timeCreated))")
+                                .font(.headline)
+                                .bold()
+                                .padding(.horizontal, 30)
+                        }
+                        .padding(.bottom, 2.5)
+                        
+                        HStack {
+                            Text("Description: \(req.description)")
+                                .font(.subheadline)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(2)
+                                .padding(.horizontal, 30)
+                            
+                            Spacer()
+                            
+                            Text("Reference: \(req.verifier)")
+                                .font(.subheadline)
+                                .multilineTextAlignment(.trailing)
+                                .padding(.horizontal, 30)
+                        }
+                        .padding(.bottom, 2.5)
+                        
+                        HStack {
+                            Text("Hours: \(req.numHours)")
+                                .font(.subheadline)
+                                .lineLimit(1)
+                                .padding(.horizontal, 30)
+                            
+                            Spacer()
+                            
+                            Text("Hour Type: \(req.hourType)")
+                                .font(.subheadline)
+                                .lineLimit(1)
+                                .padding(.horizontal, 30)
+                        }
+                    }
                 }
                 .padding(.bottom, 10)
             }
@@ -34,5 +86,5 @@ struct HourReportView: View {
 }
 
 #Preview {
-    HourReportView(reqsPerPerson: ["First Person":[Request(), Request()],"Second Person":[Request(), Request()]])
+    HourReportView(reqsPerPerson: ["First Person":[Request(title: "Test Title", description: "Competed in 4 Comps for UIL Districts", timeCreated: Date(), hourType: "Service", numHours: 2, verifier: "Mr. Marsh"), Request()],"Second Person":[Request(), Request()]])
 }
