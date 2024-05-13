@@ -38,10 +38,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in MessageManager.getLatestMessage(chats:user:):AppObjects.swift">
+         contextName = "closure #1 in closure #1 in closure #2 in Profile.body.getter:Profile.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in closure #2 in Profile.body.getter:Profile.swift">
+         contextName = "closure #1 in MessageManager.getLatestMessage(chats:user:):AppObjects.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in MessagingView.body.getter:MessagingView.swift">
@@ -105,6 +105,14 @@
          <PersistentStrings>
             <PersistentString
                value = "hours*360/totalGoal">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #6 in Profile.body.getter:Profile.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "totalHoursEarned">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

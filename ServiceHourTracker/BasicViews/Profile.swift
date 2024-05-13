@@ -19,6 +19,7 @@ struct Profile: View {
     @State private var userPfp = UIImage(resource: .image1)
     @State private var newPfp = UIImage(systemName: "person")
     @State var totalHoursEarned: [Classroom:Int] = [:]
+    @State var minHours: [Classroom: Int] = [:]
     @State var points: [CGFloat] = [0]
     @State var classes: [Classroom] = []
     @State var totalHours = 0
@@ -67,9 +68,9 @@ struct Profile: View {
                         
                         if totalHoursEarned.keys.count > 1 {
                             ForEach(0 ..< totalHoursEarned.keys.count , id: \.self) { ind in
-                                if ind + 1 <= points.count {
+                                if ind + 1 < points.count {
                                     let currentPoint = points[ind]
-                                    let nextPoint = points[ind + 1]
+                                    let nextPoint = points[ind+1] //ind+1
                                     if totalHoursEarned[Array(totalHoursEarned.keys)[ind]] != 0 {
                                         Circle()
                                             .trim(from: currentPoint/360, to: nextPoint/360)
@@ -165,11 +166,14 @@ struct Profile: View {
                                 HStack{
                                     
                                     Text(settingsManager.displayName)
+                                        
                                         .padding(.leading, 95)
                                         .bold()
-                                        .font(.largeTitle)
+                                    
+                                        .font(.system(size: CGFloat(28 + (28/settingsManager.displayName.count)*(10-settingsManager.displayName.count)), weight: .bold, design: .monospaced))
                                         .foregroundStyle(settingsManager.userColors.first!.isBright() ? .black : .white)
-                                    Spacer()
+                                    
+                                    
                                     Button{
                                         colorPaletteSheet = true
                                         
@@ -180,7 +184,7 @@ struct Profile: View {
                                         settingsManager.tab = 3
                                     }label: {
                                         Image(systemName: "gearshape.fill").resizable().scaledToFit().frame(width: 25, height: 25)
-                                    }.padding(10).foregroundStyle(.white)
+                                    }.padding(17).foregroundStyle(.white)
                                     
                                 }.padding(.top, 75)
                                 
@@ -219,13 +223,22 @@ struct Profile: View {
                         }
                     }
                     .onAppear() {
+                        let DG = DispatchGroup()
+                        DG.enter()//allClasses
+                        DG.enter()//allrequests
+                        minHours = [:]
                         totalHours = 0
                         totalGoal = 0
                         totalHoursEarned = [:]
                         for classroom in classInfoManager.allClasses {
                             totalGoal += classroom.minSpecificHours + classroom.minServiceHours
+                            minHours[classroom] = classroom.minServiceHours+classroom.minSpecificHours
+                            if classroom == classInfoManager.allClasses.last{
+                                DG.leave()//allClasses
+                            }
                         }
                         for request in classInfoManager.allRequests {
+                            DG.enter()//getClassInfo
                             getClassInfo(classCloudCode: request.classCode) { classroom in
                                 
                                 if request.accepted && (classroom != nil ? request.timeCreated > classroom!.lastCollectionDate : true) {
@@ -235,20 +248,36 @@ struct Profile: View {
                                     if let classroom = classroom{
                                         if totalHoursEarned[classroom] != nil {
                                             totalHoursEarned[classroom]! += request.numHours
-                                            
+                                            DG.leave()//getClassInfo
                                         } else {
                                             totalHoursEarned[classroom] = request.numHours
+                                            DG.leave()//getClassInfo
                                         }
+                                    }
+                                }else{
+                                    DG.leave()//getClassInfo
+                                }
+                            }
+                            if request == classInfoManager.allRequests.last {
+                                DG.leave()//allRequests
+                            }
+                        }
+                        
+//                        let LimitedTotalHoursEarned = totalHoursEarned.values.map({ min($0, minHours[$0]) })
+                        //change the min to the classroom min
+                        //gets here with totalHoursEarned having 0 values
+                        DG.notify(queue: .main) {
+                            for (classroom) in totalHoursEarned.keys {
+                                if let hours = totalHoursEarned[classroom] {
+                                    if hours > minHours[classroom] ?? 0{
+                                        points.append(points.last! + CGFloat((minHours[classroom] ?? 0)*360/(totalGoal)))
+                                    }else{
+                                        points.append(points.last! + CGFloat(hours*360/(totalGoal)))
                                     }
                                 }
                             }
                         }
-                        let LimitedTotalHoursEarned = totalHoursEarned.values.map({ min($0, 2) })
-                        //change the min to the classroom min
-                        //gets here with totalHoursEarned having 0 values
-                        for (hours) in LimitedTotalHoursEarned {
-                            points.append(points.last! + CGFloat(hours*360/(totalGoal)))
-                        }
+                        
                         //                    getUserRequests(email: userID) { requestList in
                         //                        for request in requestList {
                         //
