@@ -47,6 +47,13 @@ class SettingsManager: ObservableObject {
 
 
 class ClassInfoManager: ObservableObject {
+    //HourBoard
+    @Published var points: [CGFloat] = [0]
+    @Published var totalHoursEarned: [Classroom:Int] = [:]
+    @Published var minHours: [Classroom: Int] = [:]
+    @Published var totalHours = 0
+    @Published var totalGoal = 0
+    //-------------------------------------------
     @Published var classInfo: [Classroom] = []
     @Published var classImages: [String: UIImage] = [:]
     @Published var classPfp: [String: UIImage] = [:]
@@ -69,6 +76,7 @@ class ClassInfoManager: ObservableObject {
     ///----------------------------------------------------
     ///
     func updateManagerData(userID: String, completion: ((Bool) -> Void)? = nil){
+       
         let DG = DispatchGroup()
         let semaphore = DispatchSemaphore(value: 1)
         DG.enter() //getClasses
@@ -124,6 +132,7 @@ class ClassInfoManager: ObservableObject {
     
     
     func updateData(userID: String, completion: ((Bool) -> Void)? = nil){
+        
         let DG = DispatchGroup()
         let semaphore = DispatchSemaphore(value: 1)
        
@@ -261,6 +270,92 @@ class ClassInfoManager: ObservableObject {
         
     }
 
+    
+    func loadHourBoard(completion: ((Bool)->Void)? = nil){
+        let DG = DispatchGroup()
+        DG.enter()//allClasses
+        DG.enter()//allrequests
+    var newMinHours: [Classroom: Int] = [:]
+        var newTotalHours = 0
+        var newTotalGoal = 0
+        var newTotalHoursEarned: [Classroom:Int] = [:]
+        for classroom in self.allClasses {
+            newTotalGoal += classroom.minSpecificHours + classroom.minServiceHours
+            newMinHours[classroom] = classroom.minServiceHours+classroom.minSpecificHours
+            if classroom == self.allClasses.last{
+                DG.leave()//allClasses
+            }
+        }
+        for request in self.allRequests {
+            DG.enter()//getClassInfo
+            getClassInfo(classCloudCode: request.classCode) { classroom in
+                
+                if request.accepted && (classroom != nil ? request.timeCreated > classroom!.lastCollectionDate : true) {
+                    //&& request.classCode == classroom.code this causes no hours to be listed
+                    newTotalHours += request.numHours
+                    
+                    if let classroom = classroom{
+                        if newTotalHoursEarned[classroom] != nil {
+                            newTotalHoursEarned[classroom]! += request.numHours
+                            DG.leave()//getClassInfo
+                        } else {
+                            newTotalHoursEarned[classroom] = request.numHours
+                            DG.leave()//getClassInfo
+                        }
+                    }
+                }else{
+                    DG.leave()//getClassInfo
+                }
+            }
+            if request == self.allRequests.last {
+                DG.leave()//allRequests
+            }
+        }
+        
+//                        let LimitedTotalHoursEarned = totalHoursEarned.values.map({ min($0, minHours[$0]) })
+        //change the min to the classroom min
+        //gets here with totalHoursEarned having 0 values
+        DG.notify(queue: .main) {
+            var newPoints: [CGFloat] = [0]
+            for (classroom) in newTotalHoursEarned.keys {
+                if let hours = newTotalHoursEarned[classroom] {
+                    if hours > newMinHours[classroom] ?? 0{
+                        newPoints.append(newPoints.last! + CGFloat((newMinHours[classroom] ?? 0)*360/(newTotalGoal)))
+                    }else{
+                        newPoints.append(newPoints.last! + CGFloat(hours*360/(newTotalGoal)))
+                    }
+                }
+                
+                if classroom == Array(newTotalHoursEarned.keys).last{
+                    self.points = newPoints
+                    self.totalHoursEarned = newTotalHoursEarned
+                    self.totalHours = newTotalHours
+                    self.totalGoal = newTotalGoal
+                    self.minHours = newMinHours
+                    completion?(true)
+                }
+            }
+        }
+        
+        //                    getUserRequests(email: userID) { requestList in
+        //                        for request in requestList {
+        //
+        //
+        //                            getClassInfo(classCloudCode: request.classCode) { classroom in
+        //                                if let classroom = classroom{
+        //                                    classes.append(classroom)
+        //                                    points.append(CGFloat(points.last + request.numHours*360/100/totalGoal))
+        //                                }
+        //                            }
+        //
+        //                        }
+        //                    }
+        
+        
+        
+        
+    }
+    
 }
 
 //End of classInfoManager

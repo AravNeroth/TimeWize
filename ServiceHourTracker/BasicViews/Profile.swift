@@ -18,12 +18,12 @@ struct Profile: View {
     @State var showImgPicker = false
     @State private var userPfp = UIImage(resource: .image1)
     @State private var newPfp = UIImage(systemName: "person")
-    @State var totalHoursEarned: [Classroom:Int] = [:]
-    @State var minHours: [Classroom: Int] = [:]
-    @State var points: [CGFloat] = [0]
+//    @State var totalHoursEarned: [Classroom:Int] = [:]
+//    @State var minHours: [Classroom: Int] = [:]
+//    @State var totalHours = 0
+//    @State var totalGoal = 0
+//    @State var points: [CGFloat] = [0]
     @State var classes: [Classroom] = []
-    @State var totalHours = 0
-    @State var totalGoal = 0
     @AppStorage("authuid") var authID = ""
     @AppStorage("uid") var userID = ""
     @State var load = false
@@ -52,7 +52,7 @@ struct Profile: View {
                         Circle()
                             .fill(.gray.opacity(0.3))
                             .overlay(
-                                Text("\(totalHours) Hours")
+                                Text("\(classInfoManager.totalHours) Hours")
                                     .font(.largeTitle)
                                     .fontWeight(.semibold)
                                     .fontDesign(.rounded)
@@ -66,17 +66,17 @@ struct Profile: View {
                             .stroke(.gray, style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
                             .rotationEffect(Angle(degrees: -90))
                         
-                        if totalHoursEarned.keys.count > 1 {
-                            ForEach(0 ..< totalHoursEarned.keys.count , id: \.self) { ind in
-                                if ind + 1 < points.count {
-                                    let currentPoint = points[ind]
-                                    let nextPoint = points[ind+1] //ind+1
-                                    if totalHoursEarned[Array(totalHoursEarned.keys)[ind]] != 0 {
+                        if classInfoManager.totalHoursEarned.keys.count > 1 {
+                            ForEach(0 ..< classInfoManager.totalHoursEarned.keys.count , id: \.self) { ind in
+                                if ind + 1 < classInfoManager.points.count {
+                                    let currentPoint = classInfoManager.points[ind]
+                                    let nextPoint = classInfoManager.points[ind+1] //ind+1
+                                    if classInfoManager.totalHoursEarned[Array(classInfoManager.totalHoursEarned.keys)[ind]] != 0 {
                                         Circle()
                                             .trim(from: currentPoint/360, to: nextPoint/360)
                                             .stroke(
                                                 LinearGradient(
-                                                    colors: classInfoManager.classColors[Array(totalHoursEarned.keys)[ind]] ?? settingsManager.userColors,
+                                                    colors: classInfoManager.classColors[Array(classInfoManager.totalHoursEarned.keys)[ind]] ?? settingsManager.userColors,
                                                     startPoint: .topLeading,
                                                     endPoint: .bottomTrailing
                                                 ),
@@ -106,7 +106,7 @@ struct Profile: View {
                         }
                     }.padding(.horizontal, 50)
                         Spacer(minLength: 100)
-                        NewHourBoardView(totalHoursEarned: $totalHoursEarned)
+                    NewHourBoardView(totalHoursEarned: $classInfoManager.totalHoursEarned)
                     }
                     //            .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height )
                     .refreshable {
@@ -222,6 +222,7 @@ struct Profile: View {
                             uploadImageToUserStorage(id: "\(authID)", image: newPfp, file: "Pfp\(authID)")
                         }
                     }
+            /*
                     .onAppear() {
                         let DG = DispatchGroup()
                         DG.enter()//allClasses
@@ -296,7 +297,7 @@ struct Profile: View {
                         
                         
                     }
-                
+                */
                 Button{
                     // Define receiver before calling generatePDF
                     let receiver = Mail.User(name: "Jonathan Kalsky", email: "jonathan.kalsky@gmail.com")
