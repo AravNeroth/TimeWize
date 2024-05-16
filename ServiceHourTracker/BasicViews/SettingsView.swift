@@ -239,6 +239,7 @@ struct SettingsView:View {
                 if newName.trimmingCharacters(in: .whitespaces) != ""{
                     settingsManager.displayName = newName
                     updateDisplayName(uid: userID, newDisplayName: name)
+                    updated = true
                 }
             }
             Button("Cancel"){
