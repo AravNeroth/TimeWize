@@ -11,6 +11,7 @@ struct HourProgressBar: View {
     var goal: Float
     var hoursEarned: Float
     var classroomName: String
+    var colors: [Color]
     @EnvironmentObject var settingsManager: SettingsManager
     var body: some View {
         
@@ -32,18 +33,20 @@ struct HourProgressBar: View {
         
         if hoursEarned < goal {
             ProgressView(value: hoursEarned, total: goal)
+//                .border(.black, width: 0.1).cornerRadius(30, corners: .allCorners).opacity(0.5)
+                .shadow(radius: 1, y: 1)
                 .progressViewStyle(.linear)
-                .tint(LinearGradient(colors: settingsManager.userColors, startPoint: .topLeading, endPoint: .bottomTrailing))
+                .tint(LinearGradient(colors: colors , startPoint: .topLeading, endPoint: .bottomTrailing))
                 .padding()
         } else {
             ProgressView(value: 2, total: 2)
+                .border(.black, width: 0.1)
+//                .cornerRadius(30, corners: .allCorners).opacity(0.5)
+                .shadow(radius: 1, y: 1)
                 .progressViewStyle(.linear)
-                .tint(LinearGradient(colors: settingsManager.userColors, startPoint: .topLeading, endPoint: .bottomTrailing))
+                .tint(LinearGradient(colors: colors , startPoint: .topLeading, endPoint: .bottomTrailing))
                 .padding()
         }
     }
 }
 
-#Preview {
-    HourProgressBar(goal: 3, hoursEarned: 2.5, classroomName: "MUAT - CPHS")
-}

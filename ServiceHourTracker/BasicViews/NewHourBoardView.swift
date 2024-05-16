@@ -10,11 +10,12 @@ import SwiftUI
 struct NewHourBoardView: View {
     
     @EnvironmentObject var classInfoManager: ClassInfoManager
+    @EnvironmentObject var settingsManager: SettingsManager
     @Binding var totalHoursEarned: [Classroom:Int]
     
     var body: some View {
         ForEach (classInfoManager.allClasses, id: \.self) { classroom in
-            HourProgressBar(goal: Float(classroom.minServiceHours + classroom.minSpecificHours), hoursEarned: Float(totalHoursEarned[classroom] ?? 0), classroomName: classroom.title)
+            HourProgressBar(goal: Float(classroom.minServiceHours + classroom.minSpecificHours), hoursEarned: Float(totalHoursEarned[classroom] ?? 0), classroomName: classroom.title, colors: classInfoManager.classColors[classroom] ?? settingsManager.userColors)
         }
     }
 }

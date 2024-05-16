@@ -88,21 +88,6 @@ struct Profile: View {
                                 }
                             }
                             
-                            //                        CircleTracker(settingsManager: _settingsManager, classInfoManager: _classInfoManager, totalGoal: totalGoal, totalHours: totalHours, classes: <#T##[Classroom]#>, points: <#T##[CGFloat]#>)
-                            /*
-                             Circle()
-                             .trim(from: 60/360, to: 200/360)
-                             //                .stroke(.red, lineWidth: 20)
-                             .stroke(LinearGradient(colors: [.red, .purple], startPoint: .topLeading, endPoint: .bottomTrailing), style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
-                             .rotationEffect(Angle(degrees: -90))
-                             .shadow(radius: 20, y: 3)
-                             Circle()
-                             .trim(from: 0/360, to: 60/360)
-                             //                .stroke(.blue, lineWidth: 20)
-                             .stroke(LinearGradient(colors: [.purple, .blue], startPoint: .topLeading, endPoint: .bottomTrailing), style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
-                             .rotationEffect(Angle(degrees: -90))
-                             .shadow(radius: 10, y: 3)
-                             */
                         }
                     }.padding(.horizontal, 50)
                         Spacer(minLength: 100)

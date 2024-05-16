@@ -49,6 +49,7 @@ class SettingsManager: ObservableObject {
 class ClassInfoManager: ObservableObject {
     //HourBoard
     @Published var points: [CGFloat] = [0]
+    @Published var classPoints: [Classroom:[CGFloat]] = [:]
     @Published var totalHoursEarned: [Classroom:Int] = [:]
     @Published var minHours: [Classroom: Int] = [:]
     @Published var totalHours = 0
@@ -321,17 +322,22 @@ class ClassInfoManager: ObservableObject {
                 if let hours = newTotalHoursEarned[classroom] {
                     if hours > newMinHours[classroom] ?? 0{
                         newPoints.append(newPoints.last! + CGFloat((newMinHours[classroom] ?? 0)*360/(newTotalGoal)))
+                        
                     }else{
                         newPoints.append(newPoints.last! + CGFloat(hours*360/(newTotalGoal)))
                     }
                 }
                 
                 if classroom == Array(newTotalHoursEarned.keys).last{
-                    self.points = newPoints
-                    self.totalHoursEarned = newTotalHoursEarned
-                    self.totalHours = newTotalHours
-                    self.totalGoal = newTotalGoal
-                    self.minHours = newMinHours
+                    print(self.allClasses)
+                    print(newTotalHoursEarned.keys)
+                    if self.totalHours != newTotalHours{
+                        self.points = newPoints
+                        self.totalHoursEarned = newTotalHoursEarned
+                        self.totalHours = newTotalHours
+                        self.totalGoal = newTotalGoal
+                        self.minHours = newMinHours
+                    }
                     completion?(true)
                 }
             }

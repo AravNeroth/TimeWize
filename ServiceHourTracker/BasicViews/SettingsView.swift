@@ -37,7 +37,7 @@ struct SettingsView:View {
 
             
             Form{
-                
+                /*
                 Section{
                     HStack{
                         
@@ -65,6 +65,7 @@ struct SettingsView:View {
                 }header: {
                     Text("Details")
                 }
+                */
                 Section {
                     
                     Text("User: \(userID)")
@@ -127,7 +128,7 @@ struct SettingsView:View {
                         
                     }.frame(width:300)
                         .pickerStyle(SegmentedPickerStyle())
-                    
+                    /*
                     Button("test"){
                         getAuthIDForEmail(email: "parker.cs@gmail.com") { id in
                             print("\n\(id)\n")
@@ -172,9 +173,11 @@ struct SettingsView:View {
                     } label: {
                         Text("Test Hour Collection")
                     }
-                    
+                     */
                 }
+                     
             }
+                     
             .onAppear{
                 if(userID == ""){
                     getData(uid: "\(userData.currentUser.email)") { currUser in
@@ -235,6 +238,7 @@ struct SettingsView:View {
                 newName = alertField
                 if newName.trimmingCharacters(in: .whitespaces) != ""{
                     settingsManager.displayName = newName
+                    updateDisplayName(uid: userID, newDisplayName: name)
                 }
             }
             Button("Cancel"){
