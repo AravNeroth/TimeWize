@@ -90,9 +90,36 @@ struct Profile: View {
                             
                         }
                     }.padding(.horizontal, 50)
-                        Spacer(minLength: 100)
-                    NewHourBoardView(totalHoursEarned: $classInfoManager.totalHoursEarned)
-                    }
+                    Spacer(minLength: 100)
+                    NewHourBoardView(totalHoursEarned: $classInfoManager.totalHoursEarned).padding(.bottom, 7)
+                    
+                    
+                    // MARK: Button to call email generation !do not delete as scrap! unless out of use
+                    
+                    Button{
+                        // Define receiver before calling generatePDF
+                        let receiver = Mail.User(name: "Jonathan Kalsky", email: "jonathan.kalsky@gmail.com")
+                        //verlyn.fischer.mobileapp@gmail.com
+                        //parker.huang10@k12.leanderisd.org
+                        generatePDF(userID: userID) { pdfData, error in
+                            if let error = error {
+                                // Handle error
+                                print("Error generating PDF: \(error.localizedDescription)")
+                            } else if let pdfData = pdfData {
+                                // Use pdfData
+                                sendMail(to: receiver, pdfData: pdfData)
+                            }
+                        }
+                        
+                        
+                        
+                        savePDF(userID: userID)
+                        
+                    }label: {
+                        Text("Generate Hour Log")
+                    }.padding(.bottom, 7)
+                    
+                }
                     //            .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height )
                     .refreshable {
                         load = true
@@ -283,28 +310,7 @@ struct Profile: View {
                         
                     }
                 */
-                Button{
-                    // Define receiver before calling generatePDF
-                    let receiver = Mail.User(name: "Jonathan Kalsky", email: "jonathan.kalsky@gmail.com")
-                    //verlyn.fischer.mobileapp@gmail.com
-                    //parker.huang10@k12.leanderisd.org
-                    generatePDF(userID: userID) { pdfData, error in
-                        if let error = error {
-                            // Handle error
-                            print("Error generating PDF: \(error.localizedDescription)")
-                        } else if let pdfData = pdfData {
-                            // Use pdfData
-                            sendMail(to: receiver, pdfData: pdfData)
-                        }
-                    }
-                    
-                    
-                    
-                    savePDF(userID: userID)
-                    
-                }label: {
-                    Text("Generate Hour Log")
-                }
+                
             }
         }
     }

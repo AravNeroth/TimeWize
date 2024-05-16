@@ -3326,8 +3326,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "367"
             endingLineNumber = "367"
-            landmarkName = "ClassInfoManager"
-            landmarkType = "3">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4461,8 +4461,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "464"
             endingLineNumber = "464"
-            landmarkName = "MessageManager"
-            landmarkType = "3">
+            landmarkName = "updateImagesForChats(chats:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5677,8 +5677,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -5725,8 +5725,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -5788,8 +5788,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -5930,8 +5930,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -5946,8 +5946,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -6024,8 +6024,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -6040,8 +6040,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -6103,8 +6103,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -6166,8 +6166,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -6182,8 +6182,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -6198,8 +6198,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -6214,8 +6214,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -6230,8 +6230,8 @@
             filePath = "ServiceHourTracker/BasicViews/Profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
