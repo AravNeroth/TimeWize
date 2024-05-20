@@ -46,6 +46,8 @@ struct Profile: View {
             ZStack{
                 ScrollView {
                     Spacer(minLength: 212.5)
+                    
+                    
                     ZStack {
                         Circle()
                             .fill(.black)
@@ -184,7 +186,13 @@ struct Profile: View {
                                         .padding(.leading, 95)
                                         .bold()
                                     
-                                        .font(.system(size: CGFloat(28 + (28/settingsManager.displayName.count)*(10-settingsManager.displayName.count)), weight: .bold, design: .monospaced))
+                                        .font(
+                                            .system(
+                                                size: CGFloat(28 + (28/settingsManager.displayName.count)*(10-settingsManager.displayName.count)),
+                                                weight: .bold,
+                                                design: .monospaced
+                                            )
+                                        )
                                         .foregroundStyle(settingsManager.userColors.first!.isBright() ? .black : .white)
                                     
                                     
