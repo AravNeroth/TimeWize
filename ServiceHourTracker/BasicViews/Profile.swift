@@ -137,13 +137,14 @@ struct Profile: View {
                                     HStack(alignment: .bottom){
                                         ZStack{
                                             Circle()
-                                                .foregroundStyle(.black)
+                                                .foregroundStyle(LinearGradient(colors: settingsManager.userColors, startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                .rotationEffect(Angle(degrees: -90))
                                                 .frame(width: 80, height: 80)
                                             
                                             Image(uiImage: settingsManager.pfp)
                                                 .resizable()
                                                 .frame(width: 75,height: 75)
-                                            
+                                                
                                                 .scaledToFill()
                                                 .clipShape(Circle())
                                                 .overlay(
@@ -153,7 +154,8 @@ struct Profile: View {
                                                         HStack(alignment: .bottom){
                                                             Spacer()
                                                             ZStack{
-                                                                Circle().frame(width: 25,height: 25).foregroundStyle(.black)
+                                                                Circle().frame(width: 25,height: 25).foregroundStyle(LinearGradient(gradient: Gradient(colors: settingsManager.userColors), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                                    .rotationEffect(Angle(degrees: -90))
                                                                 Button{
                                                                     showImgPicker = true
                                                                 }label:{

@@ -318,7 +318,7 @@ class ClassInfoManager: ObservableObject {
         //gets here with totalHoursEarned having 0 values
         DG.notify(queue: .main) {
             var newPoints: [CGFloat] = [0]
-            for (classroom) in newTotalHoursEarned.keys {
+            for (classroom) in newTotalHoursEarned.keys.sorted(by: {$0.title > $1.title}) {
                 if let hours = newTotalHoursEarned[classroom] {
                     if hours > newMinHours[classroom] ?? 0{
                         newPoints.append(newPoints.last! + CGFloat((newMinHours[classroom] ?? 0)*360/(newTotalGoal)))
