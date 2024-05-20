@@ -48,7 +48,7 @@ struct SignUp: View {
 //                .foregroundColor(Color("green-8"))
 //                .frame(width: 400, height: 50)
             
-            Image(systemName: "case.fill").resizable().scaledToFit().frame(width: 50,height: 50).padding(.init(top: 50, leading: 0, bottom: 50, trailing: 0)).foregroundColor(.blueLogin)
+            Image(.sandclock).resizable().scaledToFit().frame(width: 50,height: 50).padding(.init(top: 50, leading: 0, bottom: 50, trailing: 0)).foregroundColor(.blueLogin)
             
             VStack(alignment: .leading){
                 

@@ -30,7 +30,7 @@ struct LoginView: View {
             NavigationStack{
      
                 
-                Image(systemName: "clock.circle").resizable().scaledToFit().frame(width: 50,height: 50).padding(.init(top: 50, leading: 10, bottom: 10, trailing: 10)).foregroundColor(.green6)
+                Image(.sandclock).resizable().scaledToFit().frame(width: 50,height: 50).padding(.init(top: 50, leading: 10, bottom: 10, trailing: 10)).foregroundColor(.green6)
                 
                 
                 Text("Welcome to TimeWize").font(.title).bold().padding().padding(EdgeInsets(top: 10, leading: 0, bottom: 50, trailing: 0))
