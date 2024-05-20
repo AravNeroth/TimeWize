@@ -3843,8 +3843,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "400"
             endingLineNumber = "400"
-            landmarkName = "MessageManager"
-            landmarkType = "3">
+            landmarkName = "getNames(emails:completion:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "CC68656F-25E7-4F53-B146-2189E6D58C4F - d41879476f381966"
@@ -4493,8 +4493,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "220"
             endingLineNumber = "220"
-            landmarkName = "ClassInfoManager"
-            landmarkType = "3">
+            landmarkName = "updateData(userID:completion:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "530CF369-363A-4AA0-9457-33E248412794 - c2d1089ccb652625"

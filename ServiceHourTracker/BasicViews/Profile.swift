@@ -225,7 +225,7 @@ struct Profile: View {
                 }
                 .sheet(isPresented: $showImgPicker) {
                     ImagePicker(image: $newPfp)
-                    
+                        .ignoresSafeArea(edges: .bottom)
                 }.ignoresSafeArea()
                     .onChange(of: newPfp) { oldValue, newValue in
                         if let newPfp = newPfp{
