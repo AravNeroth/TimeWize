@@ -282,7 +282,7 @@ class ClassInfoManager: ObservableObject {
         var newTotalGoal = 0
         var newTotalHoursEarned: [Classroom:Int] = [:]
         for classroom in self.allClasses {
-            newTotalGoal += classroom.minSpecificHours + classroom.minServiceHours
+            newTotalGoal += classroom.minSpecificHours + classroom.minServiceHours + 1 // +1 added for temp solution
             newMinHours[classroom] = classroom.minServiceHours+classroom.minSpecificHours
             if classroom == self.allClasses.last{
                 DG.leave()//allClasses
@@ -322,7 +322,7 @@ class ClassInfoManager: ObservableObject {
             for (classroom) in newTotalHoursEarned.keys.sorted(by: {$0.title > $1.title}) {
                 if let hours = newTotalHoursEarned[classroom] {
                     if hours > newMinHours[classroom] ?? 0{
-                        newPoints.append(newPoints.last! + CGFloat((newMinHours[classroom] ?? 0)*360/(newTotalGoal)))
+                        newPoints.append(newPoints.last! + CGFloat((newMinHours[classroom] ?? 1)*360/(newTotalGoal))) //+1 for temp solution
                         
                     }else{
                         newPoints.append(newPoints.last! + CGFloat(hours*360/(newTotalGoal)))
