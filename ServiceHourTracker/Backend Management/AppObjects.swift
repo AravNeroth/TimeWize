@@ -55,12 +55,13 @@ class ClassInfoManager: ObservableObject {
     
     @Published var allClasses: [Classroom] = []
     @Published var allRequests: [Request] = []
+    @Published var requestsPerPerson: [String:[Request]] = [:]
     @Published var classColors: [Classroom:[Color]] = [:]
     @Published var classOwners: [Classroom:String] = [:]
     var classCodes: [String] = []
     ///-----------------------------------------------------
     ///manager class info variables
-    @Published var classes: [String] = [] //list of managing classes codes
+    @Published var classes: [String] = [] // list of managing classes codes
     @Published var allManagerClasses: [Classroom] = []
     @Published var ownerPfps: [Classroom:UIImage] = [:]
     
@@ -91,7 +92,7 @@ class ClassInfoManager: ObservableObject {
                 DG.enter() //getColorScheme task
                 
                 if let classroom = classroom {
-                    if !self.allManagerClasses.contains(classroom){
+                    if !self.allManagerClasses.contains(classroom) {
                         self.allManagerClasses.append(classroom)
                     }
                     downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
