@@ -11,15 +11,23 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #2 in Profile.body.getter:Profile.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ManagerClassesView.body.getter:ManagerClassesView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "classInfoManager.allManagerClasses.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in ManagerClassesView.body.getter:ManagerClassesView.swift">
          <PersistentStrings>
             <PersistentString
                value = "classInfoManager.classColors">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in MessageManager.getLatestMessage(chats:user:):AppObjects.swift">
       </ContextState>
       <ContextState
          contextName = "getChatsOf(user:completion:):MessageManager.swift">
@@ -30,12 +38,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ManagerClassesView.body.getter:ManagerClassesView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "classInfoManager.allManagerClasses.isEmpty">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "closure #1 in closure #1 in closure #2 in Profile.body.getter:Profile.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MessageManager.getLatestMessage(chats:user:):AppObjects.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in MessagingView.body.getter:MessagingView.swift">
@@ -91,6 +97,22 @@
          <PersistentStrings>
             <PersistentString
                value = "userID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #6 in Profile.body.getter:Profile.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "hours*360/totalGoal">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #6 in Profile.body.getter:Profile.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "totalHoursEarned">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

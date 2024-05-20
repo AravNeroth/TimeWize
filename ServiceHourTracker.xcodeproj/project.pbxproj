@@ -15,6 +15,7 @@
 		06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3932B92D0B40023646B /* MiniProfileView.swift */; };
 		06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3952B942E810023646B /* ManagerRoomView.swift */; };
 		06AEC3982B94464C0023646B /* ManagerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3972B94464C0023646B /* ManagerPopup.swift */; };
+		06BF38C92BE47D72002B4D06 /* CircleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BF38C82BE47D72002B4D06 /* CircleTracker.swift */; };
 		06C520222B806323008E6286 /* ManagerBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C520212B806323008E6286 /* ManagerBottomBar.swift */; };
 		06CEF8F72B9A993A00DFC973 /* ThreeColumnSampleCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEF8F62B9A993A00DFC973 /* ThreeColumnSampleCode.swift */; };
 		06CEF8F92B9AF36700DFC973 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 06CEF8F82B9AF36700DFC973 /* FirebaseAnalytics */; };
@@ -107,6 +108,7 @@
 		06AEC3932B92D0B40023646B /* MiniProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		06AEC3952B942E810023646B /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
 		06AEC3972B94464C0023646B /* ManagerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerPopup.swift; sourceTree = "<group>"; };
+		06BF38C82BE47D72002B4D06 /* CircleTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleTracker.swift; sourceTree = "<group>"; };
 		06C520212B806323008E6286 /* ManagerBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerBottomBar.swift; sourceTree = "<group>"; };
 		06CEF8F62B9A993A00DFC973 /* ThreeColumnSampleCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeColumnSampleCode.swift; sourceTree = "<group>"; };
 		06CEF8FC2B9FFE0B00DFC973 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				066B289D2BC894B3008ADBFA /* NewMessage.swift */,
 				06CEF9022BA4C5E400DFC973 /* MessageLogView.swift */,
 				064EC9B62BACCA6500F0E872 /* Profile.swift */,
+				06BF38C82BE47D72002B4D06 /* CircleTracker.swift */,
 				EB70EB022B2542B700D93A40 /* SettingsView.swift */,
 				06E576A32B59C86000A7A36D /* SignUp.swift */,
 				EEF83F2E2B1FCDD90098D3A2 /* StudentClassesView.swift */,
@@ -539,6 +542,7 @@
 				06F54A352B773A7300FD6069 /* allExtensions.swift in Sources */,
 				06CEF8FF2BA0059A00DFC973 /* MessageManager.swift in Sources */,
 				06CEF9072BA4CDE800DFC973 /* MessageField.swift in Sources */,
+				06BF38C92BE47D72002B4D06 /* CircleTracker.swift in Sources */,
 				06CEF9052BA4C97C00DFC973 /* MessageBubble.swift in Sources */,
 				EBAECDD82B818AAE00614CCE /* RequestView.swift in Sources */,
 				06E576A62B59C92300A7A36D /* TermsAndServices.swift in Sources */,
@@ -735,7 +739,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracker1;
+				PRODUCT_BUNDLE_IDENTIFIER = ServiceHourTracker.jonathan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -765,7 +769,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TWolfTech.ServiceHourTracker1;
+				PRODUCT_BUNDLE_IDENTIFIER = ServiceHourTracker.jonathan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

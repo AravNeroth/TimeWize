@@ -359,18 +359,22 @@ func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoMana
         DG.enter()
         DG.enter()
         DG.enter()
-        
+        DG.enter()
         messageManager.updateData(userID: userID){ _ in
             DG.leave()
-            print("left message")
+            
         }
         classInfoManager.updateManagerData(userID: userID){ _ in
             DG.leave()
-            print("left manager")
+            
         }
         classInfoManager.updateData(userID: userID){ _ in
             DG.leave()
-            print("left student")
+            
+        }
+        classInfoManager.loadHourBoard(){ _ in
+            DG.leave()
+            
         }
         
         
