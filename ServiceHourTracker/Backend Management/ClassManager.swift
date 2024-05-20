@@ -208,11 +208,13 @@ func isCodeUsedInCollection(code: String, collectionName: String, completion: @e
     }
 }
 
-// fix later
+/// collects all hours and sets a new collection date
 func collectHours(code: String, completion: @escaping ([String:[Request]]) -> Void) {
     let db = Firestore.firestore()
     let classRef = db.collection("classes").document(code)
-    @EnvironmentObject var classInfoManager: ClassInfoManager
+    let DG = DispatchGroup()
+    DG.enter() // for classroom
+    DG.enter() // for all people
     
     var com: [String:[Request]] = [:]
     
@@ -226,12 +228,14 @@ func collectHours(code: String, completion: @escaping ([String:[Request]]) -> Vo
                 let lastCollectionDate = lastCollectionStamp?.dateValue() as? Date ?? Date()
                 let listOfPpl = classroom["peopleList"] as? [String] ?? []
                 for person in listOfPpl {
+                    DG.enter() // for single person
                     com[person] = []
                     db.collection("userInfo").document(person).collection("requests").getDocuments { requests, error2 in
                         if let error2 = error2 {
                             print("\(error2.localizedDescription)")
                         } else {
                             for request in requests!.documents {
+                                DG.enter() // for request
                                 do {
                                     let newReq = try request.data(as: Request.self)
                                     if newReq.timeCreated.compare(lastCollectionDate) == .orderedDescending {
@@ -240,18 +244,67 @@ func collectHours(code: String, completion: @escaping ([String:[Request]]) -> Vo
                                 } catch {
                                     print("couldn't make request")
                                 }
+                                DG.leave() // for request
                             }
-                            completion(com)
                         }
+                        DG.leave() // for single person
                     }
                 }
+                DG.leave() // for all people
             } else {
                 completion([:])
             }
         }
+        DG.leave() // for classroom
     }
-    classRef.updateData(["lastCollectionDate":Date()])
+    DG.notify(queue: .main) {
+        print(com)
+        completion(com)
+        classRef.updateData(["lastCollectionDate":Date()])
+    }
 }
+
+/// updates the hour dictionary that holds all the requests from a previous collection period
+func setHourDictionary(code: String, reqsPerPerson: [String:[Request]]) {
+    let db = Firestore.firestore()
+    let classRef = db.collection("classes").document(code)
+    
+    for person in reqsPerPerson.keys {
+        for req in reqsPerPerson["\(person)"]! {
+            do {
+                try classRef.collection("request for \(person)").addDocument(from: req)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
+
+/// gets the hour dictionary that holds all the requests from a previous collection period
+func getHourDictionary(code: String, completion: @escaping ([String:[Request]]) -> Void) {
+    let db = Firestore.firestore()
+    let classRef = db.collection("classes").document(code)
+    var com: [String:[Request]] = [:]
+    
+    classRef.getDocument() { doc, error in
+        if let error = error {
+            print(error.localizedDescription)
+        } else {
+            let data = doc!.data()
+            
+            let people = data!["peopleList"] as? [String] ?? []
+            
+            for person in people {
+                classRef.collection("request for \(person)").getDocuments() { allDocs, error2 in
+                    // TODO: FINISH THIS
+                }
+            }
+        }
+    }
+    
+    completion(com)
+}
+
 
 /// the infrastructure for a request from a User, which can be accepted by a class manager for hours
 struct Request: Codable, Hashable, Identifiable {
