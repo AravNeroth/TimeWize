@@ -258,7 +258,7 @@ func collectHours(code: String, completion: @escaping ([String:[Request]]) -> Vo
         DG.leave() // for classroom
     }
     DG.notify(queue: .main) {
-        print(com)
+        
         completion(com)
         classRef.updateData(["lastCollectionDate":Date()])
     }

@@ -22,24 +22,24 @@ class SettingsManager: ObservableObject {
     @Published var perfHourRange = 20
     @AppStorage("isDarkModeEnabled") var isDarkModeEnabled: Bool = false
     @Published var title: String = "Classes"
-//    @Published var classes: [String] = UserDefaults.standard.stringArray(forKey: "classes") ?? [] {
-//        didSet{
-//            updateUserDefaults()
-//        }
-//    }
-
-//    @Published var managerClassObjects: [Classroom] = []
+    //    @Published var classes: [String] = UserDefaults.standard.stringArray(forKey: "classes") ?? [] {
+    //        didSet{
+    //            updateUserDefaults()
+    //        }
+    //    }
+    
+    //    @Published var managerClassObjects: [Classroom] = []
     @Published var inClass = false
     @Published var tab: Int = 2
     @Published var manTab: Int = 1
     @Published var userColors: [Color] = []
     @Published var dm: String = ""
-//     func updateUserDefaults() {
-//           UserDefaults.standard.set(classes, forKey: "classes")
-//       }
-//     func zeroUserDefaults(){
-//        UserDefaults.standard.set([], forKey: "classes")
-//    }
+    //     func updateUserDefaults() {
+    //           UserDefaults.standard.set(classes, forKey: "classes")
+    //       }
+    //     func zeroUserDefaults(){
+    //        UserDefaults.standard.set([], forKey: "classes")
+    //    }
 }
 //End of settingsManager
 
@@ -78,7 +78,7 @@ class ClassInfoManager: ObservableObject {
     ///----------------------------------------------------
     ///
     func updateManagerData(userID: String, completion: ((Bool) -> Void)? = nil){
-       
+        
         let DG = DispatchGroup()
         let semaphore = DispatchSemaphore(value: 1)
         DG.enter() //getClasses
@@ -89,11 +89,11 @@ class ClassInfoManager: ObservableObject {
             defer{DG.leave()}
             if let list = list {
                 self.classes = list // list of codes
-
+                
             }
         }
         semaphore.signal()
-      
+        
         for code in classes {
             DG.enter() //getting class info
             getClassInfo(classCloudCode: code) { classroom in
@@ -137,7 +137,7 @@ class ClassInfoManager: ObservableObject {
         
         let DG = DispatchGroup()
         let semaphore = DispatchSemaphore(value: 1)
-       
+        
         
         
         DG.enter() //user Requests
@@ -145,7 +145,7 @@ class ClassInfoManager: ObservableObject {
         getCodes(uid: userID) { codes in
             semaphore.wait()
             if var codes = codes {
-               
+                
                 while codes.contains("") {
                     let remove = codes.firstIndex(of: "")
                     if let index = remove {
@@ -180,7 +180,7 @@ class ClassInfoManager: ObservableObject {
                                 
                                 self.classOwners[newClass!] = (newUser?.displayName)!
                                 
-                               
+                                
                             }
                             
                         } else {
@@ -204,8 +204,8 @@ class ClassInfoManager: ObservableObject {
                 DG.leave() // requests
             }
             
-           
-                
+            
+            
             
         }
         
@@ -234,7 +234,7 @@ class ClassInfoManager: ObservableObject {
                         downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
                             self.classImages[classroom.title] = image
                         }
-                    
+                        
                         downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
                             if let image = image {
                                 self.classPfp[classroom.title] = image
@@ -247,7 +247,7 @@ class ClassInfoManager: ObservableObject {
                         downloadImageFromClassroomStorage(code: code, file: "\(classroom.title).jpg") { image in
                             self.classImages[classroom.title] = image
                         }
-                    
+                        
                         downloadImageFromUserStorage(id: "\(classroom.owner)", file: "Pfp\(classroom.owner).jpg") { image in
                             if let image = image {
                                 self.classPfp[classroom.title] = image
@@ -271,16 +271,16 @@ class ClassInfoManager: ObservableObject {
         }
         
     }
-
+    
     
     func loadHourBoard(completion: ((Bool)->Void)? = nil){
         let DG = DispatchGroup()
         DG.enter()//allClasses
         DG.enter()//allrequests
-    var newMinHours: [Classroom: Int] = [:]
-        var newTotalHours = 0
-        var newTotalGoal = 0
-        var newTotalHoursEarned: [Classroom:Int] = [:]
+        var newMinHours: [Classroom: Int] = [:] //temp dict for class to its total min hours needed
+        var newTotalHours = 0 //total hours you own
+        var newTotalHoursEarned: [Classroom:Int] = [:] // temp dict for the class to the hours collected for it
+        var newTotalGoal = 0  //total hours you need to meet accumulated minimum
         for classroom in self.allClasses {
             newTotalGoal += classroom.minSpecificHours + classroom.minServiceHours
             newMinHours[classroom] = classroom.minServiceHours+classroom.minSpecificHours
@@ -314,10 +314,10 @@ class ClassInfoManager: ObservableObject {
             }
         }
         
-//                        let LimitedTotalHoursEarned = totalHoursEarned.values.map({ min($0, minHours[$0]) })
-        //change the min to the classroom min
-        //gets here with totalHoursEarned having 0 values
+        
         DG.notify(queue: .main) {
+            
+            print("goal: \(newTotalGoal), min \(newMinHours)")
             var newPoints: [CGFloat] = [0]
             for (classroom) in newTotalHoursEarned.keys.sorted(by: {$0.title > $1.title}) {
                 if let hours = newTotalHoursEarned[classroom] {
@@ -329,8 +329,8 @@ class ClassInfoManager: ObservableObject {
                     }
                 }
                 
-                if classroom == Array(newTotalHoursEarned.keys).last{
-                    print(self.allClasses)
+                if classroom == Array(newTotalHoursEarned.keys.sorted(by: {$0.title > $1.title})).last{
+                    
                     print(newTotalHoursEarned.keys)
                     if self.totalHours != newTotalHours{
                         self.points = newPoints
@@ -338,8 +338,12 @@ class ClassInfoManager: ObservableObject {
                         self.totalHours = newTotalHours
                         self.totalGoal = newTotalGoal
                         self.minHours = newMinHours
+                        completion?(true)
+                    }else{
+                        completion?(true)
                     }
-                    completion?(true)
+                    print("\n\n \(newPoints) \n\n")
+                    
                 }
             }
         }
@@ -404,29 +408,28 @@ class MessageManager: ObservableObject{
     func getLatestMessage(chats: [String], user: String, completion: @escaping ([String: Message]) -> Void ){
         var message: [String:Message] = [:]
         let dispatchG = DispatchGroup()
-            for chat in chats{
+        for chat in chats{
+            
+            
+            dispatchG.enter()
+            getMessages(user: user, from: chat) { messages in
                 
-                print("enter")
-                print(chat)
-                dispatchG.enter()
-                getMessages(user: user, from: chat) { messages in
+                let newmessages = messages.sorted(by: {$0.time < $1.time})
+                if let last = newmessages.last{
+                    message[chat] = last
                     
-                    let newmessages = messages.sorted(by: {$0.time < $1.time})
-                    if let last = newmessages.last{
-                        message[chat] = last
-                        
-                    }
-                    print("leave")
-                    dispatchG.leave()
                 }
                 
+                dispatchG.leave()
             }
+            
+        }
         
         
         dispatchG.notify(queue: .main) {
             completion(message)
         }
-            
+        
         
     }
     
@@ -451,7 +454,7 @@ class MessageManager: ObservableObject{
                         if self.chatImages[chat] != Image(uiImage: image){
                             self.chatImages[chat] = Image(uiImage: image)
                         }
-
+                        
                     }
                     
                     
@@ -461,9 +464,9 @@ class MessageManager: ObservableObject{
         }
         
         
-  
+        
     }
-
+    
     //passes in the user email of who it is sending it too
     //passes in the person who its coming from: usually current user's email (whoever sends the message through the app)
     //updates the messages list of MessageManager
@@ -476,8 +479,8 @@ class MessageManager: ObservableObject{
             chat.addSnapshotListener { snapshot, error in
                 
                 guard let documents = snapshot?.documents else {
-                print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
-                return
+                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                    return
                     
                 }
                 self.messages = documents.compactMap { doc in
@@ -498,21 +501,23 @@ class MessageManager: ObservableObject{
     func updateData(userID: String, completion: ((Bool)->Void)? = nil){
         let DG = DispatchGroup()
         
+        var tempUserChats: [String] = []
+        
         DG.enter() //getChatsOf
         DG.enter() //getNames
         DG.enter() //update images
         DG.enter() //getLatestMessage
-       
+        
         getChatsOf(user: userID) { [self] chats in
             defer{ DG.leave()} //getChatsOf done
-            print("gotChats")
+       
             if !chats.isEmpty{
-                self.userChats = chats
+                tempUserChats = chats
                 
             }
-                
+            
             getNames(emails: chats) { names in
-                print("gotNames")
+           
                 defer { DG.leave()}
                 
                 if !names.isEmpty{
@@ -521,18 +526,18 @@ class MessageManager: ObservableObject{
                         defer { DG.leave()}
                         self.chatNames[key] = value
                     }
-
+                    
                 }
                 
             }
             
             updateImagesForChats(chats: chats){
-                print("updatedImages")
+               
                 DG.leave()
             }
             
             getLatestMessage(chats: chats, user: userID){ lastChats in
-                print("gotLatestMessages")
+           
                 defer{ DG.leave()}
                 
                 if !lastChats.isEmpty{
@@ -546,15 +551,28 @@ class MessageManager: ObservableObject{
                 
             }
             
-
+            
             
         }
         
         DG.notify(queue: .main) {
-            print("completion")
-            completion?(true)
+            let sortedMessages = self.lastMessages.sorted { $0.value.time > $1.value.time }
+            
+            
+            let sortedKeys = sortedMessages.map { $0.key }
+            
+            if tempUserChats != (sortedKeys){
+                self.userChats = sortedKeys
+                completion?(true)
+            }else{
+                completion?(true)
+            }
+            
+            
         }
     }
+    
+    
     
 }
 

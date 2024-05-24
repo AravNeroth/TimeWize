@@ -60,14 +60,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "main:ServiceHourTrackerApp.swift">
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in closure #1 in closure #1 in MessagingView.body.getter:MessagingView.swift">
       </ContextState>
       <ContextState
          contextName = "mach_msg2_trap:(null)">
          <PersistentStrings>
+            <PersistentString
+               value = "classInfoManager.allClasses">
+            </PersistentString>
             <PersistentString
                value = "ClassInfoManager">
             </PersistentString>
@@ -113,6 +113,14 @@
          <PersistentStrings>
             <PersistentString
                value = "totalHoursEarned">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "specialized closure #2 in ClassInfoManager.loadHourBoard(completion:):AppObjects.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "newTotalGoal">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

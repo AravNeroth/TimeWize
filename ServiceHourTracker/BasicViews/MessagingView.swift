@@ -52,6 +52,15 @@ struct MessagingView: View {
                     .onAppear{
                         messageManager.updateData(userID: userID)
                     }
+                    .toolbar{
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button{
+                                showNewMessagingSheet = true
+                            }label:{
+                                Image(systemName: "square.and.pencil")
+                            }
+                        }
+                    }
             }else{
                 
                 ScrollView{
@@ -154,6 +163,7 @@ struct MessagingView: View {
                         }
                     }
                 }
+                
                 
                 
                 
