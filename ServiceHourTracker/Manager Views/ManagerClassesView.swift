@@ -109,14 +109,14 @@ struct ManagerClassesView: View {
                 }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    HStack {
+                    HStack(spacing: 10) {
                         Button {
                             alertMessage = "Manager Code"
                             managerCodeAlert = true
                         } label: {
                             Image(systemName: "plus.magnifyingglass")
                         }
-                        .padding(2)
+                  
                         Button {
                             withAnimation{
                                 classCreationAlert = true
@@ -124,7 +124,17 @@ struct ManagerClassesView: View {
                         } label: {
                             Image(systemName: "plus")
                         }
-                        .padding()
+                     
+                        
+                        Button{
+                            refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                        } label: {
+                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                Image(systemName: "arrow.clockwise")
+                            ).frame(width: 25, height: 25)
+                            
+                        }
+                        
                     }
                 }
             }

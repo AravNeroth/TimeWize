@@ -18,7 +18,7 @@ struct ServiceHourTrackerApp: App {
     @StateObject private var classData = ClassData(code: "")
     @StateObject private var messageManager = MessageManager()
     @AppStorage("uid") var userID = ""
-    @State var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    @State var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     //check PushNotificationsManager
     

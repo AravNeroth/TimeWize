@@ -108,17 +108,31 @@ struct StudentClassesView: View {
                 }
             }
             .toolbar {
+      
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button{
-                        showJoinMessage = true
-                        alertMessage = "Enter a class code"
-                    } label: {
-                        LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
-                            Image(systemName: "plus")
-                        ).frame(width: 25, height: 25)
-
+                    HStack(spacing: 10){
+                        Button{
+                            showJoinMessage = true
+                            alertMessage = "Enter a class code"
+                        } label: {
+                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                Image(systemName: "plus")
+                            ).frame(width: 25, height: 25)
+                            
+                        }
+                        Button{
+                            refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                        } label: {
+                            LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
+                                Image(systemName: "arrow.clockwise")
+                            ).frame(width: 25, height: 25)
+                            
+                        }
                     }
                 }
+                    
+                    
+                
             }
             .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
             .onAppear{
