@@ -7,7 +7,8 @@
 
 import SwiftUI
 import FirebaseAuth
-
+import UserNotifications
+import FirebaseStorage
 struct SettingsView:View {
     @State private var navToSign = false
     @State private var navToManager = false
@@ -128,6 +129,126 @@ struct SettingsView:View {
                         
                     }.frame(width:300)
                         .pickerStyle(SegmentedPickerStyle())
+                    
+                    Button{
+                        createNoti(atDate: Date(timeIntervalSinceNow: 3), title: "testing", body: "my body", classCode: "02zg92", userIDIcon: nil, whereTo: "nowhere")
+                    }label:{
+                        Text("create scheduled noti")
+                    }
+                    Button{
+                        createNoti(atDate: Date(timeIntervalSinceNow: 3), title: "testing", body: "my body", classCode: nil, userIDIcon: userID, whereTo: "nowhere")
+                    }label:{
+                        Text("create scheduled noti IDIcon")
+                    }
+                    
+                    Button{
+                        
+
+                        // Create a notification content
+                        let content = UNMutableNotificationContent()
+                        content.title = "Notification Title"
+                        content.body = "Notification Body"
+                        content.sound = .default
+//                        content.badge =  (UIApplication.shared.applicationIconBadgeNumber + 1) as NSNumber
+                        
+                        UNUserNotificationCenter.current().getDeliveredNotifications { notis in
+                            print("is this my badge number?? \(notis.count)")
+                            content.badge = notis.count as NSNumber
+                        }
+                       
+                        // Add an image attachment
+//                        if let imageURL = Bundle.main.url(forResource: "Designer-5", withExtension: "png") {
+//                            let attachment = try? UNNotificationAttachment(identifier: "imageAttachment", url: imageURL, options: nil)
+//                            if let attachment = attachment {
+//                                content.attachments = [attachment]
+//                                //multiple attachments, change UNNotificationAttachment, use firebase url
+//                                
+//                            }
+//                        }else{
+//                            print("noImageURL")
+//                        }
+                        
+                        //storage image
+                        getData(uid: userID) {user in
+                            if let user = user {
+                                let storageRef = Storage.storage().reference(withPath: "users/\(user.uid)/Pfp\(user.uid).jpg")
+                                
+                                print(storageRef.fullPath)
+                                storageRef.downloadURL { (url, error) in
+                                    if let error = error {
+                                        print("Error getting storage URL: \(error.localizedDescription)")
+                                        return
+                                    }
+                                    
+                                    guard let downloadURL = url else {
+                                        print("Download URL not found")
+                                        return
+                                    }
+                                    
+                                    // Download the image from downloadURL
+                                    let task = URLSession.shared.downloadTask(with: downloadURL) { (tempLocalUrl, response, error) in
+                                        if let error = error {
+                                            print("Error downloading image: \(error.localizedDescription)")
+                                            return
+                                        }
+                                        
+                                        guard let tempLocalUrl = tempLocalUrl else {
+                                            print("Temporary local URL not found")
+                                            return
+                                        }
+                                        
+                                        // Move downloaded file to a permanent location
+                                        
+                                        let destinationURL = FileManager.default.temporaryDirectory
+                                            .appendingPathComponent(downloadURL.lastPathComponent)
+                                        
+                                        do {
+                                            if FileManager.default.fileExists(atPath: destinationURL.path) {
+                                                try FileManager.default.removeItem(at: destinationURL) // Delete existing file
+                                            }
+                                            try FileManager.default.moveItem(at: tempLocalUrl, to: destinationURL)
+                                            
+                                            // Create a notification attachment
+                                            let attachment = try UNNotificationAttachment(identifier: "imageAttachment", url: destinationURL, options: nil)
+                                            
+                                            // Create notification content
+                                            let content = UNMutableNotificationContent()
+                                            content.title = "Notification Title"
+                                            content.body = "Notification Body"
+                                            content.sound = UNNotificationSound.default
+                                            content.attachments = [attachment]
+                                            
+                                            // Optionally, you can also set userInfo with attachment URL
+                                            content.userInfo = ["attachment-url": downloadURL.absoluteString]
+                                            
+                                            // Display the notification
+                                            let triggerDate = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year,.month,.day, .hour, .minute,.second], from: Date(timeInterval: 1, since: Date())), repeats: false)
+                                            let request = UNNotificationRequest(identifier: "notificationIdentifier", content: content, trigger: triggerDate)
+                                            UNUserNotificationCenter.current().add(request) { (error) in
+                                                if let error = error {
+                                                    print("Error displaying notification: \(error.localizedDescription)")
+                                                }
+                                            }
+                                            
+                                        } catch {
+                                            print("Error moving downloaded file: \(error.localizedDescription)")
+                                        }
+                                    }
+                                    
+                                    task.resume()
+                                }
+                            }
+}
+                        
+
+                        // Create a trigger
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+                        let triggerDate = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year,.month,.day], from: Date()), repeats: false) //same day
+                       
+
+                    }label:{
+                        Text("Test notifcation")
+                    }
                     /*
                     Button("test"){
                         getAuthIDForEmail(email: "parker.cs@gmail.com") { id in

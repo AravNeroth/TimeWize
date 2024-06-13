@@ -30,7 +30,8 @@ struct User: Codable {
     var codes: [String]? = [] // a list of classes participating in
     var classHours: [String:Int]? = [:]
     var userColors: [String]? = ["74C69D", "2D6A4F"]
-    init(uid: String, email: String, displayName: String? = nil, classes: [String]? = [], hours: Float? = 0, codes: [String]? = [""], classHours: [String:Int]? = [:], userColors: [String] = []) {
+    var latestRequestsCount: Int? = 0
+    init(uid: String, email: String, displayName: String? = nil, classes: [String]? = [], hours: Float? = 0, codes: [String]? = [""], classHours: [String:Int]? = [:], userColors: [String] = [], latestRequestsCount: Int? = 0) {
         self.uid = uid
         self.email = email
         self.displayName = displayName
@@ -39,6 +40,7 @@ struct User: Codable {
         self.codes = codes
         self.classHours = classHours
         self.userColors = userColors
+        self.latestRequestsCount = latestRequestsCount
     }
     
     init() {
@@ -411,5 +413,55 @@ func doesEmailExistInDB(email: String, completion: @escaping (Bool)-> Void){
             }
         }
     }
+    
+}
+
+
+func updateLatestRequestsCount(userID: String){
+    
+    getUserRequests(email: userID) { requests in
+        
+        let dbRef = db.collection("userInfo").document(userID)
+        
+        dbRef.updateData(["latestRequestsCount": requests.count]) { error in
+        if let error = error{
+            print("error manipulating latestRequestsCount in db \(error)")
+            }
+        }
+
+    }
+}
+
+func getLatestRequestsCount(uid: String, completion: @escaping (Int)-> Void){
+    
+    
+    
+
+        
+    db.collection("userInfo").document(uid).getDocument { doc, error in
+        
+        if let error = error {
+            print("Error getting user data: \(error)")
+                
+            return
+        }else{
+            
+            if let document = doc, document.exists {
+//                print(document.data())
+                if let output = document["latestRequestsCount"] as? Int {
+                    completion(output)
+                } else {
+                    return
+                    
+                }
+            } else {
+                print("User data document does not exist")
+                return
+            }
+            
+        }
+    }
+    
+    
     
 }

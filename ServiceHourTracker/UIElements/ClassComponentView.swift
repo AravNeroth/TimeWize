@@ -385,6 +385,7 @@ private struct taskPopUp: View {
                                     signedUp.append(userID)
                                     updateTaskParticipants(classCode: classData.code, title: title, listOfPeople: signedUp)
                                     loaded = false
+                                    createNoti(atDate: date, title: title, body: "Your Task Ends \(formatDate(date))", classCode: classData.code, userIDIcon: nil, whereTo: "classTask")
                                 } else {
                                     showFullAlert = true
                                 }

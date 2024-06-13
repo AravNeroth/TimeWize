@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import UserNotifications
 
 extension String {
     
@@ -72,4 +72,30 @@ extension Color {
     var bright: Bool {
         return luminance > 0.5
     }
+}
+
+
+extension UNUserNotificationCenterDelegate{
+    
+    
+//    func userNotificationCenter(_ center: UNUserNotificationCenter,
+//                                    didReceive response: UNNotificationResponse) {
+//        @EnvironmentObject var settingsManager: SettingsManager
+//            if let whereTo = response.notification.request.content.userInfo["view"] as? String{
+//                
+//                
+//                if whereTo == "requests"{
+//                    currActionSelected = .Requests
+//                    if settingsManager.isManagerMode{
+//                        settingsManager.manTab = 5
+//                    }else{
+//                        settingsManager.tab = 6
+//                    }
+//                }
+//                
+//                
+//            }
+//            
+//        }
+    
 }

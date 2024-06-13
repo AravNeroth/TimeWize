@@ -24,6 +24,10 @@ struct ServiceHourTrackerApp: App {
     
     init() {
         FirebaseApp.configure()
+      
+        UNUserNotificationCenter.current().getDeliveredNotifications { notis in
+            UNUserNotificationCenter.current().setBadgeCount(notis.count)
+        }
     }
     
     
@@ -38,6 +42,9 @@ struct ServiceHourTrackerApp: App {
                 .environmentObject(messageManager)
                 .onReceive(timer) { _ in
                     refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                }
+                .onAppear{
+                    appDelegate.settingsManager = settingsManager
                 }
         }
     }

@@ -122,6 +122,13 @@ struct AuthView: View {
                     currentView = .ManagerView
                 }
             }
+            .onChange(of: SettingsManager.shared.manTab) { _, newValue in
+                settingsManager.manTab = newValue
+            }
+            .onChange(of: SettingsManager.shared.tab) { _, newValue in
+                settingsManager.tab = newValue
+                print("changing tab because of noti")
+            }
         }else{
             if isLoggedIn(){
                 LoadingScreen()

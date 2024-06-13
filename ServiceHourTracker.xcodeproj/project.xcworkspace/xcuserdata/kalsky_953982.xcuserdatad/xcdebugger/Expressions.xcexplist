@@ -14,113 +14,27 @@
          contextName = "closure #1 in closure #2 in Profile.body.getter:Profile.swift">
       </ContextState>
       <ContextState
-         contextName = "ManagerClassesView.body.getter:ManagerClassesView.swift">
+         contextName = "closure #1 in closure #1 in closure #3 in closure #7 in closure #1 in closure #1 in SettingsView.body.getter:SettingsView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in createNoti(atDate:title:body:classCode:userIDIcon:):PushNotificationsManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "classInfoManager.allManagerClasses.isEmpty">
+               value = "Storage.storage().reference(withPath: &quot;users/\(user.uid)/Pfp\(user.uid).jpg&quot;)">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ManagerClassesView.body.getter:ManagerClassesView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "classInfoManager.classColors">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "getChatsOf(user:completion:):MessageManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "db.collection(&quot;userInfo&quot;).document(user)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in closure #2 in Profile.body.getter:Profile.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in MessageManager.getLatestMessage(chats:user:):AppObjects.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in MessagingView.body.getter:MessagingView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "messageManager.chatNames.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in actionView.body.getter:actionView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "messageOnLog">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in closure #1 in MessagingView.body.getter:MessagingView.swift">
       </ContextState>
       <ContextState
          contextName = "mach_msg2_trap:(null)">
          <PersistentStrings>
             <PersistentString
-               value = "classInfoManager.allClasses">
+               value = "lastChats">
             </PersistentString>
             <PersistentString
                value = "ClassInfoManager">
             </PersistentString>
             <PersistentString
-               value = "lastChats">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in getChatsOf(user:completion:):MessageManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "db.collection(&quot;userInfo&quot;).document(user).collection(&quot;Message3s&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in getAuthIDForEmail(email:):UserManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "dat[&quot;uid&quot;] as? String ?? &quot;&quot;">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ServiceHourTrackerApp.body.getter:ServiceHourTrackerApp.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "userID">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #6 in Profile.body.getter:Profile.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "hours*360/totalGoal">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #6 in Profile.body.getter:Profile.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "totalHoursEarned">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "specialized closure #2 in ClassInfoManager.loadHourBoard(completion:):AppObjects.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "newTotalGoal">
+               value = "classInfoManager.allClasses">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -142,7 +56,104 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "specialized closure #2 in ClassInfoManager.loadHourBoard(completion:):AppObjects.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "newTotalGoal">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in getChatsOf(user:completion:):MessageManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "db.collection(&quot;userInfo&quot;).document(user).collection(&quot;Message3s&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ManagerClassesView.body.getter:ManagerClassesView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "classInfoManager.classColors">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "getChatsOf(user:completion:):MessageManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "db.collection(&quot;userInfo&quot;).document(user)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in getAuthIDForEmail(email:):UserManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dat[&quot;uid&quot;] as? String ?? &quot;&quot;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ManagerClassesView.body.getter:ManagerClassesView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "classInfoManager.allManagerClasses.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MessageManager.getLatestMessage(chats:user:):AppObjects.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MessagingView.body.getter:MessagingView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "messageManager.chatNames.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #2 in Profile.body.getter:Profile.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in actionView.body.getter:actionView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "messageOnLog">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #6 in Profile.body.getter:Profile.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "hours*360/totalGoal">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ServiceHourTrackerApp.body.getter:ServiceHourTrackerApp.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in MessagingView.body.getter:MessagingView.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in MessagingView.body.getter:MessagingView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #6 in Profile.body.getter:Profile.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "totalHoursEarned">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

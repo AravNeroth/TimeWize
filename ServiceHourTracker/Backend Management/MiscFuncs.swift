@@ -360,6 +360,7 @@ func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoMana
         DG.enter()
         DG.enter()
         DG.enter()
+        DG.enter()
         messageManager.updateData(userID: userID){ _ in
             DG.leave()
             
@@ -376,6 +377,9 @@ func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoMana
             DG.leave()
             
         }
+        classInfoManager.loadNotifications(userID: userID) { _ in
+            DG.leave()
+        }
         
         
     }
@@ -383,4 +387,23 @@ func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoMana
         completion?(userID != "")
     }
    
+}
+
+
+func reactToNoti(response: UNNotificationResponse){
+    @EnvironmentObject var settingsManager: SettingsManager
+        if let whereTo = response.notification.request.content.userInfo["view"] as? String{
+            
+            
+            if whereTo == "requests"{
+                currActionSelected = .Requests
+                if settingsManager.isManagerMode{
+                    settingsManager.manTab = 5
+                }else{
+                    settingsManager.tab = 6
+                }
+            }
+            
+            
+        }
 }

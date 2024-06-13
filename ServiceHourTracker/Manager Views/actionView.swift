@@ -7,16 +7,22 @@
 
 import SwiftUI
 
+
+enum currAction {
+    case Messages
+    case Requests
+}
+var currActionSelected: currAction = .Messages
+
+
 struct actionView: View {
     @State private var selection = 0
     @EnvironmentObject private var settingsManager: SettingsManager
-    enum currAction {
-        case Messages
-        case Requests
-    }
-    @State var currActionSelected: currAction = .Messages
+    
+    
     @Binding var messageOnLog: Bool
     @Binding var hideTitleAndPicker: Bool
+    @AppStorage("uid") var userID = ""
     var body: some View {
         VStack{
             if !messageOnLog {
@@ -24,6 +30,13 @@ struct actionView: View {
                     Text("Messages").tag(0)
                     Text("Requests").tag(1)
                 }.animation(.easeIn(duration: 2), value: messageOnLog).padding( 20).pickerStyle(SegmentedPickerStyle())
+                    .onAppear{
+                        if currActionSelected == .Requests {
+                            selection = 1
+                        }else{
+                            selection = 0
+                        }
+                    }
                     
             }
         
@@ -33,11 +46,15 @@ struct actionView: View {
                 case .Requests:
                     // loads ReqListView if student is True/False
                 RequestListView(fromManSide: settingsManager.isManagerMode)
+                    .onDisappear{
+                        //update latest requests number
+                        updateLatestRequestsCount(userID: userID)
+                    }
             }
             
         }
         
-        
+            
             .onChange(of: selection) { oldValue, newValue in
                 if selection == 0{
                     currActionSelected = .Messages

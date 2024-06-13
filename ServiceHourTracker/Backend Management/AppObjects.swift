@@ -40,6 +40,8 @@ class SettingsManager: ObservableObject {
     //     func zeroUserDefaults(){
     //        UserDefaults.standard.set([], forKey: "classes")
     //    }
+    
+    
 }
 //End of settingsManager
 
@@ -367,6 +369,24 @@ class ClassInfoManager: ObservableObject {
         
     }
     
+    func loadNotifications(userID: String, completion: ((Bool)->Void)? = nil){
+        
+        
+        getUserRequests(email: userID) { requests in
+            getLatestRequestsCount(uid: userID) { dbcount in
+                if dbcount < requests.count {
+                    createNoti(timeWait: 0.5, title: "Requests", body: "Your requests have been updated since you last checked", whereTo: "requests")
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        
+    }
+    
 }
 
 //End of classInfoManager
@@ -387,6 +407,10 @@ class MessageManager: ObservableObject{
     //returns a name as a value for each email key
     func getNames(emails: [String], completion: @escaping ([String:String])-> Void ){
         //if dispatch works correctly we can remove the completion
+        
+        if emails.isEmpty{
+            completion([:])
+        }
         let dispatchG = DispatchGroup()
         var names: [String:String] = [:]
         for email in emails{
@@ -518,7 +542,7 @@ class MessageManager: ObservableObject{
             
             getNames(emails: chats) { names in
            
-                defer { DG.leave()}
+                defer { DG.leave()}//getNames
                 
                 if !names.isEmpty{
                     for(key, value) in names {
@@ -533,12 +557,12 @@ class MessageManager: ObservableObject{
             
             updateImagesForChats(chats: chats){
                
-                DG.leave()
+                DG.leave()//update images
             }
             
             getLatestMessage(chats: chats, user: userID){ lastChats in
            
-                defer{ DG.leave()}
+                defer{ DG.leave()}//getLatestMessage
                 
                 if !lastChats.isEmpty{
                     for(key, value) in lastChats {

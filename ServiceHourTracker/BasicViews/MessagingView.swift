@@ -44,7 +44,9 @@ struct MessagingView: View {
                     }
                 
             } else if messageManager.userChats.isEmpty {
-                Text("No Recent Chats")
+                ScrollView{
+                    Text("No Recent Chats")
+                }
                     .refreshable {
                         refresh = true
                         refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
