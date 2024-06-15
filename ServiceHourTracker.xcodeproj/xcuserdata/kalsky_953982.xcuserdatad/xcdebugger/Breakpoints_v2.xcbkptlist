@@ -1628,8 +1628,8 @@
             filePath = "ServiceHourTracker/BasicViews/SettingsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -6468,23 +6468,7 @@
             startingLineNumber = "83"
             endingLineNumber = "83"
             landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C894B5FB-83BB-49EF-8142-AA21827DBCD2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ServiceHourTracker/BasicViews/SettingsView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6500,7 +6484,7 @@
             startingLineNumber = "298"
             endingLineNumber = "298"
             landmarkName = "createNoti(atDate:title:body:classCode:userIDIcon:whereTo:)"
-            landmarkType = "7">
+            landmarkType = "9">
             <Locations>
                <Location
                   uuid = "BCAC27E3-1B6D-4BF8-BAF6-4D79BBA7EF9E - 8732a4d27c9cc65e"
@@ -6548,7 +6532,7 @@
             startingLineNumber = "300"
             endingLineNumber = "300"
             landmarkName = "createNoti(atDate:title:body:classCode:userIDIcon:whereTo:)"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6564,7 +6548,7 @@
             startingLineNumber = "258"
             endingLineNumber = "258"
             landmarkName = "createNoti(atDate:title:body:classCode:userIDIcon:whereTo:)"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7214,7 +7198,7 @@
             startingLineNumber = "210"
             endingLineNumber = "210"
             landmarkName = "createNoti(timeWait:title:body:whereTo:)"
-            landmarkType = "7">
+            landmarkType = "9">
             <Locations>
                <Location
                   uuid = "175CD9F0-74FF-49D7-AC4A-F7832C8FBD15 - 6e05851d688913f6"
@@ -7422,7 +7406,7 @@
             startingLineNumber = "211"
             endingLineNumber = "211"
             landmarkName = "createNoti(timeWait:title:body:whereTo:)"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

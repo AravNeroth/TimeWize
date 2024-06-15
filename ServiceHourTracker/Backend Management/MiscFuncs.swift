@@ -390,20 +390,3 @@ func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoMana
 }
 
 
-func reactToNoti(response: UNNotificationResponse){
-    @EnvironmentObject var settingsManager: SettingsManager
-        if let whereTo = response.notification.request.content.userInfo["view"] as? String{
-            
-            
-            if whereTo == "requests"{
-                currActionSelected = .Requests
-                if settingsManager.isManagerMode{
-                    settingsManager.manTab = 5
-                }else{
-                    settingsManager.tab = 6
-                }
-            }
-            
-            
-        }
-}
