@@ -144,7 +144,7 @@ func getChatsOf(user: String, completion: @escaping ([String])-> Void){
     db.collection("userInfo").document(user).collection("Messages").getDocuments { docs, error in
         if let error = error{
             print(error.localizedDescription)
-//            completion([])
+            completion([])
         }else{
             var output: [String] = [] //completion output
             
@@ -154,9 +154,13 @@ func getChatsOf(user: String, completion: @escaping ([String])-> Void){
                     
                     
                     output.append(document.documentID)
-                    
+                    if document == docs.documents.last{
+                        completion(output)
+                    }
                 }
-                completion(output)
+                
+            }else{
+                completion([])
             }
             
         }

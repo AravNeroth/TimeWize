@@ -41,7 +41,7 @@ struct ServiceHourTrackerApp: App {
                 .environmentObject(classInfoManager)
                 .environmentObject(messageManager)
                 .onReceive(timer) { _ in
-                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                    refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager)
                 }
                 .onAppear{
                     appDelegate.settingsManager = settingsManager

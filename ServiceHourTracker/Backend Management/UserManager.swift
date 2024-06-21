@@ -393,6 +393,8 @@ db.collection("userInfo").document(email).getDocument { docSnap, error in
     }else if let doc = docSnap, let dat = doc.data() {
         let output = dat["displayName"] as? String ?? ""
         completion(output)
+    }else{
+        completion("")
     }
 }
 

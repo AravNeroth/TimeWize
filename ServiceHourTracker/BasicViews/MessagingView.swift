@@ -29,6 +29,11 @@ struct MessagingView: View {
                 LoadingScreen()
                     
                     .onAppear(){
+                        DispatchQueue.main.asyncAfter(deadline: .now()+5){
+                            refresh = false
+                        }
+                        
+                        
                         let DG = DispatchGroup()
                         DG.enter()
                         
@@ -45,11 +50,13 @@ struct MessagingView: View {
                 
             } else if messageManager.userChats.isEmpty {
                 ScrollView{
+                    Spacer()
                     Text("No Recent Chats")
+                    Spacer()
                 }
                     .refreshable {
                         refresh = true
-                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                        refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager)
                     }
                     .onAppear{
                         messageManager.updateData(userID: userID)
@@ -154,7 +161,7 @@ struct MessagingView: View {
                 }
                 .refreshable {
                     refresh = true
-                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                    refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager)
                 }
                 .toolbar{
                     ToolbarItem(placement: .topBarTrailing) {

@@ -105,7 +105,7 @@ struct ManagerClassesView: View {
             }
                 .refreshable {
                     refresh = true
-                    refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                    refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager)
                 }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -127,7 +127,7 @@ struct ManagerClassesView: View {
                      
                         
                         Button{
-                            refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                            refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager)
                         } label: {
                             LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
                                 Image(systemName: "arrow.clockwise")

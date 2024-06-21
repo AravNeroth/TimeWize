@@ -68,7 +68,7 @@ struct StudentClassesView: View {
                     }.refreshable{
 
                         refresh = true
-                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                        refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager)
                     }
                     .padding(.top, 7)
                     .alert("Class Code", isPresented: $showJoinMessage) {
@@ -121,7 +121,7 @@ struct StudentClassesView: View {
                             
                         }
                         Button{
-                            refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                            refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager)
                         } label: {
                             LinearGradient(gradient: Gradient(colors: settingsManager.userColors) , startPoint: .topLeading, endPoint: .bottomTrailing).mask(
                                 Image(systemName: "arrow.clockwise")
@@ -137,7 +137,7 @@ struct StudentClassesView: View {
             .background((settingsManager.isDarkModeEnabled) ? Color("green-8") : .white)
             .onAppear{
                 // add a call to publush to the timer
-                refreshVars(messageManager: messageManager, classInfoManager: classInfoManager)
+                refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager)
             }
         }
     }

@@ -345,14 +345,24 @@ func reportDate(_ date: Date) -> String {
 //        contentView.generatePDFAction?()
 //    }
 
-func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoManager, completion: ((Bool) -> Void )? = nil ) {
+func refreshVars(settingsManager: SettingsManager, messageManager: MessageManager, classInfoManager: ClassInfoManager, completion: ((Bool) -> Void )? = nil ) {
 //    @EnvironmentObject var settingsManager: SettingsManager
 //    @EnvironmentObject var classInfoManager: ClassInfoManager
 //    @EnvironmentObject var messageManager: MessageManager
+    
+    
+    
     @AppStorage("uid") var userID = ""
-   
+    var brokeEarly = false
    
     let DG = DispatchGroup()
+    
+    
+    DispatchQueue.main.asyncAfter(deadline: .now()+5){
+        brokeEarly = true
+        completion?(false)
+    }
+    
     
     if userID != "" {
         
@@ -377,14 +387,16 @@ func refreshVars(messageManager: MessageManager, classInfoManager: ClassInfoMana
             DG.leave()
             
         }
-        classInfoManager.loadNotifications(userID: userID) { _ in
+        classInfoManager.loadNotifications(userID: userID, settingsManager: settingsManager) { _ in
             DG.leave()
         }
         
         
     }
     DG.notify(queue: .main){
-        completion?(userID != "")
+        if !brokeEarly{
+            completion?(userID != "")
+        }
     }
    
 }

@@ -34,6 +34,7 @@ class SettingsManager: ObservableObject {
     @Published var manTab: Int = 1
     @Published var userColors: [Color] = []
     @Published var dm: String = ""
+    @Published var notiCount: Int = 0
     //     func updateUserDefaults() {
     //           UserDefaults.standard.set(classes, forKey: "classes")
     //       }
@@ -369,13 +370,18 @@ class ClassInfoManager: ObservableObject {
         
     }
     
-    func loadNotifications(userID: String, completion: ((Bool)->Void)? = nil){
+    func loadNotifications(userID: String, settingsManager: SettingsManager, completion: ((Bool)->Void)? = nil){
         
         
         getUserRequests(email: userID) { requests in
             getLatestRequestsCount(uid: userID) { dbcount in
                 if dbcount < requests.count {
-                    createNoti(timeWait: 0.5, title: "Requests", body: "Your requests have been updated since you last checked", whereTo: "requests")
+                    if settingsManager.notiCount % 10 == 0{
+                        createNoti(timeWait: 0.5, title: "Requests", body: "Your requests have been updated since you last checked", whereTo: "requests")
+                        settingsManager.notiCount = 1
+                    }else{
+                        settingsManager.notiCount = settingsManager.notiCount + 1
+                    }
                 }
             }
         }
@@ -411,18 +417,21 @@ class MessageManager: ObservableObject{
         if emails.isEmpty{
             completion([:])
         }
-        let dispatchG = DispatchGroup()
+        let DG = DispatchGroup()
         var names: [String:String] = [:]
+        
+        
         for email in emails{
-            dispatchG.enter()
+            DG.enter()
             getName(email: email) { name in
-                defer{dispatchG.leave()}
+                defer{DG.leave()}
                 names[email] = name
             }
         }
         
         
-        dispatchG.notify(queue: .main){
+        
+        DG.notify(queue: .main){
             completion(names)
         }
     }
@@ -585,7 +594,7 @@ class MessageManager: ObservableObject{
             
             let sortedKeys = sortedMessages.map { $0.key }
             
-            if tempUserChats != (sortedKeys){
+            if tempUserChats != (sortedKeys) || self.userChats.isEmpty{
                 self.userChats = sortedKeys
                 completion?(true)
             }else{

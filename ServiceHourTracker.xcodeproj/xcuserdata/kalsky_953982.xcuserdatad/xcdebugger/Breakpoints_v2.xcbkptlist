@@ -3010,8 +3010,8 @@
             filePath = "ServiceHourTracker/Backend Management/MessageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "getChatsOf(user:completion:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -3246,8 +3246,8 @@
             filePath = "ServiceHourTracker/BasicViews/MessagingView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -3324,8 +3324,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -3340,8 +3340,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
             landmarkName = "getNames(emails:completion:)"
             landmarkType = "7">
             <Locations>
@@ -3575,8 +3575,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "510"
-            endingLineNumber = "510"
+            startingLineNumber = "519"
+            endingLineNumber = "519"
             landmarkName = "getMessagesList(user:from:)"
             landmarkType = "7">
             <Locations>
@@ -3809,8 +3809,8 @@
             filePath = "ServiceHourTracker/BasicViews/MessagingView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3825,8 +3825,8 @@
             filePath = "ServiceHourTracker/BasicViews/MessagingView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3841,8 +3841,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "428"
-            endingLineNumber = "428"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
             landmarkName = "getNames(emails:completion:)"
             landmarkType = "7">
             <Locations>
@@ -3889,8 +3889,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
             landmarkName = "getLatestMessage(chats:user:completion:)"
             landmarkType = "7">
             <Locations>
@@ -3937,8 +3937,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
             landmarkName = "getLatestMessage(chats:user:completion:)"
             landmarkType = "7">
             <Locations>
@@ -3985,8 +3985,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
             landmarkName = "getLatestMessage(chats:user:completion:)"
             landmarkType = "7">
             <Locations>
@@ -4033,8 +4033,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "554"
-            endingLineNumber = "554"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -4081,8 +4081,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "459"
-            endingLineNumber = "459"
+            startingLineNumber = "468"
+            endingLineNumber = "468"
             landmarkName = "MessageManager"
             landmarkType = "3">
             <Locations>
@@ -4303,8 +4303,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "469"
-            endingLineNumber = "469"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
             landmarkName = "updateImagesForChats(chats:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4319,8 +4319,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "471"
-            endingLineNumber = "471"
+            startingLineNumber = "480"
+            endingLineNumber = "480"
             landmarkName = "updateImagesForChats(chats:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4335,8 +4335,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "474"
-            endingLineNumber = "474"
+            startingLineNumber = "483"
+            endingLineNumber = "483"
             landmarkName = "updateImagesForChats(chats:completion:)"
             landmarkType = "7">
             <Locations>
@@ -4443,8 +4443,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "490"
-            endingLineNumber = "490"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
             landmarkName = "updateImagesForChats(chats:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4459,8 +4459,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "491"
-            endingLineNumber = "491"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
             landmarkName = "updateImagesForChats(chats:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4491,8 +4491,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -4539,8 +4539,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "580"
-            endingLineNumber = "580"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4555,8 +4555,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
             landmarkName = "MessageManager"
             landmarkType = "3">
             <Locations>
@@ -4603,8 +4603,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
+            startingLineNumber = "540"
+            endingLineNumber = "540"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -4681,8 +4681,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "539"
-            endingLineNumber = "539"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4691,14 +4691,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C2AAD75D-A3AF-4F07-84C3-3711752B28E1"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "559"
-            endingLineNumber = "559"
+            startingLineNumber = "568"
+            endingLineNumber = "568"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -4762,6 +4762,36 @@
                   endingLineNumber = "419"
                   offsetFromSymbolStart = "384">
                </Location>
+               <Location
+                  uuid = "C2AAD75D-A3AF-4F07-84C3-3711752B28E1 - 7e99dfbb9cf00a86"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 (Swift.Array&lt;Swift.String&gt;) -&gt; () in ServiceHourTracker.MessageManager.updateData(userID: Swift.String, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "569"
+                  endingLineNumber = "569"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "C2AAD75D-A3AF-4F07-84C3-3711752B28E1 - 7e99dfbb9cf00aa7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 (Swift.Array&lt;Swift.String&gt;) -&gt; () in ServiceHourTracker.MessageManager.updateData(userID: Swift.String, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "568"
+                  endingLineNumber = "568"
+                  offsetFromSymbolStart = "96">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -4775,8 +4805,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
+            startingLineNumber = "587"
+            endingLineNumber = "587"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -4964,8 +4994,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
             landmarkName = "MessageManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -4980,8 +5010,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "540"
-            endingLineNumber = "540"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6229,8 +6259,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
             landmarkName = "loadHourBoard(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6245,8 +6275,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
             landmarkName = "loadHourBoard(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6261,8 +6291,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "348"
-            endingLineNumber = "348"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
             landmarkName = "loadHourBoard(completion:)"
             landmarkType = "7">
             <Locations>
@@ -6309,8 +6339,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
             landmarkName = "loadHourBoard(completion:)"
             landmarkType = "7">
             <Locations>
@@ -6465,8 +6495,8 @@
             filePath = "ServiceHourTracker/Backend Management/PushNotificationsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6481,8 +6511,8 @@
             filePath = "ServiceHourTracker/Backend Management/PushNotificationsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "createNoti(atDate:title:body:classCode:userIDIcon:whereTo:)"
             landmarkType = "9">
             <Locations>
@@ -6529,8 +6559,8 @@
             filePath = "ServiceHourTracker/Backend Management/PushNotificationsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "createNoti(atDate:title:body:classCode:userIDIcon:whereTo:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -6545,8 +6575,8 @@
             filePath = "ServiceHourTracker/Backend Management/PushNotificationsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "createNoti(atDate:title:body:classCode:userIDIcon:whereTo:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -6561,8 +6591,8 @@
             filePath = "ServiceHourTracker/BasicViews/MessagingView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -6611,6 +6641,21 @@
                   endingLineNumber = "48"
                   offsetFromSymbolStart = "28">
                </Location>
+               <Location
+                  uuid = "5269DE45-4332-4064-B7AE-EA10E1D47C0B - 385e6cb6199dfbe8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Text, SwiftUI.ForEach&lt;Swift.Array&lt;Swift.String&gt;, Swift.String, SwiftUI.Text&gt;)&gt; in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.toolbar&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ToolbarContent&gt;(content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0&gt;, &lt;&lt;opaque return type of SwiftUI.View.toolbar&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ToolbarContent&gt;(content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0&gt; in ServiceHourTracker.MessagingView.body.getter : some"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/BasicViews/MessagingView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "296">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -6624,8 +6669,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "525"
-            endingLineNumber = "525"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -6702,8 +6747,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "535"
-            endingLineNumber = "535"
+            startingLineNumber = "544"
+            endingLineNumber = "544"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6718,8 +6763,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "563"
-            endingLineNumber = "563"
+            startingLineNumber = "572"
+            endingLineNumber = "572"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6728,14 +6773,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2431D7FF-D4E2-4D6B-8393-1DCD96195195"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "583"
-            endingLineNumber = "583"
+            startingLineNumber = "592"
+            endingLineNumber = "592"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -6784,6 +6829,66 @@
                   endingLineNumber = "581"
                   offsetFromSymbolStart = "308">
                </Location>
+               <Location
+                  uuid = "2431D7FF-D4E2-4D6B-8393-1DCD96195195 - 3b4c73575095904f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in ServiceHourTracker.MessageManager.updateData(userID: Swift.String, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "589"
+                  endingLineNumber = "589"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  uuid = "2431D7FF-D4E2-4D6B-8393-1DCD96195195 - 180a5f8c648a6b36"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((key: Swift.String, value: ServiceHourTracker.Message), (key: Swift.String, value: ServiceHourTracker.Message)) -&gt; Swift.Bool in closure #2 () -&gt; () in ServiceHourTracker.MessageManager.updateData(userID: Swift.String, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "589"
+                  endingLineNumber = "589"
+                  offsetFromSymbolStart = "308">
+               </Location>
+               <Location
+                  uuid = "2431D7FF-D4E2-4D6B-8393-1DCD96195195 - 3b4c73575095902a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in ServiceHourTracker.MessageManager.updateData(userID: Swift.String, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "592"
+                  endingLineNumber = "592"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  uuid = "2431D7FF-D4E2-4D6B-8393-1DCD96195195 - 180a5f8c648a6b53"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((key: Swift.String, value: ServiceHourTracker.Message), (key: Swift.String, value: ServiceHourTracker.Message)) -&gt; Swift.Bool in closure #2 () -&gt; () in ServiceHourTracker.MessageManager.updateData(userID: Swift.String, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "592"
+                  endingLineNumber = "592"
+                  offsetFromSymbolStart = "308">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -6791,14 +6896,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2C56D05A-8064-4D56-9F0D-B0496B189165"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
+            startingLineNumber = "569"
+            endingLineNumber = "569"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -6832,6 +6937,21 @@
                   endingLineNumber = "558"
                   offsetFromSymbolStart = "40">
                </Location>
+               <Location
+                  uuid = "2C56D05A-8064-4D56-9F0D-B0496B189165 - 7e99dfbb9cf00a86"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 (Swift.Array&lt;Swift.String&gt;) -&gt; () in ServiceHourTracker.MessageManager.updateData(userID: Swift.String, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "569"
+                  endingLineNumber = "569"
+                  offsetFromSymbolStart = "224">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -6839,14 +6959,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2395730B-98D1-4773-B710-895767A02407"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "565"
-            endingLineNumber = "565"
+            startingLineNumber = "574"
+            endingLineNumber = "574"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -6880,6 +7000,21 @@
                   endingLineNumber = "563"
                   offsetFromSymbolStart = "24">
                </Location>
+               <Location
+                  uuid = "2395730B-98D1-4773-B710-895767A02407 - 664f4a93ccc17d54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "$defer() -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "574"
+                  endingLineNumber = "574"
+                  offsetFromSymbolStart = "24">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -6887,14 +7022,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "FB06E761-DFE3-4C52-85A9-F55CE602F2C6"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "545"
-            endingLineNumber = "545"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -6928,6 +7063,21 @@
                   endingLineNumber = "543"
                   offsetFromSymbolStart = "24">
                </Location>
+               <Location
+                  uuid = "FB06E761-DFE3-4C52-85A9-F55CE602F2C6 - 664f4a93ccc17bc0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "$defer() -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "554"
+                  endingLineNumber = "554"
+                  offsetFromSymbolStart = "24">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -6935,14 +7085,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7699F3E4-04B6-464A-8648-97BB02D5183E"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
+            startingLineNumber = "545"
+            endingLineNumber = "545"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -6976,6 +7126,21 @@
                   endingLineNumber = "534"
                   offsetFromSymbolStart = "24">
                </Location>
+               <Location
+                  uuid = "7699F3E4-04B6-464A-8648-97BB02D5183E - 664f4a93ccc17917"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "$defer() -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "545"
+                  endingLineNumber = "545"
+                  offsetFromSymbolStart = "24">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -6989,8 +7154,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "547"
-            endingLineNumber = "547"
+            startingLineNumber = "556"
+            endingLineNumber = "556"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -7005,8 +7170,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "getNames(emails:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -7037,8 +7202,8 @@
             filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "420"
-            endingLineNumber = "420"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
             landmarkName = "getNames(emails:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -7117,8 +7282,8 @@
             filePath = "ServiceHourTracker/Backend Management/PushNotificationsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "userNotificationCenter(_:didReceive:)"
             landmarkType = "7">
             <Locations>
@@ -7195,8 +7360,8 @@
             filePath = "ServiceHourTracker/Backend Management/PushNotificationsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "createNoti(timeWait:title:body:whereTo:)"
             landmarkType = "9">
             <Locations>
@@ -7403,8 +7568,8 @@
             filePath = "ServiceHourTracker/Backend Management/PushNotificationsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
             landmarkName = "createNoti(timeWait:title:body:whereTo:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -7419,8 +7584,8 @@
             filePath = "ServiceHourTracker/Backend Management/PushNotificationsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "AppDelegate"
             landmarkType = "3">
             <Locations>
@@ -7455,6 +7620,86 @@
                   offsetFromSymbolStart = "152">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3BC3FBD9-CB4D-43AF-B1D6-EC07E61B513A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "595"
+            endingLineNumber = "595"
+            landmarkName = "updateData(userID:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3BC3FBD9-CB4D-43AF-B1D6-EC07E61B513A - 3b4c735750959f95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in ServiceHourTracker.MessageManager.updateData(userID: Swift.String, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "595"
+                  endingLineNumber = "595"
+                  offsetFromSymbolStart = "248">
+               </Location>
+               <Location
+                  uuid = "3BC3FBD9-CB4D-43AF-B1D6-EC07E61B513A - e6a4b9185776731a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 ((key: Swift.String, value: ServiceHourTracker.Message)) -&gt; Swift.String in closure #2 () -&gt; () in ServiceHourTracker.MessageManager.updateData(userID: Swift.String, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ServiceHourTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalsky_953982/Documents/GitHub/TimeWize/ServiceHourTracker/Backend%20Management/AppObjects.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "595"
+                  endingLineNumber = "595"
+                  offsetFromSymbolStart = "116">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "13A493E2-2F7C-4B63-951B-7F57C4CA54F2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "597"
+            endingLineNumber = "597"
+            landmarkName = "updateData(userID:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "68C2FF80-F549-4943-99C4-FA02754ECC7F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ServiceHourTracker/Backend Management/AppObjects.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "600"
+            endingLineNumber = "600"
+            landmarkName = "updateData(userID:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

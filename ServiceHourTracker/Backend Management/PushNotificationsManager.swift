@@ -7,6 +7,7 @@
 ///reference documentation: https://firebase.google.com/docs/cloud-messaging/ios/client?authuser=0&hl=en
 ///original version of the file by MIhara: https://github.com/kenmaro3/ios-firebase-cloud-messaging/blob/main/CloudMessagingIos/CloudMessagingIosApp.swift
 ///Miharas youtube video: https://www.youtube.com/watch?v=6LAQBbLC_qE
+///
 import Firebase
 import FirebaseCore
 import FirebaseMessaging
@@ -105,6 +106,7 @@ extension AppDelegate: MessagingDelegate {
             object: nil,
             userInfo: dataDict
         )
+        
     }
 }
 

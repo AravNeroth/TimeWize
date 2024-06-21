@@ -11,8 +11,6 @@
 		064EF55D2BB7E040001AFB63 /* HourProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064EF55C2BB7E040001AFB63 /* HourProgressBar.swift */; };
 		066B289E2BC894B3008ADBFA /* NewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B289D2BC894B3008ADBFA /* NewMessage.swift */; };
 		066B28A02BC8E846008ADBFA /* ContenetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B289F2BC8E846008ADBFA /* ContenetView.swift */; };
-		06A46B652C1A6CE4007646C1 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06A46B642C1A6CE4007646C1 /* Entitlements.plist */; };
-		06A46B672C1ABC5F007646C1 /* Designer-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 06A46B662C1ABC5F007646C1 /* Designer-5.png */; };
 		06A935062B81694600BD163F /* ManagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A935052B81694500BD163F /* ManagerTabView.swift */; };
 		06AEC3942B92D0B40023646B /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3932B92D0B40023646B /* MiniProfileView.swift */; };
 		06AEC3962B942E810023646B /* ManagerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AEC3952B942E810023646B /* ManagerRoomView.swift */; };
@@ -108,8 +106,6 @@
 		066B289F2BC8E846008ADBFA /* ContenetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContenetView.swift; sourceTree = "<group>"; };
 		06A46B602C1A61A3007646C1 /* ServiceHourTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ServiceHourTracker.entitlements; sourceTree = "<group>"; };
 		06A46B632C1A630D007646C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		06A46B642C1A6CE4007646C1 /* Entitlements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
-		06A46B662C1ABC5F007646C1 /* Designer-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Designer-5.png"; path = "../../../../Downloads/Designer-5.png"; sourceTree = "<group>"; };
 		06A935052B81694500BD163F /* ManagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerTabView.swift; sourceTree = "<group>"; };
 		06AEC3932B92D0B40023646B /* MiniProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		06AEC3952B942E810023646B /* ManagerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerRoomView.swift; sourceTree = "<group>"; };
@@ -324,8 +320,6 @@
 		EEF83F2B2B1FCDD90098D3A2 /* ServiceHourTracker */ = {
 			isa = PBXGroup;
 			children = (
-				06A46B662C1ABC5F007646C1 /* Designer-5.png */,
-				06A46B642C1A6CE4007646C1 /* Entitlements.plist */,
 				06A46B632C1A630D007646C1 /* Info.plist */,
 				06A46B602C1A61A3007646C1 /* ServiceHourTracker.entitlements */,
 				06E576B32B5A3AAF00A7A36D /* GoogleService-Info.plist */,
@@ -485,10 +479,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06A46B652C1A6CE4007646C1 /* Entitlements.plist in Resources */,
 				EEF83F342B1FCDDB0098D3A2 /* Preview Assets.xcassets in Resources */,
 				06E576B42B5A3AAF00A7A36D /* GoogleService-Info.plist in Resources */,
-				06A46B672C1ABC5F007646C1 /* Designer-5.png in Resources */,
 				EEF83F312B1FCDDB0098D3A2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -37,7 +37,7 @@ struct Profile: View {
                 LoadingScreen()
                     .onAppear{
                         
-                        refreshVars(messageManager: messageManager, classInfoManager: classInfoManager){ _ in
+                        refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager){ _ in
                             load = false
                         }
                         
