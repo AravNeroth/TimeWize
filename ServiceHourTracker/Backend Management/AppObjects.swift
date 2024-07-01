@@ -612,5 +612,3 @@ class MessageManager: ObservableObject{
 
 
 //End of MessageManager
-
-

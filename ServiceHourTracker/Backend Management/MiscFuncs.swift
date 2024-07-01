@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import FirebaseAuth
 import SwiftSMTP
-import FirebaseStorage
 
 
 //            Button{
@@ -402,33 +401,4 @@ func refreshVars(settingsManager: SettingsManager, messageManager: MessageManage
    
 }
 
-
-//returns MBPS
-func speedTest() -> Double{
-    
-   
-    var result: Double = -1.0
-    if let url = URL(string: "gs://timewize-facf0.appspot.com/ScreenRecording_06-13-2024 15-42-28_1.MP4"){
-        let start = Date()
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else{
-                print("failed to download the data")
-                return
-            }
-            
-            let timeInterval = start.timeIntervalSince(start)
-            let speedMBPS = (((Double(data.count) / timeInterval)*8)/1024)/1024
-            
-            result = speedMBPS
-            
-        }
-        
-        task.resume()
-        
-    }
-    return result
-    
-    
-}
 

@@ -9,7 +9,6 @@ import SwiftUI
 import FirebaseCore
 import FirebaseMessaging
 import FirebaseStorage
-import Network
 @main
 
 struct ServiceHourTrackerApp: App {
@@ -29,7 +28,6 @@ struct ServiceHourTrackerApp: App {
         UNUserNotificationCenter.current().getDeliveredNotifications { notis in
             UNUserNotificationCenter.current().setBadgeCount(notis.count)
         }
-        
     }
     
     
@@ -43,7 +41,6 @@ struct ServiceHourTrackerApp: App {
                 .environmentObject(classInfoManager)
                 .environmentObject(messageManager)
                 .onReceive(timer) { _ in
-                    print("\n\n\(speedTest())\n\n")
                     refreshVars(settingsManager: settingsManager, messageManager: messageManager, classInfoManager: classInfoManager)
                 }
                 .onAppear{

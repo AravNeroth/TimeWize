@@ -3482,8 +3482,8 @@
             filePath = "ServiceHourTracker/ServiceHourTrackerApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -5277,8 +5277,8 @@
             filePath = "ServiceHourTracker/Backend Management/MiscFuncs.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -7220,8 +7220,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
-            landmarkName = "UNUserNotificationCenterDelegate"
-            landmarkType = "21">
+            landmarkName = "userNotificationCenter(_:didReceive:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "17E7B62E-2F36-44B0-9617-C22362FCC689 - 5571bff01dad5b05"
@@ -7268,8 +7268,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
             endingLineNumber = "81"
-            landmarkName = "UNUserNotificationCenterDelegate"
-            landmarkType = "21">
+            landmarkName = "userNotificationCenter(_:didReceive:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7700,22 +7700,6 @@
             endingLineNumber = "600"
             landmarkName = "updateData(userID:completion:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8F223282-A85A-4B61-A57A-AB354EF37317"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ServiceHourTracker/ServiceHourTrackerApp.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "body"
-            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
